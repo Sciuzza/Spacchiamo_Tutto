@@ -10,6 +10,9 @@ public class Game_Controller : MonoBehaviour {
     Grid_Manager gridManagerLinking;
     Designer_Tweaks designTweaksLinking;
     GameObject playerLinking;
+    Camera_Movement cameraLinking;
+
+    
     
 
     void Awake()
@@ -25,13 +28,18 @@ public class Game_Controller : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        cameraLinking = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
+
+
         //Initalizing Level Grid Space
         gridManagerLinking.PreparingGridSpace(designTweaksLinking.level1Rows, designTweaksLinking.level1Columns);
         playerLinking = Instantiate(playerLinking);
 
         //Initializing Player Starting Position;
-        Transform cellStartingP = gridManagerLinking.ReturningStartPosition();
+        Transform cellStartingP = gridManagerLinking.ReturningStartPosition(sceneManagerLinking.currentScene, 0);
         playerLinking.transform.position = new Vector3(cellStartingP.position.x, cellStartingP.position.y, -3);
+
+        cameraLinking.target = playerLinking;
          
     }
 	
