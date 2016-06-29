@@ -3,12 +3,13 @@ using System.Collections;
 
 public class Cell_Interaction : MonoBehaviour {
 
-   
+    public int cell_i, cell_j;
+
 
     // Use this for initialization
     void Start () {
 
-        Invoke("FixingCollider", 0.2f);
+       
     }
 	
 	// Update is called once per frame
@@ -16,16 +17,5 @@ public class Cell_Interaction : MonoBehaviour {
 	
 	}
 
-
-    void FixingCollider()
-    {
-        BoxCollider2D colliderReference;
-        RectTransform rtReference;
-
-        // Fixing Box Collider Size to match cell size
-        colliderReference = GetComponent<BoxCollider2D>();
-        rtReference = GetComponent<RectTransform>();
-        colliderReference.size = new Vector2(rtReference.rect.width, rtReference.rect.height);
-    }
 
 }
