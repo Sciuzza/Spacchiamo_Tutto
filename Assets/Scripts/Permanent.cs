@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Permanent : MonoBehaviour {
-
-
-    void Awake()
+namespace Spacchiamo
+{
+    public class Permanent : MonoBehaviour
     {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
-  
+
+        void Awake()
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+
+    }
 }
