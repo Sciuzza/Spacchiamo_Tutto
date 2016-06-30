@@ -56,7 +56,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     this.direction = this.distance.normalized;
                     this.transform.position = (Vector2)this.transform.position + this.direction * Time.deltaTime;
                 
-                if (this.distance.magnitude < 0.1f)
+                if (this.distance.sqrMagnitude < 0.01f)
                 {
                     this.transform.position = new Vector3(this.newCellReference.transform.position.x, this.newCellReference.transform.position.y, 0);
                     this.AssignCellReference(this.newCellReference);
@@ -70,7 +70,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
 			if (this.actualPlayerPhase == PLAYER_PHASE.MOVING && !isMoving) {
 
                 //A seconda del comando desiderato, il giocatore si sposterà sulla griglia nella direzione desiderata
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.UP]))
+                if (Input.GetKey(this.playerInputKey[(int)BUTTON.UP]))   
                 {
                     this.newCellReference = gridManagerLinking.CheckingUpCell(this.cellReference);
                     if (this.newCellReference != null)
@@ -78,7 +78,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     else
                         Debug.Log("Cannot Move there");
                 }
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.DOWN]))
+                else if (Input.GetKey(this.playerInputKey[(int)BUTTON.DOWN]))
                 {
                     this.newCellReference = gridManagerLinking.CheckingDownCell(this.cellReference);
                     if (this.newCellReference != null)
@@ -86,7 +86,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     else
                         Debug.Log("Cannot Move there");
                 }
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.LEFT]))
+                else if (Input.GetKey(this.playerInputKey[(int)BUTTON.LEFT]))
                 {
                     this.newCellReference = gridManagerLinking.CheckingLeftCell(this.cellReference);
                     if (this.newCellReference != null)
@@ -94,7 +94,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     else
                         Debug.Log("Cannot Move there");
                 }
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.RIGHT]))
+                else if (Input.GetKey(this.playerInputKey[(int)BUTTON.RIGHT]))
                 {
                     this.newCellReference = gridManagerLinking.CheckingRightCell(this.cellReference);
                     if (this.newCellReference != null)
