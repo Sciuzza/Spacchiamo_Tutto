@@ -7,17 +7,17 @@ namespace Spacchiamo
     {
 
         PMovement moveLink;
-                     
+
         void Awake()
         {
-
-            Game_Controller.instance.InitializingPlayer();
             moveLink = GetComponent<PMovement>();
         }
 
-      void Start()
+        void Start()
         {
-            Transform playerStartPosition = Grid_Manager.instance.SettingPlayerPosition(moveLink.whereI, moveLink.whereJ);
+
+            // Initializing Player Position
+            Transform playerStartPosition = Grid_Manager.instance.SettingPlayerPosition(moveLink.GettingRow(), moveLink.GettingColumn());
 
             float x = playerStartPosition.position.x;
             float y = playerStartPosition.position.y;
@@ -25,8 +25,31 @@ namespace Spacchiamo
 
 
             this.transform.position = new Vector3(x, y, z);
+
+
+            // Linking Camera Smooth Follow
+            Game_Controller.instance.InitializingCamera(this.gameObject);
+
+            // Initializing Light
+            Grid_Manager.instance.GettingLight(moveLink.GettingRow(), moveLink.GettingColumn());
         }
-        
-      
+
+
+        public bool IsFlipped()
+        {
+            return this.GetComponent<SpriteRenderer>().flipX;
+        }
+
+        public void FlippingPlayer()
+        {
+            SpriteRenderer flipSprite = this.GetComponent<SpriteRenderer>();
+
+            if (flipSprite.flipX)
+                flipSprite.flipX = false;
+            else
+                flipSprite.flipX = true;
+
+        }
+
     }
 }

@@ -6,50 +6,32 @@ namespace Spacchiamo
     public class Camera_Movement : MonoBehaviour
     {
 
-
-        public bool shouldRotate = true;
-
-        // The target we are following
-        public Transform target;
-        // The distance in the x-z plane to the target
-        public float distance = 10.0f;
-        // the height we want the camera to be above the target
-        public float height = 5.0f;
-        // How much we
-        public float heightDamping = 2.0f;
-        public float rotationDamping = 3.0f;
-        float wantedRotationAngle;
-        float wantedHeight;
-        float currentRotationAngle;
-        float currentHeight;
-        Quaternion currentRotation;
-
-        void LateUpdate()
+        public float interpVelocity;
+        public GameObject target;
+        public Vector3 offset = Vector3.zero;
+        Vector3 targetPos;
+       
+        void Start()
+        {
+            targetPos = transform.position;
+            
+        }
+        
+        void FixedUpdate()
         {
             if (target)
             {
-                // Calculate the current rotation angles
-                wantedRotationAngle = target.eulerAngles.y;
-                wantedHeight = target.position.y + height;
-                currentRotationAngle = transform.eulerAngles.y;
-                currentHeight = transform.position.y;
-                // Damp the rotation around the y-axis
-                currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
-                // Damp the height
-                currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
-                // Convert the angle into a rotation
-                currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
-                // Set the position of the camera on the x-z plane to:
-                // distance meters behind the target
-                transform.position = target.position;
-                transform.position -= currentRotation * Vector3.forward * distance;
-                // Set the height of the camera
-                transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
-                // Always look at the target
-                if (shouldRotate)
-                    transform.LookAt(target);
-            }
+                Vector3 posNoZ = transform.position;
+                posNoZ.z = target.transform.position.z;
 
+                Vector3 targetDirection = (target.transform.position - posNoZ);
+
+                interpVelocity = targetDirection.magnitude * 8f;
+
+                targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, targetPos + offset, 0.25f);
+          
+            }
         }
     }
 }

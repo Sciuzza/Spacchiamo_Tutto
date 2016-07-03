@@ -9,17 +9,20 @@ namespace Spacchiamo
         public enum NUM : byte { ZERO, FOUR = 4 };
         public enum BUTTON : byte { UP, DOWN, LEFT, RIGHT };
         KeyCode[] playerInputKey;
-        
+
 
         Vector2 distance = new Vector2(-100, -100), direction;
 
-        bool isMoving = false;
-        public int whereI, whereJ;
+        private bool isMoving = false;
+        private int whereI, whereJ;
         private Transform whereToGo = null;
+        
+
+        private Player_Controller pControllerLink;
 
         private void Awake()
         {
-
+            pControllerLink = this.GetComponent<Player_Controller>();
 
             this.playerInputKey = new KeyCode[(int)NUM.FOUR];
             this.playerInputKey[(int)BUTTON.UP] = KeyCode.W;
@@ -27,7 +30,8 @@ namespace Spacchiamo
             this.playerInputKey[(int)BUTTON.LEFT] = KeyCode.A;
             this.playerInputKey[(int)BUTTON.RIGHT] = KeyCode.D;
 
-            
+            whereI = Game_Controller.instance.GettingRowStartPosition();
+            whereJ = Game_Controller.instance.GettingColumnStartPosition();
         }
 
 
@@ -42,13 +46,15 @@ namespace Spacchiamo
 
                 this.distance = whereToGo.position - this.transform.position;
                 this.direction = this.distance.normalized;
-                this.transform.position = (Vector2)this.transform.position + this.direction * Time.deltaTime;
+                this.transform.position = (Vector2)this.transform.position + this.direction * Time.deltaTime * Designer_Tweaks.instance.moveSpeed;
 
-                if (this.distance.sqrMagnitude < 0.01f)
+                if (this.distance.sqrMagnitude < 0.001f)
                 {
                     this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
                     whereToGo = null;
                     isMoving = false;
+                    //Getting the light around the player
+                    Grid_Manager.instance.GettingLight(whereI, whereJ);
                 }
             }
             else
@@ -84,6 +90,8 @@ namespace Spacchiamo
                         {
                             isMoving = true;
                             whereJ--;
+                            if (!pControllerLink.IsFlipped())
+                                pControllerLink.FlippingPlayer();
                         }
                         else
                             Debug.Log("Sound Here");
@@ -95,6 +103,8 @@ namespace Spacchiamo
                         {
                             isMoving = true;
                             whereJ++;
+                            if (pControllerLink.IsFlipped())
+                                pControllerLink.FlippingPlayer();
                         }
                         else
                             Debug.Log("Sound Here");
@@ -104,6 +114,16 @@ namespace Spacchiamo
             }
         }
 
+
+        public int GettingRow()
+        {
+            return whereI;
+        }
+
+        public int GettingColumn()
+        {
+            return whereJ;
+        }
     }
 
 }
