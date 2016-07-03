@@ -7,5 +7,17 @@ namespace Spacchiamo
     {
 
         public int level1Rows, level1Columns;
+
+        [HideInInspector]
+        public static Designer_Tweaks instance = null;
+
+        void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else if (instance != this)
+                Destroy(gameObject);
+        }
+
     }
 }

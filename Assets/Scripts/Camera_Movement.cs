@@ -7,49 +7,49 @@ namespace Spacchiamo
     {
 
 
-        public float interpVelocity;
-        public GameObject target;
-        public Vector3 offset = Vector3.zero;
-        Vector3 targetPos;
-        Camera cameraProperties;
+        public bool shouldRotate = true;
 
-        float bottomLimit, topLimit, leftLimit, rightLimit;
+        // The target we are following
+        public Transform target;
+        // The distance in the x-z plane to the target
+        public float distance = 10.0f;
+        // the height we want the camera to be above the target
+        public float height = 5.0f;
+        // How much we
+        public float heightDamping = 2.0f;
+        public float rotationDamping = 3.0f;
+        float wantedRotationAngle;
+        float wantedHeight;
+        float currentRotationAngle;
+        float currentHeight;
+        Quaternion currentRotation;
 
-        // Use this for initialization
-        void Start()
-        {
-            targetPos = transform.position;
-            cameraProperties = this.GetComponent<Camera>();
-        }
-
-        // Update is called once per frame
-        void FixedUpdate()
+        void LateUpdate()
         {
             if (target)
             {
-                Vector3 posNoZ = transform.position;
-                posNoZ.z = target.transform.position.z;
-
-                Vector3 targetDirection = (target.transform.position - posNoZ);
-
-                interpVelocity = targetDirection.magnitude * 8f;
-
-                targetPos = transform.position + (targetDirection.normalized * interpVelocity * Time.deltaTime);
-                transform.position = Vector3.Lerp(transform.position, targetPos + offset, 0.25f);
-                /*
-                bottomLimit = transform.position.y - cameraProperties.orthographicSize + 1;
-                topLimit = transform.position.y + cameraProperties.orthographicSize - 1;
-                leftLimit = transform.position.x - cameraProperties.orthographicSize + 2;
-                rightLimit = transform.position.x + cameraProperties.orthographicSize - 2;
-
-                if ((bottomLimit >= target.transform.position.y && leftLimit >= target.transform.position.x) ||
-                     (bottomLimit >= target.transform.position.y && rightLimit <= target.transform.position.x) ||
-                    (topLimit <= target.transform.position.y && leftLimit >= target.transform.position.x) ||
-                    (topLimit <= target.transform.position.y && rightLimit <= target.transform.position.x))
-                    transform.position = Vector3.Lerp(transform.position, targetPos + offset, 0.25f);
-                    */
+                // Calculate the current rotation angles
+                wantedRotationAngle = target.eulerAngles.y;
+                wantedHeight = target.position.y + height;
+                currentRotationAngle = transform.eulerAngles.y;
+                currentHeight = transform.position.y;
+                // Damp the rotation around the y-axis
+                currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+                // Damp the height
+                currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+                // Convert the angle into a rotation
+                currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+                // Set the position of the camera on the x-z plane to:
+                // distance meters behind the target
+                transform.position = target.position;
+                transform.position -= currentRotation * Vector3.forward * distance;
+                // Set the height of the camera
+                transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+                // Always look at the target
+                if (shouldRotate)
+                    transform.LookAt(target);
             }
-        }
 
+        }
     }
 }

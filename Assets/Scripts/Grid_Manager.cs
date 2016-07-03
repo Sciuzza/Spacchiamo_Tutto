@@ -7,106 +7,89 @@ namespace Spacchiamo
     public class Grid_Manager : MonoBehaviour
     {
 
-        Scene_Manager sceneManagerLinking;
-        public Cell_Interaction[,] cellReferences;
+        
+        private Cell_Interaction[,] cellReferences;
 
-        // Use this for initialization
+        [HideInInspector]
+        public static Grid_Manager instance = null;
+
         void Awake()
         {
-            sceneManagerLinking = GameObject.Find("Scene Manager").GetComponent<Scene_Manager>();
+            if (instance == null)
+                instance = this;
+            else if (instance != this)
+                Destroy(gameObject);
         }
+      
 
-        // Update is called once per frame
-        void Update()
+        public void PreparingGridSpace()
         {
 
-        }
+            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1Rows, Designer_Tweaks.instance.level1Columns];
+            GameObject cellTemp = Resources.Load<GameObject>("Cell");
+            GameObject mapTemp = Resources.Load<GameObject>("Map");
+            mapTemp = Instantiate(mapTemp);
 
-
-        public void PreparingGridSpace(int rows, int columns)
-        {
-
-            cellReferences = new Cell_Interaction[rows, columns];
-            GameObject cellTempReference = Resources.Load<GameObject>("Cell");
-
-
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < cellReferences.GetLength(0); i++)
             {
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-                    cellTempReference = Instantiate(cellTempReference);
-                    cellReferences[i, j] = cellTempReference.GetComponent<Cell_Interaction>();
+                    cellTemp = Instantiate(cellTemp);
+                    cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
 
-                    cellTempReference.name = "Cell " + i + " , " + j;
-                    cellTempReference.transform.position = new Vector3(j - columns / 2, i - rows / 2, 1);
+                    cellTemp.name = "Cell " + i + " , " + j;
+                    cellTemp.transform.position = new Vector3(j - cellReferences.GetLength(1) / 2, i - cellReferences.GetLength(0) / 2, 1);
 
                     cellReferences[i, j].cell_i = i;
                     cellReferences[i, j].cell_j = j;
+
+                    cellTemp.transform.SetParent(mapTemp.transform);
                 }
             }
 
         }
+      
 
-        public Transform ReturningStartPosition()
+        public Transform SettingPlayerPosition(int row, int column)
         {
-            /*
-            if (level.buildIndex == 0)
-            {
-                if (entrance == 0)
-                    return cellReferences[0, 1].transform;
-                else if (entrance == 1)
-                    return cellReferences[0, 1].transform;
-                else if (entrance == 1)
-                    return cellReferences[0, 1].transform;
-                else
-                    return cellReferences[0, 1].transform;
-            }
-            else
-            */
-
-
-            return cellReferences[0, 1].transform;
+            return cellReferences[row, column].transform;
         }
 
-        public Cell_Interaction GetPlayerPosition()
-        {
-            return cellReferences[0, 1];
-        }
 
-        public Cell_Interaction CheckingUpCell(Cell_Interaction playerCell) {
+        public Transform CheckingUpCell(int row, int column) {
 
-            if (playerCell.cell_i + 1 < cellReferences.GetLength(0))
-                return cellReferences[playerCell.cell_i + 1, playerCell.cell_j];
+            if (row + 1 < cellReferences.GetLength(0))
+                return cellReferences[row + 1, column].transform;
             else
                 return null;
 
         }
 
-        public Cell_Interaction CheckingDownCell(Cell_Interaction playerCell)
+        public Transform CheckingDownCell(int row, int column)
         {
 
-            if (playerCell.cell_i - 1 >= 0)
-                return cellReferences[playerCell.cell_i - 1, playerCell.cell_j];
+            if (row - 1 >= 0)
+                return cellReferences[row - 1, column].transform;
             else
                 return null;
 
         }
 
-        public Cell_Interaction CheckingLeftCell(Cell_Interaction playerCell)
+        public Transform CheckingLeftCell(int row, int column)
         {
 
-            if (playerCell.cell_j - 1 >= 0)
-                return cellReferences[playerCell.cell_i, playerCell.cell_j - 1];
+            if (column - 1 >= 0)
+                return cellReferences[row, column - 1].transform;
             else
                 return null;
 
         }
 
-        public Cell_Interaction CheckingRightCell(Cell_Interaction playerCell)
+        public Transform CheckingRightCell(int row, int column)
         {
 
-            if (playerCell.cell_j + 1 < cellReferences.GetLength(1))
-                return cellReferences[playerCell.cell_i, playerCell.cell_j + 1];
+            if (column + 1 < cellReferences.GetLength(1))
+                return cellReferences[row, column + 1].transform;
             else
                 return null;
 
