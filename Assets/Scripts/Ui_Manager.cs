@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 namespace Spacchiamo
 {
-    public class Audio_Manager : MonoBehaviour
+    public class Ui_Manager : MonoBehaviour
     {
-
         [HideInInspector]
-        public static Audio_Manager instance = null;
+        public static Ui_Manager instance = null;
 
         void Awake()
         {
@@ -16,7 +16,5 @@ namespace Spacchiamo
             else if (instance != this)
                 Destroy(gameObject);
         }
-
-      
     }
 }

@@ -2,53 +2,78 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-namespace Spacchiamo {
-    public class Game_Controller : MonoBehaviour {
+namespace Spacchiamo
+{
+    public class Game_Controller : MonoBehaviour
+    {
 
 
-        Audio_Manager audioManagerLinking;
-        Scene_Manager sceneManagerLinking;
-        Grid_Manager gridManagerLinking;
-        Designer_Tweaks designTweaksLinking;
-        GameObject playerLinking;
-        Camera_Movement cameraLinking;
+        // Game Phases
+        public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
+        public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
 
+        // Camera and Player References
+        Camera_Movement cameraLink;
+        GameObject playerTemp;
 
+        [HideInInspector]
+        public static Game_Controller instance = null;
 
 
         void Awake()
         {
-            playerLinking = Resources.Load<GameObject>("Player");
-            audioManagerLinking = GameObject.Find("Audio Manager").GetComponent<Audio_Manager>();
-            sceneManagerLinking = GameObject.Find("Scene Manager").GetComponent<Scene_Manager>();
-            gridManagerLinking = GameObject.Find("Grid Manager").GetComponent<Grid_Manager>();
-            designTweaksLinking = GameObject.Find("Designer Variables").GetComponent<Designer_Tweaks>();
+
+            //Check if instance already exists
+            if (instance == null)
+
+                //if not, set instance to this
+                instance = this;
+
+            //If instance already exists and it's not this:
+            else if (instance != this)
+
+                //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+                Destroy(gameObject);
+
+            //Sets this to not be destroyed when reloading scene
+            DontDestroyOnLoad(gameObject);
+
+
 
         }
 
-        // Use this for initialization
-        void Start() {
+        void Start()
+        {
 
-            cameraLinking = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
+            // Getting Camera Reference 
+            cameraLink = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
 
 
             //Initalizing Level Grid Space
-            gridManagerLinking.PreparingGridSpace(designTweaksLinking.level1Rows, designTweaksLinking.level1Columns);
-            playerLinking = Instantiate(playerLinking);
+            Grid_Manager.instance.PreparingGridSpace();
 
-            //Initializing Player Starting Position 
-            Transform cellStartingP = gridManagerLinking.ReturningStartPosition();
-            PlayerMovement playerSLinking = playerLinking.GetComponent<PlayerMovement>();
-            playerSLinking.AssignCellReference(gridManagerLinking.GetPlayerPosition());
-            playerLinking.transform.position = new Vector3(cellStartingP.position.x, cellStartingP.position.y, 0);
+            //Initializing Player 
+            playerTemp = Resources.Load<GameObject>("Player");
+            playerTemp = Instantiate(playerTemp);
 
-            cameraLinking.target = playerLinking;
 
         }
 
-        // Update is called once per frame
-        void Update() {
 
+        // Methods necessary for the Player Initialization
+        public void InitializingCamera(GameObject playerInstance)
+        {
+            cameraLink.target = playerInstance;
+        }
+
+        public int GettingRowStartPosition()
+        {
+            return 0;
+        }
+
+        public int GettingColumnStartPosition()
+        {
+            return 0;
         }
     }
 }
