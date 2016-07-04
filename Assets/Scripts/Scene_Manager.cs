@@ -10,9 +10,19 @@ namespace Spacchiamo
 
         public Scene currentScene, nextScene;
 
+        [HideInInspector]
+        public static Scene_Manager instance = null;
+
+        void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else if (instance != this)
+                Destroy(gameObject);
+        }
 
 
-        // Use this for initialization
+        
         void Start()
         {
 
@@ -20,17 +30,6 @@ namespace Spacchiamo
 
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-            // By Menu to level 1 pressing start game
-            if (Input.GetKeyDown(KeyCode.Space) && SceneManager.GetSceneByName("Menu") == currentScene)
-            {
-                nextScene = SceneManager.GetSceneAt(1);
-                SceneManager.LoadScene(1);
-            }
-
-        }
+    
     }
 }

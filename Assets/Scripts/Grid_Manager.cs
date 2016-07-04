@@ -7,109 +7,151 @@ namespace Spacchiamo
     public class Grid_Manager : MonoBehaviour
     {
 
-        Scene_Manager sceneManagerLinking;
-        public Cell_Interaction[,] cellReferences;
 
-        // Use this for initialization
+        private Cell_Interaction[,] cellReferences;
+       
+
+        [HideInInspector]
+        public static Grid_Manager instance = null;
+
         void Awake()
         {
-            sceneManagerLinking = GameObject.Find("Scene Manager").GetComponent<Scene_Manager>();
+            if (instance == null)
+                instance = this;
+            else if (instance != this)
+                Destroy(gameObject);
         }
 
-        // Update is called once per frame
-        void Update()
+        // Used to Create the Logic Grid in the begin
+        public void PreparingGridSpace()
         {
 
-        }
+            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1Rows, Designer_Tweaks.instance.level1Columns];
+            GameObject cellTemp = Resources.Load<GameObject>("Cell");
+            GameObject mapTemp = Resources.Load<GameObject>("Map");
+            mapTemp = Instantiate(mapTemp);
 
 
-        public void PreparingGridSpace(int rows, int columns)
-        {
-
-            cellReferences = new Cell_Interaction[rows, columns];
-            GameObject cellTempReference = Resources.Load<GameObject>("Cell");
-
-
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < cellReferences.GetLength(0); i++)
             {
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-                    cellTempReference = Instantiate(cellTempReference);
-                    cellReferences[i, j] = cellTempReference.GetComponent<Cell_Interaction>();
+                    cellTemp = Instantiate(cellTemp);
+                    cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
 
-                    cellTempReference.name = "Cell " + i + " , " + j;
-                    cellTempReference.transform.position = new Vector3(j - columns / 2, i - rows / 2, 1);
+                    cellTemp.name = "Cell " + i + " , " + j;
+                    cellTemp.transform.position = new Vector3(j - cellReferences.GetLength(1) / 2, i - cellReferences.GetLength(0) / 2, 1);
 
                     cellReferences[i, j].cell_i = i;
                     cellReferences[i, j].cell_j = j;
+
+                    cellTemp.transform.SetParent(mapTemp.transform);
+
+                    // Fog Of War
+                    ChangingAlpha(0.0f, cellTemp);
                 }
             }
 
         }
 
-        public Transform ReturningStartPosition()
+        // Method to retrieve the transform position necessary for the player to be placed into
+        public Transform SettingPlayerPosition(int row, int column)
         {
-            /*
-            if (level.buildIndex == 0)
+            return cellReferences[row, column].transform;
+        }
+
+        
+        // Methods necessary to control if a moving object can effectively move
+
+        public Transform CheckingUpCell(int row, int column)
+        {
+
+            if (row + 1 < cellReferences.GetLength(0))
+                return cellReferences[row + 1, column].transform;
+            else
+                return null;
+
+        }
+
+        public Transform CheckingDownCell(int row, int column)
+        {
+
+            if (row - 1 >= 0)
+                return cellReferences[row - 1, column].transform;
+            else
+                return null;
+
+        }
+
+        public Transform CheckingLeftCell(int row, int column)
+        {
+
+            if (column - 1 >= 0)
+                return cellReferences[row, column - 1].transform;
+            else
+                return null;
+
+        }
+
+        public Transform CheckingRightCell(int row, int column)
+        {
+
+            if (column + 1 < cellReferences.GetLength(1))
+                return cellReferences[row, column + 1].transform;
+            else
+                return null;
+
+        }
+
+        
+        //Method to Retrieve Light Effect around the player
+
+        public void GettingLight(int row, int column)
+        {
+            
+            float currentDistance;
+
+            for (int i = 0; i < cellReferences.GetLength(0); i++)
             {
-                if (entrance == 0)
-                    return cellReferences[0, 1].transform;
-                else if (entrance == 1)
-                    return cellReferences[0, 1].transform;
-                else if (entrance == 1)
-                    return cellReferences[0, 1].transform;
-                else
-                    return cellReferences[0, 1].transform;
+                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                {
+
+                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+
+                    if (Designer_Tweaks.instance.manhDistance > currentDistance)
+                    {
+                        ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
+                    }
+                    else if (Designer_Tweaks.instance.manhDistance == currentDistance)
+                    {
+                        ChangingAlpha(0.8f, cellReferences[i, j].gameObject);
+                    }
+                    else
+                    {
+                        if (GettingAlpha(cellReferences[i, j].gameObject) != 0.0f)
+                            ChangingAlpha(0.5f, cellReferences[i, j].gameObject);
+                        else
+                            ChangingAlpha(0.0f, cellReferences[i, j].gameObject);
+                    }
+                }
             }
-            else
-            */
 
-
-            return cellReferences[0, 1].transform;
         }
 
-        public Cell_Interaction GetPlayerPosition()
+        
+        // Methods to manage cell alpha
+
+        private void ChangingAlpha(float alphaLevel, GameObject cell)
         {
-            return cellReferences[0, 1];
+            Color cellColor = cell.GetComponent<SpriteRenderer>().color;
+            cellColor.a = alphaLevel;
+            cell.GetComponent<SpriteRenderer>().color = cellColor;
         }
-
-        public Cell_Interaction CheckingUpCell(Cell_Interaction playerCell) {
-
-            if (playerCell.cell_i + 1 < cellReferences.GetLength(0))
-                return cellReferences[playerCell.cell_i + 1, playerCell.cell_j];
-            else
-                return null;
-
-        }
-
-        public Cell_Interaction CheckingDownCell(Cell_Interaction playerCell)
+       
+        private float GettingAlpha(GameObject cell)
         {
-
-            if (playerCell.cell_i - 1 >= 0)
-                return cellReferences[playerCell.cell_i - 1, playerCell.cell_j];
-            else
-                return null;
-
-        }
-
-        public Cell_Interaction CheckingLeftCell(Cell_Interaction playerCell)
-        {
-
-            if (playerCell.cell_j - 1 >= 0)
-                return cellReferences[playerCell.cell_i, playerCell.cell_j - 1];
-            else
-                return null;
-
-        }
-
-        public Cell_Interaction CheckingRightCell(Cell_Interaction playerCell)
-        {
-
-            if (playerCell.cell_j + 1 < cellReferences.GetLength(1))
-                return cellReferences[playerCell.cell_i, playerCell.cell_j + 1];
-            else
-                return null;
-
+            return cell.GetComponent<SpriteRenderer>().color.a;
         }
     }
 }
