@@ -55,6 +55,21 @@ namespace Spacchiamo
                     isMoving = false;
                     //Getting the light around the player
                     Grid_Manager.instance.GettingLight(whereI, whereJ);
+                    
+                    //Increasing Fear Bar and Fear Value by 1
+                    if (!Grid_Manager.instance.IsCellReceivingLight(whereI, whereJ))
+                    {
+                        Ui_Manager.instance.IncreasingFearBar();
+                        Ui_Manager.instance.SettingFearValue();
+                    }
+                    // Resetting Fear Bar and Value to 0
+                    else
+                    {
+                        Ui_Manager.instance.ResettingFearBar();
+                        Ui_Manager.instance.SettingFearValue();
+                    }
+                    //Increasing Turn Counter
+                    Ui_Manager.instance.IncreasingTurnCount();
                 }
             }
             else
