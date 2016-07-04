@@ -26,6 +26,8 @@ namespace Spacchiamo
 
             this.transform.position = new Vector3(x, y, z);
 
+            this.gameObject.layer = moveLink.GettingRow() + 8;
+
 
             // Linking Camera Smooth Follow
             Game_Controller.instance.InitializingCamera(this.gameObject);
