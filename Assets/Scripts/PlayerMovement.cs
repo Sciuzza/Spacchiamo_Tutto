@@ -78,7 +78,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     else
                         Debug.Log("Cannot Move there");
                 }
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.DOWN]))
+                else if (Input.GetKey(this.playerInputKey[(int)BUTTON.DOWN]))
                 {
                     this.newCellReference = gridManagerLinking.CheckingDownCell(this.cellReference);
                     if (this.newCellReference != null)
@@ -86,7 +86,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     else
                         Debug.Log("Cannot Move there");
                 }
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.LEFT]))
+                else if (Input.GetKey(this.playerInputKey[(int)BUTTON.LEFT]))
                 {
                     this.newCellReference = gridManagerLinking.CheckingLeftCell(this.cellReference);
                     if (this.newCellReference != null)
@@ -94,7 +94,7 @@ namespace Spacchiamo {																			//Va deciso un nome decente al Namespac
                     else
                         Debug.Log("Cannot Move there");
                 }
-                if (Input.GetKey(this.playerInputKey[(int)BUTTON.RIGHT]))
+                else if (Input.GetKey(this.playerInputKey[(int)BUTTON.RIGHT]))
                 {
                     this.newCellReference = gridManagerLinking.CheckingRightCell(this.cellReference);
                     if (this.newCellReference != null)
