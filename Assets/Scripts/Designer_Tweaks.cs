@@ -6,8 +6,11 @@ namespace Spacchiamo
     public class Designer_Tweaks : MonoBehaviour
     {
         //General Designer Variables
-        [Range(1,5)]
-        public int manhDistance;
+        [Range(1, 5)]
+        public int manhDistancePlayer;
+
+        [Range(1, 5)]
+        public int manhDistanceFalo;
 
         [Range(1, 5)]
         public int moveSpeed;

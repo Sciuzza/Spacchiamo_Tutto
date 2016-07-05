@@ -14,7 +14,7 @@ namespace Spacchiamo
 
         // Camera and Player References
         Camera_Movement cameraLink;
-        GameObject playerTemp;
+        GameObject movingObjTemp;
 
         [HideInInspector]
         public static Game_Controller instance = null;
@@ -53,9 +53,12 @@ namespace Spacchiamo
             Grid_Manager.instance.PreparingGridSpace();
 
             //Initializing Player 
-            playerTemp = Resources.Load<GameObject>("Player");
-            playerTemp = Instantiate(playerTemp);
+            movingObjTemp = Resources.Load<GameObject>("Player");
+            movingObjTemp = Instantiate(movingObjTemp);
 
+            //Initializing Enemy
+            movingObjTemp = Resources.Load<GameObject>("Enemy1");
+            movingObjTemp = Instantiate(movingObjTemp);
 
         }
 
