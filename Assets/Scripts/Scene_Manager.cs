@@ -31,5 +31,12 @@ namespace Spacchiamo
         }
 
     
+        public void ResettingLevel()
+        {
+            
+            SceneManager.LoadScene(0);
+            SceneManager.SetActiveScene(currentScene);
+        }
+
     }
 }

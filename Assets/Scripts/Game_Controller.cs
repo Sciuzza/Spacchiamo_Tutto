@@ -9,8 +9,11 @@ namespace Spacchiamo
 
 
         // Game Phases
+        
         public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
+
         public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
+        
 
         // Camera and Player References
         Camera_Movement cameraLink;
@@ -51,17 +54,45 @@ namespace Spacchiamo
 
             //Initalizing Level Grid Space
             Grid_Manager.instance.PreparingGridSpace();
+            
 
             //Initializing Player 
             movingObjTemp = Resources.Load<GameObject>("Player");
             movingObjTemp = Instantiate(movingObjTemp);
 
-            //Initializing Enemy
-            movingObjTemp = Resources.Load<GameObject>("Enemy1");
-            movingObjTemp = Instantiate(movingObjTemp);
+           
 
+            //Initializing Enemy
+            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
+            {
+                switch (Random.Range(1, 4))
+                {
+                    case 1:
+                        movingObjTemp = Resources.Load<GameObject>("Enemy1");
+                        movingObjTemp = Instantiate(movingObjTemp);
+                        break;
+                    case 2:
+                        movingObjTemp = Resources.Load<GameObject>("Enemy2");
+                        movingObjTemp = Instantiate(movingObjTemp);
+                        break;
+                    default :
+                        movingObjTemp = Resources.Load<GameObject>("Enemy3");
+                        movingObjTemp = Instantiate(movingObjTemp);
+                        break;
+                }
+
+               
+
+            }
         }
 
+/*
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                Scene_Manager.instance.ResettingLevel();
+        }
+*/
 
         // Methods necessary for the Player Initialization
         public void InitializingCamera(GameObject playerInstance)
@@ -69,14 +100,14 @@ namespace Spacchiamo
             cameraLink.target = playerInstance;
         }
 
-        public int GettingRowStartPosition()
-        {
-            return 0;
+        public int GettingRowPStartPosition()
+        {          
+                return 0;         
         }
 
-        public int GettingColumnStartPosition()
-        {
-            return 0;
+        public int GettingColumnPStartPosition()
+        {           
+                return 0;           
         }
     }
 }

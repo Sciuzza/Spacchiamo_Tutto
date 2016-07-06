@@ -30,8 +30,8 @@ namespace Spacchiamo
             this.playerInputKey[(int)BUTTON.LEFT] = KeyCode.A;
             this.playerInputKey[(int)BUTTON.RIGHT] = KeyCode.D;
 
-            whereI = Game_Controller.instance.GettingRowStartPosition();
-            whereJ = Game_Controller.instance.GettingColumnStartPosition();
+            whereI = Game_Controller.instance.GettingRowPStartPosition();
+            whereJ = Game_Controller.instance.GettingColumnPStartPosition();
         }
 
 
@@ -59,12 +59,17 @@ namespace Spacchiamo
                     //Increasing Fear Bar and Fear Value by 1
                     if (!Grid_Manager.instance.IsCellReceivingLight(whereI, whereJ))
                     {
-                        Ui_Manager.instance.IncreasingFearBar();
-                        Ui_Manager.instance.SettingFearValue();
+                        if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
+                        {
+                            Ui_Manager.instance.IncreasingFearBar();
+                            Ui_Manager.instance.SettingFearValue();
+                        }
                     }
+
                     // Resetting Fear Bar and Value to 0
                     else
                     {
+                        pControllerLink.fearTurnCounter = 0;
                         Ui_Manager.instance.ResettingFearBar();
                         Ui_Manager.instance.SettingFearValue();
                     }

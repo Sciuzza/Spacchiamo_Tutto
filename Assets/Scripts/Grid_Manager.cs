@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
@@ -9,7 +10,7 @@ namespace Spacchiamo
 
 
         private Cell_Interaction[,] cellReferences;
-
+        private List<Cell_Interaction> leftPositions;
 
         [HideInInspector]
         public static Grid_Manager instance = null;
@@ -27,6 +28,8 @@ namespace Spacchiamo
         {
 
             cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1Rows, Designer_Tweaks.instance.level1Columns];
+            leftPositions = new List<Cell_Interaction>();
+
             GameObject cellTemp = Resources.Load<GameObject>("Cell");
             GameObject mapTemp = Resources.Load<GameObject>("Map");
             mapTemp = Instantiate(mapTemp);
@@ -65,18 +68,12 @@ namespace Spacchiamo
             return cellReferences[row, column].transform;
         }
 
-        public Transform SettingEnemyPosition()
+        public Cell_Interaction SettingEnemyPosition()
         {
-            int randomRow = Random.Range(0, cellReferences.GetLength(0));
-            int randomColumn = Random.Range(0, cellReferences.GetLength(1));
+            int chosenPosition = Random.Range(0, leftPositions.Count);
+            SwitchingOccupiedStatus(leftPositions[chosenPosition].cell_i, leftPositions[chosenPosition].cell_j);
+            return leftPositions[chosenPosition];
 
-            if (!cellReferences[randomRow, randomColumn].isOccupied)
-            {
-                SwitchingOccupiedStatus(randomRow, randomColumn);
-                return cellReferences[randomRow, randomColumn].transform;
-            }
-            else
-                return null;
         }
 
 
@@ -257,6 +254,29 @@ namespace Spacchiamo
         public bool IsCellReceivingLight(int row, int column)
         {
             return cellReferences[row, column].isReceivingLight;
+        }
+
+
+        public int AskingRowsNumber()
+        {
+            return cellReferences.GetLength(0);
+        }
+
+        public int AskingColumnsNumber()
+        {
+            return cellReferences.GetLength(1);
+        }
+
+        public void AddingPosition(Cell_Interaction posToAdd)
+        {
+            if (!leftPositions.Contains(posToAdd))
+                leftPositions.Add(posToAdd);
+        }
+
+        public void RemovingPosition(Cell_Interaction posToRemove)
+        {
+            if (leftPositions.Contains(posToRemove))
+                leftPositions.Remove(posToRemove);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Spacchiamo
 {
     public class Player_Controller : MonoBehaviour
     {
-
+        public int fearTurnCounter = 0;
         PMovement moveLink;
 
         void Awake()

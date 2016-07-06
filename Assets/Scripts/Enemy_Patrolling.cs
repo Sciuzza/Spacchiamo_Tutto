@@ -12,17 +12,16 @@ namespace Spacchiamo
         private int whereI, whereJ;
         private Transform whereToGo = null;
 
-        // Use this for initialization
-        void Start()
+        Enemy_Controller eControllerLink;
+
+        void Awake()
         {
 
+            eControllerLink = this.GetComponent<Enemy_Controller>();
+
+            
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         public void SettingWhereI(int row)
         {
