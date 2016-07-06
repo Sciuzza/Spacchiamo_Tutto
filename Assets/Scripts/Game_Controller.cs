@@ -16,6 +16,11 @@ namespace Spacchiamo
         Camera_Movement cameraLink;
         GameObject movingObjTemp;
 
+		//AGGIUNTA DI MARCO
+		Player_Controller playerLinker;
+		Enemy_Controller enemyLinker;
+		//FINE AGGGIUNTA DI MARCO
+
         [HideInInspector]
         public static Game_Controller instance = null;
 
@@ -55,12 +60,36 @@ namespace Spacchiamo
             //Initializing Player 
             movingObjTemp = Resources.Load<GameObject>("Player");
             movingObjTemp = Instantiate(movingObjTemp);
+			//AGGIUNTA DI MARCO
+			playerLinker = movingObjTemp.GetComponent<Player_Controller>();
+			//FINE AGGGIUNTA DI MARCO
 
             //Initializing Enemy
             movingObjTemp = Resources.Load<GameObject>("Enemy1");
             movingObjTemp = Instantiate(movingObjTemp);
+			//AGGIUNTA DI MARCO
+			enemyLinker = movingObjTemp.GetComponent<Enemy_Controller>();
+			//FINE AGGGIUNTA DI MARCO
 
         }
+
+
+		//AGGIUNTA DI MARCO
+		public void ChangePhase (GAME_PHASE passedPhase) {
+
+			switch (passedPhase) {
+			case GAME_PHASE.playerTurn:
+				currentPhase = GAME_PHASE.npcEnemyTurn;
+				break;
+			case GAME_PHASE.npcEnemyTurn:
+				currentPhase = GAME_PHASE.playerTurn;
+				break;
+			default:
+				break;
+			}
+
+		}
+		//FINE AGGGIUNTA DI MARCO
 
 
         // Methods necessary for the Player Initialization
