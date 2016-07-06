@@ -107,6 +107,22 @@ namespace Spacchiamo
 */
 
 		//AGGIUNTA DI MARCO
+		void LateUpdate () {
+
+			if (currentPhase == GAME_PHASE.npcEnemyTurn && Input.GetKeyDown (KeyCode.M)) {
+				StartCoroutine_Auto (Delay ());
+			}
+
+		}
+
+		IEnumerator Delay () {
+
+			yield return new WaitForSeconds (2f);
+			Debug.Log ("Nemico ha fatto");
+			ChangePhase (currentPhase);
+
+		}
+
 		public void ChangePhase (GAME_PHASE passedPhase) {
 
 			switch (passedPhase) {
