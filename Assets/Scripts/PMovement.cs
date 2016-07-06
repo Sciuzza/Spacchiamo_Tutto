@@ -82,6 +82,9 @@ namespace Spacchiamo
                         }
                         else
                             Debug.Log("Sound Here");
+						//AGGIUNTA DI MARCO
+						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
+						//FINE AGGGIUNTA DI MARCO
                     }
 					else if (Input.GetKey(KeyCode.S))
                     {
@@ -93,6 +96,9 @@ namespace Spacchiamo
                         }
                         else
                             Debug.Log("Sound Here");
+						//AGGIUNTA DI MARCO
+						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
+						//FINE AGGGIUNTA DI MARCO
                     }
 					else if (Input.GetKey(KeyCode.A))
                     {
@@ -106,6 +112,9 @@ namespace Spacchiamo
                         }
                         else
                             Debug.Log("Sound Here");
+						//AGGIUNTA DI MARCO
+						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
+						//FINE AGGGIUNTA DI MARCO
                     }
 					else if (Input.GetKey(KeyCode.D))
                     {
@@ -119,6 +128,9 @@ namespace Spacchiamo
                         }
                         else
                             Debug.Log("Sound Here");
+						//AGGIUNTA DI MARCO
+						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
+						//FINE AGGGIUNTA DI MARCO
                     }
 
                 }
