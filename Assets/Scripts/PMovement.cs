@@ -6,11 +6,6 @@ namespace Spacchiamo
     public class PMovement : MonoBehaviour
     {
 
-        public enum NUM : byte { ZERO, FOUR = 4 };
-        public enum BUTTON : byte { UP, DOWN, LEFT, RIGHT };
-        KeyCode[] playerInputKey;
-
-
         Vector2 distance = new Vector2(-100, -100), direction;
 
         private bool isMoving = false;
@@ -23,12 +18,6 @@ namespace Spacchiamo
         private void Awake()
         {
             pControllerLink = this.GetComponent<Player_Controller>();
-
-            this.playerInputKey = new KeyCode[(int)NUM.FOUR];
-            this.playerInputKey[(int)BUTTON.UP] = KeyCode.W;
-            this.playerInputKey[(int)BUTTON.DOWN] = KeyCode.S;
-            this.playerInputKey[(int)BUTTON.LEFT] = KeyCode.A;
-            this.playerInputKey[(int)BUTTON.RIGHT] = KeyCode.D;
 
             whereI = Game_Controller.instance.GettingRowStartPosition();
             whereJ = Game_Controller.instance.GettingColumnStartPosition();
@@ -76,7 +65,7 @@ namespace Spacchiamo
             {
                 if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
                 {
-                    if (Input.GetKey(this.playerInputKey[(int)BUTTON.UP]))
+					if (Input.GetKey(KeyCode.W))
                     {
                         whereToGo = Grid_Manager.instance.CheckingUpCell(whereI, whereJ);
                         if (whereToGo != null)
@@ -87,7 +76,7 @@ namespace Spacchiamo
                         else
                             Debug.Log("Sound Here");
                     }
-                    else if (Input.GetKey(this.playerInputKey[(int)BUTTON.DOWN]))
+					else if (Input.GetKey(KeyCode.S))
                     {
                         whereToGo = Grid_Manager.instance.CheckingDownCell(whereI, whereJ);
                         if (whereToGo != null)
@@ -98,7 +87,7 @@ namespace Spacchiamo
                         else
                             Debug.Log("Sound Here");
                     }
-                    else if (Input.GetKey(this.playerInputKey[(int)BUTTON.LEFT]))
+					else if (Input.GetKey(KeyCode.A))
                     {
                         whereToGo = Grid_Manager.instance.CheckingLeftCell(whereI, whereJ);
                         if (whereToGo != null)
@@ -111,7 +100,7 @@ namespace Spacchiamo
                         else
                             Debug.Log("Sound Here");
                     }
-                    else if (Input.GetKey(this.playerInputKey[(int)BUTTON.RIGHT]))
+					else if (Input.GetKey(KeyCode.D))
                     {
                         whereToGo = Grid_Manager.instance.CheckingRightCell(whereI, whereJ);
                         if (whereToGo != null)
