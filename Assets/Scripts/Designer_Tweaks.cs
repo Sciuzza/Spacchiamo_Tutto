@@ -7,7 +7,7 @@ namespace Spacchiamo
     {
         //General Designer Variables
         [Range(1, 5)]
-        public int manhDistancePlayer, manhDistanceFalo, moveSpeed, fearScaleRate;
+        public int manhDistancePlayer, manhDistanceFalo, moveSpeed, fearScaleRate, patrolAreaEnemy1, patrolAreaEnemy2, patrolAreaEnemy3;
 
         // Level 1 designer variables
         [Range(5, 50)]

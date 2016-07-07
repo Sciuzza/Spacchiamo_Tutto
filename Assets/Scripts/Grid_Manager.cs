@@ -45,7 +45,7 @@ namespace Spacchiamo
                     cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
 
                     cellTemp.name = "Cell " + i + " , " + j;
-                    cellTemp.transform.position = new Vector3(j - cellReferences.GetLength(1) / 2, i - cellReferences.GetLength(0) / 2, 1);
+                    cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f, (i - cellReferences.GetLength(0) / 2) + 0.5f, 1);
 
                     cellReferences[i, j].cell_i = i;
                     cellReferences[i, j].cell_j = j;
@@ -142,6 +142,82 @@ namespace Spacchiamo
             if (column + 1 < cellReferences.GetLength(1))
             {
                 if (!cellReferences[row, column + 1].isOccupied)
+                {
+                    SwitchingOccupiedStatus(row, column);
+                    SwitchingOccupiedStatus(row, column + 1);
+                    return cellReferences[row, column + 1].transform;
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+
+        }
+
+        public Transform CheckingUpCell(int row, int column, List<Cell_Interaction> patrolArea)
+        {
+
+            if (row + 1 < cellReferences.GetLength(0))
+            {
+                if (!cellReferences[row + 1, column].isOccupied && patrolArea.Contains(cellReferences[row + 1, column]))
+                {
+                    SwitchingOccupiedStatus(row, column);
+                    SwitchingOccupiedStatus(row + 1, column);
+                    return cellReferences[row + 1, column].transform;
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+
+        }
+
+        public Transform CheckingDownCell(int row, int column, List<Cell_Interaction> patrolArea)
+        {
+
+            if (row - 1 >= 0)
+            {
+                if (!cellReferences[row - 1, column].isOccupied && patrolArea.Contains(cellReferences[row - 1, column]))
+                {
+                    SwitchingOccupiedStatus(row, column);
+                    SwitchingOccupiedStatus(row - 1, column);
+                    return cellReferences[row - 1, column].transform;
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+
+        }
+
+        public Transform CheckingLeftCell(int row, int column, List<Cell_Interaction> patrolArea)
+        {
+
+            if (column - 1 >= 0)
+            {
+                if (!cellReferences[row, column - 1].isOccupied && patrolArea.Contains(cellReferences[row, column - 1]))
+                {
+                    SwitchingOccupiedStatus(row, column);
+                    SwitchingOccupiedStatus(row, column - 1);
+                    return cellReferences[row, column - 1].transform;
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+
+        }
+
+        public Transform CheckingRightCell(int row, int column, List<Cell_Interaction> patrolArea)
+        {
+
+            if (column + 1 < cellReferences.GetLength(1))
+            {
+                if (!cellReferences[row, column + 1].isOccupied && patrolArea.Contains(cellReferences[row, column + 1]))
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row, column + 1);
@@ -277,6 +353,34 @@ namespace Spacchiamo
         {
             if (leftPositions.Contains(posToRemove))
                 leftPositions.Remove(posToRemove);
+        }
+
+
+        public List<Cell_Interaction> FindingPatrolArea(int row, int column)
+        {
+            float currentDistance;
+            List<Cell_Interaction> areaFound = new List<Cell_Interaction>();
+
+            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            {
+                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                {
+
+                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+
+
+
+                    if (Designer_Tweaks.instance.patrolAreaEnemy1 > currentDistance)
+                    {
+                        areaFound.Add(cellReferences[i, j]);
+                    }
+
+
+                }
+            }
+
+            return areaFound;
         }
     }
 }

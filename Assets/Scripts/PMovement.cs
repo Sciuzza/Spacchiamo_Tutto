@@ -11,7 +11,7 @@ namespace Spacchiamo
         private bool isMoving = false;
         private int whereI, whereJ;
         private Transform whereToGo = null;
-        
+
 
         private Player_Controller pControllerLink;
 
@@ -46,7 +46,7 @@ namespace Spacchiamo
                     isMoving = false;
                     //Getting the light around the player
                     Grid_Manager.instance.GettingLight(whereI, whereJ);
-                    
+
                     //Increasing Fear Bar and Fear Value by 1
                     if (!Grid_Manager.instance.IsCellReceivingLight(whereI, whereJ))
                     {
@@ -72,65 +72,61 @@ namespace Spacchiamo
             {
                 if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
                 {
-					if (Input.GetKey(KeyCode.W))
+                    if (Input.GetKey(KeyCode.W))
                     {
                         whereToGo = Grid_Manager.instance.CheckingUpCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
                             isMoving = true;
                             whereI++;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
                         else
                             Debug.Log("Sound Here");
-						//AGGIUNTA DI MARCO
-						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
-						//FINE AGGGIUNTA DI MARCO
+                        
                     }
-					else if (Input.GetKey(KeyCode.S))
+                    else if (Input.GetKey(KeyCode.S))
                     {
                         whereToGo = Grid_Manager.instance.CheckingDownCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
                             isMoving = true;
                             whereI--;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
                         else
                             Debug.Log("Sound Here");
-						//AGGIUNTA DI MARCO
-						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
-						//FINE AGGGIUNTA DI MARCO
+                        
                     }
-					else if (Input.GetKey(KeyCode.A))
+                    else if (Input.GetKey(KeyCode.A))
                     {
                         whereToGo = Grid_Manager.instance.CheckingLeftCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
                             isMoving = true;
                             whereJ--;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (!pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
                         else
                             Debug.Log("Sound Here");
-						//AGGIUNTA DI MARCO
-						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
-						//FINE AGGGIUNTA DI MARCO
+                        
                     }
-					else if (Input.GetKey(KeyCode.D))
+                    else if (Input.GetKey(KeyCode.D))
                     {
                         whereToGo = Grid_Manager.instance.CheckingRightCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
                             isMoving = true;
                             whereJ++;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
                         else
                             Debug.Log("Sound Here");
-						//AGGIUNTA DI MARCO
-						Game_Controller.instance.ChangePhase (Game_Controller.instance.currentPhase);
-						//FINE AGGGIUNTA DI MARCO
+                        
                     }
 
                 }
