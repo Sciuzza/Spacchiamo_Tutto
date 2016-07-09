@@ -47,7 +47,6 @@ namespace Spacchiamo
             fearBar.fillAmount = 0.0f;
         }
 
-
         public void IncreasingTurnCount()
         {
             turnCounter++;

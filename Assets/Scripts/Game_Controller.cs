@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
@@ -9,20 +10,23 @@ namespace Spacchiamo
 
 
         // Game Phases
-        
+
         public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
 
         public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
-        
+
 
         // Camera and Player References
         Camera_Movement cameraLink;
         GameObject movingObjTemp;
 
-		//AGGIUNTA DI MARCO
-		Player_Controller playerLinker;
-		Enemy_Controller enemyLinker;
-		//FINE AGGGIUNTA DI MARCO
+        //AGGIUNTA DI MARCO
+        Player_Controller playerLinker;
+        Enemy_Controller enemyLinker;
+
+
+        
+
 
         [HideInInspector]
         public static Game_Controller instance = null;
@@ -52,6 +56,7 @@ namespace Spacchiamo
 
         void Start()
         {
+            
 
             // Getting Camera Reference 
             cameraLink = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
@@ -59,87 +64,50 @@ namespace Spacchiamo
 
             //Initalizing Level Grid Space
             Grid_Manager.instance.PreparingGridSpace();
-            
+
 
             //Initializing Player 
             movingObjTemp = Resources.Load<GameObject>("Player");
             movingObjTemp = Instantiate(movingObjTemp);
-			
+
             //AGGIUNTA DI MARCO
-			playerLinker = movingObjTemp.GetComponent<Player_Controller>();
-			//FINE AGGGIUNTA DI MARCO
+            playerLinker = movingObjTemp.GetComponent<Player_Controller>();
+            //FINE AGGGIUNTA DI MARCO
 
-			//AGGIUNTA DI MARCO
-			enemyLinker = movingObjTemp.GetComponent<Enemy_Controller>();
-			//FINE AGGGIUNTA DI MARCO
+            //AGGIUNTA DI MARCO
+            enemyLinker = movingObjTemp.GetComponent<Enemy_Controller>();
+            //FINE AGGGIUNTA DI MARCO
 
 
+            Enemies_Manager.instance.PreparingEnemies();
             //Initializing Enemy
-            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
-            {
-                switch (Random.Range(1, 4))
-                {
-                    case 1:
-                        movingObjTemp = Resources.Load<GameObject>("Enemy1");
-                        movingObjTemp = Instantiate(movingObjTemp);
-                        break;
-                    case 2:
-                        movingObjTemp = Resources.Load<GameObject>("Enemy2");
-                        movingObjTemp = Instantiate(movingObjTemp);
-                        break;
-                    default :
-                        movingObjTemp = Resources.Load<GameObject>("Enemy3");
-                        movingObjTemp = Instantiate(movingObjTemp);
-                        break;
-                }
-
-               
-
-            }
+          
         }
 
-/*
-        void Update()
+
+
+
+        //AGGIUNTA DI MARCO
+        public void ChangePhase(GAME_PHASE passedPhase)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-                Scene_Manager.instance.ResettingLevel();
+            Enemies_Manager.instance.CheckingAggro();
+
+            switch (passedPhase)
+            {
+                case GAME_PHASE.playerTurn:
+                    currentPhase = GAME_PHASE.npcEnemyTurn;
+                    break;
+                case GAME_PHASE.npcEnemyTurn:
+                    currentPhase = GAME_PHASE.playerTurn;
+                    break;
+                default:
+                    break;
+            }
+
         }
-*/
+        //FINE AGGGIUNTA DI MARCO
 
-		//AGGIUNTA DI MARCO
-		void LateUpdate () {
-
-			if (currentPhase == GAME_PHASE.npcEnemyTurn && Input.GetKeyDown (KeyCode.M)) {
-				StartCoroutine_Auto (Delay ());
-			}
-
-		}
-
-		IEnumerator Delay () {
-
-			yield return new WaitForSeconds (2f);
-			Debug.Log ("Nemico ha fatto");
-			ChangePhase (currentPhase);
-
-		}
-
-		public void ChangePhase (GAME_PHASE passedPhase) {
-
-			switch (passedPhase) {
-			case GAME_PHASE.playerTurn:
-				currentPhase = GAME_PHASE.npcEnemyTurn;
-				break;
-			case GAME_PHASE.npcEnemyTurn:
-				currentPhase = GAME_PHASE.playerTurn;
-				break;
-			default:
-				break;
-			}
-
-		}
-		//FINE AGGGIUNTA DI MARCO
-
-
+    
         // Methods necessary for the Player Initialization
         public void InitializingCamera(GameObject playerInstance)
         {
@@ -147,13 +115,14 @@ namespace Spacchiamo
         }
 
         public int GettingRowPStartPosition()
-        {          
-                return 0;         
+        {
+            return 0;
         }
 
         public int GettingColumnPStartPosition()
-        {           
-                return 0;           
+        {
+            return 0;
         }
+
     }
 }

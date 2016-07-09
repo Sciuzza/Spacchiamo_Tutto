@@ -11,6 +11,10 @@ namespace Spacchiamo
         // For Wall and Moving Objects
         public bool isOccupied = false;
 
+
+        // for Aggro
+        public bool aggroCell = false;
+
         // For Falò 
         public bool lightSource = false;
         public bool isReceivingLight = false;

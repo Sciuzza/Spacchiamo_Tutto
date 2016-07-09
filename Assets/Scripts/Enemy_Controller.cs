@@ -7,12 +7,16 @@ namespace Spacchiamo
     {
 
         Enemy_Patrolling patrolLink;
-        
+        SpriteRenderer manageSprite;
+        Sprite original;
+
+        public bool isAggroed = false;
 
         void Awake()
         {
             patrolLink = GetComponent<Enemy_Patrolling>();
-
+            manageSprite = GetComponent<SpriteRenderer>();
+            original = manageSprite.sprite;
         }
 
 
@@ -34,6 +38,9 @@ namespace Spacchiamo
             Grid_Manager.instance.RemovingPosition(EnemyStartPosition);
 
             this.transform.position = new Vector3(x, y, z);
+
+            patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingRow(), patrolLink.GettingColumn()));
+
 
 
         }
