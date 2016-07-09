@@ -25,8 +25,7 @@ namespace Spacchiamo
         Enemy_Controller enemyLinker;
 
 
-        public List<bool> allMoved;
-        public int moveEnemyCounter = 0;
+        
 
 
         [HideInInspector]
@@ -57,9 +56,7 @@ namespace Spacchiamo
 
         void Start()
         {
-            allMoved = new List<bool>();
-            InitializingMoveList();
-            ResettingEnemyMoves();
+            
 
             // Getting Camera Reference 
             cameraLink = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
@@ -82,54 +79,18 @@ namespace Spacchiamo
             //FINE AGGGIUNTA DI MARCO
 
 
+            Enemies_Manager.instance.PreparingEnemies();
             //Initializing Enemy
-            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
-            {
-                switch (Random.Range(1, 4))
-                {
-                    case 1:
-                        movingObjTemp = Resources.Load<GameObject>("Enemy1");
-                        movingObjTemp = Instantiate(movingObjTemp);
-                        break;
-                    case 2:
-                        movingObjTemp = Resources.Load<GameObject>("Enemy2");
-                        movingObjTemp = Instantiate(movingObjTemp);
-                        break;
-                    default:
-                        movingObjTemp = Resources.Load<GameObject>("Enemy3");
-                        movingObjTemp = Instantiate(movingObjTemp);
-                        break;
-                }
-
-
-
-            }
+          
         }
 
 
-        void Update()
-        {
-            /*
-            if (Input.GetKeyDown(KeyCode.Space))
-                Scene_Manager.instance.ResettingLevel();
-                */
-
-            if (currentPhase == GAME_PHASE.npcEnemyTurn)
-            {
-                if (!allMoved.Contains(false))
-                {
-
-                    ResettingEnemyMoves();
-                    currentPhase = GAME_PHASE.playerTurn;
-                }
-            }
-
-        }
 
 
         //AGGIUNTA DI MARCO
         public void ChangePhase(GAME_PHASE passedPhase)
         {
+            Enemies_Manager.instance.CheckingAggro();
 
             switch (passedPhase)
             {
@@ -146,7 +107,7 @@ namespace Spacchiamo
         }
         //FINE AGGGIUNTA DI MARCO
 
-
+    
         // Methods necessary for the Player Initialization
         public void InitializingCamera(GameObject playerInstance)
         {
@@ -163,23 +124,5 @@ namespace Spacchiamo
             return 0;
         }
 
-        public void ResettingEnemyMoves()
-        {
-            for (int i = 0; i < allMoved.Count; i++)
-                allMoved[i] = false;
-            moveEnemyCounter = 0;
-        }
-
-        public void AddingAMove()
-        {
-            allMoved[moveEnemyCounter] = true;
-            moveEnemyCounter++;
-        }
-
-        public void InitializingMoveList()
-        {
-            for (int i = 0; i < Designer_Tweaks.instance.level1EnemiesQuantity; i++)
-                allMoved.Add(false);
-        }
     }
 }

@@ -10,6 +10,8 @@ namespace Spacchiamo
         SpriteRenderer manageSprite;
         Sprite original;
 
+        public bool isAggroed = false;
+
         void Awake()
         {
             patrolLink = GetComponent<Enemy_Patrolling>();
