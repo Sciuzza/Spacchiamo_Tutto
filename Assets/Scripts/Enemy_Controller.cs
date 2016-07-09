@@ -7,31 +7,40 @@ namespace Spacchiamo
     {
 
         Enemy_Patrolling patrolLink;
-        
+        SpriteRenderer manageSprite;
+        Sprite original;
+
+        public bool isAggroed = false;
 
         void Awake()
         {
             patrolLink = GetComponent<Enemy_Patrolling>();
-
+            manageSprite = GetComponent<SpriteRenderer>();
+            original = manageSprite.sprite;
         }
 
 
         // Use this for initialization
         void Start()
         {
-            Transform EnemyStartPosition = null;
+            Cell_Interaction EnemyStartPosition = null;
             // Initializing Enemy Position
-            do
-            {
-                EnemyStartPosition = Grid_Manager.instance.SettingEnemyPosition();
-            } while (EnemyStartPosition == null);
 
-            float x = EnemyStartPosition.position.x;
-            float y = EnemyStartPosition.position.y;
+            EnemyStartPosition = Grid_Manager.instance.SettingEnemyPosition();
+
+            float x = EnemyStartPosition.transform.position.x;
+            float y = EnemyStartPosition.transform.position.y;
             float z = this.transform.position.z;
 
+            patrolLink.SettingWhereI(EnemyStartPosition.cell_i);
+            patrolLink.SettingWhereJ(EnemyStartPosition.cell_j);
+
+            Grid_Manager.instance.RemovingPosition(EnemyStartPosition);
 
             this.transform.position = new Vector3(x, y, z);
+
+            patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingRow(), patrolLink.GettingColumn()));
+
 
 
         }
