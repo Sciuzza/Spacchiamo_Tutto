@@ -1,0 +1,618 @@
+fileFormatVersion: 2
+guid: ee9e83244c5c9f64f8933bee19d34ada
+timeCreated: 1468061028
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Bordo_inferiore_tiles_pietra_0
+    21300002: Bordo_inferiore_tiles_pietra_1
+    21300004: Bordo_inferiore_tiles_pietra_2
+    21300006: Bordo_inferiore_tiles_pietra_3
+    21300008: Bordo_inferiore_tiles_pietra_4
+    21300010: Bordo_inferiore_tiles_pietra_5
+    21300012: Bordo_inferiore_tiles_pietra_6
+    21300014: Bordo_inferiore_tiles_pietra_7
+    21300016: Bordo_inferiore_tiles_pietra_8
+    21300018: Bordo_inferiore_tiles_pietra_9
+    21300020: Bordo_inferiore_tiles_pietra_10
+    21300022: Bordo_inferiore_tiles_pietra_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 128
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Bordo_inferiore_tiles_pietra_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18, y: -62}
+        - {x: 18, y: -63}
+        - {x: 19, y: -64}
+        - {x: 24, y: -64}
+        - {x: 26, y: -61}
+        - {x: 25, y: -58}
+        - {x: 22, y: -58}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -37}
+        - {x: -37, y: -58}
+        - {x: 11, y: -58}
+        - {x: 64, y: -38}
+        - {x: 64, y: 64}
+      - - {x: -49, y: -39}
+        - {x: -46, y: -38}
+        - {x: -46, y: -35}
+        - {x: -49, y: -34}
+        - {x: -51, y: -36}
+    - name: Bordo_inferiore_tiles_pietra_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -43, y: -57}
+        - {x: -59, y: -58}
+        - {x: -61, y: -62}
+        - {x: -60, y: -64}
+        - {x: -25, y: -64}
+        - {x: -21, y: -63}
+        - {x: -21, y: -57}
+      - - {x: -21, y: -57}
+        - {x: -21, y: -63}
+        - {x: -19, y: -64}
+        - {x: 28, y: -64}
+        - {x: 28, y: -57}
+      - - {x: 33, y: -58}
+        - {x: 29, y: -61}
+        - {x: 29, y: -64}
+        - {x: 42, y: -64}
+        - {x: 46, y: -61}
+        - {x: 45, y: -58}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -26}
+        - {x: -51, y: -58}
+        - {x: 62, y: -58}
+        - {x: 64, y: -27}
+        - {x: 64, y: 64}
+      - - {x: -49, y: -39}
+        - {x: -46, y: -37}
+        - {x: -48, y: -32}
+        - {x: -51, y: -32}
+        - {x: -52, y: -35}
+    - name: Bordo_inferiore_tiles_pietra_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -42, y: -58}
+        - {x: -43, y: -61}
+        - {x: -41, y: -64}
+        - {x: -24, y: -64}
+        - {x: -23, y: -61}
+        - {x: -24, y: -58}
+      - - {x: -56, y: -60}
+        - {x: -56, y: -61}
+        - {x: -54, y: -63}
+        - {x: -45, y: -63}
+        - {x: -43, y: -61}
+        - {x: -44, y: -58}
+        - {x: -52, y: -56}
+      - - {x: 11, y: -58}
+        - {x: 14, y: -60}
+        - {x: 18, y: -60}
+        - {x: 19, y: -59}
+        - {x: 19, y: -50}
+        - {x: 18, y: -49}
+        - {x: 13, y: -49}
+        - {x: 11, y: -50}
+      - - {x: 39, y: -50}
+        - {x: 39, y: -57}
+        - {x: 46, y: -60}
+        - {x: 54, y: -60}
+        - {x: 54, y: -52}
+        - {x: 51, y: -45}
+        - {x: 45, y: -45}
+        - {x: 41, y: -48}
+      - - {x: 20, y: -55}
+        - {x: 20, y: -57}
+        - {x: 22, y: -59}
+        - {x: 23, y: -59}
+        - {x: 30, y: -54}
+        - {x: 29, y: -51}
+        - {x: 26, y: -51}
+      - - {x: 59, y: -29}
+        - {x: 56, y: -43}
+        - {x: 56, y: -59}
+        - {x: 61, y: -59}
+        - {x: 64, y: -52}
+        - {x: 64, y: -29}
+        - {x: 63, y: -28}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -24}
+        - {x: -42, y: -58}
+        - {x: 8, y: -58}
+        - {x: 57, y: -55}
+        - {x: 64, y: -31}
+        - {x: 64, y: 64}
+      - - {x: -49, y: -39}
+        - {x: -46, y: -38}
+        - {x: -46, y: -35}
+        - {x: -49, y: -34}
+        - {x: -51, y: -36}
+    - name: Bordo_inferiore_tiles_pietra_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 59, y: -63}
+        - {x: 59, y: -64}
+        - {x: 64, y: -64}
+        - {x: 64, y: -61}
+        - {x: 61, y: -61}
+      - - {x: 8, y: -52}
+        - {x: 1, y: -61}
+        - {x: 2, y: -64}
+        - {x: 48, y: -64}
+        - {x: 50, y: -63}
+        - {x: 50, y: -52}
+      - - {x: -42, y: -58}
+        - {x: -41, y: -61}
+        - {x: -38, y: -61}
+        - {x: -36, y: -59}
+        - {x: -37, y: -56}
+        - {x: -40, y: -56}
+      - - {x: 53, y: -57}
+        - {x: 54, y: -60}
+        - {x: 59, y: -60}
+        - {x: 61, y: -58}
+        - {x: 60, y: -55}
+        - {x: 55, y: -55}
+      - - {x: -17, y: -56}
+        - {x: -16, y: -59}
+        - {x: -8, y: -59}
+        - {x: -6, y: -57}
+        - {x: -7, y: -54}
+        - {x: -15, y: -54}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -26}
+        - {x: -44, y: -58}
+        - {x: 51, y: -58}
+        - {x: 64, y: -41}
+        - {x: 64, y: 64}
+      - - {x: -49, y: -39}
+        - {x: -46, y: -38}
+        - {x: -46, y: -35}
+        - {x: -49, y: -34}
+        - {x: -51, y: -36}
+    - name: Bordo_inferiore_tiles_pietra_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 52, y: -52}
+        - {x: 47, y: -57}
+        - {x: 48, y: -60}
+        - {x: 54, y: -60}
+        - {x: 56, y: -58}
+        - {x: 56, y: -54}
+        - {x: 54, y: -52}
+      - - {x: 56, y: -57}
+        - {x: 57, y: -60}
+        - {x: 64, y: -60}
+        - {x: 64, y: -51}
+        - {x: 63, y: -51}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -2}
+        - {x: -12, y: -48}
+        - {x: 44, y: -48}
+        - {x: 54, y: -41}
+        - {x: 64, y: -29}
+        - {x: 64, y: 64}
+      - - {x: -8, y: -31}
+        - {x: -8, y: -33}
+        - {x: -7, y: -35}
+        - {x: -4, y: -35}
+        - {x: -1, y: -32}
+        - {x: -2, y: -29}
+        - {x: -5, y: -29}
+    - name: Bordo_inferiore_tiles_pietra_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: -60}
+        - {x: -61, y: -59}
+        - {x: -61, y: -52}
+        - {x: -63, y: -50}
+        - {x: -64, y: -50}
+      - - {x: -56, y: -57}
+        - {x: -55, y: -60}
+        - {x: -52, y: -60}
+        - {x: -50, y: -58}
+        - {x: -51, y: -55}
+        - {x: -54, y: -55}
+      - - {x: 50, y: -58}
+        - {x: 51, y: -60}
+        - {x: 54, y: -60}
+        - {x: 56, y: -59}
+        - {x: 56, y: -53}
+        - {x: 55, y: -51}
+        - {x: 52, y: -51}
+        - {x: 50, y: -52}
+      - - {x: 58, y: -50}
+        - {x: 56, y: -55}
+        - {x: 56, y: -58}
+        - {x: 57, y: -60}
+        - {x: 64, y: -60}
+        - {x: 64, y: -52}
+        - {x: 60, y: -50}
+      - - {x: 16, y: -49}
+        - {x: 12, y: -49}
+        - {x: 11, y: -52}
+        - {x: 11, y: -57}
+        - {x: 13, y: -58}
+        - {x: 17, y: -58}
+        - {x: 18, y: -55}
+        - {x: 18, y: -50}
+      - - {x: 43, y: -51}
+        - {x: 48, y: -49}
+        - {x: 48, y: -46}
+        - {x: 45, y: -45}
+        - {x: 41, y: -48}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -3}
+        - {x: -13, y: -48}
+        - {x: 48, y: -48}
+        - {x: 56, y: -43}
+        - {x: 64, y: 11}
+        - {x: 64, y: 64}
+      - - {x: -8, y: -31}
+        - {x: -8, y: -33}
+        - {x: -7, y: -35}
+        - {x: -4, y: -35}
+        - {x: -1, y: -32}
+        - {x: -2, y: -29}
+        - {x: -5, y: -29}
+    - name: Bordo_inferiore_tiles_pietra_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 49, y: -53}
+        - {x: 46, y: -57}
+        - {x: 46, y: -58}
+        - {x: 48, y: -60}
+        - {x: 54, y: -60}
+        - {x: 56, y: -58}
+        - {x: 57, y: -51}
+        - {x: 54, y: -49}
+      - - {x: 60, y: -53}
+        - {x: 59, y: -58}
+        - {x: 61, y: -60}
+        - {x: 63, y: -60}
+        - {x: 64, y: -59}
+        - {x: 64, y: -53}
+        - {x: 63, y: -52}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -8}
+        - {x: -1, y: -48}
+        - {x: 38, y: -48}
+        - {x: 54, y: -41}
+        - {x: 64, y: -29}
+        - {x: 64, y: 64}
+      - - {x: -8, y: -31}
+        - {x: -8, y: -33}
+        - {x: -7, y: -35}
+        - {x: -4, y: -35}
+        - {x: -1, y: -32}
+        - {x: -2, y: -29}
+        - {x: -5, y: -29}
+    - name: Bordo_inferiore_tiles_pietra_7
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: -57}
+        - {x: 5, y: -60}
+        - {x: 8, y: -60}
+        - {x: 10, y: -58}
+        - {x: 9, y: -55}
+        - {x: 6, y: -55}
+      - - {x: 21, y: -57}
+        - {x: 24, y: -56}
+        - {x: 24, y: -53}
+        - {x: 21, y: -52}
+        - {x: 19, y: -54}
+      - - {x: 54, y: -54}
+        - {x: 57, y: -53}
+        - {x: 57, y: -50}
+        - {x: 54, y: -49}
+        - {x: 52, y: -51}
+      - - {x: -64, y: 64}
+        - {x: -64, y: -1}
+        - {x: -21, y: -48}
+        - {x: 52, y: -48}
+        - {x: 64, y: -36}
+        - {x: 64, y: 64}
+      - - {x: -8, y: -31}
+        - {x: -8, y: -33}
+        - {x: -7, y: -35}
+        - {x: -4, y: -35}
+        - {x: -1, y: -32}
+        - {x: -2, y: -29}
+        - {x: -5, y: -29}
+    - name: Bordo_inferiore_tiles_pietra_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -8}
+        - {x: -54, y: -49}
+        - {x: -24, y: -54}
+        - {x: 32, y: -54}
+        - {x: 64, y: -14}
+        - {x: 64, y: 64}
+      - - {x: 25, y: -52}
+        - {x: 27, y: -54}
+        - {x: 30, y: -53}
+        - {x: 30, y: -50}
+        - {x: 28, y: -48}
+        - {x: 25, y: -49}
+      - - {x: -23, y: -49}
+        - {x: -19, y: -51}
+        - {x: -16, y: -50}
+        - {x: -16, y: -41}
+        - {x: -20, y: -39}
+        - {x: -23, y: -40}
+      - - {x: 41, y: -14}
+        - {x: 33, y: -24}
+        - {x: 33, y: -31}
+        - {x: 35, y: -33}
+        - {x: 48, y: -33}
+        - {x: 49, y: -30}
+        - {x: 49, y: -17}
+        - {x: 46, y: -14}
+      - - {x: -64, y: -12}
+        - {x: -61, y: -16}
+        - {x: -58, y: -15}
+        - {x: -58, y: -12}
+        - {x: -61, y: -8}
+        - {x: -64, y: -9}
+    - name: Bordo_inferiore_tiles_pietra_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -6}
+        - {x: -45, y: -54}
+        - {x: 33, y: -54}
+        - {x: 64, y: -14}
+        - {x: 64, y: 64}
+      - - {x: 25, y: -52}
+        - {x: 27, y: -54}
+        - {x: 30, y: -53}
+        - {x: 30, y: -50}
+        - {x: 28, y: -48}
+        - {x: 25, y: -49}
+      - - {x: -23, y: -49}
+        - {x: -19, y: -51}
+        - {x: -16, y: -50}
+        - {x: -16, y: -41}
+        - {x: -20, y: -39}
+        - {x: -23, y: -40}
+      - - {x: 41, y: -15}
+        - {x: 39, y: -16}
+        - {x: 35, y: -25}
+        - {x: 33, y: -31}
+        - {x: 35, y: -33}
+        - {x: 48, y: -33}
+        - {x: 49, y: -32}
+        - {x: 49, y: -17}
+        - {x: 47, y: -15}
+      - - {x: -64, y: -12}
+        - {x: -61, y: -16}
+        - {x: -58, y: -15}
+        - {x: -58, y: -12}
+        - {x: -61, y: -8}
+        - {x: -64, y: -9}
+    - name: Bordo_inferiore_tiles_pietra_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 64}
+        - {x: -64, y: -9}
+        - {x: -52, y: -49}
+        - {x: -32, y: -54}
+        - {x: 29, y: -54}
+        - {x: 64, y: -26}
+        - {x: 64, y: 64}
+      - - {x: 25, y: -52}
+        - {x: 27, y: -54}
+        - {x: 30, y: -53}
+        - {x: 30, y: -50}
+        - {x: 28, y: -48}
+        - {x: 25, y: -49}
+      - - {x: -23, y: -49}
+        - {x: -19, y: -51}
+        - {x: -16, y: -50}
+        - {x: -16, y: -41}
+        - {x: -20, y: -39}
+        - {x: -23, y: -40}
+      - - {x: 43, y: -14}
+        - {x: 39, y: -15}
+        - {x: 33, y: -29}
+        - {x: 33, y: -32}
+        - {x: 34, y: -33}
+        - {x: 41, y: -33}
+        - {x: 47, y: -32}
+        - {x: 49, y: -30}
+        - {x: 49, y: -23}
+        - {x: 47, y: -16}
+      - - {x: -64, y: -12}
+        - {x: -61, y: -16}
+        - {x: -58, y: -15}
+        - {x: -58, y: -12}
+        - {x: -61, y: -8}
+        - {x: -64, y: -9}
+    - name: Bordo_inferiore_tiles_pietra_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 35, y: -34}
+        - {x: 47, y: -32}
+        - {x: 51, y: -29}
+        - {x: 49, y: -20}
+        - {x: 43, y: -14}
+        - {x: 42, y: -14}
+        - {x: 43, y: -14}
+        - {x: 49, y: -19}
+        - {x: 56, y: -19}
+        - {x: 59, y: -18}
+        - {x: 64, y: -13}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -6}
+        - {x: -45, y: -54}
+        - {x: 26, y: -54}
+        - {x: 33, y: -33}
+        - {x: 33, y: -28}
+        - {x: 33, y: -31}
+      - - {x: 25, y: -52}
+        - {x: 27, y: -54}
+        - {x: 30, y: -53}
+        - {x: 30, y: -50}
+        - {x: 28, y: -48}
+        - {x: 25, y: -49}
+      - - {x: -23, y: -49}
+        - {x: -19, y: -51}
+        - {x: -16, y: -50}
+        - {x: -16, y: -41}
+        - {x: -20, y: -39}
+        - {x: -23, y: -40}
+      - - {x: -64, y: -12}
+        - {x: -61, y: -16}
+        - {x: -58, y: -15}
+        - {x: -58, y: -12}
+        - {x: -61, y: -8}
+        - {x: -64, y: -9}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
