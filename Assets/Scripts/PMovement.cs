@@ -72,7 +72,7 @@ namespace Spacchiamo
             }
             else
             {
-                if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
+                if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn && !pControllerLink.attackSelection)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {

@@ -35,11 +35,11 @@ namespace Spacchiamo
             GameObject cellTemp = Resources.Load<GameObject>("Cell");
             GameObject mapTemp = Resources.Load<GameObject>("Map");
             mapTemp = Instantiate(mapTemp);
-            int layerCount = 8;
+            
 
             for (int i = 0; i < cellReferences.GetLength(0); i++)
             {
-                layerCount++;
+               
 
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
@@ -47,24 +47,39 @@ namespace Spacchiamo
                     cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
 
                     cellTemp.name = "Cell " + i + " , " + j;
-                    cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f -25f, (i - cellReferences.GetLength(0) / 2) + 0.5f - 17f, 1);
+                    cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f -2, (i - cellReferences.GetLength(0) / 2) + 0.5f +11, 1);
 
                     cellReferences[i, j].cell_i = i;
                     cellReferences[i, j].cell_j = j;
 
                     cellTemp.transform.SetParent(mapTemp.transform);
 
-                    cellTemp.layer = layerCount;
+                    
 
                     cellReferences[i, j].tileCell = GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")");
+/*
+                    if (cellReferences[i, j].tileCell == null)
+                        cellReferences[i, j].SettingInviWall();
+                    else
+                    {
+                        SpriteRenderer tileType = cellReferences[i, j].tileCell.GetComponent<SpriteRenderer>();
+                        Sprite tileTypeCheck = Resources.Load<Sprite>("bordo_inferiore_tiles_pietra");
 
-
+                        if (tileType.sprite == tileTypeCheck)
+                            cellReferences[i, j].SettingWall();
+                        else
+                        
+                            cellReferences[i, j].TemporaryRandom();
+                    }
+                    */
                     // Fog Of War
                     ChangingAlpha(0.0f, cellTemp);
                 }
             }
 
         }
+
+      
 
         // Method to retrieve the transform position necessary for the player to be placed into
         public Transform SettingPlayerPosition(int row, int column)
@@ -237,7 +252,7 @@ namespace Spacchiamo
 
         }
 
-        
+
 
 
         public void SwitchingOccupiedStatus(int row, int column)
@@ -480,7 +495,7 @@ namespace Spacchiamo
 
         public Transform FindFastestRoute(List<Transform> moves, out int whereI, out int whereJ)
         {
-            
+
             float min = Mathf.Abs(moves[0].position.x - playerTemp.transform.position.x) + Mathf.Abs(moves[0].position.y - playerTemp.transform.position.y);
 
             int posFound = 0;
@@ -491,7 +506,7 @@ namespace Spacchiamo
                 {
                     int current = Mathf.RoundToInt(Mathf.Abs(moves[i].position.x - playerTemp.transform.position.x) + Mathf.Abs(moves[i].position.y - playerTemp.transform.position.y));
 
-                    if ( current <= min)
+                    if (current <= min)
                     {
                         min = current;
                         posFound = i;
@@ -499,19 +514,19 @@ namespace Spacchiamo
                 }
             }
 
-            
-    
-                whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_i;
-                whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_j;
-                SwitchingOccupiedStatus(whereI, whereJ);
 
-                return moves[posFound];
-           
+
+            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_i;
+            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_j;
+            SwitchingOccupiedStatus(whereI, whereJ);
+
+            return moves[posFound];
+
         }
 
         public Transform FindFastestBackRoute(List<Transform> moves, int whereIComeBack, int whereJComeBack, out int whereI, out int whereJ)
         {
-            float min = Mathf.Abs(moves[0].position.x - cellReferences[whereIComeBack, whereJComeBack].transform.position.x) + Mathf.Abs(moves[0].position.y - 
+            float min = Mathf.Abs(moves[0].position.x - cellReferences[whereIComeBack, whereJComeBack].transform.position.x) + Mathf.Abs(moves[0].position.y -
                 cellReferences[whereIComeBack, whereJComeBack].transform.position.y);
 
             int posFound = 0;
@@ -553,6 +568,64 @@ namespace Spacchiamo
         {
             playerTemp.GetComponent<Player_Controller>().Life -= damage;
         }
-        
+
+
+        public void HighlightingAttackRange(int row, int column)
+        {
+            float currentDistance;
+
+            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            {
+                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                {
+
+                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+
+
+
+                    if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                    {
+
+                        cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.yellow;
+
+                    }
+                }
+            }
+
+        }
+
+        public void DelightingAttackRange(int row, int column)
+        {
+            float currentDistance;
+
+            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            {
+                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                {
+
+                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+
+
+
+                    if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                    {
+
+                        cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.white;
+
+                    }
+                }
+            }
+
+        }
+
+
+
+        public Transform GetCellTransform(int row, int column)
+        {
+            return cellReferences[row, column].transform;
+        } 
+
     }
 }

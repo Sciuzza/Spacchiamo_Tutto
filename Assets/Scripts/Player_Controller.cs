@@ -12,6 +12,8 @@ namespace Spacchiamo
         public int FearValue = 0;
         public int TurnValue = 0;
 
+        public bool attackSelection = false;
+
         void Awake()
         {
             moveLink = GetComponent<PMovement>();
@@ -30,7 +32,7 @@ namespace Spacchiamo
 
             this.transform.position = new Vector3(x, y, z);
 
-            this.gameObject.layer = moveLink.GettingRow() + 9;
+            
 
 
             // Linking Camera Smooth Follow
@@ -47,6 +49,17 @@ namespace Spacchiamo
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                     Game_Controller.instance.ChangePhase(Game_Controller.GAME_PHASE.playerTurn);
+                if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    attackSelection = true;
+                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingRow(),moveLink.GettingColumn());
+                }
+                if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
+                {
+                    attackSelection = false;
+                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingRow(), moveLink.GettingColumn());
+                }
+                    
             }
         }
 

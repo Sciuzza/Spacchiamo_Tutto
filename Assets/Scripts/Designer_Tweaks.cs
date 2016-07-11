@@ -10,7 +10,7 @@ namespace Spacchiamo
         public int manhDistancePlayer, manhDistanceFalo, moveSpeed, fearScaleRate, patrolAreaEnemy1, patrolAreaEnemy2, patrolAreaEnemy3;
 
         // Level 1 designer variables
-        [Range(5, 50)]
+        [Range(5, 100)]
         public int level1Rows, level1Columns;
 
         [Range(1,30)]

@@ -64,6 +64,7 @@ namespace Spacchiamo
 
             //Initalizing Level Grid Space
             Grid_Manager.instance.PreparingGridSpace();
+           
 
 
             //Initializing Player 

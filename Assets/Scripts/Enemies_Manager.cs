@@ -111,5 +111,23 @@ namespace Spacchiamo
                 }
             }
         }
+
+
+        public bool EnemyIsHere(int row, int column)
+        {
+            if (enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0,0,1)) != null)
+                return true;
+            else
+                return false;
+
+        }
+
+        public void DestroyEnemy(int row, int column)
+        {
+            GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0,0,1));
+            enemyReferences.Remove(enemyToDestroy);
+            Grid_Manager.instance.SwitchingOccupiedStatus(row, column);
+            Destroy(enemyToDestroy);
+        }
     }
 }
