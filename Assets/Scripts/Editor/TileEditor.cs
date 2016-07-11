@@ -6,34 +6,52 @@ using System.Collections.Generic;
 using System.IO;
 
 // @todo: make layers without sorting layers, with specific ids instead, or just use their transform order
-// @todo: allow different GOs to be added, not just a tileset (should be easy, instead of loading a tileset, allow a list of GOs to be defined)
+// @todo:make sure to tell them to use the layer
 
 namespace LevelEditor
 {
     [ExecuteInEditMode]
     public class TileEditorWindow : EditorWindow
     {
-        // Tilesets
+        const int Mode_Tiles = 0;
+        const int Mode_Prefabs = 1;
+        static string[] modes = { "Tiles", "Prefabs" };
+
+        const int Tool_Paint = 0;
+        const int Tool_Erase = 1;
+        static string[] tools = { "Paint", "Erase" };
+
+        const int LayerAction_Minus = 0;
+        const int LayerAction_Plus = 1;
+        const int LayerAction_Remove = 2;
+        const int LayerAction_Rename = 3;
+        static string[] layerActions = { "-", "+", "x", "r" };
+
+        // Tile sprites
         static Texture[] allEditorTilesets;
         static Sprite[] allEditorSprites;
         static Sprite[] currentEditorSprites;
         static List<int> selectedTilesIds = new List<int>();
+        static List<Sprite> selectedTilesSprites = new List<Sprite>();
+
+        // Tile objects
+        static GameObject[] loadedPrefabs = new GameObject[0];
+        static GameObject selectedPrefab;
 
         // Editor window
         static EditorWindow window;
         static GameObject editorFieldGo;
         static Texture2D editorSelectionTexture;
         static int editorCurrentSelectedTileSet = 0;
+        static Vector2 scrollAreaPosition = Vector2.zero;
 
-        static Vector2 tilesetAreaScrollPosition = Vector2.zero;
-        static List<Sprite> selectedTilesSprites = new List<Sprite>();
+        static int currentModeID = 0;
 
         static int currentToolID = 0;
-        static Transform currentLayerTr;
-        static Vector3 currentMousePos;
 
         // Mouse editing
         static Event e;
+        static Vector3 currentMouseSnapPos;
 
         // Layers
         static GameObject layersHolderGo;
@@ -107,7 +125,6 @@ namespace LevelEditor
                     // Setup at least 1 layer
                     AddLayer();
                     ResetLayers();
-                    currentLayerTr = layerTransforms[0];
                 }
             }
 
@@ -127,21 +144,8 @@ namespace LevelEditor
             SceneView.onSceneGUIDelegate -= OnSceneGUI;
         }
 
-        // @todo: remove this?
         private void OnSelectionChange()
         {
-            //left over code for selecting a layer if selected in the heiarchy. Left in for if I want to do it again and need reference. Probably doesn't work atm.
-            //if(Selection.activeObject != lastSelectedObject && Selection.activeObject != null)
-            //{
-            //			if(Selection.activeTransform != null)
-            //{
-            //				if(Selection.activeTransform.parent.name.StartsWith("TileMasterField"))
-            //{
-            //					string[] tmpStr = Selection.activeObject.name.Split('r');
-            //lastSelectedObject = Selection.activeObject;
-            //}
-            //}
-            //}
             Repaint();
         }
 
@@ -241,170 +245,211 @@ namespace LevelEditor
 
         #region GUI
 
-        void OnGUI()
+        void DrawModeTilesets()
         {
-            int i, j;
-            ResetGameObjects();
-            e = Event.current; // Gets current event (mouse move, repaint, keyboard press, etc)
-
-            if (renameId != -1 && (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter))
+            // Load tilesets
+            int i,j;
+            string[] tilesetNames = new string[allEditorTilesets.Length];
+            for (i = 0; i < allEditorTilesets.Length; i++)
             {
-                renameId = -1;
-            }
-
-            if (allEditorTilesets == null) // Check to make certain there is actually a tileset in the resources/tileset folder.
-            {
-                EditorGUILayout.LabelField("No tilesets found. Retrying.");
-                OnEnable();
-            }
-            else
-            {
-                // Load tilesets
-                string[] tilesetNames = new string[allEditorTilesets.Length];
-                for (i = 0; i < allEditorTilesets.Length; i++)
+                try
                 {
-                    try
-                    {
-                        tilesetNames[i] = allEditorTilesets[i].name;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        Debug.Log("There was an error getting the tilesetNames of the files. We'll try to reload the tilesets. If this continues to show, please close the script and try remimporting and check your images.");
-                        Debug.Log("Full system error: " + ex.Message);
-                        OnEnable();
-                    }
+                    tilesetNames[i] = allEditorTilesets[i].name;
                 }
-
-                // Standard paint mode
-
-                // Tilesets
-                EditorGUILayout.BeginHorizontal();
-                int selectedTilesetIndex = EditorGUILayout.Popup("Tileset", editorCurrentSelectedTileSet, tilesetNames);
-                if (GUILayout.Button("Reload"))
+                catch (System.Exception ex)
                 {
+                    Debug.Log("There was an error getting the tilesetNames of the files. We'll try to reload the tilesets. If this continues to show, please close the script and try remimporting and check your images.");
+                    Debug.Log("Full system error: " + ex.Message);
                     OnEnable();
                 }
-                EditorGUILayout.EndHorizontal();
+            }
 
+            // Show tileset options
+            EditorGUILayout.BeginHorizontal();
+            int selectedTilesetIndex = EditorGUILayout.Popup("Tileset", editorCurrentSelectedTileSet, tilesetNames);
+            if (GUILayout.Button("Reload")) OnEnable();
+            EditorGUILayout.EndHorizontal();
+
+            // @todo: check this!
+            //Causes an error on editor load if the window is visible.
+            //This seems to be a problem with how the gui is drawn the first
+            //loop of the script. It only happens the once, and I can't figure
+            //out why. I've been trying for literally weeks and still can't
+            //find an answer. This is the only known bug, but it doesn't
+            //stop the functionality of the script in any way, and only serves
+            //as an annoying message on unity load or this script being 
+            //recompiled. Sorry for this bug. I am looking for a way to remove
+            //this error, but I really am stummped as to why it's happening
+            //and I just can not find an answer online.
+
+            // Highlight
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Highlight Current Layer", GUILayout.Width(150));
+            bHighlightLayer = EditorGUILayout.Toggle(bHighlightLayer, GUILayout.Width(25));
+            highlightColor = EditorGUILayout.ColorField(highlightColor);
+            EditorGUILayout.EndHorizontal();
+
+            // View current tileset
+            if (selectedTilesetIndex != editorCurrentSelectedTileSet)
+            {
+                LoadTileset(selectedTilesetIndex);
+            }
+            editorCurrentSelectedTileSet = selectedTilesetIndex;
+
+            // Cols and Rows
+            i = 0;
+            int columnCount = Mathf.RoundToInt((position.width) / 38) - 2;
+            j = 0;
+            int current = 0;
+
+            // Scroll area
+            scrollAreaPosition = EditorGUILayout.BeginScrollView(scrollAreaPosition, false, true, GUILayout.Width(position.width));
+            GUILayout.BeginHorizontal();
+            for (int q = 0; q < allEditorSprites.Length; q++)
+            {
+                Sprite currentSprite = allEditorSprites[q];
+                try
+                {
+                    // Iff it's the tiles inside the image, not the entire image
+                    if (currentSprite.texture.name == tilesetNames[editorCurrentSelectedTileSet] && currentSprite.name != tilesetNames[editorCurrentSelectedTileSet])
+                    {
+                        Rect singleTileSpriteRect = new Rect(
+                                            currentSprite.rect.x / currentSprite.texture.width,
+                                            currentSprite.rect.y / currentSprite.texture.height,
+                                            currentSprite.rect.width / currentSprite.texture.width,
+                                            currentSprite.rect.height / currentSprite.texture.height
+                                            );//gets the x and y position in pixels of where the image is. Used later for display.
+
+                        // Selectio nbutton
+                        if (GUILayout.Button("", GUILayout.Width(34), GUILayout.Height(34)))
+                        {
+                            if (selectedTilesIds != null && !e.shift)
+                            {
+                                // Empty the selected tile list if shift isn't held. Allows multiselect of tiles.
+                                selectedTilesIds.Clear();
+                                selectedTilesSprites.Clear();
+                            }
+                            selectedTilesIds.Add(current); // Adds clicked on tile to list of selected tiles.
+                            selectedTilesSprites.Add(currentEditorSprites[current]);
+                        }
+
+                        GUI.DrawTextureWithTexCoords(new Rect(5 + (j * 38), 4 + (i * 37), 32, 32), currentSprite.texture, singleTileSpriteRect, true); //draws tile base on pixels gotten at the beginning of the loop
+                        if (selectedTilesIds != null && selectedTilesIds.Contains(current))
+                        {
+                            //if the current tile is inside of the list of selected tiles, draw a highlight indicator over the button.
+                            if (editorSelectionTexture)
+                            {
+                                GUI.DrawTexture(new Rect(5 + (j * 38), 4 + (i * 37), 32, 32), editorSelectionTexture, ScaleMode.ScaleToFit, true);
+                            }
+                        }
+
+                        // Next row
+                        if (j < columnCount)
+                        {
+                            j++;
+                        }
+                        else
+                        {
+                            // if we have enough columns to fill the scroll area, reset the column count and start a new line of buttons
+                            j = 0;
+                            i++;
+                            GUILayout.EndHorizontal();
+                            GUILayout.BeginHorizontal();
+                        }
+                        current++;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    if (ex.Message.StartsWith("IndexOutOfRangeException"))
+                    {
+                        Debug.Log("Tileset index was out of bounds, reloading and trying again.");
+                        OnEnable();
+                        return;
+                    }
+                }
+            }
+            GUILayout.EndHorizontal();
+            EditorGUILayout.EndScrollView();
+        }
+
+        void DrawModePrefabs()
+        {
+            // Load prefabs
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Loaded prefabs: " + loadedPrefabs.Length);
+            if (GUILayout.Button("Reload"))
+            {
+                loadedPrefabs = Resources.LoadAll<GameObject>("TilePrefabs");
+            }
+            GUILayout.EndHorizontal();
+
+            // Show prefabs
+            scrollAreaPosition = EditorGUILayout.BeginScrollView(scrollAreaPosition, false, true, GUILayout.Width(position.width));
+            GUILayout.BeginVertical();
+            for (int q = 0; q < loadedPrefabs.Length; q++)
+            {
+                GameObject currentPrefab = loadedPrefabs[q];
+
+                var guiStyle = new GUIStyle(GUI.skin.button);
+                if (selectedPrefab == currentPrefab)
+                    guiStyle.normal.textColor = Color.red;
+
+                if (GUILayout.Button(currentPrefab.name, guiStyle))
+                {
+                    selectedPrefab = currentPrefab;
+                }
+            }
+            GUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
+        }
+
+
+       void OnGUI()
+       {
+           int i;
+           ResetGameObjects();
+           e = Event.current; // Gets current event (mouse move, repaint, keyboard press, etc)
+
+           if (renameId != -1 && (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter))
+           {
+               renameId = -1;
+           }
+
+           if (allEditorTilesets == null) // Check to make certain there is actually a tileset in the resources/tileset folder.
+           {
+                // @todo: remove this check since we can just use prefabs
+               EditorGUILayout.LabelField("No tilesets found. Retrying.");
+               OnEnable();
+           }
+           else
+           {
                 // Tools
-                string[] tools = { "Paint", "Erase" };
-
-                // @todo: check this!
-                //Causes an error on editor load if the window is visible.
-                //This seems to be a problem with how the gui is drawn the first
-                //loop of the script. It only happens the once, and I can't figure
-                //out why. I've been trying for literally weeks and still can't
-                //find an answer. This is the only known bug, but it doesn't
-                //stop the functionality of the script in any way, and only serves
-                //as an annoying message on unity load or this script being 
-                //recompiled. Sorry for this bug. I am looking for a way to remove
-                //this error, but I really am stummped as to why it's happening
-                //and I just can not find an answer online.
-
                 EditorGUILayout.BeginHorizontal(GUILayout.Width(position.width));
-                EditorGUILayout.LabelField("Tool", GUILayout.Width(50));
+                EditorGUILayout.LabelField("Tool");
                 GUILayout.FlexibleSpace();
                 currentToolID = GUILayout.Toolbar(currentToolID, tools);
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.EndHorizontal();
 
+                // Mode
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Highlight Current Layer", GUILayout.Width(150));
-                bHighlightLayer = EditorGUILayout.Toggle(bHighlightLayer, GUILayout.Width(25));
-                highlightColor = EditorGUILayout.ColorField(highlightColor);
+                EditorGUILayout.LabelField("Mode");
+                GUILayout.FlexibleSpace();
+                currentModeID = GUILayout.Toolbar(currentModeID, modes);
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EndHorizontal();
 
-                // View current tileset
-                if (selectedTilesetIndex != editorCurrentSelectedTileSet)
+                switch (currentModeID)
                 {
-                    LoadTileset(selectedTilesetIndex);
+                    case Mode_Tiles:
+                        DrawModeTilesets();
+                        break;
+                    case Mode_Prefabs:
+                        DrawModePrefabs();
+                        break;
                 }
-                editorCurrentSelectedTileSet = selectedTilesetIndex;
 
-                // Cols and Rows
-                i = 0;
-                int columnCount = Mathf.RoundToInt((position.width) / 38) - 2;
-                j = 0;
-                int current = 0;
-
-                // Scroll area
-                tilesetAreaScrollPosition = EditorGUILayout.BeginScrollView(tilesetAreaScrollPosition, false, true, GUILayout.Width(position.width));
-                GUILayout.BeginHorizontal();
-                for (int q = 0; q < allEditorSprites.Length; q++)
-                {
-                    Sprite currentSprite = allEditorSprites[q];
-                    try
-                    {
-                        // Iff it's the tiles inside the image, not the entire image
-                        if (currentSprite.texture.name == tilesetNames[editorCurrentSelectedTileSet] && currentSprite.name != tilesetNames[editorCurrentSelectedTileSet])
-                        {
-                            Rect singleTileSpriteRect = new Rect(
-                                                currentSprite.rect.x / currentSprite.texture.width,
-                                                currentSprite.rect.y / currentSprite.texture.height,
-                                                currentSprite.rect.width / currentSprite.texture.width,
-                                                currentSprite.rect.height / currentSprite.texture.height
-                                                );//gets the x and y position in pixels of where the image is. Used later for display.
-
-                            // Selectio nbutton
-                            if (GUILayout.Button("", GUILayout.Width(34), GUILayout.Height(34)))
-                            {
-                                if (selectedTilesIds != null && !e.shift)
-                                {
-                                    // Empty the selected tile list if shift isn't held. Allows multiselect of tiles.
-                                    selectedTilesIds.Clear();
-                                    selectedTilesSprites.Clear();
-                                }
-                                selectedTilesIds.Add(current); // Adds clicked on tile to list of selected tiles.
-                                selectedTilesSprites.Add(currentEditorSprites[current]);
-                            }
-
-                            GUI.DrawTextureWithTexCoords(new Rect(5 + (j * 38), 4 + (i * 37), 32, 32), currentSprite.texture, singleTileSpriteRect, true); //draws tile base on pixels gotten at the beginning of the loop
-                            if (selectedTilesIds != null && selectedTilesIds.Contains(current))
-                            {
-                                //if the current tile is inside of the list of selected tiles, draw a highlight indicator over the button.
-                                /*if (editorSelectedColor == null)
-                                {
-                                    editorSelectedColor = new Texture2D(1, 1);
-                                    editorSelectedColor.alphaIsTransparency = true;
-                                    editorSelectedColor.filterMode = FilterMode.Point;
-                                    editorSelectedColor.SetPixel(0, 0, new Color(.5f, .5f, 1f, .5f));
-                                    editorSelectedColor.Apply();
-                                }*/
-                                if (editorSelectionTexture)
-                                {
-
-                                    GUI.DrawTexture(new Rect(5 + (j * 38), 4 + (i * 37), 32, 32), editorSelectionTexture, ScaleMode.ScaleToFit, true);
-                                }
-                            }
-
-                            // Next row
-                            if (j < columnCount)
-                            {
-                                j++;
-                            }
-                            else
-                            {
-                                // if we have enough columns to fill the scroll area, reset the column count and start a new line of buttons
-                                j = 0;
-                                i++;
-                                GUILayout.EndHorizontal();
-                                GUILayout.BeginHorizontal();
-                            }
-                            current++;
-                        }
-                    }
-                    catch (System.Exception ex)
-                    {
-                        if (ex.Message.StartsWith("IndexOutOfRangeException"))
-                        {
-                            Debug.Log("Tileset index was out of bounds, reloading and trying again.");
-                            OnEnable();
-                            return;
-                        }
-                    }
-                }
-                GUILayout.EndHorizontal();
-                EditorGUILayout.EndScrollView();
 
                 // Layers
                 GUILayout.Label("Layers:");
@@ -412,7 +457,6 @@ namespace LevelEditor
                 {
                     AddLayer();
                 }
-                String[] layerActions = { "-", "+", "x", "r" };
                 ResetLayers();
                 layerTransforms = SortLayers(layerTransforms); //Sort the layers based on their sorting order instead of name
                 int destroyFlag = -1;
@@ -442,20 +486,17 @@ namespace LevelEditor
                     }
                     GUI.skin.button.padding = tmpPadding;
 
-                    // Selection
-
+                    // Layer selection
                     if (i == renameId)
                     {
                         layerTransforms[i].name = EditorGUILayout.TextField(layerTransforms[i].name);
 
                     }
-                    else
+                    else { 
                         if (i == selectedLayerID)
                         {
-                            if (i != renameId)
-                            {
-                                EditorGUILayout.ToggleLeft(layerTransforms[i].name + " - " + layerTransforms[i].GetComponent<SpriteRenderer>().sortingOrder, true);
-                            }
+                            // Toggle it
+                            EditorGUILayout.ToggleLeft(layerTransforms[i].name + " - " + layerTransforms[i].GetComponent<SpriteRenderer>().sortingOrder, true);
                         }
                         else
                         {
@@ -465,12 +506,13 @@ namespace LevelEditor
                                 selectedLayerID = i;
                             }
                         }
+                    }
 
                     // Actions
-                    int pressedAction = GUILayout.Toolbar(-1, layerActions);
-                    switch (pressedAction)
+                    int layerActionID = GUILayout.Toolbar(-1, layerActions);
+                    switch (layerActionID)
                     {
-                        case 0:
+                        case LayerAction_Minus:
                             if (i > 0)
                             {
                                 // Moves layer and all tiles in it to move away from the camera, and moves the layer above it toward the camera.
@@ -491,7 +533,7 @@ namespace LevelEditor
                             }
                             layerTransforms = SortLayers(layerTransforms);
                             break;
-                        case 1:
+                        case LayerAction_Plus:
                             if (i < layerTransforms.Count - 1)
                             {
                                 // Moves layer and all tiles in it to move toward the camera, and moves the layer above it away from the camera.
@@ -514,19 +556,15 @@ namespace LevelEditor
                             }
                             layerTransforms = SortLayers(layerTransforms);
                             break;
-                        case 2:
+                        case LayerAction_Remove:
                             // Deletes the layer game object, which also deletes all the children
                             destroyFlag = i;
                             break;
-                        case 3:
+                        case LayerAction_Rename:
                             if (renameId == -1)
-                            {
                                 renameId = i;
-                            }
                             else
-                            {
                                 renameId = -1;
-                            }
                             break;
                         default:
                             // Do nothing if a button wasn't pressed
@@ -536,34 +574,18 @@ namespace LevelEditor
                 }
 
                 // Double check to make certain a layer of some sort is selected and is in valid range
-                if (selectedLayerID <= layerTransforms.Count - 1 && selectedLayerID > 0)
-                {
-                    currentLayerTr = layerTransforms[selectedLayerID];
-                }
-
                 if (selectedLayerID <= layerTransforms.Count - 1 && layerTransforms[selectedLayerID] != null)
                 {
                     HighlightLayer(layerTransforms[selectedLayerID].gameObject, bHighlightLayer);
-                    currentLayerTr = layerTransforms[selectedLayerID];
                 }
-                else
-                {
-                    if (layerTransforms.Count - 1 > 0 && layerTransforms[selectedLayerID] != null)
-                    {
-                        currentLayerTr = layerTransforms[selectedLayerID];
-                    }
-                    else
-                    {
 
-                    }
-                }
+                // Destroy case
                 if (destroyFlag != -1)
                 {
                     DestroyImmediate(layerTransforms[destroyFlag].gameObject);
-                    return; //Breaks method to not have errors down the line. Forces reload of tilesets to keep inside the bounds of the array.
+                    return; // Breaks method to not have errors down the line. Forces reload of tilesets to keep inside the bounds of the array.
                 }
                 destroyFlag = -1;
-
             }
         }
 
@@ -571,7 +593,7 @@ namespace LevelEditor
         {
             if (layersHolderGo != null)
             {
-                // At least one layer should be there
+                // At least one layer should always be there
                 if (layersHolderGo.transform.childCount <= 0)
                 {
                     AddLayer();
@@ -587,64 +609,88 @@ namespace LevelEditor
                 // Hit the field with the mouse
                 Ray ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+                LayerMask mask = new LayerMask();
+                mask.value = 1 << LayerMask.NameToLayer("TileEditor");
+                if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, mask.value, QueryTriggerInteraction.UseGlobal))
                 {
-                    //if (hit.collider.name != editorFieldGo.name)
-
                     // Draw the selection widget
                     Handles.BeginGUI();
                     Handles.color = Color.white;
-                    Handles.Label(currentMousePos, "(" + currentMousePos.x + "," + currentMousePos.y + ")", EditorStyles.boldLabel);
-                    Handles.DrawLine(currentMousePos + new Vector3(0, 0, 0), currentMousePos + new Vector3(1, 0, 0));
-                    Handles.DrawLine(currentMousePos + new Vector3(1, 0, 0), currentMousePos + new Vector3(1, 1, 0));
-                    Handles.DrawLine(currentMousePos + new Vector3(1, 1, 0), currentMousePos + new Vector3(0, 1, 0));
-                    Handles.DrawLine(currentMousePos + new Vector3(0, 1, 0), currentMousePos + new Vector3(0, 0, 0));
+                    Handles.Label(currentMouseSnapPos, "(" + currentMouseSnapPos.x + "," + currentMouseSnapPos.y + ")", EditorStyles.boldLabel);
+                    Handles.DrawLine(currentMouseSnapPos + new Vector3(0, 0, 0), currentMouseSnapPos + new Vector3(1, 0, 0));
+                    Handles.DrawLine(currentMouseSnapPos + new Vector3(1, 0, 0), currentMouseSnapPos + new Vector3(1, 1, 0));
+                    Handles.DrawLine(currentMouseSnapPos + new Vector3(1, 1, 0), currentMouseSnapPos + new Vector3(0, 1, 0));
+                    Handles.DrawLine(currentMouseSnapPos + new Vector3(0, 1, 0), currentMouseSnapPos + new Vector3(0, 0, 0));
                     Handles.EndGUI();
+
+                    int x = Mathf.FloorToInt(hit.point.x);
+                    int y = Mathf.FloorToInt(hit.point.y);
 
                     // Mouse action
                     if (e.isMouse)
                     {
                         if (e.button == 0 && (e.type == EventType.MouseUp || e.type == EventType.MouseDrag))
                         {
-                            if (currentToolID == 0) // @todo: should be an ENUM
+                            string coordsString = "(" + x + "," + y + ")";
+                            string nameString = "";
+                            switch (currentModeID)
                             {
-                                GameObject tmpObj = GenerateTile(hit.point.x, hit.point.y);
-                                Undo.RegisterCreatedObjectUndo(tmpObj, "Created Tile");
-                                Sprite[] tmpSelectedSprites = new Sprite[selectedTilesSprites.Count];
-                                selectedTilesSprites.CopyTo(tmpSelectedSprites);
-
-                                // Choose a tile at random from the selected ones //@todo: remove this!
-                                if (tmpSelectedSprites.Length > 0)
-                                {
-                                    tmpObj.GetComponent<SpriteRenderer>().sprite = tmpSelectedSprites[UnityEngine.Random.Range((int)0, (int)tmpSelectedSprites.Length)];
-                                    tmpObj.transform.localPosition = new Vector3(Mathf.Floor(hit.point.x) + .5f, Mathf.Floor(hit.point.y) + .5f, layerTransforms[selectedLayerID].transform.position.z);
-                                }
-                                else
-                                {
-                                    Debug.LogWarning("Tile not selected for painting. Please select a tile to paint.");
-                                }
+                                case Mode_Tiles: nameString = "Tile"; break;
+                                case Mode_Prefabs: nameString = "O-" + selectedPrefab.name; break;
                             }
-                            else if (currentToolID == 1)
+
+                            switch (currentToolID)
                             {
-                                Transform tmpObj = layerTransforms[selectedLayerID].Find("Tile|" + (Mathf.Floor(hit.point.x) + .5f) + "|" + (Mathf.Floor(hit.point.y) + .5f));
-                                if (tmpObj != null)
-                                {
-                                    Undo.DestroyObjectImmediate(tmpObj.gameObject);
-                                }
+                                case Tool_Paint:
+                                    GameObject tmpObj = null;
+                                    switch (currentModeID)
+                                    {
+                                        case Mode_Tiles:
+                                            tmpObj = GenerateSpriteTile(nameString, coordsString);
+
+                                            Sprite[] tmpSelectedSprites = new Sprite[selectedTilesSprites.Count];
+                                            selectedTilesSprites.CopyTo(tmpSelectedSprites);
+
+                                            // Choose a tile at random from the selected ones //@todo: remove this?
+                                            if (tmpSelectedSprites.Length > 0)
+                                            {
+                                                tmpObj.GetComponent<SpriteRenderer>().sprite = tmpSelectedSprites[UnityEngine.Random.Range((int)0, (int)tmpSelectedSprites.Length)];
+                                            }
+                                            else
+                                            {
+                                                Debug.LogWarning("Tile not selected for painting. Please select a tile to paint.");
+                                            }
+                                            break;
+                                        case Mode_Prefabs:
+                                            tmpObj = GenerateObjectTile(nameString, coordsString, selectedPrefab);
+                                            break;
+                                    }
+                                    Undo.RegisterCreatedObjectUndo(tmpObj, "Created Tile");
+
+                                    if (selectedLayerID > layerTransforms.Count - 1)
+                                    {
+                                        selectedLayerID = layerTransforms.Count - 1;
+                                        ResetLayers();
+                                        layerTransforms = SortLayers(layerTransforms);
+                                    }
+                                    tmpObj.transform.localPosition = new Vector3(x + .5f, y + .5f, layerTransforms[selectedLayerID].transform.position.z);
+                                    tmpObj.transform.parent = layerTransforms[selectedLayerID];
+                                    tmpObj.transform.localScale = new Vector3(1, 1, 1);
+                                    tmpObj.tag = "Tile";
+                                    break;
+
+                                case Tool_Erase:
+                                    DestroyTilesAt(layerTransforms[selectedLayerID], coordsString);
+                                    break;
                             }
                         }
-
                     }
-                    currentMousePos.x = (float)Mathf.Floor(hit.point.x);
-                    currentMousePos.y = (float)Mathf.Floor(hit.point.y);
-                    if (currentLayerTr != null)
-                    {
-                        currentMousePos.z = currentLayerTr.position.z - 1;
-                    }
+                    currentMouseSnapPos.x = (float)x;
+                    currentMouseSnapPos.y = (float)y;
+                    if (layerTransforms[selectedLayerID] != null)
+                        currentMouseSnapPos.z = layerTransforms[selectedLayerID].position.z - 1;
                     else
-                    {
-                        currentMousePos.z = 0;
-                    }
+                        currentMouseSnapPos.z = 0;
                 }
             }
             else
@@ -659,40 +705,42 @@ namespace LevelEditor
 
         #region Tile Generation
 
-        static GameObject GenerateTile(float x, float y)
+        static GameObject GenerateSpriteTile(string nameString, string coordsString)
         {
-            string tileName = "Tile " + "(" + (Mathf.Floor(x)) + "," + (Mathf.Floor(y)) + ")";
+            string completeName = nameString + coordsString;
+
+            DestroyTilesAt(layerTransforms[selectedLayerID], coordsString);
 
             GameObject tmpObj = null;
-            if (currentLayerTr != null)
-            {
-                Transform[] children = currentLayerTr.gameObject.GetComponentsInChildren<Transform>();
-                if (children != null)
-                {
-                    foreach (Transform current in children)
-                    {
-                        if (current.name == tileName && current.parent == currentLayerTr)
-                        {
-                            tmpObj = current.gameObject;
-                        }
-                    }
-                }
-            }
-            if (tmpObj == null)
-            {
-                tmpObj = new GameObject(tileName);
-                tmpObj.AddComponent<SpriteRenderer>();
-            }
-            if (selectedLayerID > layerTransforms.Count - 1)
-            {
-                selectedLayerID = layerTransforms.Count - 1;
-                ResetLayers();
-                layerTransforms = SortLayers(layerTransforms);
-            }
-            tmpObj.transform.parent = layerTransforms[selectedLayerID];
+            tmpObj = new GameObject(completeName);
+            tmpObj.AddComponent<SpriteRenderer>();
             tmpObj.GetComponent<SpriteRenderer>().sortingOrder = layerTransforms[selectedLayerID].GetComponent<SpriteRenderer>().sortingOrder;
-            tmpObj.transform.localScale = new Vector3(1, 1, 1);
-            tmpObj.tag = "Tile";
+           
+            SceneView.RepaintAll();
+            return tmpObj;
+        }
+
+        static void DestroyTilesAt(Transform layer, string coordsString)
+        {
+            // Destroy any tile in that place and layer
+            if (layer != null)
+            {
+                Transform[] children = layer.gameObject.GetComponentsInChildren<Transform>();
+                foreach (Transform current in children)
+                    if (current && current.name.Contains(coordsString) && current.parent == layer)
+                        DestroyImmediate(current.gameObject);
+            }
+        }
+
+        static GameObject GenerateObjectTile(string nameString, string coordsString, GameObject prefabGo)
+        {
+            string completeName = nameString + coordsString;
+
+            DestroyTilesAt(layerTransforms[selectedLayerID], coordsString);
+
+            GameObject tmpObj = null;
+            tmpObj = PrefabUtility.InstantiatePrefab(prefabGo) as GameObject;
+            tmpObj.name = completeName;
 
             SceneView.RepaintAll();
             return tmpObj;
