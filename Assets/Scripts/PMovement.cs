@@ -52,8 +52,8 @@ namespace Spacchiamo
                     {
                         if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
                         {
-                            Ui_Manager.instance.IncreasingFearBar();
-                            Ui_Manager.instance.SettingFearValue();
+                            pControllerLink.FearValue++;
+                            Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
                         }
                     }
 
@@ -61,12 +61,13 @@ namespace Spacchiamo
                     else
                     {
                         pControllerLink.fearTurnCounter = 0;
-                        Ui_Manager.instance.ResettingFearBar();
-                        Ui_Manager.instance.SettingFearValue();
+                        pControllerLink.FearValue = 0;
+                        Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
                         Enemies_Manager.instance.ClearAggro();
                     }
                     //Increasing Turn Counter
-                    Ui_Manager.instance.IncreasingTurnCount();
+                    pControllerLink.TurnValue++;
+                    Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
                 }
             }
             else

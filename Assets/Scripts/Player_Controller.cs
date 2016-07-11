@@ -8,7 +8,9 @@ namespace Spacchiamo
         public int fearTurnCounter = 0;
         PMovement moveLink;
 
-        public int Life = 3;
+        public int Life = 20;
+        public int FearValue = 0;
+        public int TurnValue = 0;
 
         void Awake()
         {

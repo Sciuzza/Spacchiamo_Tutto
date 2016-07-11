@@ -51,7 +51,7 @@ namespace Spacchiamo
 
 		private void SettingFearBar(int playerFear)
         {
-			fearBar.value = 1f/playerFear;
+			fearBar.value = playerFear;
         }
 
 
