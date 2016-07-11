@@ -8,8 +8,8 @@ namespace Spacchiamo
     public class Ui_Manager : MonoBehaviour
     {
         Text fear, turnCount;
-        Image fearBar;
-        int turnCounter = 0;
+		Slider fearBar;
+		UILifePanelScript lifePanelScript;
 
 
         [HideInInspector]
@@ -23,34 +23,46 @@ namespace Spacchiamo
                 Destroy(gameObject);
 
 
-            fear = GameObject.Find("Fear Value").GetComponent<Text>();
-            fearBar = GameObject.Find("Fear Bar").GetComponent<Image>();
+			fear = GameObject.Find("Fear Counter").GetComponent<Text>();
+			fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
 
-            turnCount = GameObject.Find("Turn Count").GetComponent<Text>();
+			turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
+
+			lifePanelScript = GameObject.Find ("Life Panel").GetComponent<UILifePanelScript>();
 
         }
 
+		//AGGIUNTA DI MARCO
+		void Start ()
+		{
+			lifePanelScript.UISetLife ();
+			SettingTurnValue (0);
+			fear.text = string.Format ("{00}", 0);
+			fearBar.value = 0f;
+		}
+		//FINE AGGIUNTA DI MARCO
 
 
-        public void SettingFearValue()
+		public void SettingFearValue(int playerFear)
         {
-            fear.text = "Fear : " + Mathf.RoundToInt(fearBar.fillAmount / 0.010f);
+			fear.text = string.Format ("{00}", playerFear);
+			SettingFearBar (playerFear);
         }
 
-        public void IncreasingFearBar()
+		private void SettingFearBar(int playerFear)
         {
-            fearBar.fillAmount += 0.010f;
+			fearBar.value = 1f/playerFear;
         }
 
-        public void ResettingFearBar()
+
+		public void SettingTurnValue(int turnValue)
         {
-            fearBar.fillAmount = 0.0f;
+			turnCount.text = string.Format ("{000}", turnValue);
         }
 
-        public void IncreasingTurnCount()
-        {
-            turnCounter++;
-            turnCount.text = "Turn Number : " + turnCounter;
-        }
+		public void SettingLife (int playerLife)
+		{
+			lifePanelScript.UISetLife (playerLife);
+		}
     }
 }
