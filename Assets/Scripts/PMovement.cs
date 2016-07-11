@@ -9,8 +9,8 @@ namespace Spacchiamo
         Vector2 distance = new Vector2(-100, -100), direction;
 
         private bool isMoving = false;
-        private int whereI, whereJ;
-        private Transform whereToGo = null;
+        public int whereI, whereJ;
+        public Transform whereToGo = null;
 
 
         private Player_Controller pControllerLink;
@@ -42,7 +42,7 @@ namespace Spacchiamo
                 if (this.distance.sqrMagnitude < 0.005f)
                 {
                     this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
-                    whereToGo = null;
+                    //whereToGo = null;
                     isMoving = false;
                     //Getting the light around the player
                     Grid_Manager.instance.GettingLight(whereI, whereJ);
@@ -63,6 +63,7 @@ namespace Spacchiamo
                         pControllerLink.fearTurnCounter = 0;
                         Ui_Manager.instance.ResettingFearBar();
                         Ui_Manager.instance.SettingFearValue();
+                        Enemies_Manager.instance.ClearAggro();
                     }
                     //Increasing Turn Counter
                     Ui_Manager.instance.IncreasingTurnCount();
@@ -77,8 +78,8 @@ namespace Spacchiamo
                         whereToGo = Grid_Manager.instance.CheckingUpCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereI++;
+                            isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
                         else
@@ -90,8 +91,8 @@ namespace Spacchiamo
                         whereToGo = Grid_Manager.instance.CheckingDownCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereI--;
+                            isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
                         else
@@ -103,8 +104,8 @@ namespace Spacchiamo
                         whereToGo = Grid_Manager.instance.CheckingLeftCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereJ--;
+                            isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (!pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
@@ -118,8 +119,8 @@ namespace Spacchiamo
                         whereToGo = Grid_Manager.instance.CheckingRightCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereJ++;
+                            isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();

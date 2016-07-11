@@ -9,10 +9,15 @@ namespace Spacchiamo
 
         Vector2 distance = new Vector2(-100, -100), direction;
 
-        private bool isMoving = false;
+        public bool isMoving = false;
         public bool move_done = false;
-        private int whereI, whereJ;
+        public int whereI, whereJ;
+        public int whereIComBack, whereJComBack;
         public Transform whereToGo = null;
+
+        public bool isRangeChecked = false;
+
+        Ability1 abilityLink;
 
         public List<Cell_Interaction> patrolArea;
 
@@ -31,7 +36,8 @@ namespace Spacchiamo
             moveDirection.Add(2);
             moveDirection.Add(3);
 
-           
+            abilityLink = this.GetComponent<Ability1>();
+
         }
 
         void Update()
@@ -39,23 +45,42 @@ namespace Spacchiamo
             if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.npcEnemyTurn)
             {
                 if (!eControllerLink.isAggroed)
-                    Patrolling();
+                {
+                    if (!eControllerLink.isComingBack)
+                        Patrolling();
+                    else
+                        ComingBack();
+                }
                 else
-                    Following();
+                {
+                    if (!isRangeChecked)
+                    {
+                        if (CheckingRange())
+                            Attacking();
+                    }
+                    else
+                        Following();
+                }
             }
             else if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
+            {
                 move_done = false;
+                isRangeChecked = false;
+                
+            }
         }
 
 
         public void SettingWhereI(int row)
         {
             whereI = row;
+            whereIComBack = row;
         }
 
         public void SettingWhereJ(int column)
         {
             whereJ = column;
+            whereJComBack = column;
         }
 
         public int GettingRow()
@@ -67,6 +92,8 @@ namespace Spacchiamo
         {
             return whereJ;
         }
+
+
 
         public void InitalizingPatrolArea(List<Cell_Interaction> area)
         {
@@ -84,6 +111,9 @@ namespace Spacchiamo
             moveDirection.Add(3);
         }
 
+
+
+        //Possible Enemy Actions
 
         private void Patrolling()
         {
@@ -177,6 +207,38 @@ namespace Spacchiamo
                 TranslatingPosition();
         }
 
+        private void ComingBack()
+        {
+
+            if (!isMoving && !move_done)
+            {
+                possibleMoves.Clear();
+                possibleMoves.TrimExcess();
+                possibleMoves = new List<Transform>();
+
+                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(whereI, whereJ);
+
+                Grid_Manager.instance.SwitchingOccupiedStatus(whereI, whereJ);
+                whereToGo = Grid_Manager.instance.FindFastestBackRoute(possibleMoves, whereIComBack, whereJComBack, out whereI, out whereJ);
+                isMoving = true;
+
+            }
+            else if (isMoving)
+                TranslatingPosition();
+        
+
+    }
+
+        private void Attacking()
+        {
+            if (!move_done)
+            {
+                Grid_Manager.instance.MakeDamageToPlayer(abilityLink.damage);
+                move_done = true;
+            }
+            
+        }
+
 
         private void TranslatingPosition()
         {
@@ -191,6 +253,24 @@ namespace Spacchiamo
                 move_done = true;
                 isMoving = false;
 
+                if (whereI == whereIComBack && whereJ == whereJComBack && eControllerLink.isComingBack)
+                    eControllerLink.isComingBack = false;
+
+            }
+        }
+
+
+        private bool CheckingRange()
+        {
+            if (!abilityLink.isInCooldown && Grid_Manager.instance.CalcEnemyPlayDist(whereI, whereJ) == abilityLink.range)
+            {
+                isRangeChecked = true;
+                return true;
+            }
+            else
+            {
+                isRangeChecked = true;
+                return false;
             }
         }
     }

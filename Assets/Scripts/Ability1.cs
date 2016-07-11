@@ -7,11 +7,13 @@ namespace Spacchiamo
     public class Ability1 : MonoBehaviour
     {
 
-        public const int damage = 1;
-        public const int range = 1;
-        public const int area = 1;
-        public const int dot = 1;
-        public const int cooldown = 1;
+        public int damage = 1;
+        public int range = 1;
+        public int area = 1;
+        public int dot = 1;
+        public int cooldown = 1;
+
+        public bool isInCooldown;
      
     }
 

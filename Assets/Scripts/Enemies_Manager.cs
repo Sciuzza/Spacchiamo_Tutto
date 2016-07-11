@@ -19,7 +19,7 @@ namespace Spacchiamo
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
-       
+
 
         }
 
@@ -66,10 +66,10 @@ namespace Spacchiamo
             bool inPosition = true;
 
             for (int i = 0; i < enemyReferences.Count && inPosition; i++)
-            {              
-                    if (!enemyReferences[i].GetComponent<Enemy_Patrolling>().move_done)
-                        inPosition = false;
-                
+            {
+                if (!enemyReferences[i].GetComponent<Enemy_Patrolling>().move_done)
+                    inPosition = false;
+
             }
 
             return inPosition;
@@ -81,7 +81,34 @@ namespace Spacchiamo
             for (int i = 0; i < enemyReferences.Count; i++)
             {
                 if (Grid_Manager.instance.IsEnemyInAggroCell(enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingRow(), enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingColumn()))
-                    enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = true;
+                {
+                    if (!enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
+                    {
+                        enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = true;
+                        enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = false;
+                    }
+                }
+
+                if (enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
+                {
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter == 2)
+                        enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = false;
+                    else
+                        enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter++;
+                }
+            }
+        }
+
+        public void ClearAggro()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                if (enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed)
+                {
+                    enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = false;
+                    enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = true;
+                    enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = true;
+                }
             }
         }
     }

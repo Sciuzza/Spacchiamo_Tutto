@@ -7,16 +7,24 @@ namespace Spacchiamo
     {
 
         Enemy_Patrolling patrolLink;
+        
+
         SpriteRenderer manageSprite;
         Sprite original;
 
         public bool isAggroed = false;
+        public bool isComingBack = false;
+        public bool isIgnoringAggro = false;
+        public int aggroIgnoringCounter = 0;
+
+     
 
         void Awake()
         {
             patrolLink = GetComponent<Enemy_Patrolling>();
             manageSprite = GetComponent<SpriteRenderer>();
-            original = manageSprite.sprite;
+            original = manageSprite.sprite;            
+            
         }
 
 

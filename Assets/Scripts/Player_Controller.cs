@@ -8,6 +8,8 @@ namespace Spacchiamo
         public int fearTurnCounter = 0;
         PMovement moveLink;
 
+        public int Life = 3;
+
         void Awake()
         {
             moveLink = GetComponent<PMovement>();
@@ -34,6 +36,16 @@ namespace Spacchiamo
 
             // Initializing Light
             Grid_Manager.instance.GettingLight(moveLink.GettingRow(), moveLink.GettingColumn());
+        }
+
+
+        void Update()
+        {
+            if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                    Game_Controller.instance.ChangePhase(Game_Controller.GAME_PHASE.playerTurn);
+            }
         }
 
 

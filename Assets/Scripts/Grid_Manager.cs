@@ -505,6 +505,51 @@ namespace Spacchiamo
                 return moves[posFound];
            
         }
+
+        public Transform FindFastestBackRoute(List<Transform> moves, int whereIComeBack, int whereJComeBack, out int whereI, out int whereJ)
+        {
+            float min = Mathf.Abs(moves[0].position.x - cellReferences[whereIComeBack, whereJComeBack].transform.position.x) + Mathf.Abs(moves[0].position.y - 
+                cellReferences[whereIComeBack, whereJComeBack].transform.position.y);
+
+            int posFound = 0;
+
+            if (moves.Count > 1)
+            {
+                for (int i = 1; i < moves.Count; i++)
+                {
+                    int current = Mathf.RoundToInt(Mathf.Abs(moves[i].position.x - cellReferences[whereIComeBack, whereJComeBack].transform.position.x)
+                        + Mathf.Abs(moves[i].position.y - cellReferences[whereIComeBack, whereJComeBack].transform.position.y));
+
+                    if (current <= min)
+                    {
+                        min = current;
+                        posFound = i;
+                    }
+                }
+            }
+
+
+
+            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_i;
+            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_j;
+            SwitchingOccupiedStatus(whereI, whereJ);
+
+            return moves[posFound];
+        }
+
+        public int CalcEnemyPlayDist(int row, int column)
+        {
+
+            Vector3 playerPos = playerTemp.GetComponent<PMovement>().whereToGo.position;
+
+            return Mathf.RoundToInt(Mathf.Abs(playerPos.x - cellReferences[row, column].gameObject.transform.position.x) +
+                Mathf.Abs(playerPos.y - cellReferences[row, column].gameObject.transform.position.y));
+        }
+
+        public void MakeDamageToPlayer(int damage)
+        {
+            playerTemp.GetComponent<Player_Controller>().Life -= damage;
+        }
         
     }
 }
