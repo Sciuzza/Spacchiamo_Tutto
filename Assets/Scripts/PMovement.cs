@@ -147,6 +147,3 @@ namespace Spacchiamo
     }
 
 }
-
-
-
