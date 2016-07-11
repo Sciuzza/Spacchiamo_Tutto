@@ -47,7 +47,7 @@ namespace Spacchiamo
                     cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
 
                     cellTemp.name = "Cell " + i + " , " + j;
-                    cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f, (i - cellReferences.GetLength(0) / 2) + 0.5f, 1);
+                    cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f -25f, (i - cellReferences.GetLength(0) / 2) + 0.5f - 17f, 1);
 
                     cellReferences[i, j].cell_i = i;
                     cellReferences[i, j].cell_j = j;
@@ -55,6 +55,9 @@ namespace Spacchiamo
                     cellTemp.transform.SetParent(mapTemp.transform);
 
                     cellTemp.layer = layerCount;
+
+                    cellReferences[i, j].tileCell = GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")");
+
 
                     // Fog Of War
                     ChangingAlpha(0.0f, cellTemp);

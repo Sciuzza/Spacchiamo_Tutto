@@ -11,6 +11,8 @@ namespace Spacchiamo
         // For Wall and Moving Objects
         public bool isOccupied = false;
 
+        public GameObject tileCell;
+
 
         // for Aggro
         public bool aggroCell = false;

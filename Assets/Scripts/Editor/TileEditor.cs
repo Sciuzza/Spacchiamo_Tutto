@@ -8,7 +8,7 @@ using System.IO;
 // @todo: make layers without sorting layers, with specific ids instead, or just use their transform order
 // @todo:make sure to tell them to use the layer
 
-namespace LevelEditor
+namespace Spacchiamo
 {
     [ExecuteInEditMode]
     public class TileEditorWindow : EditorWindow
