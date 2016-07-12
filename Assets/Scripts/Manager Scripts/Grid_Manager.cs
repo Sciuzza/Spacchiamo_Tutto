@@ -76,7 +76,7 @@ namespace Spacchiamo
                     ChangingAlpha(0.0f, cellTemp);
                 }
             }
-
+            Debug.Log(Time.realtimeSinceStartup);
         }
 
       
