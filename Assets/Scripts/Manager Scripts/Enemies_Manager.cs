@@ -15,17 +15,20 @@ namespace Spacchiamo
 
         void Awake()
         {
+            #region SingleTone
+
             if (instance == null)
                 instance = this;
             else if (instance != this)
-                Destroy(gameObject);
-
+                Destroy(gameObject); 
+            #endregion
 
         }
 
-        // Update is called once per frame
+        
         void Update()
         {
+            // Necessary to understand when switch to player turn again
             if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.npcEnemyTurn)
             {
                 if (AreEnemiesInPosition())
@@ -33,8 +36,26 @@ namespace Spacchiamo
             }
         }
 
+        // Depends on moveDone boolean of each enemy 
+        private bool AreEnemiesInPosition()
+        {
+            bool inPosition = true;
+
+            for (int i = 0; i < enemyReferences.Count && inPosition; i++)
+            {
+                if (!enemyReferences[i].GetComponent<Enemy_Patrolling>().move_done)
+                    inPosition = false;
+
+            }
+
+            return inPosition;
+        }
+
+        // Need to be scene based and to position enemies randomly in precise areas
         public void PreparingEnemies()
         {
+            #region OldRandomization Algorithm
+
             for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
             {
                 switch (Random.Range(1, 4))
@@ -54,26 +75,13 @@ namespace Spacchiamo
                         enemyTemp = Instantiate(enemyTemp);
                         enemyReferences.Add(enemyTemp);
                         break;
-                }
-
-
+                } 
+                #endregion
 
             }
         }
 
-        private bool AreEnemiesInPosition()
-        {
-            bool inPosition = true;
-
-            for (int i = 0; i < enemyReferences.Count && inPosition; i++)
-            {
-                if (!enemyReferences[i].GetComponent<Enemy_Patrolling>().move_done)
-                    inPosition = false;
-
-            }
-
-            return inPosition;
-        }
+       
 
 
         public void CheckingAggro()

@@ -25,7 +25,7 @@ namespace Spacchiamo
                 Destroy(gameObject);
         }
 
-        // Used to Create the Logic Grid in the begin
+        // Used to Create the Logic Grid in the begin, needs to be scene based
         public void PreparingGridSpace()
         {
 
