@@ -6,14 +6,14 @@ namespace Spacchiamo
     public class Cell_Interaction : MonoBehaviour
     {
 
-        public int cell_i, cell_j;
+        public int xCell, yCell;
 
         // For Wall and Moving Objects
         public bool isOccupied = false;
 
         public GameObject tileCell;
 
-        Player_Controller playerLink;
+        
 
 
         // for Aggro
@@ -26,29 +26,24 @@ namespace Spacchiamo
 
 
 
-        void Start()
-        {
-
-            playerLink = GameObject.Find("Player(Clone)").GetComponent<Player_Controller>();
-        }
+       
 
 
         void OnMouseDown()
         {
-          
+
+            Player_Controller playerLink = Game_Controller.instance.TakingPlayerRef().GetComponent<Player_Controller>();
+
             if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn && playerLink.attackSelection)
             {
-                if (Enemies_Manager.instance.EnemyIsHere(cell_i, cell_j))
-                    Enemies_Manager.instance.DestroyEnemy(cell_i, cell_j);
+                if (Enemies_Manager.instance.EnemyIsHere(xCell, yCell))
+                    Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
 
                 Game_Controller.instance.ChangePhase(Game_Controller.GAME_PHASE.playerTurn);
             }
         }
 
-        void OnMouseOver()
-        {
-
-        }
+     
 
         public void SettingFalo()
         {
@@ -68,7 +63,7 @@ namespace Spacchiamo
         {
             isOccupied = false;
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            Grid_Manager.instance.AddingPosition(this);
+            //Grid_Manager.instance.AddingPosition(this);
            
         }
 

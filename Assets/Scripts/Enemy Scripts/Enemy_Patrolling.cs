@@ -11,8 +11,8 @@ namespace Spacchiamo
 
         public bool isMoving = false;
         public bool move_done = false;
-        public int whereI, whereJ;
-        public int whereIComBack, whereJComBack;
+        public int xEnemy, yEnemy;
+        public int xComeBack, yComeBack;
         public Transform whereToGo = null;
 
         public bool isRangeChecked = false;
@@ -71,26 +71,26 @@ namespace Spacchiamo
         }
 
 
-        public void SettingWhereI(int row)
+        public void SettingXEnemy(int xEnemy)
         {
-            whereI = row;
-            whereIComBack = row;
+            this.xEnemy = xEnemy;
+            xComeBack = xEnemy;
         }
 
-        public void SettingWhereJ(int column)
+        public void SettingYEnemy(int yEnemy)
         {
-            whereJ = column;
-            whereJComBack = column;
+            this.yEnemy = yEnemy;
+            yComeBack = yEnemy;
         }
 
-        public int GettingRow()
+        public int GettingXEnemy()
         {
-            return whereI;
+            return xEnemy;
         }
 
-        public int GettingColumn()
+        public int GettingYEnemy()
         {
-            return whereJ;
+            return yEnemy;
         }
 
 
@@ -126,10 +126,10 @@ namespace Spacchiamo
                     switch (moveDirection[chosenDirection])
                     {
                         case 0:
-                            whereToGo = Grid_Manager.instance.CheckingUpCell(whereI, whereJ, patrolArea);
+                            whereToGo = Grid_Manager.instance.CheckingUpCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                whereI++;
+                                xEnemy++;
                                 isMoving = true;
                             }
                             else
@@ -138,10 +138,10 @@ namespace Spacchiamo
                             }
                             break;
                         case 1:
-                            whereToGo = Grid_Manager.instance.CheckingDownCell(whereI, whereJ, patrolArea);
+                            whereToGo = Grid_Manager.instance.CheckingDownCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                whereI--;
+                                xEnemy--;
                                 isMoving = true;
                             }
                             else
@@ -150,10 +150,10 @@ namespace Spacchiamo
                             }
                             break;
                         case 2:
-                            whereToGo = Grid_Manager.instance.CheckingLeftCell(whereI, whereJ, patrolArea);
+                            whereToGo = Grid_Manager.instance.CheckingLeftCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                whereJ--;
+                                yEnemy--;
                                 isMoving = true;
                             }
                             else
@@ -162,10 +162,10 @@ namespace Spacchiamo
                             }
                             break;
                         case 3:
-                            whereToGo = Grid_Manager.instance.CheckingRightCell(whereI, whereJ, patrolArea);
+                            whereToGo = Grid_Manager.instance.CheckingRightCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                whereJ++;
+                                yEnemy++;
                                 isMoving = true;
                             }
                             else
@@ -196,10 +196,10 @@ namespace Spacchiamo
                 possibleMoves.TrimExcess();
                 possibleMoves = new List<Transform>();
 
-                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(whereI, whereJ);
+                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
 
-                Grid_Manager.instance.SwitchingOccupiedStatus(whereI, whereJ);
-                whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out whereI, out whereJ);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
                 isMoving = true;
 
             }
@@ -216,10 +216,10 @@ namespace Spacchiamo
                 possibleMoves.TrimExcess();
                 possibleMoves = new List<Transform>();
 
-                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(whereI, whereJ);
+                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
 
-                Grid_Manager.instance.SwitchingOccupiedStatus(whereI, whereJ);
-                whereToGo = Grid_Manager.instance.FindFastestBackRoute(possibleMoves, whereIComBack, whereJComBack, out whereI, out whereJ);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                whereToGo = Grid_Manager.instance.FindFastestBackRoute(possibleMoves, xComeBack, yComeBack, out xEnemy, out yEnemy);
                 isMoving = true;
 
             }
@@ -253,7 +253,7 @@ namespace Spacchiamo
                 move_done = true;
                 isMoving = false;
 
-                if (whereI == whereIComBack && whereJ == whereJComBack && eControllerLink.isComingBack)
+                if (xEnemy == xComeBack && yEnemy == yComeBack && eControllerLink.isComingBack)
                     eControllerLink.isComingBack = false;
 
             }
@@ -262,7 +262,7 @@ namespace Spacchiamo
 
         private bool CheckingRange()
         {
-            if (!abilityLink.isInCooldown && Grid_Manager.instance.CalcEnemyPlayDist(whereI, whereJ) == abilityLink.range)
+            if (!abilityLink.isInCooldown && Grid_Manager.instance.CalcEnemyPlayDist(xEnemy, yEnemy) == abilityLink.range)
             {
                 isRangeChecked = true;
                 return true;

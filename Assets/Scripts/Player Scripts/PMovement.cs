@@ -9,7 +9,7 @@ namespace Spacchiamo
         Vector2 distance = new Vector2(-100, -100), direction;
 
         private bool isMoving = false;
-        public int whereI, whereJ;
+        public int xPlayer, yPlayer;
         public Transform whereToGo = null;
 
 
@@ -18,11 +18,8 @@ namespace Spacchiamo
         private void Awake()
         {
             pControllerLink = this.GetComponent<Player_Controller>();
-
-
-            whereI = Game_Controller.instance.GettingRowPStartPosition();
-            whereJ = Game_Controller.instance.GettingColumnPStartPosition();
-
+            xPlayer = Mathf.FloorToInt(this.transform.position.x);
+            yPlayer = Mathf.FloorToInt(this.transform.position.y);          
         }
 
 
@@ -45,10 +42,10 @@ namespace Spacchiamo
                     //whereToGo = null;
                     isMoving = false;
                     //Getting the light around the player
-                    Grid_Manager.instance.GettingLight(whereI, whereJ);
+                    Grid_Manager.instance.GettingLight(xPlayer, yPlayer);
 
                     //Increasing Fear Bar and Fear Value by 1
-                    if (!Grid_Manager.instance.IsCellReceivingLight(whereI, whereJ))
+                    if (!Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer))
                     {
                         if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
                         {
@@ -76,10 +73,10 @@ namespace Spacchiamo
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
-                        whereToGo = Grid_Manager.instance.CheckingUpCell(whereI, whereJ);
+                        whereToGo = Grid_Manager.instance.CheckingUpCell(xPlayer, yPlayer);
                         if (whereToGo != null)
                         {
-                            whereI++;
+                            yPlayer++;
                             isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
@@ -89,10 +86,10 @@ namespace Spacchiamo
                     }
                     else if (Input.GetKey(KeyCode.S))
                     {
-                        whereToGo = Grid_Manager.instance.CheckingDownCell(whereI, whereJ);
+                        whereToGo = Grid_Manager.instance.CheckingDownCell(xPlayer, yPlayer);
                         if (whereToGo != null)
                         {
-                            whereI--;
+                            yPlayer--;
                             isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
@@ -102,10 +99,10 @@ namespace Spacchiamo
                     }
                     else if (Input.GetKey(KeyCode.A))
                     {
-                        whereToGo = Grid_Manager.instance.CheckingLeftCell(whereI, whereJ);
+                        whereToGo = Grid_Manager.instance.CheckingLeftCell(xPlayer, yPlayer);
                         if (whereToGo != null)
                         {
-                            whereJ--;
+                            xPlayer--;
                             isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (!pControllerLink.IsFlipped())
@@ -117,10 +114,10 @@ namespace Spacchiamo
                     }
                     else if (Input.GetKey(KeyCode.D))
                     {
-                        whereToGo = Grid_Manager.instance.CheckingRightCell(whereI, whereJ);
+                        whereToGo = Grid_Manager.instance.CheckingRightCell(xPlayer, yPlayer);
                         if (whereToGo != null)
                         {
-                            whereJ++;
+                            xPlayer++;
                             isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (pControllerLink.IsFlipped())
@@ -136,14 +133,14 @@ namespace Spacchiamo
         }
 
 
-        public int GettingRow()
+        public int GettingXPlayer()
         {
-            return whereI;
+            return xPlayer;
         }
 
-        public int GettingColumn()
+        public int GettingyPlayer()
         {
-            return whereJ;
+            return yPlayer;
         }
     }
 

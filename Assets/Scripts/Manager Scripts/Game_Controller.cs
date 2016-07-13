@@ -48,7 +48,7 @@ namespace Spacchiamo
 
         // Camera and Player References
         Camera_Movement cameraLink;
-        GameObject movingObjTemp;
+        GameObject PlayerTemp;
 
         [HideInInspector]
         public static Game_Controller instance = null;
@@ -74,34 +74,25 @@ namespace Spacchiamo
         void Start()
         {
 
-
-
-            #region AllScenesExceptNoGameplayOnes
-            // Getting Camera Reference 
+            //Getting Camera Reference 
             cameraLink = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
 
-            //Initializing Player 
-            movingObjTemp = Resources.Load<GameObject>("Player");
-            movingObjTemp = Instantiate(movingObjTemp);
+            //Initalizing Level Grid Space, needs to be scene based
+            //Grid_Manager.instance.PreparingGridSpace();
 
-           
+            Grid_Manager.instance.PreparingOptimizedGridSpace();
 
-                #endregion
 
-                #region SceneBased
+            //Initializing Light
+            Grid_Manager.instance.GettingLight(PlayerTemp.GetComponent<PMovement>().GettingXPlayer(), PlayerTemp.GetComponent<PMovement>().GettingyPlayer());
 
-                //Initalizing Level Grid Space, needs to be scene based
-                Grid_Manager.instance.PreparingGridSpace();
+            //Initializing PatrolArea
+            Enemies_Manager.instance.PatrolArea();
 
-            //Initializing Enemy, needs to be scene based
-            Enemies_Manager.instance.PreparingEnemies();
-            #endregion
-
+            //Initializing Camera on Player
+            cameraLink.target = PlayerTemp;
 
         }
-
-
-
 
         public void ChangePhase(GAME_PHASE passedPhase)
         {
@@ -121,37 +112,14 @@ namespace Spacchiamo
 
         }
 
-
-
-        // Methods necessary for the Player Initialization
-        public void InitializingCamera(GameObject playerInstance)
+        public void GivingPlayerRef(GameObject Player)
         {
-            cameraLink.target = playerInstance;
+            PlayerTemp = Player;
         }
 
-        public int GettingRowPStartPosition()
+        public GameObject TakingPlayerRef()
         {
-            return 4;
+            return PlayerTemp;
         }
-
-        public int GettingColumnPStartPosition()
-        {
-            return 34;
-        }
-
-        /*
-                private List<ability> RandomicList()
-                {
-
-                    List<ability> randomic = new List<ability>();
-
-
-                    ability randomAbility = new ability();
-                    randomAbility.category = type.Primary;
-                    randomAbility.oname = (originalName)Random.Range(0, 2);
-
-
-                }
-                */
     }
 }

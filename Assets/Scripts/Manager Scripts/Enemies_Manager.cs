@@ -51,27 +51,11 @@ namespace Spacchiamo
             return inPosition;
         }
 
-        // Need to be scene based and to position enemies randomly in precise areas
-        public void PreparingEnemies()
-        {
-            
-
-               GameObject[] temp = GameObject.FindGameObjectsWithTag("Enemy");
-               enemyReferences.AddRange(temp);
-
-
-
-            
-        }
-
-       
-
-
         public void CheckingAggro()
         {
             for (int i = 0; i < enemyReferences.Count; i++)
             {
-                if (Grid_Manager.instance.IsEnemyInAggroCell(enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingRow(), enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingColumn()))
+                if (Grid_Manager.instance.IsEnemyInAggroCell(enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingXEnemy(), enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingYEnemy()))
                 {
                     if (!enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
                     {
@@ -103,7 +87,6 @@ namespace Spacchiamo
             }
         }
 
-
         public bool EnemyIsHere(int row, int column)
         {
             if (enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0,0,1)) != null)
@@ -120,31 +103,28 @@ namespace Spacchiamo
             Grid_Manager.instance.SwitchingOccupiedStatus(row, column);
             Destroy(enemyToDestroy);
         }
+
+        public void GivingEnemyRef(GameObject enemy)
+        {
+            enemyReferences.Add(enemy);
+        }
+
+        public void PatrolArea()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                Enemy_Patrolling patrolLink = enemyReferences[i].GetComponent<Enemy_Patrolling>();
+                patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingXEnemy(), patrolLink.GettingYEnemy()));
+
+            }
+        }
+
+
     }
+
+
 }
 
 
  
-            /*
-            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
-            {
-                switch (Random.Range(1, 4))
-                {
-                    case 1:
-                        enemyTemp = Resources.Load<GameObject>("Enemy1");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                    case 2:
-                        enemyTemp = Resources.Load<GameObject>("Enemy2");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                    default:
-                        enemyTemp = Resources.Load<GameObject>("Enemy3");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                }
-                */
            

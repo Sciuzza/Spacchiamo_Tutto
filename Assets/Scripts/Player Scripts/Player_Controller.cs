@@ -17,30 +17,9 @@ namespace Spacchiamo
         void Awake()
         {
             moveLink = GetComponent<PMovement>();
+            Game_Controller.instance.GivingPlayerRef(this.gameObject);
         }
 
-        void Start()
-        {
-
-            // Initializing Player Position
-            Transform playerStartPosition = Grid_Manager.instance.SettingPlayerPosition(moveLink.GettingRow(), moveLink.GettingColumn());
-
-            float x = playerStartPosition.position.x;
-            float y = playerStartPosition.position.y;
-            float z = this.transform.position.z;
-
-
-            this.transform.position = new Vector3(x, y, z);
-
-            
-
-
-            // Linking Camera Smooth Follow
-            Game_Controller.instance.InitializingCamera(this.gameObject);
-
-            // Initializing Light
-            Grid_Manager.instance.GettingLight(moveLink.GettingRow(), moveLink.GettingColumn());
-        }
 
 
         void Update()
@@ -52,12 +31,12 @@ namespace Spacchiamo
                 if (Input.GetKeyUp(KeyCode.Q))
                 {
                     attackSelection = true;
-                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingRow(),moveLink.GettingColumn());
+                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(),moveLink.GettingyPlayer());
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
                 {
                     attackSelection = false;
-                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingRow(), moveLink.GettingColumn());
+                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                 }
                     
             }

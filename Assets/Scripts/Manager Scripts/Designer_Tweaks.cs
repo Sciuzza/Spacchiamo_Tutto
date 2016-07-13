@@ -11,7 +11,7 @@ namespace Spacchiamo
 
         // Level 1 designer variables
         [Range(5, 100)]
-        public int level1Rows, level1Columns;
+        public int level1XWidth, level1yWidth;
 
 
         [HideInInspector]

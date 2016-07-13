@@ -14,6 +14,8 @@ namespace Spacchiamo
 
         public GameObject playerTemp;
 
+        TileLoader tileLoaderTemp;
+
         [HideInInspector]
         public static Grid_Manager instance = null;
 
@@ -29,7 +31,7 @@ namespace Spacchiamo
         public void PreparingGridSpace()
         {
 
-            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1Rows, Designer_Tweaks.instance.level1Columns];
+            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1XWidth, Designer_Tweaks.instance.level1yWidth];
             leftPositions = new List<Cell_Interaction>();
 
             GameObject cellTemp = Resources.Load<GameObject>("Cell");
@@ -37,46 +39,48 @@ namespace Spacchiamo
             mapTemp = Instantiate(mapTemp);
             
 
-            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
                
 
-                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
 
-                    if (GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")") != null)
+                    if (GameObject.Find("Tile(" + (x) + "," + (y) + ")") != null)
                     {
 
                         cellTemp = Instantiate(cellTemp);
-                        cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
+                        cellReferences[x, y] = cellTemp.GetComponent<Cell_Interaction>();
 
-                        cellTemp.name = "Cell " + i + " , " + j;
-                        cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f - 2, (i - cellReferences.GetLength(0) / 2) + 0.5f + 11, 1);
+                        cellTemp.name = "Cell " + x + " , " + y;
+                        cellTemp.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
 
-                        cellReferences[i, j].cell_i = i;
-                        cellReferences[i, j].cell_j = j;
+                        cellReferences[x, y].yCell = y;
+                        cellReferences[x, y].xCell = x;
 
                         cellTemp.transform.SetParent(mapTemp.transform);
 
 
 
-                        cellReferences[i, j].tileCell = GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")");
+                        cellReferences[x, y].tileCell = GameObject.Find("Tile(" + (x) + "," + (y) + ")");
 
                         
-                        SpriteRenderer tileType = cellReferences[i, j].tileCell.GetComponent<SpriteRenderer>();
+                        SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
 
 
                         if (tileType.sprite.name.Contains("Bordo"))
                         {
-                            cellReferences[i, j].SettingWall();
+                            cellReferences[x, y].SettingWall();
                         }
+                        else
+                            cellReferences[x, y].CellFree();
                       
                          
                         
                         // Fog Of War
                         ChangingAlpha(0.0f, cellTemp);
-                        ChangingAlpha(0.0f, cellReferences[i, j].tileCell);
+                        ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
                         
                     }
                 }
@@ -84,38 +88,84 @@ namespace Spacchiamo
             Debug.Log(Time.realtimeSinceStartup);
         }
 
+        public void PreparingOptimizedGridSpace()
+        {
+            //tileLoaderTemp = GameObject.Find("TilesLayerHolder").GetComponent<TileLoader>();
+            List<TileData> tileReferences = tileLoaderTemp.LoadAllTilesInScene("Tile");
+
+            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1XWidth, Designer_Tweaks.instance.level1yWidth];
+
+
+            GameObject cellTemp = Resources.Load<GameObject>("Cell");
+            GameObject mapTemp = Resources.Load<GameObject>("Map");
+            mapTemp = Instantiate(mapTemp);
+
+            int x, y;
+
+            Debug.Log(tileReferences.Count);
+
+            for (int i = 0; i < tileReferences.Count; i++)
+            {
+                cellTemp = Instantiate(cellTemp);
+
+                x = tileReferences[i].cell_x;
+                y = tileReferences[i].cell_y;
+
+                cellReferences[x, y] = cellTemp.GetComponent<Cell_Interaction>();
+
+                cellTemp.name = "Cell " + x + " , " + y;
+                cellTemp.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
+
+                cellReferences[x, y].yCell = y;
+                cellReferences[x, y].xCell = x;
+
+                cellTemp.transform.SetParent(mapTemp.transform);
+
+
+
+                cellReferences[x, y].tileCell = tileReferences[i].go;
+
+
+                SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
+
+
+
+                if (tileType.sprite.name.Contains("Bordo"))
+                {
+                    cellReferences[x, y].SettingWall();
+                }
+                else
+                    cellReferences[x, y].CellFree();
+
+
+
+                // Fog Of War
+                ChangingAlpha(0.0f, cellTemp);
+                ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
+
+            }
+            Debug.Log(Time.realtimeSinceStartup);
+        }
+
+        public void GivingTileLoaderRef(GameObject tl)
+        {
+            tileLoaderTemp = tl.GetComponent<TileLoader>();
+        }
+
       
-
-        // Method to retrieve the transform position necessary for the player to be placed into
-        public Transform SettingPlayerPosition(int row, int column)
-        {
-            playerTemp = GameObject.Find("Player(Clone)");
-            SwitchingOccupiedStatus(row, column);
-            return cellReferences[row, column].transform;
-        }
-
-        public Cell_Interaction SettingEnemyPosition()
-        {
-            int chosenPosition = Random.Range(0, leftPositions.Count);
-            SwitchingOccupiedStatus(leftPositions[chosenPosition].cell_i, leftPositions[chosenPosition].cell_j);
-            return leftPositions[chosenPosition];
-
-        }
-
-
         // Methods necessary to control if a moving object can effectively move and to Update Occupied Status
 
-        public Transform CheckingUpCell(int row, int column)
+        public Transform CheckingUpCell(int x, int y)
         {
 
-            if (row + 1 < cellReferences.GetLength(0))
+            if (y + 1 < cellReferences.GetLength(1))
             {
               
-                if (cellReferences[row + 1, column] != null && !cellReferences[row + 1, column].isOccupied)
+                if (cellReferences[x, y + 1] != null && !cellReferences[x, y + 1].isOccupied)
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row + 1, column);
-                    return cellReferences[row + 1, column].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x, y + 1);
+                    return cellReferences[x, y + 1].transform;
                 }
                 else
                     return null;
@@ -125,16 +175,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingDownCell(int row, int column)
+        public Transform CheckingDownCell(int x, int y)
         {
 
-            if (row - 1 >= 0)
+            if (y - 1 >= 0)
             {
-                if (cellReferences[row - 1, column] != null && !cellReferences[row - 1, column].isOccupied)
+                if (cellReferences[x, y - 1] != null && !cellReferences[x, y - 1].isOccupied)
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row - 1, column);
-                    return cellReferences[row - 1, column].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x, y - 1);
+                    return cellReferences[x, y - 1].transform;
                 }
                 else
                     return null;
@@ -144,16 +194,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingLeftCell(int row, int column)
+        public Transform CheckingLeftCell(int x, int y)
         {
 
-            if (column - 1 >= 0)
+            if (x - 1 >= 0)
             {
-                if (cellReferences[row, column - 1] != null && !cellReferences[row, column - 1].isOccupied)
+                if (cellReferences[x - 1, y] != null && !cellReferences[x - 1, y].isOccupied)
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row, column - 1);
-                    return cellReferences[row, column - 1].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x - 1, y);
+                    return cellReferences[x - 1, y].transform;
                 }
                 else
                     return null;
@@ -163,16 +213,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingRightCell(int row, int column)
+        public Transform CheckingRightCell(int x, int y)
         {
 
-            if (column + 1 < cellReferences.GetLength(1))
+            if (x + 1 < cellReferences.GetLength(0))
             {
-                if (cellReferences[row, column + 1] != null && !cellReferences[row, column + 1].isOccupied)
+                if (cellReferences[x + 1, y] != null && !cellReferences[x + 1, y].isOccupied)
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row, column + 1);
-                    return cellReferences[row, column + 1].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x + 1, y);
+                    return cellReferences[x + 1, y].transform;
                 }
                 else
                     return null;
@@ -182,16 +232,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingUpCell(int row, int column, List<Cell_Interaction> patrolArea)
+        public Transform CheckingUpCell(int x, int y, List<Cell_Interaction> patrolArea)
         {
 
-            if (row + 1 < cellReferences.GetLength(0))
+            if (y + 1 < cellReferences.GetLength(1))
             {
-                if (cellReferences[row + 1, column] != null && !cellReferences[row + 1, column].isOccupied && patrolArea.Contains(cellReferences[row + 1, column]))
+                if (cellReferences[x, y + 1] != null && !cellReferences[x, y + 1].isOccupied && patrolArea.Contains(cellReferences[x, y + 1]))
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row + 1, column);
-                    return cellReferences[row + 1, column].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x, y + 1);
+                    return cellReferences[x, y + 1].transform;
                 }
                 else
                     return null;
@@ -201,16 +251,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingDownCell(int row, int column, List<Cell_Interaction> patrolArea)
+        public Transform CheckingDownCell(int x, int y, List<Cell_Interaction> patrolArea)
         {
 
-            if (row - 1 >= 0)
+            if (y - 1 >= 0)
             {
-                if (cellReferences[row - 1, column] != null && !cellReferences[row - 1, column].isOccupied && patrolArea.Contains(cellReferences[row - 1, column]))
+                if (cellReferences[x, y - 1] != null && !cellReferences[x, y - 1].isOccupied && patrolArea.Contains(cellReferences[x, y - 1]))
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row - 1, column);
-                    return cellReferences[row - 1, column].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x, y - 1);
+                    return cellReferences[x, y - 1].transform;
                 }
                 else
                     return null;
@@ -220,16 +270,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingLeftCell(int row, int column, List<Cell_Interaction> patrolArea)
+        public Transform CheckingLeftCell(int x, int y, List<Cell_Interaction> patrolArea)
         {
 
-            if (column - 1 >= 0)
+            if (x - 1 >= 0)
             {
-                if (cellReferences[row, column - 1] != null && !cellReferences[row, column - 1].isOccupied && patrolArea.Contains(cellReferences[row, column - 1]))
+                if (cellReferences[x - 1, y] != null && !cellReferences[x - 1, y].isOccupied && patrolArea.Contains(cellReferences[x - 1, y]))
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row, column - 1);
-                    return cellReferences[row, column - 1].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x - 1, y);
+                    return cellReferences[x - 1, y].transform;
                 }
                 else
                     return null;
@@ -239,16 +289,16 @@ namespace Spacchiamo
 
         }
 
-        public Transform CheckingRightCell(int row, int column, List<Cell_Interaction> patrolArea)
+        public Transform CheckingRightCell(int x, int y, List<Cell_Interaction> patrolArea)
         {
 
-            if (column + 1 < cellReferences.GetLength(1))
+            if (x + 1 < cellReferences.GetLength(0))
             {
-                if (cellReferences[row, column + 1] != null && !cellReferences[row, column + 1].isOccupied && patrolArea.Contains(cellReferences[row, column + 1]))
+                if (cellReferences[x + 1, y] != null && !cellReferences[x + 1, y].isOccupied && patrolArea.Contains(cellReferences[x + 1, y]))
                 {
-                    SwitchingOccupiedStatus(row, column);
-                    SwitchingOccupiedStatus(row, column + 1);
-                    return cellReferences[row, column + 1].transform;
+                    SwitchingOccupiedStatus(x, y);
+                    SwitchingOccupiedStatus(x + 1, y);
+                    return cellReferences[x + 1, y].transform;
                 }
                 else
                     return null;
@@ -272,59 +322,59 @@ namespace Spacchiamo
 
         //Methods to Retrieve Light Effect around the player and around Falò 
 
-        public void GettingLight(int row, int column)
+        public void GettingLight(int xPlayer, int yPlayer)
         {
 
             float currentDistance;
 
-            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
-                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[i, j] != null)
+                    if (cellReferences[x, y] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                            Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
+                            Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
 
 
                         if (Designer_Tweaks.instance.manhDistancePlayer > currentDistance)
                         {
-                            if (cellReferences[i, j].lightSource && !cellReferences[i, j].lightSourceDiscovered)
+                            if (cellReferences[x, y].lightSource && !cellReferences[x, y].lightSourceDiscovered)
                             {
-                                cellReferences[i, j].lightSourceDiscovered = true;
-                                GettingLightObject(i, j);
+                                cellReferences[x, y].lightSourceDiscovered = true;
+                                GettingLightObject(x, y);
                             }
-                            else if (!cellReferences[i, j].isReceivingLight)
+                            else if (!cellReferences[x, y].isReceivingLight)
                             {
-                                cellReferences[i, j].aggroCell = true;
-                                ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
-                                ChangingAlpha(1.0f, cellReferences[i, j].tileCell);
+                                cellReferences[x, y].aggroCell = true;
+                                ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
+                                ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                             }
                         }
                         else if (Designer_Tweaks.instance.manhDistancePlayer == currentDistance)
                         {
-                            if (!cellReferences[i, j].isReceivingLight)
+                            if (!cellReferences[x, y].isReceivingLight)
                             {
-                                cellReferences[i, j].aggroCell = false;
-                                ChangingAlpha(0.8f, cellReferences[i, j].gameObject);
-                                ChangingAlpha(0.8f, cellReferences[i, j].tileCell);
+                                cellReferences[x, y].aggroCell = false;
+                                ChangingAlpha(0.8f, cellReferences[x, y].gameObject);
+                                ChangingAlpha(0.8f, cellReferences[x, y].tileCell);
                             }
                         }
                         else
                         {
-                            if (!cellReferences[i, j].isReceivingLight)
+                            if (!cellReferences[x, y].isReceivingLight)
                             {
-                                cellReferences[i, j].aggroCell = false;
+                                cellReferences[x, y].aggroCell = false;
 
-                                if (GettingAlpha(cellReferences[i, j].gameObject) != 0.0f)
+                                if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f)
                                 {
-                                    ChangingAlpha(0.5f, cellReferences[i, j].gameObject);
-                                    ChangingAlpha(0.5f, cellReferences[i, j].tileCell);
+                                    ChangingAlpha(0.5f, cellReferences[x, y].gameObject);
+                                    ChangingAlpha(0.5f, cellReferences[x, y].tileCell);
                                 }
                                 else {
-                                    ChangingAlpha(0.0f, cellReferences[i, j].gameObject);
-                                    ChangingAlpha(0.0f, cellReferences[i, j].tileCell);
+                                    ChangingAlpha(0.0f, cellReferences[x, y].gameObject);
+                                    ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
                                 }
                             }
                         }
@@ -334,25 +384,25 @@ namespace Spacchiamo
 
         }
 
-        private void GettingLightObject(int row, int column)
+        private void GettingLightObject(int xFalo, int yFalo)
         {
 
             float currentDistance;
 
-            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
-                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[i, j] != null)
+                    if (cellReferences[x, y] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xFalo, yFalo].transform.position.x) +
+                        Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xFalo, yFalo].transform.position.y);
 
                         if (Designer_Tweaks.instance.manhDistanceFalo > currentDistance)
                         {
-                            cellReferences[i, j].isReceivingLight = true;
-                            ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
-                            ChangingAlpha(1.0f, cellReferences[i, j].tileCell);
+                            cellReferences[x, y].isReceivingLight = true;
+                            ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
+                            ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                         }
                     }
                 }
@@ -376,54 +426,48 @@ namespace Spacchiamo
 
         // Method to retrive if the cell where player is standing on is receiving light by falo or not
 
-        public bool IsCellReceivingLight(int row, int column)
+        public bool IsCellReceivingLight(int xCell, int yCell)
         {
-            return cellReferences[row, column].isReceivingLight;
+            return cellReferences[xCell, yCell].isReceivingLight;
         }
 
 
-        public int AskingRowsNumber()
+        public int AskingXWidth()
         {
             return cellReferences.GetLength(0);
         }
 
-        public int AskingColumnsNumber()
+        public int AskingYWidth()
         {
             return cellReferences.GetLength(1);
         }
 
+        /*
         public void AddingPosition(Cell_Interaction posToAdd)
         {
             if (!leftPositions.Contains(posToAdd))
                 leftPositions.Add(posToAdd);
         }
-
-        public void RemovingPosition(int row, int column)
-        {
-            if (leftPositions.Contains(cellReferences[row,column]))
-                leftPositions.Remove(cellReferences[row, column]);
-        }
-
-
-        public List<Cell_Interaction> FindingPatrolArea(int row, int column)
+        */
+        public List<Cell_Interaction> FindingPatrolArea(int xEnemy, int yEnemy)
         {
             float currentDistance;
             List<Cell_Interaction> areaFound = new List<Cell_Interaction>();
 
-            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
-                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[i, j] != null)
+                    if (cellReferences[x, y] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xEnemy, yEnemy].transform.position.x) +
+                        Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xEnemy, yEnemy].transform.position.y);
 
 
 
                         if (Designer_Tweaks.instance.patrolAreaEnemy1 > currentDistance)
                         {
-                            areaFound.Add(cellReferences[i, j]);
+                            areaFound.Add(cellReferences[x, y]);
                         }
 
                     }
@@ -434,36 +478,36 @@ namespace Spacchiamo
         }
 
 
-        public bool IsEnemyInAggroCell(int row, int column)
+        public bool IsEnemyInAggroCell(int xEnemy, int yEnemy)
         {
 
-            return cellReferences[row, column].aggroCell;
+            return cellReferences[xEnemy, yEnemy].aggroCell;
         }
 
 
-        public List<Transform> RetrievingPossibleMovements(int row, int column)
+        public List<Transform> RetrievingPossibleMovements(int xEnemy, int yEnemy)
         {
             List<Transform> moves = new List<Transform>();
 
-            moves.Add(cellReferences[row, column].transform);
+            moves.Add(cellReferences[xEnemy, yEnemy].transform);
 
-            if (CheckingUpCellExp(row, column))
-                moves.Add(cellReferences[row + 1, column].transform);
-            if (CheckingDownCellExp(row, column))
-                moves.Add(cellReferences[row - 1, column].transform);
-            if (CheckingLeftCellExp(row, column))
-                moves.Add(cellReferences[row, column - 1].transform);
-            if (CheckingRightCellExp(row, column))
-                moves.Add(cellReferences[row, column + 1].transform);
+            if (CheckingUpCellExp(xEnemy, yEnemy))
+                moves.Add(cellReferences[xEnemy, yEnemy + 1].transform);
+            if (CheckingDownCellExp(xEnemy, yEnemy))
+                moves.Add(cellReferences[xEnemy, yEnemy - 1].transform);
+            if (CheckingLeftCellExp(xEnemy, yEnemy))
+                moves.Add(cellReferences[xEnemy - 1, yEnemy].transform);
+            if (CheckingRightCellExp(xEnemy, yEnemy))
+                moves.Add(cellReferences[xEnemy + 1, yEnemy].transform);
 
             return moves;
         }
 
-        private bool CheckingUpCellExp(int row, int column)
+        private bool CheckingUpCellExp(int xEnemy, int yEnemy)
         {
-            if (row + 1 < cellReferences.GetLength(0))
+            if (yEnemy + 1 < cellReferences.GetLength(1))
             {
-                if (cellReferences[row + 1, column] != null && !cellReferences[row + 1, column].isOccupied)
+                if (cellReferences[xEnemy, yEnemy + 1] != null && !cellReferences[xEnemy, yEnemy + 1].isOccupied)
                     return true;
                 else
                     return false;
@@ -472,11 +516,11 @@ namespace Spacchiamo
                 return false;
         }
 
-        private bool CheckingDownCellExp(int row, int column)
+        private bool CheckingDownCellExp(int xEnemy, int yEnemy)
         {
-            if (row - 1 > 0)
+            if (yEnemy - 1 > 0)
             {
-                if (cellReferences[row - 1, column] != null && !cellReferences[row - 1, column].isOccupied)
+                if (cellReferences[xEnemy, yEnemy - 1] != null && !cellReferences[xEnemy, yEnemy - 1].isOccupied)
                     return true;
                 else
                     return false;
@@ -485,11 +529,11 @@ namespace Spacchiamo
                 return false;
         }
 
-        private bool CheckingLeftCellExp(int row, int column)
+        private bool CheckingLeftCellExp(int xEnemy, int yEnemy)
         {
-            if (column - 1 > 0)
+            if (xEnemy - 1 > 0)
             {
-                if (cellReferences[row, column - 1] != null && !cellReferences[row, column - 1].isOccupied)
+                if (cellReferences[xEnemy - 1, yEnemy] != null && !cellReferences[xEnemy - 1, yEnemy].isOccupied)
                     return true;
                 else
                     return false;
@@ -498,11 +542,11 @@ namespace Spacchiamo
                 return false;
         }
 
-        private bool CheckingRightCellExp(int row, int column)
+        private bool CheckingRightCellExp(int xEnemy, int yEnemy)
         {
-            if (column + 1 < cellReferences.GetLength(1))
+            if (xEnemy + 1 < cellReferences.GetLength(0))
             {
-                if (cellReferences[row, column + 1] != null && !cellReferences[row, column + 1].isOccupied)
+                if (cellReferences[xEnemy + 1, yEnemy] != null && !cellReferences[xEnemy + 1, yEnemy].isOccupied)
                     return true;
                 else
                     return false;
@@ -534,8 +578,8 @@ namespace Spacchiamo
 
 
 
-            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_i;
-            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_j;
+            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
+            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
             SwitchingOccupiedStatus(whereI, whereJ);
 
             return moves[posFound];
@@ -566,8 +610,8 @@ namespace Spacchiamo
 
 
 
-            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_i;
-            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().cell_j;
+            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
+            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
             SwitchingOccupiedStatus(whereI, whereJ);
 
             return moves[posFound];
@@ -588,25 +632,25 @@ namespace Spacchiamo
         }
 
 
-        public void HighlightingAttackRange(int row, int column)
+        public void HighlightingAttackRange(int xPlayer, int yPlayer)
         {
             float currentDistance;
 
-            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
-                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[i, j] != null)
+                    if (cellReferences[y, x] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                            Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[y, x].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
+                            Mathf.Abs(cellReferences[y, x].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
 
 
                         if (playerTemp.GetComponent<Ability1>().range == currentDistance)
                         {
 
-                            cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.yellow;
+                            cellReferences[y, x].GetComponent<SpriteRenderer>().color = Color.yellow;
 
                         }
                     }
@@ -615,25 +659,25 @@ namespace Spacchiamo
 
         }
 
-        public void DelightingAttackRange(int row, int column)
+        public void DelightingAttackRange(int xPlayer, int yPlayer)
         {
             float currentDistance;
 
-            for (int i = 0; i < cellReferences.GetLength(0); i++)
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
-                for (int j = 0; j < cellReferences.GetLength(1); j++)
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[i, j] != null)
+                    if (cellReferences[y, x] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[y, x].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
+                        Mathf.Abs(cellReferences[y, x].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
 
 
                         if (playerTemp.GetComponent<Ability1>().range == currentDistance)
                         {
 
-                            cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.white;
+                            cellReferences[y, x].GetComponent<SpriteRenderer>().color = Color.white;
 
                         }
                     }

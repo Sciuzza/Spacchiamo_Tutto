@@ -17,6 +17,12 @@ namespace Spacchiamo
      */
     public class TileLoader : MonoBehaviour
     {
+        
+       void Start()
+        {
+            Grid_Manager.instance.GivingTileLoaderRef(this.gameObject);
+        }
+
 
         public List<TileData> LoadAllTilesInScene(string tag)
         {
@@ -28,13 +34,15 @@ namespace Spacchiamo
                 {
                     TileData td = new TileData();
                     td.go = go;
-                    td.cell_x = Mathf.RoundToInt(go.transform.position.x);
-                    td.cell_y = Mathf.RoundToInt(go.transform.position.y);
+                    td.cell_x = Mathf.FloorToInt(go.transform.position.x);
+                    td.cell_y = Mathf.FloorToInt(go.transform.position.y);
                     allTileDatas.Add(td);
                 }
             }
             return allTileDatas;
         }
+
+       
 
     }
 }
