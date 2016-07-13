@@ -43,37 +43,45 @@ namespace Spacchiamo
 
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-                    cellTemp = Instantiate(cellTemp);
-                    cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
 
-                    cellTemp.name = "Cell " + i + " , " + j;
-                    cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f -2, (i - cellReferences.GetLength(0) / 2) + 0.5f +11, 1);
-
-                    cellReferences[i, j].cell_i = i;
-                    cellReferences[i, j].cell_j = j;
-
-                    cellTemp.transform.SetParent(mapTemp.transform);
-
-                    
-
-                    cellReferences[i, j].tileCell = GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")");
-/*
-                    if (cellReferences[i, j].tileCell == null)
-                        cellReferences[i, j].SettingInviWall();
-                    else
+                    if (GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")") != null)
                     {
-                        SpriteRenderer tileType = cellReferences[i, j].tileCell.GetComponent<SpriteRenderer>();
-                        Sprite tileTypeCheck = Resources.Load<Sprite>("bordo_inferiore_tiles_pietra");
 
-                        if (tileType.sprite == tileTypeCheck)
-                            cellReferences[i, j].SettingWall();
-                        else
+                        cellTemp = Instantiate(cellTemp);
+                        cellReferences[i, j] = cellTemp.GetComponent<Cell_Interaction>();
+
+                        cellTemp.name = "Cell " + i + " , " + j;
+                        cellTemp.transform.position = new Vector3((j - cellReferences.GetLength(1) / 2) + 0.5f - 2, (i - cellReferences.GetLength(0) / 2) + 0.5f + 11, 1);
+
+                        cellReferences[i, j].cell_i = i;
+                        cellReferences[i, j].cell_j = j;
+
+                        cellTemp.transform.SetParent(mapTemp.transform);
+
+
+
+                        cellReferences[i, j].tileCell = GameObject.Find("Tile(" + (j - 35) + "," + (i - 27) + ")");
+
                         
-                            cellReferences[i, j].TemporaryRandom();
+                        SpriteRenderer tileType = cellReferences[i, j].tileCell.GetComponent<SpriteRenderer>();
+
+
+
+                        if (tileType.sprite.name.Contains("Bordo"))
+                        {
+                            cellReferences[i, j].SettingWall();
+                        }
+                        else if (i == 19 && j == 50)
+                            cellReferences[i, j].SettingFalo();
+                        else
+                            cellReferences[i, j].CellFree();
+                         
+                        
+                        // Fog Of War
+                        ChangingAlpha(0.0f, cellTemp);
+                        ChangingAlpha(0.0f, cellReferences[i, j].tileCell);
+                        
                     }
-                    */
-                    // Fog Of War
-                    ChangingAlpha(0.0f, cellTemp);
                 }
             }
             Debug.Log(Time.realtimeSinceStartup);
@@ -105,7 +113,8 @@ namespace Spacchiamo
 
             if (row + 1 < cellReferences.GetLength(0))
             {
-                if (!cellReferences[row + 1, column].isOccupied)
+              
+                if (cellReferences[row + 1, column] != null && !cellReferences[row + 1, column].isOccupied)
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row + 1, column);
@@ -124,7 +133,7 @@ namespace Spacchiamo
 
             if (row - 1 >= 0)
             {
-                if (!cellReferences[row - 1, column].isOccupied)
+                if (cellReferences[row - 1, column] != null && !cellReferences[row - 1, column].isOccupied)
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row - 1, column);
@@ -143,7 +152,7 @@ namespace Spacchiamo
 
             if (column - 1 >= 0)
             {
-                if (!cellReferences[row, column - 1].isOccupied)
+                if (cellReferences[row, column - 1] != null && !cellReferences[row, column - 1].isOccupied)
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row, column - 1);
@@ -162,7 +171,7 @@ namespace Spacchiamo
 
             if (column + 1 < cellReferences.GetLength(1))
             {
-                if (!cellReferences[row, column + 1].isOccupied)
+                if (cellReferences[row, column + 1] != null && !cellReferences[row, column + 1].isOccupied)
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row, column + 1);
@@ -181,7 +190,7 @@ namespace Spacchiamo
 
             if (row + 1 < cellReferences.GetLength(0))
             {
-                if (!cellReferences[row + 1, column].isOccupied && patrolArea.Contains(cellReferences[row + 1, column]))
+                if (cellReferences[row + 1, column] != null && !cellReferences[row + 1, column].isOccupied && patrolArea.Contains(cellReferences[row + 1, column]))
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row + 1, column);
@@ -200,7 +209,7 @@ namespace Spacchiamo
 
             if (row - 1 >= 0)
             {
-                if (!cellReferences[row - 1, column].isOccupied && patrolArea.Contains(cellReferences[row - 1, column]))
+                if (cellReferences[row - 1, column] != null && !cellReferences[row - 1, column].isOccupied && patrolArea.Contains(cellReferences[row - 1, column]))
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row - 1, column);
@@ -219,7 +228,7 @@ namespace Spacchiamo
 
             if (column - 1 >= 0)
             {
-                if (!cellReferences[row, column - 1].isOccupied && patrolArea.Contains(cellReferences[row, column - 1]))
+                if (cellReferences[row, column - 1] != null && !cellReferences[row, column - 1].isOccupied && patrolArea.Contains(cellReferences[row, column - 1]))
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row, column - 1);
@@ -238,7 +247,7 @@ namespace Spacchiamo
 
             if (column + 1 < cellReferences.GetLength(1))
             {
-                if (!cellReferences[row, column + 1].isOccupied && patrolArea.Contains(cellReferences[row, column + 1]))
+                if (cellReferences[row, column + 1] != null && !cellReferences[row, column + 1].isOccupied && patrolArea.Contains(cellReferences[row, column + 1]))
                 {
                     SwitchingOccupiedStatus(row, column);
                     SwitchingOccupiedStatus(row, column + 1);
@@ -275,46 +284,54 @@ namespace Spacchiamo
             {
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-
-                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
-
-
-
-                    if (Designer_Tweaks.instance.manhDistancePlayer > currentDistance)
+                    if (cellReferences[i, j] != null)
                     {
-                        if (cellReferences[i, j].lightSource && !cellReferences[i, j].lightSourceDiscovered)
+                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                            Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
+
+
+
+                        if (Designer_Tweaks.instance.manhDistancePlayer > currentDistance)
                         {
-                            cellReferences[i, j].lightSourceDiscovered = true;
-                            GettingLightObject(i, j);
+                            if (cellReferences[i, j].lightSource && !cellReferences[i, j].lightSourceDiscovered)
+                            {
+                                cellReferences[i, j].lightSourceDiscovered = true;
+                                GettingLightObject(i, j);
+                            }
+                            else if (!cellReferences[i, j].isReceivingLight)
+                            {
+                                cellReferences[i, j].aggroCell = true;
+                                ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
+                                ChangingAlpha(1.0f, cellReferences[i, j].tileCell);
+                            }
                         }
-                        else if (!cellReferences[i, j].isReceivingLight)
+                        else if (Designer_Tweaks.instance.manhDistancePlayer == currentDistance)
                         {
-                            cellReferences[i, j].aggroCell = true;
-                            ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
+                            if (!cellReferences[i, j].isReceivingLight)
+                            {
+                                cellReferences[i, j].aggroCell = false;
+                                ChangingAlpha(0.8f, cellReferences[i, j].gameObject);
+                                ChangingAlpha(0.8f, cellReferences[i, j].tileCell);
+                            }
+                        }
+                        else
+                        {
+                            if (!cellReferences[i, j].isReceivingLight)
+                            {
+                                cellReferences[i, j].aggroCell = false;
+
+                                if (GettingAlpha(cellReferences[i, j].gameObject) != 0.0f)
+                                {
+                                    ChangingAlpha(0.5f, cellReferences[i, j].gameObject);
+                                    ChangingAlpha(0.5f, cellReferences[i, j].tileCell);
+                                }
+                                else {
+                                    ChangingAlpha(0.0f, cellReferences[i, j].gameObject);
+                                    ChangingAlpha(0.0f, cellReferences[i, j].tileCell);
+                                }
+                            }
                         }
                     }
-                    else if (Designer_Tweaks.instance.manhDistancePlayer == currentDistance)
-                    {
-                        if (!cellReferences[i, j].isReceivingLight)
-                        {
-                            cellReferences[i, j].aggroCell = false;
-                            ChangingAlpha(0.8f, cellReferences[i, j].gameObject);
-                        }
-                    }
-                    else
-                    {
-                        if (!cellReferences[i, j].isReceivingLight)
-                        {
-                            cellReferences[i, j].aggroCell = false;
-
-                            if (GettingAlpha(cellReferences[i, j].gameObject) != 0.0f)
-                                ChangingAlpha(0.5f, cellReferences[i, j].gameObject);
-                            else
-                                ChangingAlpha(0.0f, cellReferences[i, j].gameObject);
-                        }
-                    }
-
                 }
             }
 
@@ -329,14 +346,17 @@ namespace Spacchiamo
             {
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-
-                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                    if (cellReferences[i, j] != null)
+                    {
+                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
                         Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
 
-                    if (Designer_Tweaks.instance.manhDistanceFalo > currentDistance)
-                    {
-                        cellReferences[i, j].isReceivingLight = true;
-                        ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
+                        if (Designer_Tweaks.instance.manhDistanceFalo > currentDistance)
+                        {
+                            cellReferences[i, j].isReceivingLight = true;
+                            ChangingAlpha(1.0f, cellReferences[i, j].gameObject);
+                            ChangingAlpha(1.0f, cellReferences[i, j].tileCell);
+                        }
                     }
                 }
             }
@@ -397,18 +417,19 @@ namespace Spacchiamo
             {
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-
-                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                    if (cellReferences[i, j] != null)
+                    {
+                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
                         Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
 
 
 
-                    if (Designer_Tweaks.instance.patrolAreaEnemy1 > currentDistance)
-                    {
-                        areaFound.Add(cellReferences[i, j]);
+                        if (Designer_Tweaks.instance.patrolAreaEnemy1 > currentDistance)
+                        {
+                            areaFound.Add(cellReferences[i, j]);
+                        }
+
                     }
-
-
                 }
             }
 
@@ -445,7 +466,7 @@ namespace Spacchiamo
         {
             if (row + 1 < cellReferences.GetLength(0))
             {
-                if (!cellReferences[row + 1, column].isOccupied)
+                if (cellReferences[row + 1, column] != null && !cellReferences[row + 1, column].isOccupied)
                     return true;
                 else
                     return false;
@@ -458,7 +479,7 @@ namespace Spacchiamo
         {
             if (row - 1 > 0)
             {
-                if (!cellReferences[row - 1, column].isOccupied)
+                if (cellReferences[row - 1, column] != null && !cellReferences[row - 1, column].isOccupied)
                     return true;
                 else
                     return false;
@@ -471,7 +492,7 @@ namespace Spacchiamo
         {
             if (column - 1 > 0)
             {
-                if (!cellReferences[row, column - 1].isOccupied)
+                if (cellReferences[row, column - 1] != null && !cellReferences[row, column - 1].isOccupied)
                     return true;
                 else
                     return false;
@@ -484,7 +505,7 @@ namespace Spacchiamo
         {
             if (column + 1 < cellReferences.GetLength(1))
             {
-                if (!cellReferences[row, column + 1].isOccupied)
+                if (cellReferences[row, column + 1] != null && !cellReferences[row, column + 1].isOccupied)
                     return true;
                 else
                     return false;
@@ -578,17 +599,19 @@ namespace Spacchiamo
             {
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-
-                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
-                        Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
-
-
-
-                    if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                    if (cellReferences[i, j] != null)
                     {
+                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                            Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
 
-                        cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.yellow;
 
+
+                        if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                        {
+
+                            cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.yellow;
+
+                        }
                     }
                 }
             }
@@ -603,17 +626,19 @@ namespace Spacchiamo
             {
                 for (int j = 0; j < cellReferences.GetLength(1); j++)
                 {
-
-                    currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
+                    if (cellReferences[i, j] != null)
+                    {
+                        currentDistance = Mathf.Abs(cellReferences[i, j].transform.position.x - cellReferences[row, column].transform.position.x) +
                         Mathf.Abs(cellReferences[i, j].transform.position.y - cellReferences[row, column].transform.position.y);
 
 
 
-                    if (playerTemp.GetComponent<Ability1>().range == currentDistance)
-                    {
+                        if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                        {
 
-                        cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.white;
+                            cellReferences[i, j].GetComponent<SpriteRenderer>().color = Color.white;
 
+                        }
                     }
                 }
             }
@@ -627,5 +652,26 @@ namespace Spacchiamo
             return cellReferences[row, column].transform;
         } 
 
+
+
+        
+
     }
 }
+
+
+/*
+                    if (cellReferences[i, j].tileCell == null)
+                        cellReferences[i, j].SettingInviWall();
+                    else
+                    {
+                        SpriteRenderer tileType = cellReferences[i, j].tileCell.GetComponent<SpriteRenderer>();
+                        Sprite tileTypeCheck = Resources.Load<Sprite>("bordo_inferiore_tiles_pietra");
+
+                        if (tileType.sprite == tileTypeCheck)
+                            cellReferences[i, j].SettingWall();
+                        else
+                        
+                            cellReferences[i, j].TemporaryRandom();
+                    }
+                    */

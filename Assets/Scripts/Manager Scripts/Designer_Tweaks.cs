@@ -7,14 +7,14 @@ namespace Spacchiamo
     {
         //General Designer Variables
         [Range(1, 5)]
-        public int manhDistancePlayer, manhDistanceFalo, moveSpeed, fearScaleRate, patrolAreaEnemy1, patrolAreaEnemy2, patrolAreaEnemy3;
+        public int manhDistancePlayer, manhDistanceFalo, moveSpeed, fearScaleRate, patrolAreaEnemy1;
 
         // Level 1 designer variables
         [Range(5, 100)]
         public int level1Rows, level1Columns;
 
-        [Range(1,30)]
-        public int level1EnemiesQuantity, level1NpcQuantity;
+        [Range(1, 30)]
+        public int level1EnemiesQuantity;
 
         [HideInInspector]
         public static Designer_Tweaks instance = null;

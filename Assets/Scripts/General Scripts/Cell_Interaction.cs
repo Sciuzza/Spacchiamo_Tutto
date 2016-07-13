@@ -28,34 +28,6 @@ namespace Spacchiamo
 
         void Start()
         {
-            
-            int cellType = Random.Range(0, 50);
-
-            switch (cellType)
-            {
-                case 0:
-                    if (!isOccupied)
-                    {
-                        lightSource = true;
-                        isOccupied = true;
-                        this.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
-                        Grid_Manager.instance.ChangingAlpha(0.0f, this.gameObject);
-                    }
-                    break;
-                case 1:
-                    if (!isOccupied)
-                    {
-                        isOccupied = true;
-                        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-                        Grid_Manager.instance.ChangingAlpha(0.0f, this.gameObject);
-                    }
-                    break;
-                default:
-                    if(!isOccupied)
-                    Grid_Manager.instance.AddingPosition(this);
-                    break;
-            }
-            
 
             playerLink = GameObject.Find("Player(Clone)").GetComponent<Player_Controller>();
         }
@@ -83,28 +55,23 @@ namespace Spacchiamo
             lightSource = true;
             isOccupied = true;
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
-            Grid_Manager.instance.ChangingAlpha(0.0f, this.gameObject);
-            Grid_Manager.instance.ChangingAlpha(0.0f, tileCell);
+            
         }
 
         public void SettingWall()
         {
             isOccupied = true;
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            Grid_Manager.instance.ChangingAlpha(0.0f, this.gameObject);
-            Grid_Manager.instance.ChangingAlpha(0.0f, tileCell);
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;            
         }
 
-        public void TemporaryRandom()
+        public void CellFree()
         {
+            isOccupied = false;
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             Grid_Manager.instance.AddingPosition(this);
+           
         }
 
-        public void SettingInviWall()
-        {
-            isOccupied = true;
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            Grid_Manager.instance.ChangingAlpha(0.0f, this.gameObject);
-        }
+       
     }
 }

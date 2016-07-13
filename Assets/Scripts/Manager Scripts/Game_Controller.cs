@@ -131,27 +131,27 @@ namespace Spacchiamo
 
         public int GettingRowPStartPosition()
         {
-            return 0;
+            return 4;
         }
 
         public int GettingColumnPStartPosition()
         {
-            return 0;
+            return 34;
         }
 
+        /*
+                private List<ability> RandomicList()
+                {
 
-        private List<ability> RandomicList()
-        {
-
-            List<ability> randomic = new List<ability>();
-
-
-            ability randomAbility = new ability();
-            randomAbility.category = type.Primary;
-            randomAbility.oname = (originalName)Random.Range(0, 2);
+                    List<ability> randomic = new List<ability>();
 
 
-        }
+                    ability randomAbility = new ability();
+                    randomAbility.category = type.Primary;
+                    randomAbility.oname = (originalName)Random.Range(0, 2);
 
+
+                }
+                */
     }
 }

@@ -54,6 +54,7 @@ namespace Spacchiamo
         // Need to be scene based and to position enemies randomly in precise areas
         public void PreparingEnemies()
         {
+            
             #region OldRandomization Algorithm
 
             for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
