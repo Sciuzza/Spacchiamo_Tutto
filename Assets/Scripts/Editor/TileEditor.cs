@@ -69,22 +69,9 @@ namespace Spacchiamo
 
         #region Setup
         [MenuItem("Window/TileEditor")]
-        public static void OnEnable()
+        public static void OpenTileEditor()
         {
-            // Reset variables chunk. This is for new files being added, generated, etc.
-            AssetDatabase.Refresh();
-            allEditorTilesets = new Texture[0];
-            allEditorSprites = new Sprite[0];
-            layerTransforms.Clear();
-
-            SceneView.onSceneGUIDelegate += OnSceneGUI; // Set delegate for adding the OnSceneGUI event
-
-            allEditorTilesets = Resources.LoadAll<Texture>("Tilesets"); // Load all tilesets as texture
-            allEditorSprites = Resources.LoadAll<Sprite>("Tilesets"); // Load all tileset sub objects as tiles
-            texVisible = Resources.Load("Icons/Visible") as Texture2D;
-            texHidden = Resources.Load("Icons/Hidden") as Texture2D;
-
-            LoadTileset(0); // Process loaded tiles into proper tilesets
+            ReloadAssets();
 
             // Creates the highlight color for selecting tiles
             editorSelectionTexture = new Texture2D(1, 1);
@@ -97,6 +84,22 @@ namespace Spacchiamo
             window.minSize = new Vector2(325, 400);
         }
 
+        public static void ReloadAssets()
+        {
+            AssetDatabase.Refresh();
+            layerTransforms.Clear();
+            allEditorTilesets = Resources.LoadAll<Texture>("Tilesets"); // Load all tilesets as texture
+            allEditorSprites = Resources.LoadAll<Sprite>("Tilesets"); // Load all tileset sub objects as tiles
+            texVisible = Resources.Load("Icons/Visible") as Texture2D;
+            texHidden = Resources.Load("Icons/Hidden") as Texture2D;
+            LoadTileset(0); // Process loaded tiles into proper tilesets
+        }
+
+        public static void OnEnable()
+        {
+            ReloadAssets();
+        }
+
         static void ResetGameObjects()
         {
             // Intended to create objects required for the tileset editor to work
@@ -107,6 +110,7 @@ namespace Spacchiamo
                 {
                     editorFieldGo = GameObject.CreatePrimitive(PrimitiveType.Quad);
                     editorFieldGo.name = TILESET_EDITOR_FIELD_NAME;
+                    editorFieldGo.layer = LayerMask.NameToLayer("TileEditor");
                 }
 
                 if (editorFieldGo.GetComponent<Renderer>())
@@ -139,10 +143,6 @@ namespace Spacchiamo
             }
         }
 
-        void OnDisable()
-        {
-            SceneView.onSceneGUIDelegate -= OnSceneGUI;
-        }
 
         private void OnSelectionChange()
         {
@@ -260,14 +260,14 @@ namespace Spacchiamo
                 {
                     Debug.Log("There was an error getting the tilesetNames of the files. We'll try to reload the tilesets. If this continues to show, please close the script and try remimporting and check your images.");
                     Debug.Log("Full system error: " + ex.Message);
-                    OnEnable();
+                    ReloadAssets();
                 }
             }
 
             // Show tileset options
             EditorGUILayout.BeginHorizontal();
             int selectedTilesetIndex = EditorGUILayout.Popup("Tileset", editorCurrentSelectedTileSet, tilesetNames);
-            if (GUILayout.Button("Reload")) OnEnable();
+            if (GUILayout.Button("Reload")) ReloadAssets();
             EditorGUILayout.EndHorizontal();
 
             // @todo: check this!
@@ -364,7 +364,7 @@ namespace Spacchiamo
                     if (ex.Message.StartsWith("IndexOutOfRangeException"))
                     {
                         Debug.Log("Tileset index was out of bounds, reloading and trying again.");
-                        OnEnable();
+                        ReloadAssets();
                         return;
                     }
                 }
@@ -404,12 +404,13 @@ namespace Spacchiamo
             EditorGUILayout.EndScrollView();
         }
 
-
+       bool editorEnabled;
        void OnGUI()
        {
            int i;
            ResetGameObjects();
            e = Event.current; // Gets current event (mouse move, repaint, keyboard press, etc)
+
 
            if (renameId != -1 && (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter))
            {
@@ -420,10 +421,26 @@ namespace Spacchiamo
            {
                 // @todo: remove this check since we can just use prefabs
                EditorGUILayout.LabelField("No tilesets found. Retrying.");
-               OnEnable();
+                ReloadAssets();
            }
            else
            {
+                // Utils
+                bool wasEnabled = editorEnabled;
+                editorEnabled  = EditorGUILayout.Toggle("Enabled", editorEnabled);
+                if (wasEnabled != editorEnabled)
+                {
+                    if (editorEnabled)
+                    {
+                        SceneView.onSceneGUIDelegate += OnSceneGUI;
+                    }
+                    else
+                    {
+                        SceneView.onSceneGUIDelegate -= OnSceneGUI;
+                    }
+                }
+
+
                 // Tools
                 EditorGUILayout.BeginHorizontal(GUILayout.Width(position.width));
                 EditorGUILayout.LabelField("Tool");
@@ -590,7 +607,7 @@ namespace Spacchiamo
         }
 
         static void OnSceneGUI(SceneView sceneview)
-        {
+        { 
             if (layersHolderGo != null)
             {
                 // At least one layer should always be there
@@ -599,10 +616,15 @@ namespace Spacchiamo
                     AddLayer();
                     ResetLayers();
                 }
+                if (selectedLayerID >= layersHolderGo.transform.childCount)
+                {
+                    ResetLayers();
+                }
 
                 if (Event.current.type == EventType.layout)
                 {
-                    HandleUtility.AddDefaultControl(GUIUtility.GetControlID(window.GetHashCode(), FocusType.Passive));
+                    if (window)
+                        HandleUtility.AddDefaultControl(GUIUtility.GetControlID(window.GetHashCode(), FocusType.Passive));
                 }
                 e = Event.current;
 

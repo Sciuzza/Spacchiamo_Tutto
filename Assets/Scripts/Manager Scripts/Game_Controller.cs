@@ -84,7 +84,7 @@ namespace Spacchiamo
             movingObjTemp = Resources.Load<GameObject>("Player");
             movingObjTemp = Instantiate(movingObjTemp);
 
-            if (playerAbilities.Count == 0)
+           
 
                 #endregion
 

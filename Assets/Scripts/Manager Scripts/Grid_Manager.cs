@@ -71,10 +71,7 @@ namespace Spacchiamo
                         {
                             cellReferences[i, j].SettingWall();
                         }
-                        else if (i == 19 && j == 50)
-                            cellReferences[i, j].SettingFalo();
-                        else
-                            cellReferences[i, j].CellFree();
+                      
                          
                         
                         // Fog Of War
@@ -401,10 +398,10 @@ namespace Spacchiamo
                 leftPositions.Add(posToAdd);
         }
 
-        public void RemovingPosition(Cell_Interaction posToRemove)
+        public void RemovingPosition(int row, int column)
         {
-            if (leftPositions.Contains(posToRemove))
-                leftPositions.Remove(posToRemove);
+            if (leftPositions.Contains(cellReferences[row,column]))
+                leftPositions.Remove(cellReferences[row, column]);
         }
 
 

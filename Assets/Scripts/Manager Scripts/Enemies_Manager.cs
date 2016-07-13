@@ -55,31 +55,13 @@ namespace Spacchiamo
         public void PreparingEnemies()
         {
             
-            #region OldRandomization Algorithm
 
-            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
-            {
-                switch (Random.Range(1, 4))
-                {
-                    case 1:
-                        enemyTemp = Resources.Load<GameObject>("Enemy1");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                    case 2:
-                        enemyTemp = Resources.Load<GameObject>("Enemy2");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                    default:
-                        enemyTemp = Resources.Load<GameObject>("Enemy3");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                } 
-                #endregion
+               GameObject[] temp = GameObject.FindGameObjectsWithTag("Enemy");
+               enemyReferences.AddRange(temp);
 
-            }
+
+
+            
         }
 
        
@@ -140,3 +122,29 @@ namespace Spacchiamo
         }
     }
 }
+
+
+ 
+            /*
+            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
+            {
+                switch (Random.Range(1, 4))
+                {
+                    case 1:
+                        enemyTemp = Resources.Load<GameObject>("Enemy1");
+                        enemyTemp = Instantiate(enemyTemp);
+                        enemyReferences.Add(enemyTemp);
+                        break;
+                    case 2:
+                        enemyTemp = Resources.Load<GameObject>("Enemy2");
+                        enemyTemp = Instantiate(enemyTemp);
+                        enemyReferences.Add(enemyTemp);
+                        break;
+                    default:
+                        enemyTemp = Resources.Load<GameObject>("Enemy3");
+                        enemyTemp = Instantiate(enemyTemp);
+                        enemyReferences.Add(enemyTemp);
+                        break;
+                }
+                */
+           

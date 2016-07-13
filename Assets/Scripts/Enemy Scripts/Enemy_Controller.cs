@@ -31,21 +31,13 @@ namespace Spacchiamo
         // Use this for initialization
         void Start()
         {
-            Cell_Interaction EnemyStartPosition = null;
-            // Initializing Enemy Position
+           
+            patrolLink.SettingWhereI((int)this.transform.position.x);
+            patrolLink.SettingWhereJ((int)this.transform.position.y);
 
-            EnemyStartPosition = Grid_Manager.instance.SettingEnemyPosition();
+            Grid_Manager.instance.RemovingPosition((int)this.transform.position.x, (int)this.transform.position.y);
 
-            float x = EnemyStartPosition.transform.position.x;
-            float y = EnemyStartPosition.transform.position.y;
-            float z = this.transform.position.z;
-
-            patrolLink.SettingWhereI(EnemyStartPosition.cell_i);
-            patrolLink.SettingWhereJ(EnemyStartPosition.cell_j);
-
-            Grid_Manager.instance.RemovingPosition(EnemyStartPosition);
-
-            this.transform.position = new Vector3(x, y, z);
+           
 
             patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingRow(), patrolLink.GettingColumn()));
 
@@ -53,10 +45,21 @@ namespace Spacchiamo
 
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+      
     }
 }
+
+
+
+/*
+           Cell_Interaction EnemyStartPosition = null;
+           // Initializing Enemy Position
+
+           EnemyStartPosition = Grid_Manager.instance.SettingEnemyPosition();
+
+           float x = EnemyStartPosition.transform.position.x;
+           float y = EnemyStartPosition.transform.position.y;
+           float z = this.transform.position.z;
+
+            this.transform.position = new Vector3(x, y, z);
+           */

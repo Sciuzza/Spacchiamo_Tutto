@@ -13,8 +13,6 @@ namespace Spacchiamo
         [Range(5, 100)]
         public int level1Rows, level1Columns;
 
-        [Range(1, 30)]
-        public int level1EnemiesQuantity;
 
         [HideInInspector]
         public static Designer_Tweaks instance = null;
