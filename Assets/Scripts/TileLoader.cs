@@ -18,10 +18,7 @@ namespace Spacchiamo
     public class TileLoader : MonoBehaviour
     {
         
-       void Start()
-        {
-            Grid_Manager.instance.GivingTileLoaderRef(this.gameObject);
-        }
+       
 
 
         public List<TileData> LoadAllTilesInScene(string tag)

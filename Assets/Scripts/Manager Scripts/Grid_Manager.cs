@@ -16,7 +16,11 @@ namespace Spacchiamo
 
         TileLoader tileLoaderTemp;
 
-        [HideInInspector]
+        int debuggerCount = 0;
+        public List<Sprite> wallList = new List<Sprite>();
+        public Sprite[] wallSprites;
+
+       [HideInInspector]
         public static Grid_Manager instance = null;
 
         void Awake()
@@ -90,7 +94,12 @@ namespace Spacchiamo
 
         public void PreparingOptimizedGridSpace()
         {
-            //tileLoaderTemp = GameObject.Find("TilesLayerHolder").GetComponent<TileLoader>();
+            wallSprites = Resources.LoadAll<Sprite>("Tilesets/Bordo_inferiore_tiles_pietra");
+            
+            wallList.AddRange(wallSprites);
+
+
+            tileLoaderTemp = GameObject.Find("TilesLayerHolder").GetComponent<TileLoader>();
             List<TileData> tileReferences = tileLoaderTemp.LoadAllTilesInScene("Tile");
 
             cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1XWidth, Designer_Tweaks.instance.level1yWidth];
@@ -128,15 +137,14 @@ namespace Spacchiamo
 
                 SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
-
-
-                if (tileType.sprite.name.Contains("Bordo"))
+                
+                
+                if (wallList.Find(z => z.name == tileType.sprite.name) != null)
                 {
                     cellReferences[x, y].SettingWall();
+                    debuggerCount++;
                 }
-                else
-                    cellReferences[x, y].CellFree();
-
+    
 
 
                 // Fog Of War
@@ -144,13 +152,11 @@ namespace Spacchiamo
                 ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
 
             }
+            Debug.Log(debuggerCount);
             Debug.Log(Time.realtimeSinceStartup);
         }
 
-        public void GivingTileLoaderRef(GameObject tl)
-        {
-            tileLoaderTemp = tl.GetComponent<TileLoader>();
-        }
+     
 
       
         // Methods necessary to control if a moving object can effectively move and to Update Occupied Status
@@ -311,12 +317,12 @@ namespace Spacchiamo
 
 
 
-        public void SwitchingOccupiedStatus(int row, int column)
+        public void SwitchingOccupiedStatus(int x, int y)
         {
-            if (!cellReferences[row, column].isOccupied)
-                cellReferences[row, column].isOccupied = true;
+            if (!cellReferences[x, y].isOccupied)
+                cellReferences[x, y].isOccupied = true;
             else
-                cellReferences[row, column].isOccupied = false;
+                cellReferences[x, y].isOccupied = false;
         }
 
 

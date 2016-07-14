@@ -17,9 +17,13 @@ namespace Spacchiamo
         void Awake()
         {
             moveLink = GetComponent<PMovement>();
-            Game_Controller.instance.GivingPlayerRef(this.gameObject);
         }
 
+        void Start()
+        {
+            Game_Controller.instance.GivingPlayerRef(this.gameObject);
+
+        }
 
 
         void Update()

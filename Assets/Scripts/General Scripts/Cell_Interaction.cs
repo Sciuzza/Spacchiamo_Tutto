@@ -55,7 +55,7 @@ namespace Spacchiamo
 
         public void SettingWall()
         {
-            isOccupied = true;
+            this.isOccupied = true;
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;            
         }
 
