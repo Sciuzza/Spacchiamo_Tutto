@@ -6,17 +6,12 @@ namespace Spacchiamo
     public class PMovement : MonoBehaviour
     {
 
-        public enum NUM : byte { ZERO, FOUR = 4 };
-        public enum BUTTON : byte { UP, DOWN, LEFT, RIGHT };
-        KeyCode[] playerInputKey;
-
-
         Vector2 distance = new Vector2(-100, -100), direction;
 
         private bool isMoving = false;
-        private int whereI, whereJ;
-        private Transform whereToGo = null;
-        
+        public int whereI, whereJ;
+        public Transform whereToGo = null;
+
 
         private Player_Controller pControllerLink;
 
@@ -24,14 +19,10 @@ namespace Spacchiamo
         {
             pControllerLink = this.GetComponent<Player_Controller>();
 
-            this.playerInputKey = new KeyCode[(int)NUM.FOUR];
-            this.playerInputKey[(int)BUTTON.UP] = KeyCode.W;
-            this.playerInputKey[(int)BUTTON.DOWN] = KeyCode.S;
-            this.playerInputKey[(int)BUTTON.LEFT] = KeyCode.A;
-            this.playerInputKey[(int)BUTTON.RIGHT] = KeyCode.D;
 
-            whereI = Game_Controller.instance.GettingRowStartPosition();
-            whereJ = Game_Controller.instance.GettingColumnStartPosition();
+            whereI = Game_Controller.instance.GettingRowPStartPosition();
+            whereJ = Game_Controller.instance.GettingColumnPStartPosition();
+
         }
 
 
@@ -48,66 +39,96 @@ namespace Spacchiamo
                 this.direction = this.distance.normalized;
                 this.transform.position = (Vector2)this.transform.position + this.direction * Time.deltaTime * Designer_Tweaks.instance.moveSpeed;
 
-                if (this.distance.sqrMagnitude < 0.001f)
+                if (this.distance.sqrMagnitude < 0.005f)
                 {
                     this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
-                    whereToGo = null;
+                    //whereToGo = null;
                     isMoving = false;
                     //Getting the light around the player
                     Grid_Manager.instance.GettingLight(whereI, whereJ);
+
+                    //Increasing Fear Bar and Fear Value by 1
+                    if (!Grid_Manager.instance.IsCellReceivingLight(whereI, whereJ))
+                    {
+                        if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
+                        {
+                            pControllerLink.FearValue++;
+                            Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
+                        }
+                    }
+
+                    // Resetting Fear Bar and Value to 0
+                    else
+                    {
+                        pControllerLink.fearTurnCounter = 0;
+                        pControllerLink.FearValue = 0;
+                        Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
+                        Enemies_Manager.instance.ClearAggro();
+                    }
+                    //Increasing Turn Counter
+                    pControllerLink.TurnValue++;
+                    Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
                 }
             }
             else
             {
-                if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
+                if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn && !pControllerLink.attackSelection)
                 {
-                    if (Input.GetKey(this.playerInputKey[(int)BUTTON.UP]))
+                    if (Input.GetKey(KeyCode.W))
                     {
                         whereToGo = Grid_Manager.instance.CheckingUpCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereI++;
+                            isMoving = true;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
                         else
                             Debug.Log("Sound Here");
+                        
                     }
-                    else if (Input.GetKey(this.playerInputKey[(int)BUTTON.DOWN]))
+                    else if (Input.GetKey(KeyCode.S))
                     {
                         whereToGo = Grid_Manager.instance.CheckingDownCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereI--;
+                            isMoving = true;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
                         else
                             Debug.Log("Sound Here");
+                        
                     }
-                    else if (Input.GetKey(this.playerInputKey[(int)BUTTON.LEFT]))
+                    else if (Input.GetKey(KeyCode.A))
                     {
                         whereToGo = Grid_Manager.instance.CheckingLeftCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereJ--;
+                            isMoving = true;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (!pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
                         else
                             Debug.Log("Sound Here");
+                        
                     }
-                    else if (Input.GetKey(this.playerInputKey[(int)BUTTON.RIGHT]))
+                    else if (Input.GetKey(KeyCode.D))
                     {
                         whereToGo = Grid_Manager.instance.CheckingRightCell(whereI, whereJ);
                         if (whereToGo != null)
                         {
-                            isMoving = true;
                             whereJ++;
+                            isMoving = true;
+                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                             if (pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
                         else
                             Debug.Log("Sound Here");
+                        
                     }
 
                 }
@@ -127,6 +148,3 @@ namespace Spacchiamo
     }
 
 }
-
-
-
