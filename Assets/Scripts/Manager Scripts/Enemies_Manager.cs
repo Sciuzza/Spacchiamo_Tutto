@@ -10,7 +10,7 @@ namespace Spacchiamo
         public List<GameObject> enemyReferences = new List<GameObject>();
         
 
-        GameObject[] enemyArray;
+        
 
 
         [HideInInspector]
@@ -24,11 +24,7 @@ namespace Spacchiamo
                 Destroy(gameObject);
         }
 
-        void Start()
-        {
-            enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-            enemyReferences.AddRange(enemyArray);
-        }
+        
 
         void Update()
         {
@@ -131,6 +127,11 @@ namespace Spacchiamo
                 Grid_Manager.instance.SwitchingOccupiedStatus(enemyPosition.GettingXEnemy(), enemyPosition.GettingYEnemy());
             }
 
+        }
+
+        public void PassingEnemyList(GameObject[] enemies)
+        {
+            enemyReferences.AddRange(enemies);
         }
 
 

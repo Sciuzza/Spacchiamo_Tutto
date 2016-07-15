@@ -54,13 +54,13 @@ namespace Spacchiamo
         // Game Phases
         public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
 
-
+        GameObject[] enemyArray;
         GameObject[] faloList;
 
         List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
-       
 
 
+        
 
         // Camera and Player References
         Camera_Movement cameraLink;
@@ -94,13 +94,12 @@ namespace Spacchiamo
         {
 
             playerLink = GameObject.FindGameObjectWithTag("Player");
-            //Getting Camera Reference 
             cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
-
             faloList = GameObject.FindGameObjectsWithTag("Falo");
-
+            enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
             
 
+            // Grid Initialization
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
 
@@ -126,12 +125,13 @@ namespace Spacchiamo
             //Initializing Ability List on Player
             playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
 
+            Enemies_Manager.instance.PassingEnemyList(enemyArray);
 
             //Initialing Occupied Status for Enemy and Player
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
 
             //Initializing PatrolArea
-            Enemies_Manager.instance.PatrolArea();
+             Enemies_Manager.instance.PatrolArea();
 
         }
 
