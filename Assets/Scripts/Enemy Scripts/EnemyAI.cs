@@ -4,18 +4,21 @@ using System.Collections.Generic;
 
 namespace Spacchiamo
 {
-    public class Enemy_Patrolling : MonoBehaviour
+    public class EnemyAI : MonoBehaviour
     {
 
         Vector2 distance = new Vector2(-100, -100), direction;
 
         public bool isMoving = false;
         public bool move_done = false;
+        public bool isRangeChecked = false;
+
+
         public int xEnemy, yEnemy;
         public int xComeBack, yComeBack;
         public Transform whereToGo = null;
 
-        public bool isRangeChecked = false;
+        
 
         Ability1 abilityLink;
 
@@ -38,11 +41,18 @@ namespace Spacchiamo
 
             abilityLink = this.GetComponent<Ability1>();
 
+            xEnemy =  Mathf.FloorToInt(this.transform.position.x);
+            yEnemy =  Mathf.FloorToInt(this.transform.position.y);
+            xComeBack = xEnemy;
+            yComeBack = yEnemy;
+
         }
+
+        
 
         void Update()
         {
-            if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.npcEnemyTurn)
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn)
             {
                 if (!eControllerLink.isAggroed)
                 {
@@ -62,7 +72,7 @@ namespace Spacchiamo
                         Following();
                 }
             }
-            else if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
+            else if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn)
             {
                 move_done = false;
                 isRangeChecked = false;
@@ -71,17 +81,7 @@ namespace Spacchiamo
         }
 
 
-        public void SettingXEnemy(int xEnemy)
-        {
-            this.xEnemy = xEnemy;
-            xComeBack = xEnemy;
-        }
-
-        public void SettingYEnemy(int yEnemy)
-        {
-            this.yEnemy = yEnemy;
-            yComeBack = yEnemy;
-        }
+      
 
         public int GettingXEnemy()
         {
@@ -129,7 +129,7 @@ namespace Spacchiamo
                             whereToGo = Grid_Manager.instance.CheckingUpCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                xEnemy++;
+                                yEnemy++;
                                 isMoving = true;
                             }
                             else
@@ -141,7 +141,7 @@ namespace Spacchiamo
                             whereToGo = Grid_Manager.instance.CheckingDownCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                xEnemy--;
+                                yEnemy--;
                                 isMoving = true;
                             }
                             else
@@ -153,7 +153,7 @@ namespace Spacchiamo
                             whereToGo = Grid_Manager.instance.CheckingLeftCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                yEnemy--;
+                                xEnemy--;
                                 isMoving = true;
                             }
                             else
@@ -165,7 +165,7 @@ namespace Spacchiamo
                             whereToGo = Grid_Manager.instance.CheckingRightCell(xEnemy, yEnemy, patrolArea);
                             if (whereToGo != null)
                             {
-                                yEnemy++;
+                                xEnemy++;
                                 isMoving = true;
                             }
                             else
@@ -200,6 +200,8 @@ namespace Spacchiamo
 
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
                 whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+
                 isMoving = true;
 
             }
@@ -220,6 +222,8 @@ namespace Spacchiamo
 
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
                 whereToGo = Grid_Manager.instance.FindFastestBackRoute(possibleMoves, xComeBack, yComeBack, out xEnemy, out yEnemy);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+
                 isMoving = true;
 
             }

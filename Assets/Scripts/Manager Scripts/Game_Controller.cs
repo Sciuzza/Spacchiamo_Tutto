@@ -6,26 +6,45 @@ using System.Collections.Generic;
 namespace Spacchiamo
 {
 
-    public enum type { Primary, Secondary, Passive };
-    public enum originalName { Sventata, Impatto, Tempesta, RespiroDelVento, Maledizione, Rigenerazione, Lume, Alchimista };
-    public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged };
+    public enum type { Primary, Secondary};
+    public enum originalName {Impeto, RespiroDelVento};
+    public enum weaponType {ArmaBianca, Catalizzatore, ArmaRanged};
 
-
-    public struct ability
+    [System.Serializable]
+    public struct actPlayerAbility
     {
         public type category;
         public originalName oname;
         public string customName;
         public weaponType weapon;
         public int level;
+        public int maxLevel;
         public float damage;
+        public float damIncPerLevel;
         public int range;
+        public int rangeIncPerLevel;
         public int cooldown;
+        public int cooldownDecPerLevel;
         public int areaEffect;
+        public int aeIncPerLevel;
         public int knockBack;
-        public float dot;
-        public int stunTime;
+        public int kbIncPerLevel;
     }
+
+    [System.Serializable]
+    public struct regAbility
+    {
+        public const string name = "Rigenerazione";
+        public int level;
+        public int maxLevel;
+        public float regPower;
+        public float rpIncPerLevel;
+        public int cooldown;
+        public int cooldownDecPerLevel;
+    }
+
+    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
+    
 
 
     public class Game_Controller : MonoBehaviour
@@ -33,22 +52,21 @@ namespace Spacchiamo
 
 
         // Game Phases
-
-        public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
-
         public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
 
 
-        List<ability> playerAbilities = new List<ability>();
-        List<ability> Enemy1Abilities = new List<ability>();
-        List<ability> Enemy2Abilities = new List<ability>();
-        List<ability> Enemy3Abilities = new List<ability>();
+        GameObject[] faloList;
+
+        List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
+       
 
 
 
         // Camera and Player References
         Camera_Movement cameraLink;
-        GameObject PlayerTemp;
+
+        [HideInInspector]
+        public GameObject playerLink;
 
         [HideInInspector]
         public static Game_Controller instance = null;
@@ -64,7 +82,8 @@ namespace Spacchiamo
             else if (instance != this)
                 Destroy(gameObject);
 
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
+            
             #endregion
 
 
@@ -74,23 +93,45 @@ namespace Spacchiamo
         void Start()
         {
 
+            playerLink = GameObject.FindGameObjectWithTag("Player");
             //Getting Camera Reference 
-            cameraLink = GameObject.Find("Main Camera").GetComponent<Camera_Movement>();
+            cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
 
-            //Initalizing Level Grid Space, needs to be scene based
-            //Grid_Manager.instance.PreparingGridSpace();
+            faloList = GameObject.FindGameObjectsWithTag("Falo");
+
+            
 
             Grid_Manager.instance.PreparingOptimizedGridSpace();
-
+            Grid_Manager.instance.LinkingFaloMechanic(faloList);
 
             //Initializing Light
-            Grid_Manager.instance.GettingLight(PlayerTemp.GetComponent<PMovement>().GettingXPlayer(), PlayerTemp.GetComponent<PMovement>().GettingyPlayer());
+            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+
+            
+
+            playerActions playerPosition = playerLink.GetComponent<playerActions>();
+            Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+
+
+
+         
+
+            //Initializing Camera on Player
+            cameraLink.target = playerLink;
+
+            // Initializing abilities for testing purpose
+            if (playerAbilities.Count == 0)
+                InitializingRandomPlayerAbilities();
+
+            //Initializing Ability List on Player
+            playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
+
+
+            //Initialing Occupied Status for Enemy and Player
+            Enemies_Manager.instance.SettingOccupiedInitialStatus();
 
             //Initializing PatrolArea
             Enemies_Manager.instance.PatrolArea();
-
-            //Initializing Camera on Player
-            cameraLink.target = PlayerTemp;
 
         }
 
@@ -112,14 +153,30 @@ namespace Spacchiamo
 
         }
 
-        public void GivingPlayerRef(GameObject Player)
-        {
-            PlayerTemp = Player;
-        }
 
         public GameObject TakingPlayerRef()
         {
-            return PlayerTemp;
+            return playerLink;
+        }
+
+        private void InitializingRandomPlayerAbilities()
+        {
+            actPlayerAbility currentAbility1 = new actPlayerAbility();
+
+            currentAbility1.damage = 1;
+            currentAbility1.cooldown = 1;
+            currentAbility1.range = 1;
+
+
+            actPlayerAbility currentAbility2 = new actPlayerAbility();
+
+            currentAbility2.damage = 1;
+            currentAbility2.cooldown = 1;
+            currentAbility2.range = 3;
+
+            playerAbilities.Add(currentAbility1);
+            playerAbilities.Add(currentAbility2);
+
         }
     }
 }

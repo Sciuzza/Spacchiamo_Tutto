@@ -7,7 +7,7 @@ namespace Spacchiamo
     public class Ability_Manager : MonoBehaviour
     {
 
-        List<ability> abilityList;
+        List<actPlayerAbility> abilityList;
       
 
         void Start()

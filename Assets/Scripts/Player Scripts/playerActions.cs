@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Spacchiamo
 {
-    public class PMovement : MonoBehaviour
+    public class playerActions : MonoBehaviour
     {
 
         Vector2 distance = new Vector2(-100, -100), direction;
@@ -22,6 +22,7 @@ namespace Spacchiamo
             yPlayer = Mathf.FloorToInt(this.transform.position.y);          
         }
 
+        
 
         public void Update()
         {
@@ -69,7 +70,7 @@ namespace Spacchiamo
             }
             else
             {
-                if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn && !pControllerLink.attackSelection)
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && !pControllerLink.attackSelection)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
@@ -80,8 +81,7 @@ namespace Spacchiamo
                             isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
-                        else
-                            Debug.Log("Sound Here");
+                        
                         
                     }
                     else if (Input.GetKey(KeyCode.S))
@@ -93,8 +93,7 @@ namespace Spacchiamo
                             isMoving = true;
                             Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
                         }
-                        else
-                            Debug.Log("Sound Here");
+                       
                         
                     }
                     else if (Input.GetKey(KeyCode.A))
@@ -108,8 +107,7 @@ namespace Spacchiamo
                             if (!pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
-                        else
-                            Debug.Log("Sound Here");
+                        
                         
                     }
                     else if (Input.GetKey(KeyCode.D))
@@ -123,8 +121,7 @@ namespace Spacchiamo
                             if (pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
-                        else
-                            Debug.Log("Sound Here");
+                        
                         
                     }
 

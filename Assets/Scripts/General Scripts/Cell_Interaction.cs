@@ -5,13 +5,15 @@ namespace Spacchiamo
 {
     public class Cell_Interaction : MonoBehaviour
     {
-
+        [HideInInspector]
         public int xCell, yCell;
 
         // For Wall and Moving Objects
         public bool isOccupied = false;
 
         public GameObject tileCell;
+
+        public SpriteRenderer faloAlpha;
 
         
 
@@ -33,14 +35,11 @@ namespace Spacchiamo
         {
 
             Player_Controller playerLink = Game_Controller.instance.TakingPlayerRef().GetComponent<Player_Controller>();
-
-            if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn && playerLink.attackSelection)
-            {
-                if (Enemies_Manager.instance.EnemyIsHere(xCell, yCell))
-                    Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
-
-                Game_Controller.instance.ChangePhase(Game_Controller.GAME_PHASE.playerTurn);
-            }
+            if (this.GetComponent<SpriteRenderer>().color == Color.yellow)
+                playerLink.Attack(xCell, yCell);
+            else
+                Debug.Log("Out of Range");
+           
         }
 
      
@@ -49,23 +48,15 @@ namespace Spacchiamo
         {
             lightSource = true;
             isOccupied = true;
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.black;
             
         }
 
         public void SettingWall()
         {
-            this.isOccupied = true;
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;            
+            this.isOccupied = true;        
         }
 
-        public void CellFree()
-        {
-            isOccupied = false;
-            this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            //Grid_Manager.instance.AddingPosition(this);
-           
-        }
+       
 
        
     }

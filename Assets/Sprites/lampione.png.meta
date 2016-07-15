@@ -1,9 +1,10 @@
 fileFormatVersion: 2
 guid: a0fb176b1a6c0724885437bc296fba33
-timeCreated: 1468422344
-licenseType: Pro
+timeCreated: 1468520825
+licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: lampione_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,7 +39,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 7
@@ -49,7 +50,25 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: lampione_0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 4
+        width: 44
+        height: 217
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8, y: 217}
+        - {x: -22, y: 193}
+        - {x: -22, y: 1}
+        - {x: -21, y: 0}
+        - {x: 22, y: 0}
+        - {x: 22, y: 197}
+        - {x: 4, y: 217}
     outline: []
   spritePackingTag: 
   userData: 

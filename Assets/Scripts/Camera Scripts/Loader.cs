@@ -10,7 +10,7 @@ namespace Spacchiamo
 		
 		
 		
-		void Awake ()
+		void Start ()
 		{
             //Check if a GameManager has already been assigned to static variable GameManager.instance or if it's still null
 

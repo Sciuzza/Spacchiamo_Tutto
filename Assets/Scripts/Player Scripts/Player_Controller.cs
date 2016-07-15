@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
     public class Player_Controller : MonoBehaviour
     {
         public int fearTurnCounter = 0;
-        PMovement moveLink;
+        playerActions moveLink;
 
         public int Life = 20;
         public int FearValue = 0;
@@ -14,35 +15,63 @@ namespace Spacchiamo
 
         public bool attackSelection = false;
 
-        void Awake()
+        private bool firstAbilityPressed, secondAbilityPressed;
+
+        List<actPlayerAbility> abilities = new List<actPlayerAbility>();
+
+        public List<actPlayerAbility> Abilities
         {
-            moveLink = GetComponent<PMovement>();
+            get
+            {
+                return abilities;
+            }
+
+            set
+            {
+                abilities = value;
+            }
         }
 
-        void Start()
+        void Awake()
         {
-            Game_Controller.instance.GivingPlayerRef(this.gameObject);
+            moveLink = GetComponent<playerActions>();
 
         }
 
 
         void Update()
         {
-            if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.playerTurn)
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
-                    Game_Controller.instance.ChangePhase(Game_Controller.GAME_PHASE.playerTurn);
-                if (Input.GetKeyUp(KeyCode.Q))
+                    Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
+                if (Input.GetKeyUp(KeyCode.Q) && !attackSelection)
                 {
                     attackSelection = true;
-                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(),moveLink.GettingyPlayer());
+                    firstAbilityPressed = true;
+                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[0].range);
+                }
+                if (Input.GetKeyUp(KeyCode.E) && !attackSelection)
+                {
+                    attackSelection = true;
+                    secondAbilityPressed = true;
+                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[1].range);
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
                 {
                     attackSelection = false;
-                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
+                    if (firstAbilityPressed)
+                    {
+                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[0].range);
+                        firstAbilityPressed = false;
+                    }
+                    else if (secondAbilityPressed)
+                    {
+                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[1].range);
+                        secondAbilityPressed = false;
+                    }
                 }
-                    
+
             }
         }
 
@@ -62,6 +91,30 @@ namespace Spacchiamo
                 flipSprite.flipX = true;
 
         }
+
+
+        public void Attack(int xCell, int yCell)
+        {
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && attackSelection)
+            {
+                if (Enemies_Manager.instance.EnemyIsHere(xCell, yCell))
+                    Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
+
+                attackSelection = false;
+                if (firstAbilityPressed)
+                {
+                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[0].range);
+                    firstAbilityPressed = false;
+                }
+                else if (secondAbilityPressed)
+                {
+                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[1].range);
+                    secondAbilityPressed = false;
+                }
+                Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
+            }
+        }
+
 
     }
 }

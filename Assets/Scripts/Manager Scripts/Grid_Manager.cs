@@ -12,15 +12,18 @@ namespace Spacchiamo
         private Cell_Interaction[,] cellReferences;
         private List<Cell_Interaction> leftPositions;
 
-        public GameObject playerTemp;
 
-        TileLoader tileLoaderTemp;
+        public GameObject tilesHolder;
 
-        int debuggerCount = 0;
-        public List<Sprite> wallList = new List<Sprite>();
-        public Sprite[] wallSprites;
 
-       [HideInInspector]
+
+        List<Sprite> wallList = new List<Sprite>();
+        Sprite[] wallSprites;
+
+
+        
+
+        [HideInInspector]
         public static Grid_Manager instance = null;
 
         void Awake()
@@ -29,77 +32,23 @@ namespace Spacchiamo
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
-        }
 
-        // Used to Create the Logic Grid in the begin, needs to be scene based
-        public void PreparingGridSpace()
-        {
 
-            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1XWidth, Designer_Tweaks.instance.level1yWidth];
-            leftPositions = new List<Cell_Interaction>();
+            wallSprites = Resources.LoadAll<Sprite>("Tilesets/Bordo_inferiore_tiles_pietra");
+            wallList.AddRange(wallSprites);
 
-            GameObject cellTemp = Resources.Load<GameObject>("Cell");
-            GameObject mapTemp = Resources.Load<GameObject>("Map");
-            mapTemp = Instantiate(mapTemp);
             
-
-            for (int y = 0; y < cellReferences.GetLength(1); y++)
-            {
-               
-
-                for (int x = 0; x < cellReferences.GetLength(0); x++)
-                {
-
-                    if (GameObject.Find("Tile(" + (x) + "," + (y) + ")") != null)
-                    {
-
-                        cellTemp = Instantiate(cellTemp);
-                        cellReferences[x, y] = cellTemp.GetComponent<Cell_Interaction>();
-
-                        cellTemp.name = "Cell " + x + " , " + y;
-                        cellTemp.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
-
-                        cellReferences[x, y].yCell = y;
-                        cellReferences[x, y].xCell = x;
-
-                        cellTemp.transform.SetParent(mapTemp.transform);
-
-
-
-                        cellReferences[x, y].tileCell = GameObject.Find("Tile(" + (x) + "," + (y) + ")");
-
-                        
-                        SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
-
-
-
-                        if (tileType.sprite.name.Contains("Bordo"))
-                        {
-                            cellReferences[x, y].SettingWall();
-                        }
-                        else
-                            cellReferences[x, y].CellFree();
-                      
-                         
-                        
-                        // Fog Of War
-                        ChangingAlpha(0.0f, cellTemp);
-                        ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
-                        
-                    }
-                }
-            }
-            Debug.Log(Time.realtimeSinceStartup);
         }
+
+
+    
 
         public void PreparingOptimizedGridSpace()
         {
-            wallSprites = Resources.LoadAll<Sprite>("Tilesets/Bordo_inferiore_tiles_pietra");
-            
-            wallList.AddRange(wallSprites);
 
 
-            tileLoaderTemp = GameObject.Find("TilesLayerHolder").GetComponent<TileLoader>();
+
+            TileLoader tileLoaderTemp = tilesHolder.GetComponent<TileLoader>();
             List<TileData> tileReferences = tileLoaderTemp.LoadAllTilesInScene("Tile");
 
             cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1XWidth, Designer_Tweaks.instance.level1yWidth];
@@ -115,20 +64,21 @@ namespace Spacchiamo
 
             for (int i = 0; i < tileReferences.Count; i++)
             {
-                cellTemp = Instantiate(cellTemp);
+
+                GameObject currentCell = Instantiate(cellTemp);
 
                 x = tileReferences[i].cell_x;
                 y = tileReferences[i].cell_y;
 
-                cellReferences[x, y] = cellTemp.GetComponent<Cell_Interaction>();
+                cellReferences[x, y] = currentCell.GetComponent<Cell_Interaction>();
 
-                cellTemp.name = "Cell " + x + " , " + y;
-                cellTemp.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
+                currentCell.name = "Cell " + x + " , " + y;
+                currentCell.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
 
                 cellReferences[x, y].yCell = y;
                 cellReferences[x, y].xCell = x;
 
-                cellTemp.transform.SetParent(mapTemp.transform);
+                currentCell.transform.SetParent(mapTemp.transform);
 
 
 
@@ -137,36 +87,49 @@ namespace Spacchiamo
 
                 SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
-                
-                
+
+
                 if (wallList.Find(z => z.name == tileType.sprite.name) != null)
-                {
                     cellReferences[x, y].SettingWall();
-                    debuggerCount++;
-                }
-    
+
+
+
+
 
 
                 // Fog Of War
-                ChangingAlpha(0.0f, cellTemp);
-                ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
+                ChangingAlpha(0.0f, currentCell);
+
 
             }
-            Debug.Log(debuggerCount);
+
+            
             Debug.Log(Time.realtimeSinceStartup);
         }
 
-     
+        public void LinkingFaloMechanic(GameObject[] faloList)
+        {
+            int x, y;
 
-      
-        // Methods necessary to control if a moving object can effectively move and to Update Occupied Status
+            for (int i = 0; i < faloList.GetLength(0); i++)
+            {
+                x = Mathf.FloorToInt(faloList[i].transform.position.x);
+                y = Mathf.FloorToInt(faloList[i].transform.position.y);
+
+                cellReferences[x, y].SettingFalo();
+                cellReferences[x, y].faloAlpha = faloList[i].GetComponent<SpriteRenderer>();
+            }
+        }
+
+
+        // Methods for the Movement System
 
         public Transform CheckingUpCell(int x, int y)
         {
 
             if (y + 1 < cellReferences.GetLength(1))
             {
-              
+
                 if (cellReferences[x, y + 1] != null && !cellReferences[x, y + 1].isOccupied)
                 {
                     SwitchingOccupiedStatus(x, y);
@@ -314,8 +277,63 @@ namespace Spacchiamo
 
         }
 
+        private bool CheckingUpCellExp(int xEnemy, int yEnemy)
+        {
+            if (yEnemy + 1 < cellReferences.GetLength(1))
+            {
+                if (cellReferences[xEnemy, yEnemy + 1] != null && !cellReferences[xEnemy, yEnemy + 1].isOccupied)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        private bool CheckingDownCellExp(int xEnemy, int yEnemy)
+        {
+            if (yEnemy - 1 > 0)
+            {
+                if (cellReferences[xEnemy, yEnemy - 1] != null && !cellReferences[xEnemy, yEnemy - 1].isOccupied)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        private bool CheckingLeftCellExp(int xEnemy, int yEnemy)
+        {
+            if (xEnemy - 1 > 0)
+            {
+                if (cellReferences[xEnemy - 1, yEnemy] != null && !cellReferences[xEnemy - 1, yEnemy].isOccupied)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        private bool CheckingRightCellExp(int xEnemy, int yEnemy)
+        {
+            if (xEnemy + 1 < cellReferences.GetLength(0))
+            {
+                if (cellReferences[xEnemy + 1, yEnemy] != null && !cellReferences[xEnemy + 1, yEnemy].isOccupied)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
 
 
+        public Transform GetCellTransform(int row, int column)
+        {
+            return cellReferences[row, column].transform;
+        }
 
         public void SwitchingOccupiedStatus(int x, int y)
         {
@@ -355,7 +373,7 @@ namespace Spacchiamo
                             {
                                 cellReferences[x, y].aggroCell = true;
                                 ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
-                                ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
+                                //  ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                             }
                         }
                         else if (Designer_Tweaks.instance.manhDistancePlayer == currentDistance)
@@ -364,7 +382,7 @@ namespace Spacchiamo
                             {
                                 cellReferences[x, y].aggroCell = false;
                                 ChangingAlpha(0.8f, cellReferences[x, y].gameObject);
-                                ChangingAlpha(0.8f, cellReferences[x, y].tileCell);
+                                //  ChangingAlpha(0.8f, cellReferences[x, y].tileCell);
                             }
                         }
                         else
@@ -376,11 +394,12 @@ namespace Spacchiamo
                                 if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f)
                                 {
                                     ChangingAlpha(0.5f, cellReferences[x, y].gameObject);
-                                    ChangingAlpha(0.5f, cellReferences[x, y].tileCell);
+                                    // ChangingAlpha(0.5f, cellReferences[x, y].tileCell);
                                 }
-                                else {
+                                else
+                                {
                                     ChangingAlpha(0.0f, cellReferences[x, y].gameObject);
-                                    ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
+                                    // ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
                                 }
                             }
                         }
@@ -408,7 +427,7 @@ namespace Spacchiamo
                         {
                             cellReferences[x, y].isReceivingLight = true;
                             ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
-                            ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
+                            // ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                         }
                     }
                 }
@@ -423,6 +442,14 @@ namespace Spacchiamo
             Color cellColor = cell.GetComponent<SpriteRenderer>().color;
             cellColor.a = alphaLevel;
             cell.GetComponent<SpriteRenderer>().color = cellColor;
+
+            Cell_Interaction matchAlpha = cell.GetComponent<Cell_Interaction>();
+
+            matchAlpha.tileCell.GetComponent<SpriteRenderer>().color = cellColor;
+
+            if (matchAlpha.faloAlpha != null)
+                matchAlpha.faloAlpha.color = cellColor;
+
         }
 
         private float GettingAlpha(GameObject cell)
@@ -438,23 +465,9 @@ namespace Spacchiamo
         }
 
 
-        public int AskingXWidth()
-        {
-            return cellReferences.GetLength(0);
-        }
 
-        public int AskingYWidth()
-        {
-            return cellReferences.GetLength(1);
-        }
 
-        /*
-        public void AddingPosition(Cell_Interaction posToAdd)
-        {
-            if (!leftPositions.Contains(posToAdd))
-                leftPositions.Add(posToAdd);
-        }
-        */
+        //Method for the enemy Moves
         public List<Cell_Interaction> FindingPatrolArea(int xEnemy, int yEnemy)
         {
             float currentDistance;
@@ -509,60 +522,11 @@ namespace Spacchiamo
             return moves;
         }
 
-        private bool CheckingUpCellExp(int xEnemy, int yEnemy)
-        {
-            if (yEnemy + 1 < cellReferences.GetLength(1))
-            {
-                if (cellReferences[xEnemy, yEnemy + 1] != null && !cellReferences[xEnemy, yEnemy + 1].isOccupied)
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
-        }
 
-        private bool CheckingDownCellExp(int xEnemy, int yEnemy)
+        // Method to follow player on Aggro
+        public Transform FindFastestRoute(List<Transform> moves, out int xEnemy, out int yEnemy)
         {
-            if (yEnemy - 1 > 0)
-            {
-                if (cellReferences[xEnemy, yEnemy - 1] != null && !cellReferences[xEnemy, yEnemy - 1].isOccupied)
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
-        }
-
-        private bool CheckingLeftCellExp(int xEnemy, int yEnemy)
-        {
-            if (xEnemy - 1 > 0)
-            {
-                if (cellReferences[xEnemy - 1, yEnemy] != null && !cellReferences[xEnemy - 1, yEnemy].isOccupied)
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
-        }
-
-        private bool CheckingRightCellExp(int xEnemy, int yEnemy)
-        {
-            if (xEnemy + 1 < cellReferences.GetLength(0))
-            {
-                if (cellReferences[xEnemy + 1, yEnemy] != null && !cellReferences[xEnemy + 1, yEnemy].isOccupied)
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
-        }
-
-        public Transform FindFastestRoute(List<Transform> moves, out int whereI, out int whereJ)
-        {
+            GameObject playerTemp = Game_Controller.instance.playerLink;
 
             float min = Mathf.Abs(moves[0].position.x - playerTemp.transform.position.x) + Mathf.Abs(moves[0].position.y - playerTemp.transform.position.y);
 
@@ -584,18 +548,20 @@ namespace Spacchiamo
 
 
 
-            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
-            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
-            SwitchingOccupiedStatus(whereI, whereJ);
+            xEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
+            yEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
+            
 
             return moves[posFound];
 
         }
 
-        public Transform FindFastestBackRoute(List<Transform> moves, int whereIComeBack, int whereJComeBack, out int whereI, out int whereJ)
+
+        //Method to come back on starting position when aggro is wiped
+        public Transform FindFastestBackRoute(List<Transform> moves, int xComeBack, int yComeBack, out int xEnemy, out int yEnemy)
         {
-            float min = Mathf.Abs(moves[0].position.x - cellReferences[whereIComeBack, whereJComeBack].transform.position.x) + Mathf.Abs(moves[0].position.y -
-                cellReferences[whereIComeBack, whereJComeBack].transform.position.y);
+            float min = Mathf.Abs(moves[0].position.x - cellReferences[xComeBack, yComeBack].transform.position.x) + Mathf.Abs(moves[0].position.y -
+                cellReferences[xComeBack, yComeBack].transform.position.y);
 
             int posFound = 0;
 
@@ -603,8 +569,8 @@ namespace Spacchiamo
             {
                 for (int i = 1; i < moves.Count; i++)
                 {
-                    int current = Mathf.RoundToInt(Mathf.Abs(moves[i].position.x - cellReferences[whereIComeBack, whereJComeBack].transform.position.x)
-                        + Mathf.Abs(moves[i].position.y - cellReferences[whereIComeBack, whereJComeBack].transform.position.y));
+                    int current = Mathf.RoundToInt(Mathf.Abs(moves[i].position.x - cellReferences[xComeBack, yComeBack].transform.position.x)
+                        + Mathf.Abs(moves[i].position.y - cellReferences[xComeBack, yComeBack].transform.position.y));
 
                     if (current <= min)
                     {
@@ -616,47 +582,55 @@ namespace Spacchiamo
 
 
 
-            whereI = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
-            whereJ = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
-            SwitchingOccupiedStatus(whereI, whereJ);
+            xEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
+            yEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
+            
 
             return moves[posFound];
         }
 
-        public int CalcEnemyPlayDist(int row, int column)
+
+
+        public int CalcEnemyPlayDist(int xEnemy, int yEnemy)
         {
+            GameObject playerTemp = Game_Controller.instance.playerLink;
+            Vector3 playerPos = playerTemp.GetComponent<playerActions>().whereToGo.position;
 
-            Vector3 playerPos = playerTemp.GetComponent<PMovement>().whereToGo.position;
-
-            return Mathf.RoundToInt(Mathf.Abs(playerPos.x - cellReferences[row, column].gameObject.transform.position.x) +
-                Mathf.Abs(playerPos.y - cellReferences[row, column].gameObject.transform.position.y));
+            return Mathf.RoundToInt(Mathf.Abs(playerPos.x - cellReferences[xEnemy, yEnemy].gameObject.transform.position.x) +
+                Mathf.Abs(playerPos.y - cellReferences[xEnemy, yEnemy].gameObject.transform.position.y));
         }
 
         public void MakeDamageToPlayer(int damage)
         {
+            GameObject playerTemp = Game_Controller.instance.playerLink;
             playerTemp.GetComponent<Player_Controller>().Life -= damage;
         }
 
 
-        public void HighlightingAttackRange(int xPlayer, int yPlayer)
+
+        // Methods for the Player Attack
+        public void HighlightingAttackRange(int xPlayer, int yPlayer, int range)
         {
             float currentDistance;
+            
+            SpriteRenderer tileHighlight;
 
             for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[y, x] != null)
+                    if (cellReferences[x, y] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[y, x].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
-                            Mathf.Abs(cellReferences[y, x].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
+                            Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
+                        tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
-
-                        if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
                         {
 
-                            cellReferences[y, x].GetComponent<SpriteRenderer>().color = Color.yellow;
+                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.yellow;
+                            tileHighlight.color = Color.yellow;
 
                         }
                     }
@@ -665,26 +639,27 @@ namespace Spacchiamo
 
         }
 
-        public void DelightingAttackRange(int xPlayer, int yPlayer)
+        public void DelightingAttackRange(int xPlayer, int yPlayer, int range)
         {
             float currentDistance;
+            
 
             for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[y, x] != null)
+                    if (cellReferences[x, y] != null)
                     {
-                        currentDistance = Mathf.Abs(cellReferences[y, x].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
-                        Mathf.Abs(cellReferences[y, x].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
+                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
+                        Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
 
 
-                        if (playerTemp.GetComponent<Ability1>().range == currentDistance)
+                        if (range >= currentDistance)
                         {
 
-                            cellReferences[y, x].GetComponent<SpriteRenderer>().color = Color.white;
-
+                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
+                            cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>().color = Color.white;
                         }
                     }
                 }
@@ -694,31 +669,13 @@ namespace Spacchiamo
 
 
 
-        public Transform GetCellTransform(int row, int column)
-        {
-            return cellReferences[row, column].transform;
-        } 
 
 
 
-        
+
+
 
     }
 }
 
 
-/*
-                    if (cellReferences[i, j].tileCell == null)
-                        cellReferences[i, j].SettingInviWall();
-                    else
-                    {
-                        SpriteRenderer tileType = cellReferences[i, j].tileCell.GetComponent<SpriteRenderer>();
-                        Sprite tileTypeCheck = Resources.Load<Sprite>("bordo_inferiore_tiles_pietra");
-
-                        if (tileType.sprite == tileTypeCheck)
-                            cellReferences[i, j].SettingWall();
-                        else
-                        
-                            cellReferences[i, j].TemporaryRandom();
-                    }
-                    */
