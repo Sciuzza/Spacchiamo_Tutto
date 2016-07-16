@@ -12,9 +12,9 @@ namespace Spacchiamo
         private List<actPlayerAbility> actRepo = new List<actPlayerAbility>();
 
         [SerializeField]
-        private regAbility regeneration = new regAbility();
+        private passiveAbilities passRepo = new passiveAbilities();
 
-       
+
 
         public List<actPlayerAbility> ARepository
         {
@@ -24,16 +24,13 @@ namespace Spacchiamo
             }
         }
 
-        public regAbility Regeneration
+        public passiveAbilities PassRepo
         {
             get
             {
-                return regeneration;
+                return passRepo;
             }
         }
-
-
-
 
         [HideInInspector]
         public static AbiRepository instance = null;

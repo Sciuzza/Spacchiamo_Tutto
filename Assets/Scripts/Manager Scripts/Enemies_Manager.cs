@@ -7,7 +7,7 @@ namespace Spacchiamo
     public class Enemies_Manager : MonoBehaviour
     {
 
-        public List<GameObject> enemyReferences = new List<GameObject>();
+        List<GameObject> enemyReferences = new List<GameObject>();
         
 
         

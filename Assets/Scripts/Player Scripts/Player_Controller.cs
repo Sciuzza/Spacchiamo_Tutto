@@ -18,6 +18,7 @@ namespace Spacchiamo
         private bool firstAbilityPressed, secondAbilityPressed;
 
         List<actPlayerAbility> abilities = new List<actPlayerAbility>();
+        
 
         public List<actPlayerAbility> Abilities
         {

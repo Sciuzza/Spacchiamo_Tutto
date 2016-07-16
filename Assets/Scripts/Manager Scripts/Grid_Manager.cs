@@ -45,8 +45,8 @@ namespace Spacchiamo
 
         public void PreparingOptimizedGridSpace()
         {
-
-
+            if(tilesHolder == null)
+               tilesHolder = GameObject.FindGameObjectWithTag("TilesLayer");
 
             TileLoader tileLoaderTemp = tilesHolder.GetComponent<TileLoader>();
             List<TileData> tileReferences = tileLoaderTemp.LoadAllTilesInScene("Tile");
@@ -362,7 +362,7 @@ namespace Spacchiamo
 
 
 
-                        if (Designer_Tweaks.instance.manhDistancePlayer > currentDistance)
+                        if (Designer_Tweaks.instance.playerLightM > currentDistance)
                         {
                             if (cellReferences[x, y].lightSource && !cellReferences[x, y].lightSourceDiscovered)
                             {
@@ -376,7 +376,7 @@ namespace Spacchiamo
                                 //  ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                             }
                         }
-                        else if (Designer_Tweaks.instance.manhDistancePlayer == currentDistance)
+                        else if (Designer_Tweaks.instance.playerLightM == currentDistance)
                         {
                             if (!cellReferences[x, y].isReceivingLight)
                             {
@@ -423,7 +423,7 @@ namespace Spacchiamo
                         currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xFalo, yFalo].transform.position.x) +
                         Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xFalo, yFalo].transform.position.y);
 
-                        if (Designer_Tweaks.instance.manhDistanceFalo > currentDistance)
+                        if (Designer_Tweaks.instance.faloLigthM > currentDistance)
                         {
                             cellReferences[x, y].isReceivingLight = true;
                             ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
@@ -484,7 +484,7 @@ namespace Spacchiamo
 
 
 
-                        if (Designer_Tweaks.instance.patrolAreaEnemy1 > currentDistance)
+                        if (Designer_Tweaks.instance.patrolAreaEnemyM > currentDistance)
                         {
                             areaFound.Add(cellReferences[x, y]);
                         }

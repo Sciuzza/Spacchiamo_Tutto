@@ -248,7 +248,7 @@ namespace Spacchiamo
         {
             this.distance = whereToGo.position - this.transform.position;
             this.direction = this.distance.normalized;
-            this.transform.position = (Vector2)this.transform.position + this.direction * Time.deltaTime * Designer_Tweaks.instance.moveSpeed * (1 + Designer_Tweaks.instance.moveSpeed / 9.5f);
+            this.transform.position = (Vector2)this.transform.position + this.direction * Time.deltaTime * Designer_Tweaks.instance.generalMoveSpeed * (1 + Designer_Tweaks.instance.generalMoveSpeed / 9.5f);
 
             if (this.distance.sqrMagnitude < 0.01f)
             {

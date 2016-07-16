@@ -6,9 +6,13 @@ using System.Collections.Generic;
 namespace Spacchiamo
 {
 
-    public enum type { Primary, Secondary};
-    public enum originalName {Impeto, RespiroDelVento};
-    public enum weaponType {ArmaBianca, Catalizzatore, ArmaRanged};
+    public enum type { Primary, Secondary };
+
+    public enum originalName { Impeto, RespiroDelVento };
+
+    public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged };
+
+    public enum pOriginalName { Rigenerazione };
 
     [System.Serializable]
     public struct actPlayerAbility
@@ -34,7 +38,8 @@ namespace Spacchiamo
     [System.Serializable]
     public struct regAbility
     {
-        public const string name = "Rigenerazione";
+        public const pOriginalName oname = pOriginalName.Rigenerazione;
+        public const string customName = "Rigenerazione";
         public int level;
         public int maxLevel;
         public float regPower;
@@ -43,26 +48,35 @@ namespace Spacchiamo
         public int cooldownDecPerLevel;
     }
 
+    [System.Serializable]
+    public struct passiveAbilities
+    {
+        public regAbility regeneration;
+    }
+
     public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
-    
+
 
 
     public class Game_Controller : MonoBehaviour
     {
 
-
-        // Game Phases
-        public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
-
-        GameObject[] enemyArray;
-        GameObject[] faloList;
-
-        List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
-
-
         
 
-        // Camera and Player References
+        // obvious LOL
+        public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
+
+        // to be passed to Enemy Manager
+        GameObject[] enemyArray;
+
+        // to be passed to Grid Manager
+        GameObject[] faloList;
+        
+        // to be passed to Player Controller
+        List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
+        passiveAbilities playerPassAbilities = new passiveAbilities();
+
+        // to give Camera the player as target
         Camera_Movement cameraLink;
 
         [HideInInspector]
@@ -83,7 +97,7 @@ namespace Spacchiamo
                 Destroy(gameObject);
 
             DontDestroyOnLoad(this.gameObject);
-            
+
             #endregion
 
 
@@ -92,46 +106,37 @@ namespace Spacchiamo
 
         void Start()
         {
-
+            // Finding the necessary References to start the initialization sequence
             playerLink = GameObject.FindGameObjectWithTag("Player");
             cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
             faloList = GameObject.FindGameObjectsWithTag("Falo");
             enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-            
+
 
             // Grid Initialization
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
 
-            //Initializing Light
+            //Player Initialization
             Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
-
-            
-
             playerActions playerPosition = playerLink.GetComponent<playerActions>();
             Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-
-
-
-         
-
-            //Initializing Camera on Player
             cameraLink.target = playerLink;
 
-            // Initializing abilities for testing purpose
+            // Player Ability transfer conditions 
             if (playerAbilities.Count == 0)
-                InitializingRandomPlayerAbilities();
+            {
+                TakingDesignerAbilities();
+                playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
+            }
+            else
+                playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
 
-            //Initializing Ability List on Player
-            playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
 
+            // Enemies Initialization
             Enemies_Manager.instance.PassingEnemyList(enemyArray);
-
-            //Initialing Occupied Status for Enemy and Player
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
-
-            //Initializing PatrolArea
-             Enemies_Manager.instance.PatrolArea();
+            Enemies_Manager.instance.PatrolArea();
 
         }
 
@@ -159,24 +164,41 @@ namespace Spacchiamo
             return playerLink;
         }
 
-        private void InitializingRandomPlayerAbilities()
+        private void TakingDesignerAbilities()
         {
             actPlayerAbility currentAbility1 = new actPlayerAbility();
 
-            currentAbility1.damage = 1;
-            currentAbility1.cooldown = 1;
-            currentAbility1.range = 1;
+            currentAbility1 = AbiRepository.instance.ARepository.Find(x => x.oname == Designer_Tweaks.instance.primaryTesting && x.weapon == Designer_Tweaks.instance.primaryWeapon);
 
+            for (int i = 1; i < Designer_Tweaks.instance.primaryLevel; i++)
+                IncreaseActAbilityLevel(currentAbility1);
 
             actPlayerAbility currentAbility2 = new actPlayerAbility();
 
-            currentAbility2.damage = 1;
-            currentAbility2.cooldown = 1;
-            currentAbility2.range = 3;
+            currentAbility2 = AbiRepository.instance.ARepository.Find(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
+
+            for (int i = 1; i < Designer_Tweaks.instance.seconLevel; i++)
+                IncreaseActAbilityLevel(currentAbility2);
 
             playerAbilities.Add(currentAbility1);
             playerAbilities.Add(currentAbility2);
 
         }
+
+        public actPlayerAbility IncreaseActAbilityLevel(actPlayerAbility abiToIncrease)
+        {
+
+            abiToIncrease.level++;
+            abiToIncrease.damage += abiToIncrease.damIncPerLevel;
+            abiToIncrease.range += abiToIncrease.rangeIncPerLevel;
+            abiToIncrease.cooldown -= abiToIncrease.cooldownDecPerLevel;
+            abiToIncrease.areaEffect += abiToIncrease.aeIncPerLevel;
+            abiToIncrease.knockBack += abiToIncrease.kbIncPerLevel;
+
+            return abiToIncrease;
+        }
+
+
+
     }
 }

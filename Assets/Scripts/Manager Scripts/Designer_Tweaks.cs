@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
@@ -7,11 +8,34 @@ namespace Spacchiamo
     {
         //General Designer Variables
         [Range(1, 5)]
-        public int manhDistancePlayer, manhDistanceFalo, moveSpeed, fearScaleRate, patrolAreaEnemy1;
+        public int playerLightM, faloLigthM, generalMoveSpeed, fearScaleRate, patrolAreaEnemyM;
 
-        // Level 1 designer variables
-        [Range(5, 100)]
-        public int level1XWidth, level1yWidth;
+        [HideInInspector]
+        public int level1XWidth = 64, level1yWidth = 54;
+
+        #region Designer player ability selection for testing purpose
+
+        public originalName primaryTesting;
+
+        public weaponType primaryWeapon;
+
+        [Range(1, 5)]
+        public int primaryLevel;
+
+
+        public originalName seconTesting;
+
+        public weaponType seconWeapon;
+
+        [Range(1, 5)]
+        public int seconLevel;
+
+        public pOriginalName passiveTesting;
+
+        [Range(1, 3)]
+        public int passiveLevel; 
+        #endregion
+
 
 
         [HideInInspector]
