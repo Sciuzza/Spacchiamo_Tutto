@@ -13,23 +13,37 @@ namespace Spacchiamo
         public int FearValue = 0;
         public int TurnValue = 0;
 
+
         public bool attackSelection = false;
 
-        private bool firstAbilityPressed, secondAbilityPressed;
+        public bool firstAbilityPressed, secondAbilityPressed;
 
-        List<actPlayerAbility> abilities = new List<actPlayerAbility>();
-        
+
+        public List<actPlayerAbility> actAbilities = new List<actPlayerAbility>();
+        public regAbility regPassive = new regAbility();
 
         public List<actPlayerAbility> Abilities
         {
             get
             {
-                return abilities;
+                return actAbilities;
             }
 
             set
             {
-                abilities = value;
+                actAbilities = value;
+            }
+        }
+        public regAbility RegPassive
+        {
+            get
+            {
+                return regPassive;
+            }
+
+            set
+            {
+                regPassive = value;
             }
         }
 
@@ -50,25 +64,31 @@ namespace Spacchiamo
                 {
                     attackSelection = true;
                     firstAbilityPressed = true;
-                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[0].range);
+                    if (actAbilities[0].knockBack == 0)
+                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                    else
+                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
                 }
                 if (Input.GetKeyUp(KeyCode.E) && !attackSelection)
                 {
                     attackSelection = true;
                     secondAbilityPressed = true;
-                    Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[1].range);
+                    if (actAbilities[1].knockBack == 0)
+                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                    else
+                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
                 {
                     attackSelection = false;
                     if (firstAbilityPressed)
                     {
-                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[0].range);
+                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
                         firstAbilityPressed = false;
                     }
                     else if (secondAbilityPressed)
                     {
-                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[1].range);
+                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
                         secondAbilityPressed = false;
                     }
                 }
@@ -96,24 +116,23 @@ namespace Spacchiamo
 
         public void Attack(int xCell, int yCell)
         {
-            if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && attackSelection)
-            {
-                if (Enemies_Manager.instance.EnemyIsHere(xCell, yCell))
-                    Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
 
-                attackSelection = false;
-                if (firstAbilityPressed)
-                {
-                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[0].range);
-                    firstAbilityPressed = false;
-                }
-                else if (secondAbilityPressed)
-                {
-                    Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), abilities[1].range);
-                    secondAbilityPressed = false;
-                }
-                Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
+            if (Enemies_Manager.instance.EnemyIsHere(xCell, yCell))
+                Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
+
+            attackSelection = false;
+            if (firstAbilityPressed)
+            {
+                Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                firstAbilityPressed = false;
             }
+            else if (secondAbilityPressed)
+            {
+                Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                secondAbilityPressed = false;
+            }
+            Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
+
         }
 
 

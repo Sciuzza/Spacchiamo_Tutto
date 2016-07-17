@@ -5,8 +5,8 @@ namespace Spacchiamo
 {
     public class Enemy_Controller : MonoBehaviour
     {
-       
-        
+
+        public int Life = 5;
 
         public bool isAggroed = false;
         public bool isComingBack = false;

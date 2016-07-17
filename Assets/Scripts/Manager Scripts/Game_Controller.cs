@@ -12,7 +12,7 @@ namespace Spacchiamo
 
     public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged };
 
-    public enum pOriginalName { Rigenerazione };
+    public enum pOriginalName { Rigenerazione, NotFound };
 
     [System.Serializable]
     public struct actPlayerAbility
@@ -33,7 +33,10 @@ namespace Spacchiamo
         public int aeIncPerLevel;
         public int knockBack;
         public int kbIncPerLevel;
+        public bool discovered;
+        public bool active;
     }
+
 
     [System.Serializable]
     public struct regAbility
@@ -46,14 +49,19 @@ namespace Spacchiamo
         public float rpIncPerLevel;
         public int cooldown;
         public int cooldownDecPerLevel;
+        public bool discovered;
+        public bool active;
     }
 
+    
+
     [System.Serializable]
-    public struct passiveAbilities
+    public struct passAbilities
     {
         public regAbility regeneration;
     }
 
+ 
     public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
 
 
@@ -74,7 +82,7 @@ namespace Spacchiamo
         
         // to be passed to Player Controller
         List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
-        passiveAbilities playerPassAbilities = new passiveAbilities();
+        regAbility playerRegAbility = new regAbility();
 
         // to give Camera the player as target
         Camera_Movement cameraLink;
@@ -84,7 +92,7 @@ namespace Spacchiamo
 
         [HideInInspector]
         public static Game_Controller instance = null;
-
+ 
 
         void Awake()
         {
@@ -114,6 +122,7 @@ namespace Spacchiamo
 
 
             // Grid Initialization
+            Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
 
@@ -123,15 +132,39 @@ namespace Spacchiamo
             Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             cameraLink.target = playerLink;
 
-            // Player Ability transfer conditions 
+            // Player Active Ability transfer conditions 
             if (playerAbilities.Count == 0)
             {
-                TakingDesignerAbilities();
-                playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
+                TakingDesActAbilities();
+                playerLink.GetComponent<Player_Controller>().actAbilities = playerAbilities;
+                
             }
             else
-                playerLink.GetComponent<Player_Controller>().Abilities = playerAbilities;
+                playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
 
+
+
+            // Player Passive Ability transfer conditions 
+
+            pOriginalName searchingPassive = pOriginalName.NotFound;
+            searchingPassive = CheckingCurrentPassive();
+
+            if (searchingPassive == pOriginalName.Rigenerazione)
+            {
+                playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
+            }
+            else
+            {
+                if (Designer_Tweaks.instance.passiveTesting == pOriginalName.Rigenerazione)
+                {
+                    playerRegAbility = AbiRepository.instance.PassRepostr.regeneration;
+                    playerRegAbility.active = true;
+                    playerRegAbility.discovered = true;
+                    for (int i = 1; i < Designer_Tweaks.instance.passiveLevel; i++)
+                        playerRegAbility = IncreaseRegLevel(playerRegAbility);
+                    playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
+                }
+            }
 
             // Enemies Initialization
             Enemies_Manager.instance.PassingEnemyList(enemyArray);
@@ -164,26 +197,37 @@ namespace Spacchiamo
             return playerLink;
         }
 
-        private void TakingDesignerAbilities()
+
+
+        private void TakingDesActAbilities()
         {
             actPlayerAbility currentAbility1 = new actPlayerAbility();
 
             currentAbility1 = AbiRepository.instance.ARepository.Find(x => x.oname == Designer_Tweaks.instance.primaryTesting && x.weapon == Designer_Tweaks.instance.primaryWeapon);
+            currentAbility1.active = true;
+            currentAbility1.discovered = true;
 
             for (int i = 1; i < Designer_Tweaks.instance.primaryLevel; i++)
-                IncreaseActAbilityLevel(currentAbility1);
+                currentAbility1 = IncreaseActAbilityLevel(currentAbility1);
+
+            
 
             actPlayerAbility currentAbility2 = new actPlayerAbility();
 
             currentAbility2 = AbiRepository.instance.ARepository.Find(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
+            currentAbility2.active = true;
+            currentAbility2.discovered = true;
 
             for (int i = 1; i < Designer_Tweaks.instance.seconLevel; i++)
-                IncreaseActAbilityLevel(currentAbility2);
+                currentAbility2 = IncreaseActAbilityLevel(currentAbility2);
+
+
 
             playerAbilities.Add(currentAbility1);
             playerAbilities.Add(currentAbility2);
 
         }
+
 
         public actPlayerAbility IncreaseActAbilityLevel(actPlayerAbility abiToIncrease)
         {
@@ -198,7 +242,24 @@ namespace Spacchiamo
             return abiToIncrease;
         }
 
+        private pOriginalName CheckingCurrentPassive()
+        {
+            if (playerRegAbility.active)
+                return pOriginalName.Rigenerazione;
+            else
+                return pOriginalName.NotFound;
+        }
 
+        public regAbility IncreaseRegLevel(regAbility increase)
+        {
+
+            increase.level++;
+            increase.regPower += increase.rpIncPerLevel;
+            increase.cooldown -= increase.cooldownDecPerLevel;
+
+
+            return increase;
+        }
 
     }
 }

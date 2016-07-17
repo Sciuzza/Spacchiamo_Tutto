@@ -15,8 +15,9 @@ namespace Spacchiamo
 
         public SpriteRenderer faloAlpha;
 
-        
+        GameObject playerLink;
 
+        public Color previousColor;
 
         // for Aggro
         public bool aggroCell = false;
@@ -27,16 +28,97 @@ namespace Spacchiamo
         public bool lightSourceDiscovered = false;
 
 
+        
 
+        void OnMouseEnter()
+        {
+            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+
+            if (this.GetComponent<SpriteRenderer>().color == Color.yellow)
+            {
+                if (playerContLink.firstAbilityPressed)
+                {
+                    if (playerContLink.actAbilities[0].areaEffect == 0)
+                    {
+                        this.GetComponent<SpriteRenderer>().color = Color.red;
+                        tileCell.GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+                    else
+                    {
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                    }
+                }
+                else
+                {
+                    if (playerContLink.actAbilities[1].areaEffect == 0)
+                    {
+                        this.GetComponent<SpriteRenderer>().color = Color.red;
+                        tileCell.GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+                    else
+                    {
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                    }
+                }
+               
+            }
+            /*
+            else if (this.GetComponent<SpriteRenderer>().color.a == 1)
+            {
+                this.GetComponent<SpriteRenderer>().color = Color.grey;
+                tileCell.GetComponent<SpriteRenderer>().color = Color.grey;
+            }
+            */
+        }
+
+        void OnMouseExit()
+        {
+            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+
+            if (this.GetComponent<SpriteRenderer>().color == Color.red)
+            {
+                if (playerContLink.firstAbilityPressed)
+                {
+                    if (playerContLink.actAbilities[0].areaEffect == 0)
+                    {
+                        this.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        tileCell.GetComponent<SpriteRenderer>().color = Color.yellow;
+                    }
+                    else
+                    {
+                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                    }
+                }
+                else
+                {
+                    if (playerContLink.actAbilities[1].areaEffect == 0)
+                    {
+                        this.GetComponent<SpriteRenderer>().color = Color.yellow;
+                        tileCell.GetComponent<SpriteRenderer>().color = Color.yellow;
+                    }
+                    else
+                    {
+                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                    }
+                }
+                /*
+                else if (this.GetComponent<SpriteRenderer>().color.a == 1)
+                {
+                    this.GetComponent<SpriteRenderer>().color = Color.white;
+                    tileCell.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                */
+            }
+        }
        
 
 
         void OnMouseDown()
         {
 
-            Player_Controller playerLink = Game_Controller.instance.TakingPlayerRef().GetComponent<Player_Controller>();
-            if (this.GetComponent<SpriteRenderer>().color == Color.yellow)
-                playerLink.Attack(xCell, yCell);
+            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+            if (this.GetComponent<SpriteRenderer>().color == Color.red)
+                playerContLink.Attack(xCell, yCell);
             else
                 Debug.Log("Out of Range");
            
@@ -57,7 +139,10 @@ namespace Spacchiamo
         }
 
        
-
+        public void GivingPlayerRef(GameObject player)
+        {
+            playerLink = player;
+        }
        
     }
 }

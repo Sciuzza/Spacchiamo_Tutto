@@ -12,7 +12,10 @@ namespace Spacchiamo
         private List<actPlayerAbility> actRepo = new List<actPlayerAbility>();
 
         [SerializeField]
-        private passiveAbilities passRepo = new passiveAbilities();
+        private passAbilities passRepostr = new passAbilities();
+        
+        
+       
 
 
 
@@ -24,11 +27,11 @@ namespace Spacchiamo
             }
         }
 
-        public passiveAbilities PassRepo
+        public passAbilities PassRepostr
         {
             get
             {
-                return passRepo;
+                return passRepostr;
             }
         }
 
@@ -41,6 +44,8 @@ namespace Spacchiamo
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
+
+            
         }
 
     }
