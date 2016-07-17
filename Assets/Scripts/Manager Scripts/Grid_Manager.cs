@@ -447,12 +447,12 @@ namespace Spacchiamo
 
             matchAlpha.tileCell.GetComponent<SpriteRenderer>().color = cellColor;
 
-            if (matchAlpha.faloAlpha != null)
+            if (matchAlpha.faloAlpha != null && !playerTemp.GetComponent<Player_Controller>().attackSelection)
                 matchAlpha.faloAlpha.color = cellColor;
 
         }
 
-        private float GettingAlpha(GameObject cell)
+        public float GettingAlpha(GameObject cell)
         {
             return cell.GetComponent<SpriteRenderer>().color.a;
         }
@@ -630,7 +630,7 @@ namespace Spacchiamo
                         {
 
                             float tempAlpha = GettingAlpha(cellReferences[x, y].gameObject);
-                            cellReferences[x, y].previousColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
+                            cellReferences[x, y].oriColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
 
                             cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.yellow;
                             ChangingAlpha(tempAlpha, cellReferences[x, y].gameObject);
@@ -660,13 +660,13 @@ namespace Spacchiamo
                         currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
                         Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
+                        tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
-
-                        if (range >= currentDistance)
+                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
                         {
-                            tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
-                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].previousColor;
-                            tileHighlight.color = cellReferences[x, y].previousColor;
+                            
+                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].oriColor;
+                            tileHighlight.color = cellReferences[x, y].oriColor;
                         }
                     }
                 }
@@ -696,12 +696,43 @@ namespace Spacchiamo
                             if (y == yPlayer || x == xPlayer)
                             {
                                 float tempAlpha = GettingAlpha(cellReferences[x, y].gameObject);
-                                cellReferences[x, y].previousColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
+                                cellReferences[x, y].oriColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
 
                                 cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.yellow;
                                 ChangingAlpha(tempAlpha, cellReferences[x, y].gameObject);
 
                                 tileHighlight.color = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void DelightingKnockRange(int xPlayer, int yPlayer, int range)
+        {
+            float currentDistance;
+            SpriteRenderer tileHighlight;
+
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null)
+                    {
+
+
+                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
+                        Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
+
+                        tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
+
+                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
+                        {
+                            if (y == yPlayer || x == xPlayer)
+                            {
+                                cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].oriColor;
+                                tileHighlight.color = cellReferences[x, y].oriColor;
                             }
                         }
                     }
@@ -731,7 +762,7 @@ namespace Spacchiamo
                         if (area >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null)
                         {
                             float tempAlpha = GettingAlpha(cellReferences[x, y].gameObject);
-                            cellReferences[x, y].previousColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
+                            cellReferences[x, y].stdHighColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
 
                             cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.red;
                             ChangingAlpha(tempAlpha, cellReferences[x, y].gameObject);
@@ -766,8 +797,8 @@ namespace Spacchiamo
                         if (area >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null)
                         {
                             
-                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x,y].previousColor;
-                            tileHighlight.color = cellReferences[x, y].previousColor;
+                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x,y].stdHighColor;
+                            tileHighlight.color = cellReferences[x, y].stdHighColor;
 
                         }
                     }

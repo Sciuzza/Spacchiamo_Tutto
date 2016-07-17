@@ -69,7 +69,25 @@ namespace Spacchiamo
     public class Game_Controller : MonoBehaviour
     {
 
-        
+        private readonly Color red1 = new Color(1, 0, 0, 1);
+        private readonly Color red08 = new Color(1, 0, 0, 0.8f);
+        private readonly Color red05 = new Color(1, 0, 0, 0.5f);
+        private readonly Color red00 = new Color(1, 0, 0, 0.0f);
+
+        private readonly Color yel1 = new Color(1, 0.922f, 0.016f, 1);
+        private readonly Color yel08 = new Color(1, 0.922f, 0.016f, 0.8f);
+        private readonly Color yel05 = new Color(1, 0.922f, 0.016f, 0.5f);
+        private readonly Color yel00 = new Color(1, 0.922f, 0.016f, 0.0f);
+
+        private readonly Color whi1 = new Color(1, 1, 1, 1);
+        private readonly Color whi08 = new Color(1, 1, 1, 0.8f);
+        private readonly Color whi05 = new Color(1, 1, 1, 0.5f);
+        private readonly Color whi00 = new Color(1, 1, 1, 0.0f);
+
+        private readonly Color gre1 = new Color(0.5f, 0.5f, 0.5f, 1);
+        private readonly Color gre08 = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+        private readonly Color gre05 = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        private readonly Color gre00 = new Color(0.5f, 0.5f, 0.5f, 0.0f);
 
         // obvious LOL
         public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
@@ -92,7 +110,134 @@ namespace Spacchiamo
 
         [HideInInspector]
         public static Game_Controller instance = null;
- 
+
+        public Color Red1
+        {
+            get
+            {
+                return red1;
+            }
+        }
+
+        public Color Red08
+        {
+            get
+            {
+                return red08;
+            }
+        }
+
+        public Color Red05
+        {
+            get
+            {
+                return red05;
+            }
+        }
+
+        public Color Red00
+        {
+            get
+            {
+                return red00;
+            }
+        }
+
+        public Color Yel1
+        {
+            get
+            {
+                return yel1;
+            }
+        }
+
+        public Color Yel08
+        {
+            get
+            {
+                return yel08;
+            }
+        }
+
+        public Color Yel05
+        {
+            get
+            {
+                return yel05;
+            }
+        }
+
+        public Color Yel00
+        {
+            get
+            {
+                return yel00;
+            }
+        }
+
+        public Color Whi1
+        {
+            get
+            {
+                return whi1;
+            }
+        }
+
+        public Color Whi08
+        {
+            get
+            {
+                return whi08;
+            }
+        }
+
+        public Color Whi05
+        {
+            get
+            {
+                return whi05;
+            }
+        }
+
+        public Color Whi00
+        {
+            get
+            {
+                return whi00;
+            }
+        }
+
+        public Color Gre1
+        {
+            get
+            {
+                return gre1;
+            }
+        }
+
+        public Color Gre08
+        {
+            get
+            {
+                return gre08;
+            }
+        }
+
+        public Color Gre05
+        {
+            get
+            {
+                return gre05;
+            }
+        }
+
+        public Color Gre00
+        {
+            get
+            {
+                return gre00;
+            }
+        }
 
         void Awake()
         {

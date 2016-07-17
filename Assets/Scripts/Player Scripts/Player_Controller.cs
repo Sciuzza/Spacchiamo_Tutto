@@ -62,35 +62,44 @@ namespace Spacchiamo
                     Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
                 if (Input.GetKeyUp(KeyCode.Q) && !attackSelection)
                 {
-                    attackSelection = true;
-                    firstAbilityPressed = true;
                     if (actAbilities[0].knockBack == 0)
                         Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
                     else
                         Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+
+                    firstAbilityPressed = true;
+                    attackSelection = true;
                 }
                 if (Input.GetKeyUp(KeyCode.E) && !attackSelection)
                 {
-                    attackSelection = true;
-                    secondAbilityPressed = true;
                     if (actAbilities[1].knockBack == 0)
                         Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
                     else
                         Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+
+                    secondAbilityPressed = true;
+                    attackSelection = true;                  
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
                 {
-                    attackSelection = false;
                     if (firstAbilityPressed)
                     {
-                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                        if (actAbilities[0].knockBack == 0)
+                            Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                        else
+                            Grid_Manager.instance.DelightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
                         firstAbilityPressed = false;
                     }
                     else if (secondAbilityPressed)
                     {
-                        Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                        if (actAbilities[1].knockBack == 0)
+                            Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                        else
+                            Grid_Manager.instance.DelightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
                         secondAbilityPressed = false;
                     }
+
+                    attackSelection = false;
                 }
 
             }
@@ -134,6 +143,8 @@ namespace Spacchiamo
             Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
 
         }
+
+     
 
 
     }
