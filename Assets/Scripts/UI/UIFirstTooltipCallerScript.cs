@@ -15,7 +15,7 @@ namespace Spacchiamo {
 
 		public override void SetTooltip () {
 
-			this.tooltip.SetDescription (this.uiImageLogic);
+			//this.tooltip.SetDescription (this.uiImageLogic);
 
 		}
 
