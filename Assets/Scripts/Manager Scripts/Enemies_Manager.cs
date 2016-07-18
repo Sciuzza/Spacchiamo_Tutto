@@ -8,7 +8,10 @@ namespace Spacchiamo
     {
 
         List<GameObject> enemyReferences = new List<GameObject>();
-        GameObject enemyTemp;
+        
+
+        
+
 
         [HideInInspector]
         public static Enemies_Manager instance = null;
@@ -19,55 +22,28 @@ namespace Spacchiamo
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
-
-
         }
 
-        // Update is called once per frame
+        
+
         void Update()
         {
-            if (Game_Controller.instance.currentPhase == Game_Controller.GAME_PHASE.npcEnemyTurn)
+            // Necessary to understand when switch to player turn again
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn)
             {
                 if (AreEnemiesInPosition())
                     Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
             }
         }
 
-        public void PreparingEnemies()
-        {
-            for (int i = 1; i <= Designer_Tweaks.instance.level1EnemiesQuantity; i++)
-            {
-                switch (Random.Range(1, 4))
-                {
-                    case 1:
-                        enemyTemp = Resources.Load<GameObject>("Enemy1");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                    case 2:
-                        enemyTemp = Resources.Load<GameObject>("Enemy2");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                    default:
-                        enemyTemp = Resources.Load<GameObject>("Enemy3");
-                        enemyTemp = Instantiate(enemyTemp);
-                        enemyReferences.Add(enemyTemp);
-                        break;
-                }
-
-
-
-            }
-        }
-
+        // Depends on moveDone boolean of each enemy 
         private bool AreEnemiesInPosition()
         {
             bool inPosition = true;
 
             for (int i = 0; i < enemyReferences.Count && inPosition; i++)
             {
-                if (!enemyReferences[i].GetComponent<Enemy_Patrolling>().move_done)
+                if (!enemyReferences[i].GetComponent<EnemyAI>().move_done)
                     inPosition = false;
 
             }
@@ -75,12 +51,11 @@ namespace Spacchiamo
             return inPosition;
         }
 
-
         public void CheckingAggro()
         {
             for (int i = 0; i < enemyReferences.Count; i++)
             {
-                if (Grid_Manager.instance.IsEnemyInAggroCell(enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingRow(), enemyReferences[i].GetComponent<Enemy_Patrolling>().GettingColumn()))
+                if (Grid_Manager.instance.IsEnemyInAggroCell(enemyReferences[i].GetComponent<EnemyAI>().GettingXEnemy(), enemyReferences[i].GetComponent<EnemyAI>().GettingYEnemy()))
                 {
                     if (!enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
                     {
@@ -112,10 +87,9 @@ namespace Spacchiamo
             }
         }
 
-
         public bool EnemyIsHere(int row, int column)
         {
-            if (enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0,0,1)) != null)
+            if (enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0, 0, 1)) != null)
                 return true;
             else
                 return false;
@@ -124,10 +98,45 @@ namespace Spacchiamo
 
         public void DestroyEnemy(int row, int column)
         {
-            GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0,0,1));
+            GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0, 0, 1));
             enemyReferences.Remove(enemyToDestroy);
             Grid_Manager.instance.SwitchingOccupiedStatus(row, column);
             Destroy(enemyToDestroy);
         }
+
+        
+
+        public void PatrolArea()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                EnemyAI patrolLink = enemyReferences[i].GetComponent<EnemyAI>();
+                patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingXEnemy(), patrolLink.GettingYEnemy()));
+
+            }
+        }
+
+
+        public void SettingOccupiedInitialStatus()
+        {
+            EnemyAI enemyPosition;
+
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                enemyPosition = enemyReferences[i].GetComponent<EnemyAI>();
+                Grid_Manager.instance.SwitchingOccupiedStatus(enemyPosition.GettingXEnemy(), enemyPosition.GettingYEnemy());
+            }
+
+        }
+
+        public void PassingEnemyList(GameObject[] enemies)
+        {
+            enemyReferences.AddRange(enemies);
+        }
+
+
     }
 }
+
+ 
+           
