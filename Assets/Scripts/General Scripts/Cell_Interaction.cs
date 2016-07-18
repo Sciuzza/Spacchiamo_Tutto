@@ -57,39 +57,10 @@ namespace Spacchiamo
             if (playerContLink.attackSelection && inRange)
             {
                 if (playerContLink.firstAbilityPressed)
-                {
-                    if (playerContLink.actAbilities[0].areaEffect == 0)
-                    {
-                        float tempAlpha = Grid_Manager.instance.GettingAlpha(this.gameObject);
-                        stdHighColor = this.GetComponent<SpriteRenderer>().color;
-
-                        this.GetComponent<SpriteRenderer>().color = Color.red;
-                        Grid_Manager.instance.ChangingAlpha(tempAlpha, this.gameObject);
-
-                        tileHighlight.color = this.GetComponent<SpriteRenderer>().color;
-                    }
-                    else
-                    {
-                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
-                    }
-                }
+                    Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
                 else
-                {
-                    if (playerContLink.actAbilities[1].areaEffect == 0)
-                    {
-                        float tempAlpha = Grid_Manager.instance.GettingAlpha(this.gameObject);
-                        stdHighColor = this.GetComponent<SpriteRenderer>().color;
+                    Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
 
-                        this.GetComponent<SpriteRenderer>().color = Color.red;
-                        Grid_Manager.instance.ChangingAlpha(tempAlpha, this.gameObject);
-
-                        tileHighlight.color = this.GetComponent<SpriteRenderer>().color;
-                    }
-                    else
-                    {
-                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
-                    }
-                }
                 mouseEnter = true;
             }
             /*
@@ -111,29 +82,11 @@ namespace Spacchiamo
                 if (playerContLink.attackSelection)
                 {
                     if (playerContLink.firstAbilityPressed)
-                    {
-                        if (playerContLink.actAbilities[0].areaEffect == 0)
-                        {
-                            this.GetComponent<SpriteRenderer>().color = stdHighColor;
-                            tileHighlight.color = stdHighColor;
-                        }
-                        else
-                        {
-                            Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
-                        }
-                    }
+                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
                     else
-                    {
-                        if (playerContLink.actAbilities[1].areaEffect == 0)
-                        {
-                            this.GetComponent<SpriteRenderer>().color = stdHighColor;
-                            tileHighlight.color = stdHighColor;
-                        }
-                        else
-                        {
-                            Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
-                        }
-                    }
+                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+
+
                     /*
                     else if (this.GetComponent<SpriteRenderer>().color.a == 1)
                     {
@@ -152,7 +105,8 @@ namespace Spacchiamo
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
             if (playerContLink.attackSelection && inRange)
             {
-                playerContLink.Attack(xCell, yCell);
+                playerContLink.ResetAttackBooleans();
+                Enemies_Manager.instance.AttackingEnemies
             }
             else
                 Debug.Log("Out of Range");
@@ -180,7 +134,7 @@ namespace Spacchiamo
         }
 
 
-       
+
 
     }
 }

@@ -117,11 +117,8 @@ namespace Spacchiamo
         }
 
 
-        public void Attack(int xCell, int yCell)
-        {
-
-            if (Enemies_Manager.instance.EnemyIsHere(xCell, yCell))
-                Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
+        public void ResetAttackBooleans()
+        {         
 
             attackSelection = false;
 

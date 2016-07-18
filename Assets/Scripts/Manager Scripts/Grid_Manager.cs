@@ -10,7 +10,7 @@ namespace Spacchiamo
 
 
         private Cell_Interaction[,] cellReferences;
-        private List<Cell_Interaction> leftPositions;
+        public List<Cell_Interaction> cellsAttacked = new List<Cell_Interaction>();
 
 
         public GameObject tilesHolder;
@@ -708,7 +708,7 @@ namespace Spacchiamo
 
                             tileHighlight.color = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
 
-
+                            cellsAttacked.Add(cellReferences[x, y]);
 
                         }
                     }
@@ -739,6 +739,8 @@ namespace Spacchiamo
                             cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x,y].stdHighColor;
                             tileHighlight.color = cellReferences[x, y].stdHighColor;
 
+                            cellsAttacked.Remove(cellReferences[x, y]);
+
                         }
                     }
                 }
@@ -751,7 +753,10 @@ namespace Spacchiamo
             playerTemp = player;
         }
 
-
+        public List<Cell_Interaction> GettingCellsAttacked()
+        {
+            return cellsAttacked;
+        }
 
 
     }

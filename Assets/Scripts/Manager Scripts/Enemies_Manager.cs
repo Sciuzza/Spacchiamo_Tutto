@@ -87,7 +87,7 @@ namespace Spacchiamo
             }
         }
 
-        public bool EnemyIsHere(int row, int column)
+        public bool EnemyIsHere(List<Cell_Interaction> cellsInvolved)
         {
             if (enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0, 0, 1)) != null)
                 return true;
