@@ -84,18 +84,12 @@ namespace Spacchiamo
                 {
                     if (firstAbilityPressed)
                     {
-                        if (actAbilities[0].knockBack == 0)
-                            Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
-                        else
-                            Grid_Manager.instance.DelightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                         firstAbilityPressed = false;
                     }
                     else if (secondAbilityPressed)
                     {
-                        if (actAbilities[1].knockBack == 0)
-                            Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
-                        else
-                            Grid_Manager.instance.DelightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                         secondAbilityPressed = false;
                     }
 
@@ -130,16 +124,14 @@ namespace Spacchiamo
                 Enemies_Manager.instance.DestroyEnemy(xCell, yCell);
 
             attackSelection = false;
-            if (firstAbilityPressed)
-            {
-                Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+
+            Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
+
+            if (firstAbilityPressed)    
                 firstAbilityPressed = false;
-            }
-            else if (secondAbilityPressed)
-            {
-                Grid_Manager.instance.DelightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+            else if (secondAbilityPressed)    
                 secondAbilityPressed = false;
-            }
+            
             Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
 
         }

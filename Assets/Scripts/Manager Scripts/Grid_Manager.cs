@@ -360,7 +360,7 @@ namespace Spacchiamo
                         currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
                             Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
 
-
+                        cellReferences[x, y].inRange = false;
 
                         if (Designer_Tweaks.instance.playerLightM > currentDistance)
                         {
@@ -372,8 +372,8 @@ namespace Spacchiamo
                             else if (!cellReferences[x, y].isReceivingLight)
                             {
                                 cellReferences[x, y].aggroCell = true;
+                                cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                 ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
-                                //  ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                             }
                         }
                         else if (Designer_Tweaks.instance.playerLightM == currentDistance)
@@ -381,8 +381,8 @@ namespace Spacchiamo
                             if (!cellReferences[x, y].isReceivingLight)
                             {
                                 cellReferences[x, y].aggroCell = false;
+                                cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                 ChangingAlpha(0.8f, cellReferences[x, y].gameObject);
-                                //  ChangingAlpha(0.8f, cellReferences[x, y].tileCell);
                             }
                         }
                         else
@@ -393,13 +393,13 @@ namespace Spacchiamo
 
                                 if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f)
                                 {
+                                    cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                     ChangingAlpha(0.5f, cellReferences[x, y].gameObject);
-                                    // ChangingAlpha(0.5f, cellReferences[x, y].tileCell);
                                 }
                                 else
                                 {
+                                    cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                     ChangingAlpha(0.0f, cellReferences[x, y].gameObject);
-                                    // ChangingAlpha(0.0f, cellReferences[x, y].tileCell);
                                 }
                             }
                         }
@@ -409,7 +409,7 @@ namespace Spacchiamo
 
         }
 
-        private void GettingLightObject(int xFalo, int yFalo)
+        public void GettingLightObject(int xFalo, int yFalo)
         {
 
             float currentDistance;
@@ -426,8 +426,8 @@ namespace Spacchiamo
                         if (Designer_Tweaks.instance.faloLigthM > currentDistance)
                         {
                             cellReferences[x, y].isReceivingLight = true;
+                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                             ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
-                            // ChangingAlpha(1.0f, cellReferences[x, y].tileCell);
                         }
                     }
                 }
@@ -628,7 +628,7 @@ namespace Spacchiamo
 
                         if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
                         {
-
+                            cellReferences[x, y].inRange = true;
                             float tempAlpha = GettingAlpha(cellReferences[x, y].gameObject);
                             cellReferences[x, y].oriColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
 
@@ -642,37 +642,7 @@ namespace Spacchiamo
                 }
             }
 
-        }
-
-        public void DelightingAttackRange(int xPlayer, int yPlayer, int range)
-        {
-            float currentDistance;
-            SpriteRenderer tileHighlight;
-
-            for (int y = 0; y < cellReferences.GetLength(1); y++)
-            {
-                for (int x = 0; x < cellReferences.GetLength(0); x++)
-                {
-                    if (cellReferences[x, y] != null)
-                    {
-
-
-                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
-                        Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
-
-                        tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
-
-                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
-                        {
-                            
-                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].oriColor;
-                            tileHighlight.color = cellReferences[x, y].oriColor;
-                        }
-                    }
-                }
-            }
-
-        }
+        }     
 
         public void HighlightingKnockRange(int xPlayer, int yPlayer, int range)
         {
@@ -695,6 +665,8 @@ namespace Spacchiamo
                         {
                             if (y == yPlayer || x == xPlayer)
                             {
+                                cellReferences[x, y].inRange = true;
+
                                 float tempAlpha = GettingAlpha(cellReferences[x, y].gameObject);
                                 cellReferences[x, y].oriColor = cellReferences[x, y].GetComponent<SpriteRenderer>().color;
 
@@ -707,40 +679,7 @@ namespace Spacchiamo
                     }
                 }
             }
-        }
-
-        public void DelightingKnockRange(int xPlayer, int yPlayer, int range)
-        {
-            float currentDistance;
-            SpriteRenderer tileHighlight;
-
-            for (int y = 0; y < cellReferences.GetLength(1); y++)
-            {
-                for (int x = 0; x < cellReferences.GetLength(0); x++)
-                {
-                    if (cellReferences[x, y] != null)
-                    {
-
-
-                        currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xPlayer, yPlayer].transform.position.x) +
-                        Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xPlayer, yPlayer].transform.position.y);
-
-                        tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
-
-                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
-                        {
-                            if (y == yPlayer || x == xPlayer)
-                            {
-                                cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].oriColor;
-                                tileHighlight.color = cellReferences[x, y].oriColor;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        
+        }       
 
         public void HighlightingAreaOfEffect(int xCell, int yCell, int area)
         {

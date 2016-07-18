@@ -27,17 +27,34 @@ namespace Spacchiamo
         public bool isReceivingLight = false;
         public bool lightSourceDiscovered = false;
 
+        private bool mouseEnter = false;
+        public bool inRange = false;
 
+        private bool faloLightRefreshed = false;
 
+        void Update()
+        {
+            if (lightSourceDiscovered)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                    Grid_Manager.instance.GettingLightObject(xCell, yCell);
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn && !faloLightRefreshed)
+                {
+                    Grid_Manager.instance.GettingLightObject(xCell, yCell);
+                    faloLightRefreshed = true;
+                }
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn && faloLightRefreshed)
+                    faloLightRefreshed = false;
+            }
+        }
 
         void OnMouseEnter()
         {
-            Debug.Log(this.GetComponent<SpriteRenderer>().color);
 
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
             SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
 
-            if (playerContLink.attackSelection)
+            if (playerContLink.attackSelection && inRange)
             {
                 if (playerContLink.firstAbilityPressed)
                 {
@@ -73,7 +90,7 @@ namespace Spacchiamo
                         Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
                     }
                 }
-
+                mouseEnter = true;
             }
             /*
             else if (this.GetComponent<SpriteRenderer>().color.a == 1)
@@ -86,53 +103,57 @@ namespace Spacchiamo
 
         void OnMouseExit()
         {
-            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-            SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
-
-            if (playerContLink.attackSelection)
+            if (mouseEnter)
             {
-                if (playerContLink.firstAbilityPressed)
+                Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+
+                if (playerContLink.attackSelection)
                 {
-                    if (playerContLink.actAbilities[0].areaEffect == 0)
+                    if (playerContLink.firstAbilityPressed)
                     {
-                        this.GetComponent<SpriteRenderer>().color = stdHighColor;
-                        tileHighlight.color = stdHighColor;
+                        if (playerContLink.actAbilities[0].areaEffect == 0)
+                        {
+                            this.GetComponent<SpriteRenderer>().color = stdHighColor;
+                            tileHighlight.color = stdHighColor;
+                        }
+                        else
+                        {
+                            Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                        }
                     }
                     else
                     {
-                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                        if (playerContLink.actAbilities[1].areaEffect == 0)
+                        {
+                            this.GetComponent<SpriteRenderer>().color = stdHighColor;
+                            tileHighlight.color = stdHighColor;
+                        }
+                        else
+                        {
+                            Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                        }
                     }
-                }
-                else
-                {
-                    if (playerContLink.actAbilities[1].areaEffect == 0)
+                    /*
+                    else if (this.GetComponent<SpriteRenderer>().color.a == 1)
                     {
-                        this.GetComponent<SpriteRenderer>().color = stdHighColor;
-                        tileHighlight.color = stdHighColor;
+                        this.GetComponent<SpriteRenderer>().color = Color.white;
+                        tileCell.GetComponent<SpriteRenderer>().color = Color.white;
                     }
-                    else
-                    {
-                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
-                    }
+                    */
                 }
-                /*
-                else if (this.GetComponent<SpriteRenderer>().color.a == 1)
-                {
-                    this.GetComponent<SpriteRenderer>().color = Color.white;
-                    tileCell.GetComponent<SpriteRenderer>().color = Color.white;
-                }
-                */
+                mouseEnter = false;
             }
         }
-
-
 
         void OnMouseDown()
         {
 
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-            if (this.GetComponent<SpriteRenderer>().color == Color.red)
+            if (playerContLink.attackSelection && inRange)
+            {
                 playerContLink.Attack(xCell, yCell);
+            }
             else
                 Debug.Log("Out of Range");
 
@@ -159,37 +180,7 @@ namespace Spacchiamo
         }
 
 
-        private bool IsColorYellow()
-        {
-            Color cellColor = this.GetComponent<SpriteRenderer>().color;
-
-            if (cellColor == Game_Controller.instance.Yel1)
-                return true;
-            else if (cellColor == Game_Controller.instance.Yel08)
-                return true;
-            else if (cellColor == Game_Controller.instance.Yel05)
-                return true;
-            else if (cellColor == Game_Controller.instance.Yel00)
-                return true;
-            else
-                return false;
-        }
-
-        private bool IsColorRed()
-        {
-            Color cellColor = this.GetComponent<SpriteRenderer>().color;
-
-            if (cellColor == Game_Controller.instance.Red1)
-                return true;
-            else if (cellColor == Game_Controller.instance.Red08)
-                return true;
-            else if (cellColor == Game_Controller.instance.Red05)
-                return true;
-            else if (cellColor == Game_Controller.instance.Red00)
-                return true;
-            else
-                return false;
-        }
+       
 
     }
 }
