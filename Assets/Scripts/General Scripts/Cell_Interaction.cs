@@ -1,0 +1,186 @@
+﻿using UnityEngine;
+using System.Collections;
+
+namespace Spacchiamo
+{
+    public class Cell_Interaction : MonoBehaviour
+    {
+        [HideInInspector]
+        public int xCell, yCell;
+
+        // For Wall and Moving Objects
+        public bool isOccupied = false;
+
+        public GameObject tileCell;
+
+        public SpriteRenderer faloAlpha;
+
+        GameObject playerLink;
+
+        public Color oriColor, stdHighColor;
+
+        // for Aggro
+        public bool aggroCell = false;
+
+        // For Falò 
+        public bool lightSource = false;
+        public bool isReceivingLight = false;
+        public bool lightSourceDiscovered = false;
+
+        private bool mouseEnter = false;
+        public bool inRange = false;
+
+        private bool faloLightRefreshed = false;
+
+        void Update()
+        {
+            if (lightSourceDiscovered)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                    Grid_Manager.instance.GettingLightObject(xCell, yCell);
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn && !faloLightRefreshed)
+                {
+                    Grid_Manager.instance.GettingLightObject(xCell, yCell);
+                    faloLightRefreshed = true;
+                }
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn && faloLightRefreshed)
+                    faloLightRefreshed = false;
+            }
+        }
+
+        void OnMouseEnter()
+        {
+
+            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+            SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+
+            if (playerContLink.attackSelection && inRange)
+            {
+                if (playerContLink.firstAbilityPressed)
+                {
+                    if (playerContLink.actAbilities[0].areaEffect == 0)
+                    {
+                        float tempAlpha = Grid_Manager.instance.GettingAlpha(this.gameObject);
+                        stdHighColor = this.GetComponent<SpriteRenderer>().color;
+
+                        this.GetComponent<SpriteRenderer>().color = Color.red;
+                        Grid_Manager.instance.ChangingAlpha(tempAlpha, this.gameObject);
+
+                        tileHighlight.color = this.GetComponent<SpriteRenderer>().color;
+                    }
+                    else
+                    {
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                    }
+                }
+                else
+                {
+                    if (playerContLink.actAbilities[1].areaEffect == 0)
+                    {
+                        float tempAlpha = Grid_Manager.instance.GettingAlpha(this.gameObject);
+                        stdHighColor = this.GetComponent<SpriteRenderer>().color;
+
+                        this.GetComponent<SpriteRenderer>().color = Color.red;
+                        Grid_Manager.instance.ChangingAlpha(tempAlpha, this.gameObject);
+
+                        tileHighlight.color = this.GetComponent<SpriteRenderer>().color;
+                    }
+                    else
+                    {
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                    }
+                }
+                mouseEnter = true;
+            }
+            /*
+            else if (this.GetComponent<SpriteRenderer>().color.a == 1)
+            {
+                this.GetComponent<SpriteRenderer>().color = Color.grey;
+                tileCell.GetComponent<SpriteRenderer>().color = Color.grey;
+            }
+            */
+        }
+
+        void OnMouseExit()
+        {
+            if (mouseEnter)
+            {
+                Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+
+                if (playerContLink.attackSelection)
+                {
+                    if (playerContLink.firstAbilityPressed)
+                    {
+                        if (playerContLink.actAbilities[0].areaEffect == 0)
+                        {
+                            this.GetComponent<SpriteRenderer>().color = stdHighColor;
+                            tileHighlight.color = stdHighColor;
+                        }
+                        else
+                        {
+                            Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                        }
+                    }
+                    else
+                    {
+                        if (playerContLink.actAbilities[1].areaEffect == 0)
+                        {
+                            this.GetComponent<SpriteRenderer>().color = stdHighColor;
+                            tileHighlight.color = stdHighColor;
+                        }
+                        else
+                        {
+                            Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                        }
+                    }
+                    /*
+                    else if (this.GetComponent<SpriteRenderer>().color.a == 1)
+                    {
+                        this.GetComponent<SpriteRenderer>().color = Color.white;
+                        tileCell.GetComponent<SpriteRenderer>().color = Color.white;
+                    }
+                    */
+                }
+                mouseEnter = false;
+            }
+        }
+
+        void OnMouseDown()
+        {
+
+            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+            if (playerContLink.attackSelection && inRange)
+            {
+                playerContLink.Attack(xCell, yCell);
+            }
+            else
+                Debug.Log("Out of Range");
+
+        }
+
+
+
+        public void SettingFalo()
+        {
+            lightSource = true;
+            isOccupied = true;
+
+        }
+
+        public void SettingWall()
+        {
+            this.isOccupied = true;
+        }
+
+
+        public void GivingPlayerRef(GameObject player)
+        {
+            playerLink = player;
+        }
+
+
+       
+
+    }
+}
