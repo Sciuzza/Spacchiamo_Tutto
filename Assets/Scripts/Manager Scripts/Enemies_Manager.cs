@@ -34,6 +34,14 @@ namespace Spacchiamo
                 if (AreEnemiesInPosition())
                     Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
             }
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && Game_Controller.instance.previousPhase == GAME_PHASE.playerTurn)
+            {
+                if (AreEnemiesInPositionByKnockBack())
+                {
+                    Game_Controller.instance.previousPhase = GAME_PHASE.animation;
+                    Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
+                }
+            }
         }
 
         // Depends on moveDone boolean of each enemy 
@@ -44,6 +52,20 @@ namespace Spacchiamo
             for (int i = 0; i < enemyReferences.Count && inPosition; i++)
             {
                 if (!enemyReferences[i].GetComponent<EnemyAI>().move_done)
+                    inPosition = false;
+
+            }
+
+            return inPosition;
+        }
+
+        private bool AreEnemiesInPositionByKnockBack()
+        {
+            bool inPosition = true;
+
+            for (int i = 0; i < enemyReferences.Count && inPosition; i++)
+            {
+                if (enemyReferences[i].GetComponent<EnemyAI>().isKnockBacked)
                     inPosition = false;
 
             }
@@ -87,20 +109,29 @@ namespace Spacchiamo
             }
         }
 
-        public bool EnemyIsHere(List<Cell_Interaction> cellsInvolved)
+        public void AttackingEnemies(List<Cell_Interaction> cellsInvolved, float damage, int knockback)
         {
-            if (enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0, 0, 1)) != null)
-                return true;
-            else
-                return false;
+            int x, y;
+            GameObject enemyAttacked;
+
+            for (int i = 0; i < cellsInvolved.Count; i++) {
+
+                x = cellsInvolved[i].xCell;
+                y = cellsInvolved[i].yCell;
+
+                enemyAttacked = enemyReferences.Find(z => z.GetComponent<EnemyAI>().xEnemy == x && z.GetComponent<EnemyAI>().yEnemy == y);
+
+                if (enemyAttacked != null)
+                    enemyAttacked.GetComponent<Enemy_Controller>().TakingPlayerAbilityEffects(damage, knockback);
+              }
 
         }
 
-        public void DestroyEnemy(int row, int column)
+        public void DestroyEnemy(int xEnemy, int yEnemy)
         {
-            GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(row, column).position - new Vector3(0, 0, 1));
+            GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy).position - new Vector3(0, 0, 1));
             enemyReferences.Remove(enemyToDestroy);
-            Grid_Manager.instance.SwitchingOccupiedStatus(row, column);
+            Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
             Destroy(enemyToDestroy);
         }
 

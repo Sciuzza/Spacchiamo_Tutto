@@ -12,6 +12,7 @@ namespace Spacchiamo
         public bool isMoving = false;
         public bool move_done = false;
         public bool isRangeChecked = false;
+        public bool isKnockBacked = false;
 
 
         public int xEnemy, yEnemy;
@@ -54,6 +55,7 @@ namespace Spacchiamo
         {
             if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn)
             {
+
                 if (!eControllerLink.isAggroed)
                 {
                     if (!eControllerLink.isComingBack)
@@ -72,11 +74,14 @@ namespace Spacchiamo
                         Following();
                 }
             }
+            else if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && isKnockBacked)
+            {
+                TranslatingPosition();
+            }
             else if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn)
             {
                 move_done = false;
                 isRangeChecked = false;
-                
             }
         }
 
@@ -254,12 +259,16 @@ namespace Spacchiamo
             {
                 this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
                 ResettingMoveDirection();
-                move_done = true;
+
                 isMoving = false;
 
                 if (xEnemy == xComeBack && yEnemy == yComeBack && eControllerLink.isComingBack)
                     eControllerLink.isComingBack = false;
 
+                if (isKnockBacked)
+                    isKnockBacked = false;
+                else
+                    move_done = true;
             }
         }
 

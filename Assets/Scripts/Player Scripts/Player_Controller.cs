@@ -129,7 +129,7 @@ namespace Spacchiamo
             else if (secondAbilityPressed)    
                 secondAbilityPressed = false;
             
-            Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
+           
 
         }
 

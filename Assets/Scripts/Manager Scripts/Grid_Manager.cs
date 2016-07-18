@@ -277,7 +277,7 @@ namespace Spacchiamo
 
         }
 
-        private bool CheckingUpCellExp(int xEnemy, int yEnemy)
+        public bool CheckingUpCellExp(int xEnemy, int yEnemy)
         {
             if (yEnemy + 1 < cellReferences.GetLength(1))
             {
@@ -290,7 +290,7 @@ namespace Spacchiamo
                 return false;
         }
 
-        private bool CheckingDownCellExp(int xEnemy, int yEnemy)
+        public bool CheckingDownCellExp(int xEnemy, int yEnemy)
         {
             if (yEnemy - 1 > 0)
             {
@@ -303,7 +303,7 @@ namespace Spacchiamo
                 return false;
         }
 
-        private bool CheckingLeftCellExp(int xEnemy, int yEnemy)
+        public bool CheckingLeftCellExp(int xEnemy, int yEnemy)
         {
             if (xEnemy - 1 > 0)
             {
@@ -316,7 +316,7 @@ namespace Spacchiamo
                 return false;
         }
 
-        private bool CheckingRightCellExp(int xEnemy, int yEnemy)
+        public bool CheckingRightCellExp(int xEnemy, int yEnemy)
         {
             if (xEnemy + 1 < cellReferences.GetLength(0))
             {
@@ -330,9 +330,9 @@ namespace Spacchiamo
         }
 
 
-        public Transform GetCellTransform(int row, int column)
+        public Transform GetCellTransform(int x, int y)
         {
-            return cellReferences[row, column].transform;
+            return cellReferences[x, y].transform;
         }
 
         public void SwitchingOccupiedStatus(int x, int y)
@@ -593,11 +593,13 @@ namespace Spacchiamo
 
         public int CalcEnemyPlayDist(int xEnemy, int yEnemy)
         {
-            GameObject playerTemp = Game_Controller.instance.playerLink;
-            Vector3 playerPos = playerTemp.GetComponent<playerActions>().whereToGo.position;
+            
+            int xPlayer = playerTemp.GetComponent<playerActions>().xPlayer;
+            int yPlayer = playerTemp.GetComponent<playerActions>().yPlayer;
+           
 
-            return Mathf.RoundToInt(Mathf.Abs(playerPos.x - cellReferences[xEnemy, yEnemy].gameObject.transform.position.x) +
-                Mathf.Abs(playerPos.y - cellReferences[xEnemy, yEnemy].gameObject.transform.position.y));
+            return Mathf.RoundToInt(Mathf.Abs(cellReferences[xPlayer,yPlayer].transform.position.x - cellReferences[xEnemy, yEnemy].transform.position.x) +
+                Mathf.Abs(cellReferences[xPlayer,yPlayer].transform.position.y - cellReferences[xEnemy, yEnemy].gameObject.transform.position.y));
         }
 
         public void MakeDamageToPlayer(int damage)
@@ -758,7 +760,24 @@ namespace Spacchiamo
             return cellsAttacked;
         }
 
+        public int CheckingRelativePosition(int xEnemy, int yEnemy)
+        {
+           // 0 = player is on the left, 1 = player is on the right, 2 = player is on top, 3 = player is on bot , -1 in theory can't remain -1
 
+            playerActions playerPos = playerTemp.GetComponent<playerActions>();
+
+            if (playerPos.xPlayer < xEnemy && playerPos.yPlayer == yEnemy)
+                return 0;
+            else if (playerPos.xPlayer > xEnemy && playerPos.yPlayer == yEnemy)
+                return 1;
+            else if (playerPos.xPlayer == xEnemy && playerPos.yPlayer > yEnemy)
+                return 2;
+            else if (playerPos.xPlayer == xEnemy && playerPos.yPlayer < yEnemy)
+                return 3;
+            else
+                return -1;
+
+        } 
     }
 }
 

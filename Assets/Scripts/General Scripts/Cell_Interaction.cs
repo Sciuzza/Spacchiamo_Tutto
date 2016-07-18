@@ -105,8 +105,18 @@ namespace Spacchiamo
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
             if (playerContLink.attackSelection && inRange)
             {
+                Game_Controller.instance.currentPhase = GAME_PHASE.animation;
+                Game_Controller.instance.previousPhase = GAME_PHASE.playerTurn;
+
+                
+                if (playerContLink.firstAbilityPressed)
+                {
+                    Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.actAbilities[0].damage, playerContLink.actAbilities[0].knockBack);
+                }
+                else
+                    Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.actAbilities[1].damage, playerContLink.actAbilities[1].knockBack);
+
                 playerContLink.ResetAttackBooleans();
-                Enemies_Manager.instance.AttackingEnemies
             }
             else
                 Debug.Log("Out of Range");

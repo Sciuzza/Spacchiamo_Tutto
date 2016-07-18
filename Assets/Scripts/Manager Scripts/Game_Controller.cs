@@ -62,7 +62,7 @@ namespace Spacchiamo
     }
 
  
-    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn };
+    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, animation, dialogue};
 
 
 
@@ -90,7 +90,8 @@ namespace Spacchiamo
         private readonly Color gre00 = new Color(0.5f, 0.5f, 0.5f, 0.0f);
 
         // obvious LOL
-        public GAME_PHASE currentPhase = GAME_PHASE.playerTurn;
+        public GAME_PHASE currentPhase = GAME_PHASE.init;
+        public GAME_PHASE previousPhase = GAME_PHASE.playerTurn;
 
         // to be passed to Enemy Manager
         GameObject[] enemyArray;
@@ -275,6 +276,7 @@ namespace Spacchiamo
             Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
             playerActions playerPosition = playerLink.GetComponent<playerActions>();
             Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+            playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             cameraLink.target = playerLink;
 
             // Player Active Ability transfer conditions 
@@ -315,6 +317,8 @@ namespace Spacchiamo
             Enemies_Manager.instance.PassingEnemyList(enemyArray);
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
             Enemies_Manager.instance.PatrolArea();
+
+            currentPhase = GAME_PHASE.playerTurn;
 
         }
 
