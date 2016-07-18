@@ -33,9 +33,28 @@ namespace Spacchiamo
         public pOriginalName passiveTesting;
 
         [Range(1, 3)]
-        public int passiveLevel; 
+        public int passiveLevel;
         #endregion
 
+        #region Designer enemy ability selection
+
+        [System.Serializable]
+        public struct ActEnemyAbDesigner
+        {
+            public eneOriginalName oname;
+            [Range(1, 5)]
+            public int level;
+        }
+
+        [System.Serializable]
+        public struct enemySettings
+        {
+            public enemy whichEnemy;
+            public List<ActEnemyAbDesigner> actAbilities;
+        }
+
+        public List<enemySettings> Enemies = new List<enemySettings>(); 
+        #endregion
 
 
         [HideInInspector]

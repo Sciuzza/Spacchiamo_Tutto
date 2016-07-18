@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
@@ -12,6 +13,8 @@ namespace Spacchiamo
         public bool isComingBack = false;
         public bool isIgnoringAggro = false;
         public int aggroIgnoringCounter = 0;
+
+        public List<actEnemyAbility> actAbilities = new List<actEnemyAbility>();
 
         EnemyAI aiLink;
 

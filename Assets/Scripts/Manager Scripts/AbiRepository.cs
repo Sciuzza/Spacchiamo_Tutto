@@ -13,9 +13,10 @@ namespace Spacchiamo
 
         [SerializeField]
         private passAbilities passRepostr = new passAbilities();
-        
-        
-       
+
+
+        [SerializeField]
+        private List<actEnemyAbility> actEnemyRepo = new List<actEnemyAbility>();
 
 
 
@@ -32,6 +33,14 @@ namespace Spacchiamo
             get
             {
                 return passRepostr;
+            }
+        }
+
+        public List<actEnemyAbility> ActEnemyRepo
+        {
+            get
+            {
+                return actEnemyRepo;
             }
         }
 

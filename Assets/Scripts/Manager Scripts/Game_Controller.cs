@@ -14,6 +14,10 @@ namespace Spacchiamo
 
     public enum pOriginalName { Rigenerazione, NotFound };
 
+    public enum eneOriginalName { meleeName, ranged }
+
+    public enum enemy { enemy1, enemy2, enemy3};
+
     [System.Serializable]
     public struct actPlayerAbility
     {
@@ -51,9 +55,7 @@ namespace Spacchiamo
         public int cooldownDecPerLevel;
         public bool discovered;
         public bool active;
-    }
-
-    
+    }    
 
     [System.Serializable]
     public struct passAbilities
@@ -61,6 +63,27 @@ namespace Spacchiamo
         public regAbility regeneration;
     }
 
+
+    [System.Serializable]
+    public struct actEnemyAbility
+    {
+        public eneOriginalName oname;
+        public int level;
+        public int maxLevel;
+        public float damage;
+        public float damIncPerLevel;
+        public int range;
+        public int rangeIncPerLevel;
+        public int cooldown;
+        public int cooldownDecPerLevel;
+        public int areaEffect;
+        public int aeIncPerLevel;
+        public int knockBack;
+        public int kbIncPerLevel;
+
+    }
+
+   
  
     public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, animation, dialogue};
 
@@ -94,7 +117,7 @@ namespace Spacchiamo
         public GAME_PHASE previousPhase = GAME_PHASE.playerTurn;
 
         // to be passed to Enemy Manager
-        GameObject[] enemyArray;
+        GameObject[] enemy1Array, enemy2Array;
 
         // to be passed to Grid Manager
         GameObject[] faloList;
@@ -264,7 +287,8 @@ namespace Spacchiamo
             playerLink = GameObject.FindGameObjectWithTag("Player");
             cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
             faloList = GameObject.FindGameObjectsWithTag("Falo");
-            enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+            enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
+            enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
 
 
             // Grid Initialization
@@ -314,7 +338,7 @@ namespace Spacchiamo
             }
 
             // Enemies Initialization
-            Enemies_Manager.instance.PassingEnemyList(enemyArray);
+            Enemies_Manager.instance.PassingEnemyList(enemy1Array);
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
             Enemies_Manager.instance.PatrolArea();
 
