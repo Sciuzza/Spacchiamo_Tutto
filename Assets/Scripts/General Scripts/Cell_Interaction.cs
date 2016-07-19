@@ -46,22 +46,26 @@ namespace Spacchiamo
                 if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn && faloLightRefreshed)
                     faloLightRefreshed = false;
             }
+            if (Input.GetKeyDown(KeyCode.Escape))
+                mouseEnter = false;
         }
 
-        void OnMouseEnter()
+        void OnMouseOver()
         {
-
-            Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-            SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
-
-            if (playerContLink.attackSelection && inRange)
+            if (!mouseEnter)
             {
-                if (playerContLink.firstAbilityPressed)
-                    Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
-                else
-                    Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
 
-                mouseEnter = true;
+                if (playerContLink.attackSelection && inRange)
+                {
+                    if (playerContLink.firstAbilityPressed)
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                    else
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+
+                    mouseEnter = true;
+                }
             }
             /*
             else if (this.GetComponent<SpriteRenderer>().color.a == 1)
@@ -117,6 +121,7 @@ namespace Spacchiamo
                     Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.actAbilities[1].damage, playerContLink.actAbilities[1].knockBack);
 
                 playerContLink.ResetAttackBooleans();
+                mouseEnter = false;
             }
             else
                 Debug.Log("Out of Range");

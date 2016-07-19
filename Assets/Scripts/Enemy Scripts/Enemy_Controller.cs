@@ -30,11 +30,15 @@ namespace Spacchiamo
             isAggroed = true;
             Life -= damageTaken;
 
-            if (knockBackTaken >= 1)
-                TakingKnockBack(knockBackTaken);
-
             if (Life <= 0)
                 Enemies_Manager.instance.DestroyEnemy(aiLink.xEnemy, aiLink.yEnemy);
+            else
+            {
+
+                if (knockBackTaken >= 1)
+                    TakingKnockBack(knockBackTaken);
+            }
+            
         }
     
 
