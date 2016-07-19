@@ -8,4 +8,10 @@
 
 	}
 
+	internal interface ICharacteristicRecognizable {
+
+		void SetCharacteristic (int passedCharacteristic);
+
+	}
+
 }

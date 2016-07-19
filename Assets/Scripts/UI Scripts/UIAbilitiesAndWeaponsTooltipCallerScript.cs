@@ -5,7 +5,7 @@ namespace Spacchiamo {
 
 	internal class UIAbilitiesAndWeaponsTooltipCallerScript : UIBaseTooltipCallerScript {
 
-		private UIAbilitiesAndWeaponsTooltipScript tooltip;
+		protected internal UIAbilitiesAndWeaponsTooltipScript tooltip;
 
 		protected internal override void Awake () {
 
@@ -39,7 +39,7 @@ namespace Spacchiamo {
 				this.uiImageLogic = UIIMAGE.PLAY_GAME;
 				break;
 			default:
-				Debug.LogWarning ("TI STAI DIMENTICANDO UN TAG!\n" + this.name);	//PROVVISORIO
+				Debug.LogWarning ("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
 				break;
 
 			}
