@@ -321,7 +321,7 @@ namespace Spacchiamo
                                             );//gets the x and y position in pixels of where the image is. Used later for display.
 
                         // Selectio nbutton
-                        if (GUILayout.Button("", GUILayout.Width(34), GUILayout.Height(34)))
+                        if (GUILayout.Button("", GUILayout.Width(64+2), GUILayout.Height(64 + 2)))
                         {
                             if (selectedTilesIds != null && !e.shift)
                             {
@@ -333,13 +333,13 @@ namespace Spacchiamo
                             selectedTilesSprites.Add(currentEditorSprites[current]);
                         }
 
-                        GUI.DrawTextureWithTexCoords(new Rect(5 + (j * 38), 4 + (i * 37), 32, 32), currentSprite.texture, singleTileSpriteRect, true); //draws tile base on pixels gotten at the beginning of the loop
+                        GUI.DrawTextureWithTexCoords(new Rect(5 + (j * (64+6)), 4 + (i * (64 + 5)), 64, 64), currentSprite.texture, singleTileSpriteRect, true); //draws tile base on pixels gotten at the beginning of the loop
                         if (selectedTilesIds != null && selectedTilesIds.Contains(current))
                         {
                             //if the current tile is inside of the list of selected tiles, draw a highlight indicator over the button.
                             if (editorSelectionTexture)
                             {
-                                GUI.DrawTexture(new Rect(5 + (j * 38), 4 + (i * 37), 32, 32), editorSelectionTexture, ScaleMode.ScaleToFit, true);
+                                GUI.DrawTexture(new Rect(5 + (j * (64 + 6)), 4 + (i * (64 + 5)), 64, 64), editorSelectionTexture, ScaleMode.ScaleToFit, true);
                             }
                         }
 
