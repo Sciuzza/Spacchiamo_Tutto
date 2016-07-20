@@ -20,4 +20,10 @@
 
 	}
 
+	internal interface ICheckPlayability {
+
+		void CheckPlayability ();
+
+	}
+
 }

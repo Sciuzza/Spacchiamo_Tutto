@@ -8,12 +8,24 @@ namespace Spacchiamo {
 
 		protected internal UIAbilitiesAndWeaponsTooltipScript tooltip;
 
+		private UIIMAGE uiImageCharacteristic;
 		private Image image;
+
+		internal UIIMAGE uiCharacteristic {
+
+			get {
+
+				return uiImageCharacteristic;
+
+			}
+
+		}
 
 		protected internal override void Awake () {
 
 			this.tooltip = GameObject.FindGameObjectWithTag (PARAMETERS.TOOLTIP).GetComponent <UIAbilitiesAndWeaponsTooltipScript> ();
 
+			this.uiImageCharacteristic = UIIMAGE.NULL;
 			this.image = this.GetComponent <Image> ();
 
 		}
@@ -53,10 +65,12 @@ namespace Spacchiamo {
 
 		internal void LoadCharacteristic (UIIMAGE passedCharacteristic) {
 
+			this.uiImageCharacteristic = passedCharacteristic;
+
 			switch (this.uiImageLogic) {
 
 			case UIIMAGE.PASSIVE_ABILITY:
-				switch (passedCharacteristic) {
+				switch (this.uiImageCharacteristic) {
 				case UIIMAGE.NO_ABILITY:
 					this.image.color = new Color (1f, 1f, 1f);	//WHITE
 					break;
@@ -81,7 +95,7 @@ namespace Spacchiamo {
 				}
 				break;
 			case UIIMAGE.PRIMARY_ABILITY:
-				switch (passedCharacteristic) {
+				switch (this.uiImageCharacteristic) {
 				case UIIMAGE.NO_ABILITY:
 					this.image.color = new Color (1f, 1f, 1f);	//WHITE
 					break;
@@ -106,7 +120,7 @@ namespace Spacchiamo {
 				}
 				break;
 			case UIIMAGE.SECONDARY_ABILITY:
-				switch (passedCharacteristic) {
+				switch (this.uiImageCharacteristic) {
 				case UIIMAGE.NO_ABILITY:
 					this.image.color = new Color (1f, 1f, 1f);	//WHITE
 					break;
@@ -131,7 +145,7 @@ namespace Spacchiamo {
 				}
 				break;
 			case UIIMAGE.FIRST_WEAPON:
-				switch (passedCharacteristic) {
+				switch (this.uiImageCharacteristic) {
 				case UIIMAGE.WEAPON_1:
 					this.image.color = new Color (1f, 1f, 0f);	//YELLOW
 					break;
@@ -147,7 +161,7 @@ namespace Spacchiamo {
 				}
 				break;
 			case UIIMAGE.SECOND_WEAPON:
-				switch (passedCharacteristic) {
+				switch (this.uiImageCharacteristic) {
 				case UIIMAGE.WEAPON_1:
 					this.image.color = new Color (1f, 1f, 0f);	//YELLOW
 					break;
