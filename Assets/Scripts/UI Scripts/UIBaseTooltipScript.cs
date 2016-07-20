@@ -12,7 +12,7 @@ namespace Spacchiamo {
 
 		protected internal abstract void Start ();
 
-		protected internal abstract void SetDescription (UIIMAGE imageHovered);
+		protected internal abstract void SetDescription (UIIMAGE imageHovered, ABILITY specificAbility = ABILITY.ABILITY_VOID, HAND specificWeapon = HAND.HAND_VOID);
 
 		protected internal abstract void UnSetDescription ();
 		
