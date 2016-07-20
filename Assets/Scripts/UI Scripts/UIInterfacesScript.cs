@@ -14,4 +14,10 @@
 
 	}
 
+	internal interface IDeductLoad {
+
+		void DeductCharacteristicToLoad ();
+
+	}
+
 }
