@@ -24,7 +24,7 @@ namespace Spacchiamo {
 			
 		}
 		
-		protected internal override void SetDescription (UIIMAGE imageHovered, ABILITY specificAbility = ABILITY.ABILITY_VOID, HAND specificWeapon = HAND.WEAPON_VOID) {
+		protected internal override void SetDescription (UIIMAGE imageHovered, ABILITY specificAbility = ABILITY.ABILITY_VOID, HAND specificWeapon = HAND.HAND_VOID) {
 			
 			switch (imageHovered) {
 			

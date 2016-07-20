@@ -74,7 +74,7 @@ namespace Spacchiamo
                             Attacking();
                     }
                     else
-                        FollowingAStar();
+                        Following();
                 }
             }
             else if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && isKnockBacked)
