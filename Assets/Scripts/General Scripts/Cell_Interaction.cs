@@ -8,6 +8,10 @@ namespace Spacchiamo
         [HideInInspector]
         public int xCell, yCell;
 
+        // Needed for A Star Algorithm
+        public Cell_Interaction parentNode;
+        public int hValue, gValue, fValue; 
+
         // For Wall and Moving Objects
         public bool isOccupied = false;
 

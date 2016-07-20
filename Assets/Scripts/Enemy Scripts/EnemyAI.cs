@@ -31,6 +31,9 @@ namespace Spacchiamo
 
         public List<Transform> possibleMoves;
 
+       
+
+
         void Awake()
         {
             eControllerLink = this.GetComponent<Enemy_Controller>();
@@ -71,7 +74,7 @@ namespace Spacchiamo
                             Attacking();
                     }
                     else
-                        Following();
+                        FollowingAStar();
                 }
             }
             else if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && isKnockBacked)
@@ -201,14 +204,33 @@ namespace Spacchiamo
                 possibleMoves.TrimExcess();
                 possibleMoves = new List<Transform>();
 
-                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
 
+                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
                 whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
                 isMoving = true;
 
+            }
+            else if (isMoving)
+                TranslatingPosition();
+        }
+
+        private void FollowingAStar()
+        {
+
+            if (!isMoving && !move_done)
+            {
+                int xPlayer, yPlayer;
+
+                Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                Grid_Manager.instance.AStarAlgorithm(xEnemy, yEnemy, xEnemy, yEnemy, xPlayer, yPlayer, out xEnemy, out yEnemy);
+                whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+
+                isMoving = true;
             }
             else if (isMoving)
                 TranslatingPosition();

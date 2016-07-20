@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Spacchiamo
 {
@@ -15,7 +16,9 @@ namespace Spacchiamo
 
         public GameObject tilesHolder;
 
-
+        public List<Cell_Interaction> openNodeList = new List<Cell_Interaction>();
+        public List<Cell_Interaction> closedNodeList = new List<Cell_Interaction>();
+        public int distance;
 
         List<Sprite> wallList = new List<Sprite>();
         Sprite[] wallSprites;
@@ -557,6 +560,159 @@ namespace Spacchiamo
         }
 
 
+        // A Star ALgorithm
+        public void AStarAlgorithm(int xStart, int yStart, int xMoving, int yMoving, int xTarget, int yTarget, out int xEnd, out int yEnd)
+        {
+            openNodeList = new List<Cell_Interaction>();
+            closedNodeList = new List<Cell_Interaction>();
+
+            openNodeList.Add(cellReferences[xStart, yStart]);
+            cellReferences[xStart, yStart].gValue = 0;
+            cellReferences[xStart, yStart].fValue = 0;
+
+            Cell_Interaction currentNode;
+            
+
+            do
+            {
+               
+                
+                currentNode = openNodeList.Find(y => y.fValue == openNodeList.Min(x => x.fValue));
+
+                closedNodeList.Add(currentNode);
+
+                distance = RetrieveManhDistfromAtoB(currentNode.xCell, currentNode.yCell, xTarget, yTarget);
+
+                if (distance == 1 || openNodeList.Count == 0)
+                    continue;
+
+                openNodeList.Remove(currentNode);
+
+
+                xMoving = currentNode.xCell;
+                yMoving = currentNode.yCell;
+
+
+                if (CheckingUpCellExp(xMoving, yMoving))
+                {
+                    if (!closedNodeList.Contains(cellReferences[xMoving, yMoving + 1]))
+                    {
+
+                        if (!openNodeList.Contains(cellReferences[xMoving, yMoving + 1]))
+                        {
+                            openNodeList.Add(cellReferences[xMoving, yMoving + 1]);
+                            cellReferences[xMoving, yMoving + 1].parentNode = currentNode;
+                            cellReferences[xMoving, yMoving + 1].hValue = RetrieveManhDistfromAtoB(xMoving, yMoving + 1, xTarget, yTarget);
+                            cellReferences[xMoving, yMoving + 1].gValue = cellReferences[xMoving, yMoving + 1].parentNode.gValue + 1;
+                            cellReferences[xMoving, yMoving + 1].fValue = cellReferences[xMoving, yMoving + 1].hValue + cellReferences[xMoving, yMoving + 1].gValue;
+                        }
+                        else if (cellReferences[xMoving, yMoving + 1].gValue > cellReferences[xMoving, yMoving].gValue + 1)
+                        {
+                            cellReferences[xMoving, yMoving + 1].parentNode = currentNode;
+                            cellReferences[xMoving, yMoving + 1].gValue = cellReferences[xMoving, yMoving + 1].parentNode.gValue + 1;
+                            cellReferences[xMoving, yMoving + 1].fValue = cellReferences[xMoving, yMoving + 1].hValue + cellReferences[xMoving, yMoving + 1].gValue;
+
+                        }
+                    }
+                }
+
+                if (CheckingDownCellExp(xMoving, yMoving))
+                {
+                    if (!closedNodeList.Contains(cellReferences[xMoving, yMoving - 1]))
+                    {
+
+                        if (!openNodeList.Contains(cellReferences[xMoving, yMoving - 1]))
+                        {
+                            openNodeList.Add(cellReferences[xMoving, yMoving - 1]);
+                            cellReferences[xMoving, yMoving - 1].parentNode = currentNode;
+                            cellReferences[xMoving, yMoving - 1].hValue = RetrieveManhDistfromAtoB(xMoving, yMoving - 1, xTarget, yTarget);
+                            cellReferences[xMoving, yMoving - 1].gValue = cellReferences[xMoving, yMoving - 1].parentNode.gValue + 1;
+                            cellReferences[xMoving, yMoving - 1].fValue = cellReferences[xMoving, yMoving - 1].hValue + cellReferences[xMoving, yMoving - 1].gValue;
+                        }
+                        else if (cellReferences[xMoving, yMoving - 1].gValue > cellReferences[xMoving, yMoving].gValue + 1)
+                        {
+                            cellReferences[xMoving, yMoving - 1].parentNode = currentNode;
+                            cellReferences[xMoving, yMoving - 1].gValue = cellReferences[xMoving, yMoving - 1].parentNode.gValue + 1;
+                            cellReferences[xMoving, yMoving - 1].fValue = cellReferences[xMoving, yMoving - 1].hValue + cellReferences[xMoving, yMoving - 1].gValue;
+
+                        }
+                    }
+                }
+
+                if (CheckingRightCellExp(xMoving, yMoving))
+                {
+                    if (!closedNodeList.Contains(cellReferences[xMoving + 1, yMoving]))
+                    {
+
+                        if (!openNodeList.Contains(cellReferences[xMoving + 1, yMoving]))
+                        {
+                            openNodeList.Add(cellReferences[xMoving + 1, yMoving]);
+                            cellReferences[xMoving + 1, yMoving].parentNode = currentNode;
+                            cellReferences[xMoving + 1, yMoving].hValue = RetrieveManhDistfromAtoB(xMoving + 1, yMoving, xTarget, yTarget);
+                            cellReferences[xMoving + 1, yMoving].gValue = cellReferences[xMoving + 1, yMoving].parentNode.gValue + 1;
+                            cellReferences[xMoving + 1, yMoving].fValue = cellReferences[xMoving + 1, yMoving].hValue + cellReferences[xMoving + 1, yMoving].gValue;
+                        }
+                        else if (cellReferences[xMoving + 1, yMoving].gValue > cellReferences[xMoving, yMoving].gValue + 1)
+                        {
+                            cellReferences[xMoving + 1, yMoving].parentNode = currentNode;
+                            cellReferences[xMoving + 1, yMoving].gValue = cellReferences[xMoving + 1, yMoving].parentNode.gValue + 1;
+                            cellReferences[xMoving + 1, yMoving].fValue = cellReferences[xMoving + 1, yMoving].hValue + cellReferences[xMoving + 1, yMoving].gValue;
+
+                        }
+                    }
+                }
+
+                if (CheckingLeftCellExp(xMoving, yMoving))
+                {
+                    if (!closedNodeList.Contains(cellReferences[xMoving - 1, yMoving]))
+                    {
+
+                        if (!openNodeList.Contains(cellReferences[xMoving - 1, yMoving]))
+                        {
+                            openNodeList.Add(cellReferences[xMoving - 1, yMoving]);
+                            cellReferences[xMoving - 1, yMoving].parentNode = currentNode;
+                            cellReferences[xMoving - 1, yMoving].hValue = RetrieveManhDistfromAtoB(xMoving - 1, yMoving, xTarget, yTarget);
+                            cellReferences[xMoving - 1, yMoving].gValue = cellReferences[xMoving - 1, yMoving].parentNode.gValue + 1;
+                            cellReferences[xMoving - 1, yMoving].fValue = cellReferences[xMoving - 1, yMoving].hValue + cellReferences[xMoving - 1, yMoving].gValue;
+                        }
+                        else if (cellReferences[xMoving - 1, yMoving].gValue > cellReferences[xMoving, yMoving].gValue + 1)
+                        {
+                            cellReferences[xMoving - 1, yMoving].parentNode = currentNode;
+                            cellReferences[xMoving - 1, yMoving].gValue = cellReferences[xMoving - 1, yMoving].parentNode.gValue + 1;
+                            cellReferences[xMoving - 1, yMoving].fValue = cellReferences[xMoving - 1, yMoving].hValue + cellReferences[xMoving - 1, yMoving].gValue;
+
+                        }
+                    }
+                }
+
+            } while (openNodeList.Count != 0 && distance > 1);
+
+            if (openNodeList.Count == 0)
+            {
+                xEnd = xStart;
+                yEnd = yStart;
+            }
+            else
+            {
+                Cell_Interaction cellToMove = closedNodeList.Find(x => x.parentNode == cellReferences[xStart, yStart]);
+                xEnd = cellToMove.xCell;
+                yEnd = cellToMove.yCell;
+            }
+        }
+
+        public int RetrieveManhDistfromAtoB(int xA, int yA, int xB, int yB)
+        {
+            return Mathf.RoundToInt(Mathf.Abs(xA - xB) + Mathf.Abs(yA - yB));
+        }
+
+        public void RetrievePlayerCoords(out int xPlayer, out int yPlayer)
+        {
+            xPlayer = playerTemp.GetComponent<playerActions>().xPlayer;
+            yPlayer = playerTemp.GetComponent<playerActions>().yPlayer;
+        }
+
+
+
         //Method to come back on starting position when aggro is wiped
         public Transform FindFastestBackRoute(List<Transform> moves, int xComeBack, int yComeBack, out int xEnemy, out int yEnemy)
         {
@@ -593,13 +749,13 @@ namespace Spacchiamo
 
         public int CalcEnemyPlayDist(int xEnemy, int yEnemy)
         {
-            
+
             int xPlayer = playerTemp.GetComponent<playerActions>().xPlayer;
             int yPlayer = playerTemp.GetComponent<playerActions>().yPlayer;
-           
 
-            return Mathf.RoundToInt(Mathf.Abs(cellReferences[xPlayer,yPlayer].transform.position.x - cellReferences[xEnemy, yEnemy].transform.position.x) +
-                Mathf.Abs(cellReferences[xPlayer,yPlayer].transform.position.y - cellReferences[xEnemy, yEnemy].gameObject.transform.position.y));
+
+            return Mathf.RoundToInt(Mathf.Abs(cellReferences[xPlayer, yPlayer].transform.position.x - cellReferences[xEnemy, yEnemy].transform.position.x) +
+                Mathf.Abs(cellReferences[xPlayer, yPlayer].transform.position.y - cellReferences[xEnemy, yEnemy].gameObject.transform.position.y));
         }
 
         public void MakeDamageToPlayer(int damage)
@@ -644,7 +800,7 @@ namespace Spacchiamo
                 }
             }
 
-        }     
+        }
 
         public void HighlightingKnockRange(int xPlayer, int yPlayer, int range)
         {
@@ -681,7 +837,7 @@ namespace Spacchiamo
                     }
                 }
             }
-        }       
+        }
 
         public void HighlightingAreaOfEffect(int xCell, int yCell, int area)
         {
@@ -737,8 +893,8 @@ namespace Spacchiamo
 
                         if (area >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null)
                         {
-                            
-                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x,y].stdHighColor;
+
+                            cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].stdHighColor;
                             tileHighlight.color = cellReferences[x, y].stdHighColor;
 
                             cellsAttacked.Remove(cellReferences[x, y]);
@@ -762,7 +918,7 @@ namespace Spacchiamo
 
         public int CheckingRelativePosition(int xEnemy, int yEnemy)
         {
-           // 0 = player is on the left, 1 = player is on the right, 2 = player is on top, 3 = player is on bot , -1 in theory can't remain -1
+            // 0 = player is on the left, 1 = player is on the right, 2 = player is on top, 3 = player is on bot , -1 in theory can't remain -1
 
             playerActions playerPos = playerTemp.GetComponent<playerActions>();
 
@@ -777,7 +933,7 @@ namespace Spacchiamo
             else
                 return -1;
 
-        } 
+        }
     }
 }
 
