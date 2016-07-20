@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Spacchiamo {
 
-	internal class UISingleWeaponScript : UISingleAbilityScript {
+	internal class UISingleWeaponScript : UIAbilitiesAndWeaponsTooltipCallerScript, ICharacteristicRecognizable {
 
 		private HAND specificHand;
 
@@ -34,7 +34,7 @@ namespace Spacchiamo {
 
 		}
 
-		public override void SetCharacteristic (int passedCharacteristic) {
+		public void SetCharacteristic (int passedCharacteristic) {
 
 			this.specificHand = (HAND)passedCharacteristic;
 

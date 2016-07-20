@@ -43,7 +43,7 @@ namespace Spacchiamo {
 
 		}
 
-		public virtual void SetCharacteristic (int passedCharacteristic) {
+		public void SetCharacteristic (int passedCharacteristic) {
 
 			this.specificAbility = (ABILITY)passedCharacteristic;
 
