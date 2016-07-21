@@ -374,7 +374,6 @@ namespace Spacchiamo
                             }
                             else if (!cellReferences[x, y].isReceivingLight)
                             {
-                                cellReferences[x, y].aggroCell = true;
                                 cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                 ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
                             }
@@ -383,21 +382,20 @@ namespace Spacchiamo
                         {
                             if (!cellReferences[x, y].isReceivingLight)
                             {
-                                cellReferences[x, y].aggroCell = false;
                                 cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
-                                ChangingAlpha(0.8f, cellReferences[x, y].gameObject);
+                                ChangingAlpha(0.7f, cellReferences[x, y].gameObject);
                             }
                         }
                         else
                         {
                             if (!cellReferences[x, y].isReceivingLight)
                             {
-                                cellReferences[x, y].aggroCell = false;
+                               
 
                                 if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f)
                                 {
                                     cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
-                                    ChangingAlpha(0.5f, cellReferences[x, y].gameObject);
+                                    ChangingAlpha(0.3f, cellReferences[x, y].gameObject);
                                 }
                                 else
                                 {
@@ -460,6 +458,11 @@ namespace Spacchiamo
             return cell.GetComponent<SpriteRenderer>().color.a;
         }
 
+        public float GettingAlpha(int x, int y)
+        {
+            return cellReferences[x, y].GetComponent<SpriteRenderer>().color.a;
+        }
+
         // Method to retrive if the cell where player is standing on is receiving light by falo or not
 
         public bool IsCellReceivingLight(int xCell, int yCell)
@@ -471,25 +474,45 @@ namespace Spacchiamo
 
 
         //Method for the enemy Moves
-        public List<Cell_Interaction> FindingPatrolArea(int xEnemy, int yEnemy)
+        public List<Cell_Interaction> FindingPatrolArea(int xEnemy, int yEnemy, patrolArea patrolType, int areaRange)
         {
             float currentDistance;
             List<Cell_Interaction> areaFound = new List<Cell_Interaction>();
+
+            
 
             for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[x, y] != null)
+                    if (cellReferences[x, y] != null && !cellReferences[x,y].isOccupied)
                     {
                         currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xEnemy, yEnemy].transform.position.x) +
                         Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xEnemy, yEnemy].transform.position.y);
 
-
-
-                        if (Designer_Tweaks.instance.patrolAreaEnemyM > currentDistance)
+                        if (patrolType == patrolArea.manhattan)
                         {
-                            areaFound.Add(cellReferences[x, y]);
+
+                            if (areaRange >= currentDistance)
+                            {
+                                areaFound.Add(cellReferences[x, y]);
+                            }
+                        }
+                        else if (patrolType == patrolArea.horizontal)
+                        {
+                            if (areaRange >= currentDistance && y == yEnemy)
+                            {
+                                
+                                areaFound.Add(cellReferences[x, y]);
+                            }
+
+                        }
+                        else if (patrolType == patrolArea.vertical)
+                        {
+                            if (areaRange >= currentDistance && x == xEnemy)
+                            {
+                                areaFound.Add(cellReferences[x, y]);
+                            }
                         }
 
                     }
@@ -500,11 +523,7 @@ namespace Spacchiamo
         }
 
 
-        public bool IsEnemyInAggroCell(int xEnemy, int yEnemy)
-        {
-
-            return cellReferences[xEnemy, yEnemy].aggroCell;
-        }
+        
 
 
         public List<Transform> RetrievingPossibleMovements(int xEnemy, int yEnemy)
@@ -758,10 +777,9 @@ namespace Spacchiamo
                 Mathf.Abs(cellReferences[xPlayer, yPlayer].transform.position.y - cellReferences[xEnemy, yEnemy].gameObject.transform.position.y));
         }
 
-        public void MakeDamageToPlayer(int damage)
+        public void MakeDamageToPlayer(float damage)
         {
-            GameObject playerTemp = Game_Controller.instance.playerLink;
-            playerTemp.GetComponent<Player_Controller>().Life -= damage;
+            playerTemp.GetComponent<Player_Controller>().TakingDamage(damage);
         }
 
 

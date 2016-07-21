@@ -65,6 +65,7 @@ namespace Spacchiamo
                     }
                     //Increasing Turn Counter
                     pControllerLink.TurnValue++;
+                    Enemies_Manager.instance.SettingEnemyVisibility();
                     Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
                 }
             }

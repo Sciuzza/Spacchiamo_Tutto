@@ -8,7 +8,7 @@ namespace Spacchiamo
     {
         //General Designer Variables
         [Range(1, 5)]
-        public int playerLightM, faloLigthM, generalMoveSpeed, fearScaleRate, patrolAreaEnemyM;
+        public int playerLightM, faloLigthM, generalMoveSpeed, fearScaleRate;
 
         [HideInInspector]
         public int level1XWidth = 64, level1yWidth = 54;

@@ -99,8 +99,6 @@ namespace Spacchiamo
         public float lifeIncPerLevel;
         public int moveRate;
         public int moveRateDecPerLevel;
-        public int movePower;
-        public int movePowerIncPerLevel;
         public int aggroRange;
         public int aggroRangeIncPerLevel;
         public patrolArea patrolArea;
@@ -245,8 +243,11 @@ namespace Spacchiamo
             Enemies_Manager.instance.PassingEnemyList(enemy6Array);
             Enemies_Manager.instance.PassingEnemyList(enemy7Array);
 
+            
+            Enemies_Manager.instance.ImplementingEachEnemySettings();
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
-            Enemies_Manager.instance.PatrolArea();
+            Enemies_Manager.instance.SettingEnemyVisibility();
+           
 
             currentPhase = GAME_PHASE.playerTurn; 
             #endregion

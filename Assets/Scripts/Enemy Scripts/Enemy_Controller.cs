@@ -28,16 +28,18 @@ namespace Spacchiamo
         #endregion
 
 
-        #region GettingAiLink
+        #region Getting aiLink and OwnSprite Reference
 
-        EnemyAI aiLink;
+        public EnemyAI aiLink;
+        public Sprite visible;
 
         void Awake()
         {
             aiLink = this.GetComponent<EnemyAI>();
+            visible = this.GetComponent<SpriteRenderer>().sprite;
         }
         #endregion
-
+        
 
 
 
@@ -142,7 +144,26 @@ namespace Spacchiamo
         {
             enemyCurrentSetting = passedCurrentSetting;
         } 
+
+        public void InitializingOwnPatrol()
+        {
+           aiLink.patrolArea.AddRange(Grid_Manager.instance.FindingPatrolArea(aiLink.xEnemy, aiLink.yEnemy, enemyCurrentSetting.patrolArea, enemyCurrentSetting.patrolRange));
+        }
+
+        public void InitializingOwnAggro()
+        {
+
+        }
+
         #endregion
+
+
+        public void GhostAlphaChanging(float alpha)
+        {
+            Color ghostAlpha = GetComponent<SpriteRenderer>().color;
+            ghostAlpha.a = alpha;
+            GetComponent<SpriteRenderer>().color = ghostAlpha;
+        }
 
     }
 }

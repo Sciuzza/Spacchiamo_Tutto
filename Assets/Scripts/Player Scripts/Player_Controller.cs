@@ -9,7 +9,7 @@ namespace Spacchiamo
         public int fearTurnCounter = 0;
         playerActions moveLink;
 
-        public int Life = 20;
+        public float Life = 20;
         public int FearValue = 0;
         public int TurnValue = 0;
 
@@ -134,7 +134,10 @@ namespace Spacchiamo
         }
 
      
-
+        public void TakingDamage(float damage)
+        {
+            Life -= damage;
+        }
 
     }
 }

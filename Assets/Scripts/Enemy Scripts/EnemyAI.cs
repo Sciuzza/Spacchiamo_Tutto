@@ -14,16 +14,20 @@ namespace Spacchiamo
         public bool isRangeChecked = false;
         public bool isKnockBacked = false;
 
+        private bool ghostMechanic;
+        private int kamiCounter = 0;
+
 
         public int xEnemy, yEnemy;
         public int xComeBack, yComeBack;
         public Transform whereToGo = null;
 
-        
+        private int patChoiceCounter = 0;
+        private int moveRateCounter = 0;
 
         Ability1 abilityLink;
 
-        public List<Cell_Interaction> patrolArea;
+        public List<Cell_Interaction> patrolArea = new List<Cell_Interaction>();
 
         public List<int> moveDirection;
 
@@ -103,12 +107,6 @@ namespace Spacchiamo
 
 
 
-        public void InitalizingPatrolArea(List<Cell_Interaction> area)
-        {
-            for (int i = 0; i < area.Count; i++)
-                patrolArea.Add(area[i]);
-        }
-
         private void ResettingMoveDirection()
         {
             moveDirection.Clear();
@@ -127,9 +125,30 @@ namespace Spacchiamo
         {
             if (!isMoving && !move_done)
             {
-                if (moveDirection.Count != 0)
+                if (moveDirection.Count != 0 && moveRateCounter == 0 && eControllerLink.enemyCurrentSetting.patrolStyle != patrolStyle.standingStill)
                 {
-                    int chosenDirection = Random.Range(0, moveDirection.Count); // 0 is up, 1 is down, 2 is left, 3 is right
+                    
+                    int chosenDirection;
+                    if (eControllerLink.enemyCurrentSetting.patrolStyle == patrolStyle.randomic)
+                        chosenDirection = Random.Range(0, moveDirection.Count); // 0 is up, 1 is down, 2 is left, 3 is right
+                    else if (eControllerLink.enemyCurrentSetting.patrolStyle == patrolStyle.precUp && patChoiceCounter == 0)
+                    {
+                        chosenDirection = 0;
+                    }
+                    else if (eControllerLink.enemyCurrentSetting.patrolStyle == patrolStyle.precDown && patChoiceCounter == 0)
+                    {
+                        chosenDirection = 1;
+                    }
+                    else if (eControllerLink.enemyCurrentSetting.patrolStyle == patrolStyle.precLeft && patChoiceCounter == 0)
+                    {
+                        chosenDirection = 2;
+                    }
+                    else if (eControllerLink.enemyCurrentSetting.patrolStyle == patrolStyle.precLeft && patChoiceCounter == 0)
+                    {
+                        chosenDirection = 3;
+                    }
+                    else
+                        chosenDirection = Random.Range(0, moveDirection.Count);
 
                     switch (moveDirection[chosenDirection])
                     {
@@ -139,10 +158,13 @@ namespace Spacchiamo
                             {
                                 yEnemy++;
                                 isMoving = true;
+                                patChoiceCounter = 0;
+                                moveRateCounter++;
                             }
                             else
                             {
                                 moveDirection.RemoveAt(chosenDirection);
+                                patChoiceCounter++;
                             }
                             break;
                         case 1:
@@ -151,10 +173,13 @@ namespace Spacchiamo
                             {
                                 yEnemy--;
                                 isMoving = true;
+                                patChoiceCounter = 0;
+                                moveRateCounter++;
                             }
                             else
                             {
                                 moveDirection.RemoveAt(chosenDirection);
+                                patChoiceCounter++;
                             }
                             break;
                         case 2:
@@ -163,10 +188,13 @@ namespace Spacchiamo
                             {
                                 xEnemy--;
                                 isMoving = true;
+                                patChoiceCounter = 0;
+                                moveRateCounter++;
                             }
                             else
                             {
                                 moveDirection.RemoveAt(chosenDirection);
+                                patChoiceCounter++;
                             }
                             break;
                         case 3:
@@ -175,16 +203,20 @@ namespace Spacchiamo
                             {
                                 xEnemy++;
                                 isMoving = true;
+                                patChoiceCounter = 0;
+                                moveRateCounter++;
                             }
                             else
                             {
                                 moveDirection.RemoveAt(chosenDirection);
+                                patChoiceCounter++;
                             }
                             break;
                     }
                 }
                 else
                 {
+                    moveRateCounter++;
                     whereToGo = this.transform;
                     isMoving = true;
                 }
@@ -200,17 +232,28 @@ namespace Spacchiamo
 
             if (!isMoving && !move_done)
             {
-                possibleMoves.Clear();
-                possibleMoves.TrimExcess();
-                possibleMoves = new List<Transform>();
+                if (eControllerLink.enemyCurrentSetting.aggroStyle == aggroStyle.following)
+                {
+                    GhostMechanic();
+
+                    possibleMoves.Clear();
+                    possibleMoves.TrimExcess();
+                    possibleMoves = new List<Transform>();
 
 
-                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
-                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-                whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
-                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                    possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
+                    Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                    whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
+                    Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
-                isMoving = true;
+                    isMoving = true;
+                }
+                else
+                {
+                    GhostMechanic();
+
+                    isMoving = true;
+                }
 
             }
             else if (isMoving)
@@ -264,7 +307,9 @@ namespace Spacchiamo
         {
             if (!move_done)
             {
-                Grid_Manager.instance.MakeDamageToPlayer(abilityLink.damage);
+                GhostMechanic();
+
+                Grid_Manager.instance.MakeDamageToPlayer(eControllerLink.enemyCurrentSetting.ability.damage);
                 move_done = true;
             }
             
@@ -291,13 +336,16 @@ namespace Spacchiamo
                     isKnockBacked = false;
                 else
                     move_done = true;
+
+                if (moveRateCounter == eControllerLink.enemyCurrentSetting.moveRate)
+                    moveRateCounter = 0;
             }
         }
 
 
         private bool CheckingRange()
         {
-            if (!abilityLink.isInCooldown && Grid_Manager.instance.CalcEnemyPlayDist(xEnemy, yEnemy) == abilityLink.range)
+            if (Grid_Manager.instance.CalcEnemyPlayDist(xEnemy, yEnemy) == eControllerLink.enemyCurrentSetting.ability.range)
             {
                 isRangeChecked = true;
                 return true;
@@ -307,6 +355,26 @@ namespace Spacchiamo
                 isRangeChecked = true;
                 return false;
             }
+        }
+
+
+        private void GhostMechanic()
+        {
+            if (eControllerLink.enemyCurrentSetting.behaviour == behaviour.ghost && !ghostMechanic)
+            {
+                eControllerLink.GhostAlphaChanging(0);
+                ghostMechanic = true;
+            }
+            else
+            {
+                eControllerLink.GhostAlphaChanging(1);
+                ghostMechanic = false;
+            }
+        }
+
+        private void KamiMechanic()
+        {
+
         }
     }
 }

@@ -23,8 +23,6 @@ namespace Spacchiamo
 
         public Color oriColor, stdHighColor;
 
-        // for Aggro
-        public bool aggroCell = false;
 
         // For Falò 
         public bool lightSource = false;

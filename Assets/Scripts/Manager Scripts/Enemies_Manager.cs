@@ -17,7 +17,7 @@ namespace Spacchiamo
         public enemySetting enemy6 = new enemySetting();
         public enemySetting enemy7 = new enemySetting();
 
-
+        Sprite ghost;
 
         #region SingleTone
 
@@ -30,6 +30,8 @@ namespace Spacchiamo
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
+
+            ghost = Resources.Load<Sprite>("semiVis");
         }
         #endregion
 
@@ -51,6 +53,7 @@ namespace Spacchiamo
                     Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                 }
             }
+      
         }
 
         private bool AreEnemiesInPosition()
@@ -87,9 +90,16 @@ namespace Spacchiamo
 
         public void CheckingAggro()
         {
+            int xEnemy, yEnemy, xPlayer, yPlayer;
+
+            Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
+
             for (int i = 0; i < enemyReferences.Count; i++)
             {
-                if (Grid_Manager.instance.IsEnemyInAggroCell(enemyReferences[i].GetComponent<EnemyAI>().GettingXEnemy(), enemyReferences[i].GetComponent<EnemyAI>().GettingYEnemy()))
+                xEnemy = enemyReferences[i].GetComponent<EnemyAI>().xEnemy;
+                yEnemy = enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
+
+                if (Grid_Manager.instance.RetrieveManhDistfromAtoB(xEnemy, yEnemy, xPlayer, yPlayer) <= enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroRange)
                 {
                     if (!enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
                     {
@@ -166,7 +176,6 @@ namespace Spacchiamo
             enemy7 = AbiRepository.instance.enemyRepo[6];
         }
 
-
         public void PassingEnemyList(GameObject[] enemies)
         {
             enemyReferences.AddRange(enemies);
@@ -190,6 +199,14 @@ namespace Spacchiamo
             }
         }
 
+        public void ImplementingEachEnemySettings()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                enemyReferences[i].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
+                enemyReferences[i].GetComponent<Enemy_Controller>().InitializingOwnAggro();
+            }
+        }
 
         public void SettingOccupiedInitialStatus()
         {
@@ -203,21 +220,28 @@ namespace Spacchiamo
 
         }
 
-        public void PatrolArea()
-        {
-            for (int i = 0; i < enemyReferences.Count; i++)
-            {
-                EnemyAI patrolLink = enemyReferences[i].GetComponent<EnemyAI>();
-                patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingXEnemy(), patrolLink.GettingYEnemy()));
-
-            }
-        }
-
+      
         
 
 
         #endregion
 
+
+        public void SettingEnemyVisibility()
+        {
+            int xEnemy, yEnemy;
+
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                xEnemy = enemyReferences[i].GetComponent<EnemyAI>().xEnemy;
+                yEnemy = enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
+
+                if (Grid_Manager.instance.GettingAlpha(xEnemy, yEnemy) <= 0.3f)
+                    enemyReferences[i].GetComponent<SpriteRenderer>().sprite = ghost;
+                else
+                    enemyReferences[i].GetComponent<SpriteRenderer>().sprite = enemyReferences[i].GetComponent<Enemy_Controller>().visible;
+            }
+        }
 
     }
 }

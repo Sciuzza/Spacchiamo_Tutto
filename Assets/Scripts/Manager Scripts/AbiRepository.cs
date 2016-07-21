@@ -72,7 +72,6 @@ namespace Spacchiamo
             for (int i = enemyRepo[index].level; i < levelToReach; i++)
             {
                 enemyRepo[index].life += enemyRepo[index].lifeIncPerLevel;
-                enemyRepo[index].movePower += enemyRepo[index].movePowerIncPerLevel;
                 enemyRepo[index].moveRate -= enemyRepo[index].moveRateDecPerLevel;
                 enemyRepo[index].ability.damage += enemyRepo[index].ability.damIncPerLevel;
                 enemyRepo[index].ability.cooldown -= enemyRepo[index].ability.cooldownDecPerLevel;
