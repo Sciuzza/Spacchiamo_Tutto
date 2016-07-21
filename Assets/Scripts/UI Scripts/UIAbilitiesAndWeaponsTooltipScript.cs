@@ -24,7 +24,7 @@ namespace Spacchiamo {
 			
 		}
 		
-		protected internal override void SetDescription (UIIMAGE imageHovered, ABILITY specificAbility = ABILITY.ABILITY_VOID, HAND specificWeapon = HAND.HAND_VOID) {
+		protected internal override void SetDescription (UIIMAGE imageHovered, ABILITY specificAbility = ABILITY.ABILITY_VOID, HAND specificHand = HAND.HAND_VOID) {
 			
 			switch (imageHovered) {
 			
@@ -175,7 +175,7 @@ namespace Spacchiamo {
 				break;
 			case UIIMAGE.WEAPON_1:
 				this.descriptionText [(int)TEXTPARAMETERS.TITLE].text = PARAMETERS.WEAPON_N_1_TITLE;
-				switch (specificWeapon) {
+				switch (specificHand) {
 				case HAND.HAND_ONE:
 					this.descriptionText [(int)TEXTPARAMETERS.DESCRIPTION].text = PARAMETERS.WEAPON_N_1_H_1_DESCRIPTION;
 					break;
@@ -189,7 +189,7 @@ namespace Spacchiamo {
 				break;
 			case UIIMAGE.WEAPON_2:
 				this.descriptionText [(int)TEXTPARAMETERS.TITLE].text = PARAMETERS.WEAPON_N_2_TITLE;
-				switch (specificWeapon) {
+				switch (specificHand) {
 				case HAND.HAND_ONE:
 					this.descriptionText [(int)TEXTPARAMETERS.DESCRIPTION].text = PARAMETERS.WEAPON_N_2_H_1_DESCRIPTION;
 					break;
@@ -203,7 +203,7 @@ namespace Spacchiamo {
 				break;
 			case UIIMAGE.WEAPON_3:
 				this.descriptionText [(int)TEXTPARAMETERS.TITLE].text = PARAMETERS.WEAPON_N_3_TITLE;
-				switch (specificWeapon) {
+				switch (specificHand) {
 				case HAND.HAND_ONE:
 					this.descriptionText [(int)TEXTPARAMETERS.DESCRIPTION].text = PARAMETERS.WEAPON_N_3_H_1_DESCRIPTION;
 					break;
