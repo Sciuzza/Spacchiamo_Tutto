@@ -845,6 +845,9 @@ namespace Spacchiamo
 
             SpriteRenderer tileHighlight;
 
+            cellsAttacked.Clear();
+            cellsAttacked.TrimExcess();
+
             for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
@@ -897,7 +900,7 @@ namespace Spacchiamo
                             cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].stdHighColor;
                             tileHighlight.color = cellReferences[x, y].stdHighColor;
 
-                            cellsAttacked.Remove(cellReferences[x, y]);
+                            
 
                         }
                     }

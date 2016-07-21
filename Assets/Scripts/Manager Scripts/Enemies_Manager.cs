@@ -8,10 +8,18 @@ namespace Spacchiamo
     {
 
         List<GameObject> enemyReferences = new List<GameObject>();
-        
 
-        
+        public enemySetting enemy1 = new enemySetting();
+        public enemySetting enemy2 = new enemySetting();
+        public enemySetting enemy3 = new enemySetting();
+        public enemySetting enemy4 = new enemySetting();
+        public enemySetting enemy5 = new enemySetting();
+        public enemySetting enemy6 = new enemySetting();
+        public enemySetting enemy7 = new enemySetting();
 
+
+
+        #region SingleTone
 
         [HideInInspector]
         public static Enemies_Manager instance = null;
@@ -23,9 +31,10 @@ namespace Spacchiamo
             else if (instance != this)
                 Destroy(gameObject);
         }
+        #endregion
 
-        
 
+        #region Phase Condition Methods
         void Update()
         {
             // Necessary to understand when switch to player turn again
@@ -44,7 +53,6 @@ namespace Spacchiamo
             }
         }
 
-        // Depends on moveDone boolean of each enemy 
         private bool AreEnemiesInPosition()
         {
             bool inPosition = true;
@@ -71,7 +79,11 @@ namespace Spacchiamo
             }
 
             return inPosition;
-        }
+        } 
+        #endregion
+
+
+        #region Aggro Methods
 
         public void CheckingAggro()
         {
@@ -107,14 +119,18 @@ namespace Spacchiamo
                     enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = true;
                 }
             }
-        }
+        } 
+        #endregion
 
+
+        #region Fighting Methods
         public void AttackingEnemies(List<Cell_Interaction> cellsInvolved, float damage, int knockback)
         {
             int x, y;
             GameObject enemyAttacked;
 
-            for (int i = 0; i < cellsInvolved.Count; i++) {
+            for (int i = 0; i < cellsInvolved.Count; i++)
+            {
 
                 x = cellsInvolved[i].xCell;
                 y = cellsInvolved[i].yCell;
@@ -123,7 +139,7 @@ namespace Spacchiamo
 
                 if (enemyAttacked != null)
                     enemyAttacked.GetComponent<Enemy_Controller>().TakingPlayerAbilityEffects(damage, knockback);
-              }
+            }
 
         }
 
@@ -133,17 +149,44 @@ namespace Spacchiamo
             enemyReferences.Remove(enemyToDestroy);
             Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
             Destroy(enemyToDestroy);
+        } 
+        #endregion
+
+
+        #region Initilization Methods
+
+        public void SetEnemyManagerStructs()
+        {
+            enemy1 = AbiRepository.instance.enemyRepo[0];
+            enemy2 = AbiRepository.instance.enemyRepo[1];
+            enemy3 = AbiRepository.instance.enemyRepo[2];
+            enemy4 = AbiRepository.instance.enemyRepo[3];
+            enemy5 = AbiRepository.instance.enemyRepo[4];
+            enemy6 = AbiRepository.instance.enemyRepo[5];
+            enemy7 = AbiRepository.instance.enemyRepo[6];
         }
 
-        
 
-        public void PatrolArea()
+        public void PassingEnemyList(GameObject[] enemies)
         {
+            enemyReferences.AddRange(enemies);
+
             for (int i = 0; i < enemyReferences.Count; i++)
             {
-                EnemyAI patrolLink = enemyReferences[i].GetComponent<EnemyAI>();
-                patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingXEnemy(), patrolLink.GettingYEnemy()));
-
+                if (enemyReferences[i].tag == "Enemy1")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy1);
+                else if (enemyReferences[i].tag == "Enemy2")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy2);
+                else if (enemyReferences[i].tag == "Enemy3")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy3);
+                else if (enemyReferences[i].tag == "Enemy4")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy4);
+                else if (enemyReferences[i].tag == "Enemy5")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy5);
+                else if (enemyReferences[i].tag == "Enemy6")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy6);
+                else if (enemyReferences[i].tag == "Enemy7")
+                    enemyReferences[i].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy7);
             }
         }
 
@@ -160,10 +203,20 @@ namespace Spacchiamo
 
         }
 
-        public void PassingEnemyList(GameObject[] enemies)
+        public void PatrolArea()
         {
-            enemyReferences.AddRange(enemies);
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                EnemyAI patrolLink = enemyReferences[i].GetComponent<EnemyAI>();
+                patrolLink.InitalizingPatrolArea(Grid_Manager.instance.FindingPatrolArea(patrolLink.GettingXEnemy(), patrolLink.GettingYEnemy()));
+
+            }
         }
+
+        
+
+
+        #endregion
 
 
     }

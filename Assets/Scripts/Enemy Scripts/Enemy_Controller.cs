@@ -6,31 +6,48 @@ namespace Spacchiamo
 {
     public class Enemy_Controller : MonoBehaviour
     {
+        #region Old Settings System
 
-        public float Life = 5;
+        
+
+        public List<actEnemyAbility> actAbilities = new List<actEnemyAbility>();
+        #endregion
+
+
+
+        #region New Settings System
 
         public bool isAggroed = false;
         public bool isComingBack = false;
         public bool isIgnoringAggro = false;
         public int aggroIgnoringCounter = 0;
 
-        public List<actEnemyAbility> actAbilities = new List<actEnemyAbility>();
+
+
+        public enemySetting enemyCurrentSetting = new enemySetting(); 
+        #endregion
+
+
+        #region GettingAiLink
 
         EnemyAI aiLink;
-
-        public int relativePos;
 
         void Awake()
         {
             aiLink = this.GetComponent<EnemyAI>();
         }
+        #endregion
 
+
+
+
+        #region Taking Player Abilities Effects
         public void TakingPlayerAbilityEffects(float damageTaken, int knockBackTaken)
         {
             isAggroed = true;
-            Life -= damageTaken;
+            enemyCurrentSetting.life -= damageTaken;
 
-            if (Life <= 0)
+            if (enemyCurrentSetting.life <= 0)
                 Enemies_Manager.instance.DestroyEnemy(aiLink.xEnemy, aiLink.yEnemy);
             else
             {
@@ -38,13 +55,12 @@ namespace Spacchiamo
                 if (knockBackTaken >= 1)
                     TakingKnockBack(knockBackTaken);
             }
-            
+
         }
-    
 
         private void TakingKnockBack(int knockBackTaken)
         {
-
+            int relativePos;
             int i;
             relativePos = Grid_Manager.instance.CheckingRelativePosition(aiLink.xEnemy, aiLink.yEnemy);
 
@@ -117,6 +133,17 @@ namespace Spacchiamo
                 }
             }
         }
+        #endregion
+
+
+
+        #region Initialization Method
+        public void InitializeEnemyController(enemySetting passedCurrentSetting)
+        {
+            enemyCurrentSetting = passedCurrentSetting;
+        } 
+        #endregion
+
     }
 }
 
