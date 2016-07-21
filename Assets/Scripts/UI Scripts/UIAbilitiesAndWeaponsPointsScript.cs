@@ -18,6 +18,12 @@ namespace Spacchiamo {
 
 			}
 
+			get {
+
+				return this.numberOfPoints;
+
+			}
+
 		}
 
 		private void Awake () {

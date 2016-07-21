@@ -24,6 +24,8 @@
 
 		void CheckPlayability ();
 
+		void RecordParameters ();
+
 	}
 
 	internal interface IDecreaseOnClick {
