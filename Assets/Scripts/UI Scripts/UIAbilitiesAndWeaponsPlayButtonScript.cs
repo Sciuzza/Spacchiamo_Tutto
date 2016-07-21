@@ -29,7 +29,7 @@ namespace Spacchiamo {
 
 		public void CheckPlayability () {
 
-			if ((this.primaryWeaponSelected.uiCharacteristic != this.secondaryWeaponSelected.uiCharacteristic) && (this.primaryWeaponSelected.uiCharacteristic != UIIMAGE.NULL) && (this.secondaryWeaponSelected.uiCharacteristic != UIIMAGE.NULL))
+			if ( (this.primaryAbilitySelected.uiCharacteristic != UIIMAGE.NULL) && (this.primaryAbilitySelected.uiCharacteristic != UIIMAGE.NO_ABILITY) && (this.primaryWeaponSelected.uiCharacteristic != UIIMAGE.NULL) && (this.secondaryWeaponSelected.uiCharacteristic != UIIMAGE.NULL) )
 				this.playButton.interactable = true;
 			else
 				this.playButton.interactable = false;

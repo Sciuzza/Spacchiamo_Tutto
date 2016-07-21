@@ -32,6 +32,9 @@ namespace Spacchiamo {
 		internal const string ABILITY_N_5 = "UIA5";
 
 
+		internal const string UPGRADE = "UIUP";
+
+
 		internal const string WEAPON1 = "UIFW";
 		internal const string WEAPON2 = "UISW";
 

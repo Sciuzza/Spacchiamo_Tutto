@@ -26,4 +26,10 @@
 
 	}
 
+	internal interface IDecreaseOnClick {
+
+		void DecreaseNumberOfPoints ();
+
+	}
+
 }
