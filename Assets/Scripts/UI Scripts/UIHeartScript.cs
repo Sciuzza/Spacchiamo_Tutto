@@ -10,24 +10,24 @@ namespace Spacchiamo {
 
 		private void Awake () {
 
-			this.heartSprite = this.gameObject.GetComponent <Image> ();
+			this.heartSprite = this.GetComponent <Image> ();
 
 		}
 
 		internal void SetFullHeart () {
 
-			this.heartSprite.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+			this.heartSprite.fillAmount = 1.0f;
 		}
 
 		internal void SetHalfHeart () {
 
-			this.heartSprite.color = new Color (1.0f, 1.0f, 1.0f, 0.5f);
+			this.heartSprite.fillAmount = 0.5f;
 
 		}
 
 		internal void SetEmptyHeart () {
 
-			this.heartSprite.color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+			this.heartSprite.fillAmount = 0.0f;
 
 		}
 		
