@@ -102,6 +102,8 @@ namespace Spacchiamo
         public int moveRateDecPerLevel;
         public int aggroRange;
         public int aggroRangeIncPerLevel;
+        public int experience;
+        public int expIncPerLevel;
         public patrolArea patrolArea;
         public patrolStyle patrolStyle;
         public int patrolRange;
@@ -120,7 +122,9 @@ namespace Spacchiamo
     public class Game_Controller : MonoBehaviour
     {
 
-     
+        public int expPlayerGained = 0;
+        public int unspentPlayerAbilityPoints = 0;
+        public int playerLevel = 0;
 
         // obvious LOL
         public GAME_PHASE currentPhase = GAME_PHASE.init;
@@ -223,7 +227,9 @@ namespace Spacchiamo
             else
                 playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
 
-
+            playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
+            playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
+            playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
 
             // Player Passive Ability transfer conditions 
 
@@ -329,6 +335,9 @@ namespace Spacchiamo
                 playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
 
 
+            playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
+            playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
+            playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
 
             // Player Passive Ability transfer conditions 
 

@@ -172,6 +172,7 @@ namespace Spacchiamo
             GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy).position - new Vector3(0, 0, 1));
             enemyReferences.Remove(enemyToDestroy);
             Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+            playerTemp.GetComponent<Player_Controller>().GainingExp(enemyToDestroy.GetComponent<Enemy_Controller>().enemyCurrentSetting.experience);
             Destroy(enemyToDestroy);
         }
         #endregion

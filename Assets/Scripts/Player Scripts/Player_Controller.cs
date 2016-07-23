@@ -10,6 +10,10 @@ namespace Spacchiamo
         playerActions moveLink;
 
         public float Life = 20;
+        public int expGained;
+        public int unspentAbilityPoints;
+        public int playerLevel;
+
         public int FearValue = 0;
         public bool fear1Activated = false;
         public bool fear2Activated = false;
@@ -150,6 +154,21 @@ namespace Spacchiamo
         public void KillingPlayer()
         {
             Scene_Manager.instance.ResettingLevel();
+        }
+
+        public void GainingExp(int expDeadMonster)
+        {
+            expGained += expDeadMonster;
+        }
+
+        public void CheckingCurrentLevel()
+        {
+            if (expGained % ( (int)(((float)5/2) * playerLevel * playerLevel) + (((float)195/2) * playerLevel) ) == 0)
+            {
+                unspentAbilityPoints++;
+                playerLevel++;
+            }
+
         }
 
     }
