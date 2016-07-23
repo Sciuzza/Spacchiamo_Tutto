@@ -39,6 +39,8 @@ namespace Spacchiamo
 
                 if (this.distance.sqrMagnitude < 0.005f)
                 {
+                    
+
                     this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
                     //whereToGo = null;
                     isMoving = false;
@@ -46,27 +48,7 @@ namespace Spacchiamo
                     Grid_Manager.instance.GettingLight(xPlayer, yPlayer);
 
                     //Increasing Fear Bar and Fear Value by 1
-                    if (!Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer))
-                    {
-                        if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
-                        {
-                            pControllerLink.FearValue++;
-                            Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
-                        }
-                    }
-
-                    // Resetting Fear Bar and Value to 0
-                    else
-                    {
-                        pControllerLink.fearTurnCounter = 0;
-                        pControllerLink.FearValue = 0;
-                        Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
-                        Enemies_Manager.instance.ClearAggro();
-                    }
-                    //Increasing Turn Counter
-                    pControllerLink.TurnValue++;
-                    Enemies_Manager.instance.SettingEnemyVisibility();
-                    Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
+                    IncreasingFearAndTurn();
                 }
             }
             else
@@ -80,7 +62,8 @@ namespace Spacchiamo
                         {
                             yPlayer++;
                             isMoving = true;
-                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
+                            Enemies_Manager.instance.CheckingAggro();
+                            Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                         }
                         
                         
@@ -92,7 +75,8 @@ namespace Spacchiamo
                         {
                             yPlayer--;
                             isMoving = true;
-                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
+                            Enemies_Manager.instance.CheckingAggro();
+                            Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                         }
                        
                         
@@ -104,7 +88,8 @@ namespace Spacchiamo
                         {
                             xPlayer--;
                             isMoving = true;
-                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
+                            Enemies_Manager.instance.CheckingAggro();
+                            Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                             if (!pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
@@ -118,7 +103,8 @@ namespace Spacchiamo
                         {
                             xPlayer++;
                             isMoving = true;
-                            Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
+                            Enemies_Manager.instance.CheckingAggro();
+                            Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                             if (pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
                         }
@@ -130,6 +116,53 @@ namespace Spacchiamo
             }
         }
 
+        public void FearManager()
+        {
+            if (pControllerLink.FearValue >= 20 && pControllerLink.FearValue < 22)
+            {
+                if (!pControllerLink.fear1Activated)
+                    pControllerLink.fear1Activated = true;
+            }
+            else if (pControllerLink.FearValue >= 22 && pControllerLink.FearValue < 24)
+            {
+                pControllerLink.fear1Percent = 0.20f;
+            }
+            else if (pControllerLink.FearValue >= 24 && pControllerLink.FearValue < 26)
+            {
+                pControllerLink.fear1Percent = 0.25f;
+            }
+            else if (pControllerLink.FearValue >= 26 && pControllerLink.FearValue < 28)
+            {
+                pControllerLink.fear1Percent = 0.30f;
+            }
+            else if (pControllerLink.FearValue >= 28 && pControllerLink.FearValue < 30)
+            {
+                pControllerLink.fear1Percent = 0.35f;
+            }
+            else if (pControllerLink.FearValue >= 30 && pControllerLink.FearValue < 32)
+            {
+                pControllerLink.fear1Activated = false;
+                pControllerLink.fear2Activated = true;
+            }
+            else if (pControllerLink.FearValue >= 32 && pControllerLink.FearValue < 34)
+            {
+                pControllerLink.fear2Percent = 0.20f;
+            }
+            else if (pControllerLink.FearValue >= 34 && pControllerLink.FearValue < 36)
+            {
+                pControllerLink.fear2Percent = 0.25f;
+            }
+            else if (pControllerLink.FearValue >= 36 && pControllerLink.FearValue < 38)
+            {
+                pControllerLink.fear2Percent = 0.30f;
+            }
+            else if (pControllerLink.FearValue >= 38 && pControllerLink.FearValue < 40)
+            {
+                pControllerLink.fear2Percent = 0.35f;
+            }
+            else if (pControllerLink.FearValue == 40)
+                pControllerLink.KillingPlayer();
+        }
 
         public int GettingXPlayer()
         {
@@ -140,6 +173,37 @@ namespace Spacchiamo
         {
             return yPlayer;
         }
+
+        public void IncreasingFearAndTurn()
+        {
+            if (!Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer))
+            {
+                if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
+                {
+                    pControllerLink.FearValue++;
+                    Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
+
+                    FearManager();
+                }
+            }
+
+            // Resetting Fear Bar and Value to 0
+            else
+            {
+                pControllerLink.fearTurnCounter = 0;
+                pControllerLink.FearValue = 0;
+                pControllerLink.fear1Activated = false;
+                pControllerLink.fear2Activated = false;
+                pControllerLink.fear1Percent = 0.15f;
+                pControllerLink.fear2Percent = 0.15f;
+                Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
+            }
+            //Increasing Turn Counter
+            pControllerLink.TurnValue++;
+            Enemies_Manager.instance.SettingEnemyVisibility();
+            Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
+        }
+
     }
 
 }

@@ -6,13 +6,17 @@ namespace Spacchiamo
 {
     public class Player_Controller : MonoBehaviour
     {
-        public int fearTurnCounter = 0;
+        
         playerActions moveLink;
 
         public float Life = 20;
         public int FearValue = 0;
+        public bool fear1Activated = false;
+        public bool fear2Activated = false;
+        public float fear1Percent = 0.15f;
+        public float fear2Percent = 0.15f;
         public int TurnValue = 0;
-
+        public int fearTurnCounter = 0;
 
         public bool attackSelection = false;
 
@@ -59,7 +63,11 @@ namespace Spacchiamo
             if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
-                    Game_Controller.instance.ChangePhase(GAME_PHASE.playerTurn);
+                {
+                    moveLink.IncreasingFearAndTurn();
+                    Enemies_Manager.instance.CheckingAggro();
+                    Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
+                }
                 if (Input.GetKeyUp(KeyCode.Q) && !attackSelection)
                 {
                     if (actAbilities[0].knockBack == 0)
@@ -137,6 +145,11 @@ namespace Spacchiamo
         public void TakingDamage(float damage)
         {
             Life -= damage;
+        }
+
+        public void KillingPlayer()
+        {
+            Scene_Manager.instance.ResettingLevel();
         }
 
     }

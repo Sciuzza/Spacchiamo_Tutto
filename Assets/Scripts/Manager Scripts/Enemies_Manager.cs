@@ -19,6 +19,10 @@ namespace Spacchiamo
 
         Sprite ghost;
 
+        private GameObject playerTemp;
+        public bool fearPhaseChecked;
+        public float spawnChance;
+
         #region SingleTone
 
         [HideInInspector]
@@ -43,7 +47,11 @@ namespace Spacchiamo
             if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn)
             {
                 if (AreEnemiesInPosition())
-                    Game_Controller.instance.ChangePhase(Game_Controller.instance.currentPhase);
+                {
+                    CheckingAggro();
+                    fearPhaseChecked = false;
+                    Game_Controller.instance.currentPhase = GAME_PHASE.playerTurn;
+                }
             }
             if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && Game_Controller.instance.previousPhase == GAME_PHASE.playerTurn)
             {
@@ -53,7 +61,23 @@ namespace Spacchiamo
                     Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                 }
             }
-      
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && !fearPhaseChecked) 
+            {
+                spawnChance = Random.Range(0f, 1f);
+
+                if (playerTemp.GetComponent<Player_Controller>().fear1Activated)
+                {
+                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().fear1Percent)
+                        SpawnFear1Monster();
+                }
+                else if (playerTemp.GetComponent<Player_Controller>().fear2Activated)
+                {
+                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().fear2Percent)
+                        SpawnFear2Monster();
+                }
+                fearPhaseChecked = true;
+            }
+
         }
 
         private bool AreEnemiesInPosition()
@@ -82,7 +106,7 @@ namespace Spacchiamo
             }
 
             return inPosition;
-        } 
+        }
         #endregion
 
 
@@ -99,37 +123,27 @@ namespace Spacchiamo
                 xEnemy = enemyReferences[i].GetComponent<EnemyAI>().xEnemy;
                 yEnemy = enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
 
-                if (Grid_Manager.instance.RetrieveManhDistfromAtoB(xEnemy, yEnemy, xPlayer, yPlayer) <= enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroRange)
+                if (Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer) && enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed)
                 {
-                    if (!enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
-                    {
-                        enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = true;
-                        enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = false;
-                    }
-                }
 
-                if (enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro)
-                {
-                    if (enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter == 2)
-                        enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = false;
-                    else
-                        enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter++;
-                }
-            }
-        }
-
-        public void ClearAggro()
-        {
-            for (int i = 0; i < enemyReferences.Count; i++)
-            {
-                if (enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed)
-                {
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = false;
                     enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = true;
                     enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = true;
+                    enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter = 0;
+
                 }
+                else if (!Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer) && !enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed 
+                    && !enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro 
+                    && Grid_Manager.instance.RetrieveManhDistfromAtoB(xEnemy, yEnemy, xPlayer, yPlayer) <= enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroRange)
+                {
+                    enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = true;
+                    enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = false;
+                }
+                
             }
-        } 
+        }
+
+      
         #endregion
 
 
@@ -159,7 +173,7 @@ namespace Spacchiamo
             enemyReferences.Remove(enemyToDestroy);
             Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
             Destroy(enemyToDestroy);
-        } 
+        }
         #endregion
 
 
@@ -220,8 +234,8 @@ namespace Spacchiamo
 
         }
 
-      
-        
+
+
 
 
         #endregion
@@ -243,8 +257,90 @@ namespace Spacchiamo
             }
         }
 
+        public void ClearEnemyReferences()
+        {
+            enemyReferences.Clear();
+            enemyReferences.TrimExcess();
+        }
+
+
+        public void GivingPlayerRef(GameObject player)
+        {
+            playerTemp = player;
+        }
+
+        private void SpawnFear1Monster()
+        {
+            Debug.Log("fear 1 monster");
+
+            int xToSpawn, yToSpawn, randomCell;
+            GameObject specialObjects = GameObject.FindGameObjectWithTag("Special Objects");
+
+            
+            List<Cell_Interaction> possibleSpawnPos = Grid_Manager.instance.RetrievePossibleSpawnPos(playerTemp.GetComponent<playerActions>().xPlayer, playerTemp.GetComponent<playerActions>().yPlayer);
+            GameObject enemySpawned = Resources.Load<GameObject>("TilePrefabs\\Enemy1");
+            enemySpawned = Instantiate(enemySpawned);
+
+            randomCell = (int)Random.Range(0, possibleSpawnPos.Count);
+
+            xToSpawn = possibleSpawnPos[randomCell].xCell;
+            yToSpawn = possibleSpawnPos[randomCell].yCell;
+
+            enemySpawned.transform.position = new Vector3(xToSpawn + 0.5f, yToSpawn + 0.5f, 0);
+            enemySpawned.transform.SetParent(specialObjects.transform);
+            enemySpawned.name = "O-Enemy1(" + xToSpawn + "," + yToSpawn + ")";
+            enemySpawned.tag = "Enemy1";
+            enemySpawned.GetComponent<EnemyAI>().xEnemy = xToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().yEnemy = yToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().xComeBack = xToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().yComeBack = yToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().whereToGo = possibleSpawnPos[randomCell].transform;
+            enemySpawned.GetComponent<SpriteRenderer>().sprite = ghost;
+
+            enemyReferences.Add(enemySpawned);
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy1);
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnAggro();
+            Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
+            enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
+        }
+
+        private void SpawnFear2Monster()
+        {
+            Debug.Log("fear 2 monster");
+            int xToSpawn, yToSpawn, randomCell;
+            GameObject specialObjects = GameObject.FindGameObjectWithTag("Special Objects");
+
+
+            List<Cell_Interaction> possibleSpawnPos = Grid_Manager.instance.RetrievePossibleSpawnPos(playerTemp.GetComponent<playerActions>().xPlayer, playerTemp.GetComponent<playerActions>().yPlayer);
+            GameObject enemySpawned = Resources.Load<GameObject>("TilePrefabs\\Enemy6");
+            enemySpawned = Instantiate(enemySpawned);
+
+            randomCell = (int)Random.Range(0, possibleSpawnPos.Count);
+
+            xToSpawn = possibleSpawnPos[randomCell].xCell;
+            yToSpawn = possibleSpawnPos[randomCell].yCell;
+
+            enemySpawned.transform.position = new Vector3(xToSpawn + 0.5f, yToSpawn + 0.5f, 0);
+            enemySpawned.transform.SetParent(specialObjects.transform);
+            enemySpawned.name = "O-Enemy6(" + xToSpawn + "," + yToSpawn + ")";
+            enemySpawned.tag = "Enemy6";
+            enemySpawned.GetComponent<EnemyAI>().xEnemy = xToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().yEnemy = yToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().xComeBack = xToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().yComeBack = yToSpawn;
+            enemySpawned.GetComponent<EnemyAI>().whereToGo = possibleSpawnPos[randomCell].transform;
+            enemySpawned.GetComponent<SpriteRenderer>().sprite = ghost;
+
+            enemyReferences.Add(enemySpawned);
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy6);
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnAggro();
+            Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
+            enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
+        }
+
     }
 }
 
- 
-           
+

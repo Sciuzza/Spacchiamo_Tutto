@@ -295,7 +295,7 @@ namespace Spacchiamo
 
         public bool CheckingDownCellExp(int xEnemy, int yEnemy)
         {
-            if (yEnemy - 1 > 0)
+            if (yEnemy - 1 >= 0)
             {
                 if (cellReferences[xEnemy, yEnemy - 1] != null && !cellReferences[xEnemy, yEnemy - 1].isOccupied)
                     return true;
@@ -308,7 +308,7 @@ namespace Spacchiamo
 
         public bool CheckingLeftCellExp(int xEnemy, int yEnemy)
         {
-            if (xEnemy - 1 > 0)
+            if (xEnemy - 1 >= 0)
             {
                 if (cellReferences[xEnemy - 1, yEnemy] != null && !cellReferences[xEnemy - 1, yEnemy].isOccupied)
                     return true;
@@ -390,7 +390,7 @@ namespace Spacchiamo
                         {
                             if (!cellReferences[x, y].isReceivingLight)
                             {
-                               
+
 
                                 if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f)
                                 {
@@ -479,13 +479,13 @@ namespace Spacchiamo
             float currentDistance;
             List<Cell_Interaction> areaFound = new List<Cell_Interaction>();
 
-            
+
 
             for (int y = 0; y < cellReferences.GetLength(1); y++)
             {
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[x, y] != null && !cellReferences[x,y].isOccupied)
+                    if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied)
                     {
                         currentDistance = Mathf.Abs(cellReferences[x, y].transform.position.x - cellReferences[xEnemy, yEnemy].transform.position.x) +
                         Mathf.Abs(cellReferences[x, y].transform.position.y - cellReferences[xEnemy, yEnemy].transform.position.y);
@@ -502,7 +502,7 @@ namespace Spacchiamo
                         {
                             if (areaRange >= currentDistance && y == yEnemy)
                             {
-                                
+
                                 areaFound.Add(cellReferences[x, y]);
                             }
 
@@ -523,7 +523,7 @@ namespace Spacchiamo
         }
 
 
-        
+
 
 
         public List<Transform> RetrievingPossibleMovements(int xEnemy, int yEnemy)
@@ -590,12 +590,12 @@ namespace Spacchiamo
             cellReferences[xStart, yStart].fValue = 0;
 
             Cell_Interaction currentNode;
-            
+
 
             do
             {
-               
-                
+
+
                 currentNode = openNodeList.Find(y => y.fValue == openNodeList.Min(x => x.fValue));
 
                 closedNodeList.Add(currentNode);
@@ -918,7 +918,7 @@ namespace Spacchiamo
                             cellReferences[x, y].GetComponent<SpriteRenderer>().color = cellReferences[x, y].stdHighColor;
                             tileHighlight.color = cellReferences[x, y].stdHighColor;
 
-                            
+
 
                         }
                     }
@@ -954,6 +954,23 @@ namespace Spacchiamo
             else
                 return -1;
 
+        }
+
+        public List<Cell_Interaction> RetrievePossibleSpawnPos(int xPlayer, int yPlayer)
+        {
+            List<Cell_Interaction> possibleSpawns = new List<Cell_Interaction>();
+
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) > Designer_Tweaks.instance.playerLightM
+                        && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) <= 8 && !cellReferences[x,y].isReceivingLight)
+                        possibleSpawns.Add(cellReferences[x, y]);
+                }
+            }
+
+            return possibleSpawns;
         }
     }
 }

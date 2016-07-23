@@ -12,10 +12,13 @@ namespace Spacchiamo
         public bool isMoving = false;
         public bool move_done = false;
         public bool isRangeChecked = false;
+
+        private bool booleanResetted = false;
+
         public bool isKnockBacked = false;
 
         private bool ghostMechanic;
-        private int kamiCounter = 0;
+        public int kamiCounter = 0;
 
 
         public int xEnemy, yEnemy;
@@ -72,23 +75,54 @@ namespace Spacchiamo
                 }
                 else
                 {
-                    if (!isRangeChecked)
+                    if (eControllerLink.enemyCurrentSetting.behaviour != behaviour.kamikaze)
                     {
-                        if (CheckingRange())
-                            Attacking();
+                        if (!isRangeChecked)
+                        {
+                            if (CheckingRange())
+                                Attacking();
+                        }
+                        else
+                            Following();
                     }
                     else
-                        Following();
+                    {
+                        if (kamiCounter < eControllerLink.enemyCurrentSetting.ability.cooldown)
+                        {
+                            Following();
+                        }
+                        else
+                            KamiExplosion();
+                    }
                 }
             }
             else if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && isKnockBacked)
             {
                 TranslatingPosition();
             }
-            else if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn)
+            else if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && !booleanResetted)
             {
                 move_done = false;
                 isRangeChecked = false;
+
+                if (eControllerLink.enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                {
+                    if (eControllerLink.isAggroed)
+                        kamiCounter++;
+                    else
+                        kamiCounter = 0;
+                }
+
+                if (eControllerLink.aggroIgnoringCounter == 2)
+                {
+                    eControllerLink.aggroIgnoringCounter = 0;
+                    eControllerLink.isIgnoringAggro = false;
+                }
+                else
+                    eControllerLink.aggroIgnoringCounter++;
+
+                booleanResetted = true;
+
             }
         }
 
@@ -157,6 +191,7 @@ namespace Spacchiamo
                             if (whereToGo != null)
                             {
                                 yEnemy++;
+                                booleanResetted = false;
                                 isMoving = true;
                                 patChoiceCounter = 0;
                                 moveRateCounter++;
@@ -172,6 +207,7 @@ namespace Spacchiamo
                             if (whereToGo != null)
                             {
                                 yEnemy--;
+                                booleanResetted = false;
                                 isMoving = true;
                                 patChoiceCounter = 0;
                                 moveRateCounter++;
@@ -187,6 +223,7 @@ namespace Spacchiamo
                             if (whereToGo != null)
                             {
                                 xEnemy--;
+                                booleanResetted = false;
                                 isMoving = true;
                                 patChoiceCounter = 0;
                                 moveRateCounter++;
@@ -202,6 +239,7 @@ namespace Spacchiamo
                             if (whereToGo != null)
                             {
                                 xEnemy++;
+                                booleanResetted = false;
                                 isMoving = true;
                                 patChoiceCounter = 0;
                                 moveRateCounter++;
@@ -218,6 +256,7 @@ namespace Spacchiamo
                 {
                     moveRateCounter++;
                     whereToGo = this.transform;
+                    booleanResetted = false;
                     isMoving = true;
                 }
 
@@ -246,6 +285,7 @@ namespace Spacchiamo
                     whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
                     Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
+                    booleanResetted = false;
                     isMoving = true;
                 }
                 else
@@ -284,6 +324,7 @@ namespace Spacchiamo
 
             if (!isMoving && !move_done)
             {
+
                 possibleMoves.Clear();
                 possibleMoves.TrimExcess();
                 possibleMoves = new List<Transform>();
@@ -294,6 +335,8 @@ namespace Spacchiamo
                 whereToGo = Grid_Manager.instance.FindFastestBackRoute(possibleMoves, xComeBack, yComeBack, out xEnemy, out yEnemy);
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
+
+                booleanResetted = false;
                 isMoving = true;
 
             }
@@ -307,14 +350,34 @@ namespace Spacchiamo
         {
             if (!move_done)
             {
-                GhostMechanic();
+                if (eControllerLink.enemyCurrentSetting.behaviour != behaviour.fearMonster)
+                {
+                    GhostMechanic();
 
-                Grid_Manager.instance.MakeDamageToPlayer(eControllerLink.enemyCurrentSetting.ability.damage);
-                move_done = true;
-            }
-            
+                    Grid_Manager.instance.MakeDamageToPlayer(eControllerLink.enemyCurrentSetting.ability.damage);
+                    booleanResetted = false;
+                    move_done = true;
+                }
+                else
+                {
+                    Grid_Manager.instance.MakeDamageToPlayer(eControllerLink.enemyCurrentSetting.ability.damage);
+                    Enemies_Manager.instance.DestroyEnemy(xEnemy, yEnemy);
+                }
+            }           
         }
 
+        private void KamiExplosion()
+        {
+            int xPlayer, yPlayer;
+
+            Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
+
+            if (Grid_Manager.instance.RetrieveManhDistfromAtoB(xEnemy, yEnemy, xPlayer, yPlayer) <= eControllerLink.enemyCurrentSetting.ability.range)
+                Grid_Manager.instance.MakeDamageToPlayer(eControllerLink.enemyCurrentSetting.ability.damage);
+
+            //move_done = true;
+            Enemies_Manager.instance.DestroyEnemy(xEnemy, yEnemy);
+        }
 
         private void TranslatingPosition()
         {
@@ -326,7 +389,6 @@ namespace Spacchiamo
             {
                 this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
                 ResettingMoveDirection();
-
                 isMoving = false;
 
                 if (xEnemy == xComeBack && yEnemy == yComeBack && eControllerLink.isComingBack)
@@ -339,6 +401,7 @@ namespace Spacchiamo
 
                 if (moveRateCounter == eControllerLink.enemyCurrentSetting.moveRate)
                     moveRateCounter = 0;
+
             }
         }
 
@@ -372,9 +435,6 @@ namespace Spacchiamo
             }
         }
 
-        private void KamiMechanic()
-        {
-
-        }
+        
     }
 }

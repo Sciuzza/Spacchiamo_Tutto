@@ -111,6 +111,9 @@ namespace Spacchiamo
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
             if (playerContLink.attackSelection && inRange)
             {
+                playerLink.GetComponent<playerActions>().IncreasingFearAndTurn();
+                Enemies_Manager.instance.CheckingAggro();
+
                 Game_Controller.instance.currentPhase = GAME_PHASE.animation;
                 Game_Controller.instance.previousPhase = GAME_PHASE.playerTurn;
 

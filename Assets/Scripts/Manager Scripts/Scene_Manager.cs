@@ -21,21 +21,17 @@ namespace Spacchiamo
                 Destroy(gameObject);
         }
 
-
-        
-        void Start()
-        {
-
-            currentScene = SceneManager.GetActiveScene();
-
-        }
-
     
         public void ResettingLevel()
         {
-            
-            SceneManager.LoadScene(0);
-            SceneManager.SetActiveScene(currentScene);
+
+            SceneManager.LoadScene(currentScene.buildIndex);
+       
+        }
+
+        public void SceneManagerInitialization()
+        {
+            currentScene = SceneManager.GetActiveScene();
         }
 
     }
