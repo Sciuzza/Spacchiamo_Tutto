@@ -273,6 +273,9 @@ namespace Spacchiamo
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
             Enemies_Manager.instance.SettingEnemyVisibility();
 
+            Enemies_Manager.instance.SettingSortingOrder();
+            Enemies_Manager.instance.InitializeWhereToGo();
+
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
             currentPhase = GAME_PHASE.playerTurn; 
@@ -385,6 +388,9 @@ namespace Spacchiamo
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
             Enemies_Manager.instance.SettingEnemyVisibility();
 
+            Enemies_Manager.instance.SettingSortingOrder();
+            Enemies_Manager.instance.InitializeWhereToGo();
+            
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
             currentPhase = GAME_PHASE.playerTurn;

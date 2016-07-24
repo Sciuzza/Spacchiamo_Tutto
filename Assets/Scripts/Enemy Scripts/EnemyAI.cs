@@ -13,7 +13,7 @@ namespace Spacchiamo
         public bool move_done = false;
         public bool isRangeChecked = false;
 
-        private bool booleanResetted = false;
+        public bool booleanResetted = false;
 
         public bool isKnockBacked = false;
 
@@ -38,8 +38,8 @@ namespace Spacchiamo
 
         public List<Transform> possibleMoves;
 
-       
 
+        public List<Cell_Interaction> openNodeList, closedNodeList;
 
         void Awake()
         {
@@ -56,7 +56,7 @@ namespace Spacchiamo
             yEnemy =  Mathf.FloorToInt(this.transform.position.y);
             xComeBack = xEnemy;
             yComeBack = yEnemy;
-            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yEnemy;
+            
         }
 
         
@@ -71,7 +71,7 @@ namespace Spacchiamo
                     if (!eControllerLink.isComingBack)
                         Patrolling();
                     else
-                        ComingBack();
+                        ComingBackAStar();
                 }
                 else
                 {
@@ -83,13 +83,13 @@ namespace Spacchiamo
                                 Attacking();
                         }
                         else
-                            Following();
+                            FollowingAStar();
                     }
                     else
                     {
                         if (kamiCounter < eControllerLink.enemyCurrentSetting.ability.cooldown)
                         {
-                            Following();
+                            FollowingAStar();
                         }
                         else
                             KamiExplosion();
@@ -291,7 +291,7 @@ namespace Spacchiamo
                 else
                 {
                     GhostMechanic();
-
+                    booleanResetted = false;
                     isMoving = true;
                 }
 
@@ -309,10 +309,15 @@ namespace Spacchiamo
                 {
                     GhostMechanic();
                     int xPlayer, yPlayer;
+                    int ownIndex = Enemies_Manager.instance.RetrieveOwnEnemyIndex(this.gameObject);
+
+
+                    openNodeList = new List<Cell_Interaction>();
+                    closedNodeList = new List<Cell_Interaction>();
 
                     Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
                     Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-                    Grid_Manager.instance.AStarAlgorithm(xEnemy, yEnemy, xEnemy, yEnemy, xPlayer, yPlayer, out xEnemy, out yEnemy);
+                    Grid_Manager.instance.AStarAlgoExp(xEnemy, yEnemy, xEnemy, yEnemy, xPlayer, yPlayer, ownIndex, openNodeList, closedNodeList, out xEnemy, out yEnemy);
                     whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
                     Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
@@ -322,7 +327,7 @@ namespace Spacchiamo
                 else
                 {
                     GhostMechanic();
-
+                    booleanResetted = false;
                     isMoving = true;
                 }
             }
@@ -355,6 +360,29 @@ namespace Spacchiamo
                 TranslatingPosition();
         
 
+    }
+
+        private void ComingBackAStar()
+        {
+            if (!isMoving && !move_done)
+            {
+                int ownIndex = Enemies_Manager.instance.RetrieveOwnEnemyIndex(this.gameObject);
+
+
+                openNodeList = new List<Cell_Interaction>();
+                closedNodeList = new List<Cell_Interaction>();
+
+
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                Grid_Manager.instance.AStarAlgoExpComingBack(xEnemy, yEnemy, xEnemy, yEnemy, xComeBack, yComeBack, ownIndex, openNodeList, closedNodeList, out xEnemy, out yEnemy);
+                whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
+                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+
+                booleanResetted = false;
+                isMoving = true;
+            }
+            else if (isMoving)
+                TranslatingPosition();
     }
 
         private void Attacking()
@@ -420,7 +448,7 @@ namespace Spacchiamo
 
         private bool CheckingRange()
         {
-            if (Grid_Manager.instance.CalcEnemyPlayDist(xEnemy, yEnemy) == eControllerLink.enemyCurrentSetting.ability.range)
+            if (Grid_Manager.instance.CalcEnemyPlayDist(xEnemy, yEnemy) <= eControllerLink.enemyCurrentSetting.ability.range)
             {
                 isRangeChecked = true;
                 return true;

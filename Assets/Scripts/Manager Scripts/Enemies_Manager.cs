@@ -169,11 +169,14 @@ namespace Spacchiamo
 
         public void DestroyEnemy(int xEnemy, int yEnemy)
         {
-            GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy).position - new Vector3(0, 0, 1));
-            enemyReferences.Remove(enemyToDestroy);
+            //GameObject enemyToDestroy = enemyReferences.Find(x => x.transform.position == Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy).position - new Vector3(0, 0, 1));
+            int enemyToDestroy = enemyReferences.FindIndex(z => z.GetComponent<EnemyAI>().xEnemy == xEnemy && z.GetComponent<EnemyAI>().yEnemy == yEnemy);
+            GameObject enemy = enemyReferences[enemyToDestroy];
+            enemyReferences.RemoveAt(enemyToDestroy);
+            Grid_Manager.instance.RemovingAtIndexAStarCells(enemyToDestroy);
             Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-            playerTemp.GetComponent<Player_Controller>().GainingExp(enemyToDestroy.GetComponent<Enemy_Controller>().enemyCurrentSetting.experience);
-            Destroy(enemyToDestroy);
+            playerTemp.GetComponent<Player_Controller>().GainingExp(enemy.GetComponent<Enemy_Controller>().enemyCurrentSetting.experience);
+            Destroy(enemy);
         }
         #endregion
 
@@ -304,6 +307,9 @@ namespace Spacchiamo
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnAggro();
             Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
+
+            Grid_Manager.instance.AddingElementsAStarCells(1);
+
         }
 
         private void SpawnFear2Monster()
@@ -339,11 +345,31 @@ namespace Spacchiamo
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnAggro();
             Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
+
+            Grid_Manager.instance.AddingElementsAStarCells(1);
         }
 
         public int RetrieveEnemiesNumber()
         {
             return enemyReferences.Count;
+        }
+
+        public int RetrieveOwnEnemyIndex(GameObject enemy)
+        {
+            return enemyReferences.FindIndex(z => z == enemy);
+        }
+
+
+        public void SettingSortingOrder()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+                enemyReferences[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
+        }
+
+        public void InitializeWhereToGo()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+                enemyReferences[i].GetComponent<EnemyAI>().whereToGo = Grid_Manager.instance.GetCellTransform(enemyReferences[i].GetComponent<EnemyAI>().xEnemy, enemyReferences[i].GetComponent<EnemyAI>().yEnemy);
         }
 
     }
