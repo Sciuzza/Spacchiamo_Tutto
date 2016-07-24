@@ -28,8 +28,6 @@ namespace Spacchiamo
         private int patChoiceCounter = 0;
         private int moveRateCounter = 0;
 
-        Ability1 abilityLink;
-
         public List<Cell_Interaction> patrolArea = new List<Cell_Interaction>();
 
         public List<int> moveDirection;
@@ -50,7 +48,7 @@ namespace Spacchiamo
             moveDirection.Add(2);
             moveDirection.Add(3);
 
-            abilityLink = this.GetComponent<Ability1>();
+           
 
             xEnemy =  Mathf.FloorToInt(this.transform.position.x);
             yEnemy =  Mathf.FloorToInt(this.transform.position.y);

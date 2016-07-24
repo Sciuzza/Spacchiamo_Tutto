@@ -125,6 +125,7 @@ namespace Spacchiamo
         public int expPlayerGained = 0;
         public int unspentPlayerAbilityPoints = 0;
         public int playerLevel = 0;
+        public int healthPotStacks;
 
         // obvious LOL
         public GAME_PHASE currentPhase = GAME_PHASE.init;
@@ -230,6 +231,10 @@ namespace Spacchiamo
             playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
             playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
             playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
+
+            healthPotStacks = 2;
+            playerLink.GetComponent<Player_Controller>().healthPotStacks = healthPotStacks;
+
 
             // Player Passive Ability transfer conditions 
 
@@ -342,6 +347,9 @@ namespace Spacchiamo
             playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
             playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
             playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
+
+            healthPotStacks = 2;
+            playerLink.GetComponent<Player_Controller>().healthPotStacks = healthPotStacks;
 
             // Player Passive Ability transfer conditions 
 

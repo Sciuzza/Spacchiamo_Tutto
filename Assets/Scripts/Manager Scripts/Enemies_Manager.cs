@@ -176,6 +176,7 @@ namespace Spacchiamo
             Grid_Manager.instance.RemovingAtIndexAStarCells(enemyToDestroy);
             Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
             playerTemp.GetComponent<Player_Controller>().GainingExp(enemy.GetComponent<Enemy_Controller>().enemyCurrentSetting.experience);
+            playerTemp.GetComponent<Player_Controller>().CheckingCurrentLevel();
             Destroy(enemy);
         }
         #endregion

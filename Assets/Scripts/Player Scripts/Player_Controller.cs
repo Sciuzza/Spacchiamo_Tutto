@@ -14,6 +14,11 @@ namespace Spacchiamo
         public int unspentAbilityPoints;
         public int playerLevel;
 
+        public int healthPotStacks;
+
+        public int regCounter = 0;
+
+
         public int FearValue = 0;
         public bool fear1Activated = false;
         public bool fear2Activated = false;
@@ -107,6 +112,13 @@ namespace Spacchiamo
 
                     attackSelection = false;
                 }
+                if (Input.GetKeyUp(KeyCode.R) && !attackSelection && healthPotStacks >= 1)
+                {
+                    ApplyingHPotionEffects();
+                    moveLink.IncreasingFearAndTurn();
+                    Enemies_Manager.instance.CheckingAggro();
+                    Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
+                }
 
             }
         }
@@ -149,6 +161,8 @@ namespace Spacchiamo
         public void TakingDamage(float damage)
         {
             Life -= damage;
+            if (Life <= 0)
+                KillingPlayer();
         }
 
         public void KillingPlayer()
@@ -169,6 +183,22 @@ namespace Spacchiamo
                 playerLevel++;
             }
 
+        }
+
+        private void ApplyingHPotionEffects()
+        {
+            FearValue -= 10;
+            if (FearValue < 0)
+                FearValue = 0;
+
+            Life += 2;
+            if (Life > 20)
+                Life = 20;
+
+            healthPotStacks--;
+
+            Ui_Manager.instance.SettingFearValue(FearValue);
+            
         }
 
     }

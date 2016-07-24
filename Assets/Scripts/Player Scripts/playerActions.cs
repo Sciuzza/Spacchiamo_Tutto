@@ -202,8 +202,33 @@ namespace Spacchiamo
             }
             //Increasing Turn Counter
             pControllerLink.TurnValue++;
+
+            if (pControllerLink.regPassive.active)
+            {
+                RegPassiveApplying();
+            }
             Enemies_Manager.instance.SettingEnemyVisibility();
             Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
+        }
+
+        private void RegPassiveApplying()
+        {
+            if (pControllerLink.regCounter == pControllerLink.regPassive.cooldown)
+            {
+                if (pControllerLink.Life < 20)
+                {
+                    pControllerLink.Life += pControllerLink.regPassive.regPower;
+
+                    if (pControllerLink.Life > 20)
+                        pControllerLink.Life = 20;
+
+                    pControllerLink.regCounter = 0;
+                }
+            }
+            else
+            {
+                pControllerLink.regCounter++;
+            }
         }
 
     }

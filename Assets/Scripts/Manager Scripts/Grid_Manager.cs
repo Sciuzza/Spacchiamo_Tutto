@@ -759,14 +759,22 @@ namespace Spacchiamo
             {
                 Cell_Interaction firstGoodMove = closedNodeList[closedNodeList.Count - 1];
 
-                while (firstGoodMove.parentNodeL[enIndex] != cellReferences[xStart, yStart])
+                if (firstGoodMove == cellReferences[xStart, yStart])
                 {
-                    firstGoodMove = firstGoodMove.parentNodeL[enIndex];
+                    xEnd = xStart;
+                    yEnd = yStart;
+                }
+                else
+                {
+                    while (firstGoodMove.parentNodeL[enIndex] != cellReferences[xStart, yStart])
+                    {
+                        firstGoodMove = firstGoodMove.parentNodeL[enIndex];
 
-                };
+                    };
 
-                xEnd = firstGoodMove.xCell;
-                yEnd = firstGoodMove.yCell;
+                    xEnd = firstGoodMove.xCell;
+                    yEnd = firstGoodMove.yCell;
+                }
             }
         }
 
