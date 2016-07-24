@@ -41,9 +41,31 @@ namespace Spacchiamo {
 		public void RecordParameters () {
 
 			Debug.Log (this.passiveAbilitySelected.uiCharacteristic.ToString ());
+
+			Debug.Log (this.passiveAbilitySelected.Ability1Level.ToString ());
+			Debug.Log (this.passiveAbilitySelected.Ability2Level.ToString ());
+			Debug.Log (this.passiveAbilitySelected.Ability3Level.ToString ());
+			Debug.Log (this.passiveAbilitySelected.Ability4Level.ToString ());
+			Debug.Log (this.passiveAbilitySelected.Ability5Level.ToString ());
+
 			Debug.Log (this.primaryAbilitySelected.uiCharacteristic.ToString ());
+
+			Debug.Log (this.primaryAbilitySelected.Ability1Level.ToString ());
+			Debug.Log (this.primaryAbilitySelected.Ability2Level.ToString ());
+			Debug.Log (this.primaryAbilitySelected.Ability3Level.ToString ());
+			Debug.Log (this.primaryAbilitySelected.Ability4Level.ToString ());
+			Debug.Log (this.primaryAbilitySelected.Ability5Level.ToString ());
+
 			Debug.Log (this.secondaryAbilitySelected.uiCharacteristic.ToString ());
+
+			Debug.Log (this.secondaryAbilitySelected.Ability1Level.ToString ());
+			Debug.Log (this.secondaryAbilitySelected.Ability2Level.ToString ());
+			Debug.Log (this.secondaryAbilitySelected.Ability3Level.ToString ());
+			Debug.Log (this.secondaryAbilitySelected.Ability4Level.ToString ());
+			Debug.Log (this.secondaryAbilitySelected.Ability5Level.ToString ());
+
 			Debug.Log (this.pointsRepository.Points.ToString ());
+
 			Debug.Log (this.primaryWeaponSelected.uiCharacteristic.ToString ());
 			Debug.Log (this.secondaryWeaponSelected.uiCharacteristic.ToString ());
 

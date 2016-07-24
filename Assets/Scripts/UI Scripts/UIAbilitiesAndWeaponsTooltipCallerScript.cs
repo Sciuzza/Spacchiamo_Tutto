@@ -8,14 +8,70 @@ namespace Spacchiamo {
 
 		protected internal UIAbilitiesAndWeaponsTooltipScript tooltip;
 
+		private ushort ability1Level = 0;
+		private ushort ability2Level = 0;
+		private ushort ability3Level = 0;
+		private ushort ability4Level = 0;
+		private ushort ability5Level = 0;
+
 		private UIIMAGE uiImageCharacteristic;
 		private Image image;
+
+		internal ushort Ability1Level {
+
+			get {
+
+				return this.ability1Level;
+
+			}
+
+		}
+
+		internal ushort Ability2Level {
+
+			get {
+
+				return this.ability2Level;
+
+			}
+
+		}
+
+		internal ushort Ability3Level {
+
+			get {
+
+				return this.ability3Level;
+
+			}
+
+		}
+
+		internal ushort Ability4Level {
+
+			get {
+
+				return this.ability4Level;
+
+			}
+
+		}
+
+		internal ushort Ability5Level {
+
+			get {
+
+				return this.ability5Level;
+
+			}
+
+		}
 
 		internal UIIMAGE uiCharacteristic {
 
 			get {
 
-				return uiImageCharacteristic;
+				return this.uiImageCharacteristic;
 
 			}
 
@@ -178,6 +234,99 @@ namespace Spacchiamo {
 				break;
 			default:
 				Debug.LogError ("CARATTERISTICA NON CARICABILE");
+				break;
+
+			}
+
+		}
+
+		internal void LevelUpAbility (UIIMAGE specificUIImage, ABILITY specificAbility) {
+
+			switch (specificAbility) {
+
+			case ABILITY.ABILITY_PASSIVE:
+
+				switch (specificUIImage) {
+
+				case UIIMAGE.ABILITY_1:
+					ability1Level++;
+					break;
+				case UIIMAGE.ABILITY_2:
+					ability2Level++;
+					break;
+				case UIIMAGE.ABILITY_3:
+					ability3Level++;
+					break;
+				case UIIMAGE.ABILITY_4:
+					ability4Level++;
+					break;
+				case UIIMAGE.ABILITY_5:
+					ability5Level++;
+					break;
+				default:
+					Debug.LogError ("NON RIESCO A CAPIRE QUALE ABILITA' PASSIVA DEVO LIVELLARE!");
+					break;
+
+				}
+
+				break;
+
+			case ABILITY.ABILITY_PRIMARY:
+
+				switch (specificUIImage) {
+
+				case UIIMAGE.ABILITY_1:
+					ability1Level++;
+					break;
+				case UIIMAGE.ABILITY_2:
+					ability2Level++;
+					break;
+				case UIIMAGE.ABILITY_3:
+					ability3Level++;
+					break;
+				case UIIMAGE.ABILITY_4:
+					ability4Level++;
+					break;
+				case UIIMAGE.ABILITY_5:
+					ability5Level++;
+					break;
+				default:
+					Debug.LogError ("NON RIESCO A CAPIRE QUALE ABILITA' PRIMARIA DEVO LIVELLARE!");
+					break;
+
+				}
+
+				break;
+
+			case ABILITY.ABILITY_SECONDARY:
+
+				switch (specificUIImage) {
+
+				case UIIMAGE.ABILITY_1:
+					ability1Level++;
+					break;
+				case UIIMAGE.ABILITY_2:
+					ability2Level++;
+					break;
+				case UIIMAGE.ABILITY_3:
+					ability3Level++;
+					break;
+				case UIIMAGE.ABILITY_4:
+					ability4Level++;
+					break;
+				case UIIMAGE.ABILITY_5:
+					ability5Level++;
+					break;
+				default:
+					Debug.LogError ("NON RIESCO A CAPIRE QUALE ABILITA' SECONDARIA DEVO LIVELLARE!");
+					break;
+
+				}
+
+				break;
+			
+			default:
+				Debug.LogError ("NON RIESCO A CAPIRE QUALE TIPOLOGIA DI ABILITA' DEVO LIVELLARE!");
 				break;
 
 			}
