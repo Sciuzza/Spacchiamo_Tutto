@@ -63,7 +63,7 @@ namespace Spacchiamo
             if (!mouseEnter)
             {
                 Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+               
 
                 if (playerContLink.attackSelection && inRange)
                 {
@@ -89,7 +89,7 @@ namespace Spacchiamo
             if (mouseEnter)
             {
                 Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+               
 
                 if (playerContLink.attackSelection)
                 {
@@ -120,7 +120,7 @@ namespace Spacchiamo
                 playerLink.GetComponent<playerActions>().IncreasingFearAndTurn();
                 Enemies_Manager.instance.CheckingAggro();
 
-                Game_Controller.instance.currentPhase = GAME_PHASE.animation;
+                Game_Controller.instance.currentPhase = GAME_PHASE.knockAni;
                 Game_Controller.instance.previousPhase = GAME_PHASE.playerTurn;
 
                 

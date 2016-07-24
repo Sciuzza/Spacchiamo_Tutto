@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: e9eb9b8e047e2a24eb6af899b7a85f08
+timeCreated: 1469389155
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: tipo-idle_0
+    21300002: tipo-idle_1
+    21300004: tipo-idle_2
+    21300006: tipo-idle_3
+    21300008: tipo-idle_4
+    21300010: tipo-idle_5
+    21300012: tipo-idle_6
+    21300014: tipo-idle_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: tipo-idle_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 354
+        width: 125
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -62.5, y: 124.79999}
+        - {x: -62.5, y: 59.799988}
+        - {x: -60.5, y: 52.799988}
+        - {x: -57.5, y: 48.799988}
+        - {x: -41.5, y: 49.799988}
+        - {x: -40.5, y: 52.799988}
+        - {x: -36.5, y: 73.79999}
+        - {x: -37.5, y: 51.799988}
+        - {x: -34.5, y: 20.799988}
+        - {x: -46.5, y: -21.200012}
+        - {x: -36.5, y: -31.200012}
+        - {x: 56.5, y: -31.200012}
+        - {x: 62.5, y: -30.200012}
+        - {x: 62.5, y: 114.79999}
+        - {x: 48.5, y: 124.79999}
+    - name: tipo-idle_1
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 354
+        width: 125
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -57.5, y: 126.399994}
+        - {x: -62.5, y: 114.399994}
+        - {x: -62.5, y: -0.6000061}
+        - {x: -38.5, y: -31.600006}
+        - {x: 51.5, y: -31.600006}
+        - {x: 53.5, y: -30.600006}
+        - {x: 62.5, y: -22.600006}
+        - {x: 62.5, y: 126.399994}
+    - name: tipo-idle_2
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 354
+        width: 129
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64.5, y: 126.399994}
+        - {x: -64.5, y: 49.399994}
+        - {x: -58.5, y: 47.399994}
+        - {x: -40.5, y: 50.399994}
+        - {x: -44.5, y: -21.600006}
+        - {x: -30.5, y: -31.600006}
+        - {x: 58.5, y: -31.600006}
+        - {x: 64.5, y: 7.399994}
+        - {x: 64.5, y: 126.399994}
+    - name: tipo-idle_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 194
+        width: 125
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -57.5, y: 126.399994}
+        - {x: -62.5, y: 114.399994}
+        - {x: -62.5, y: -0.6000061}
+        - {x: -38.5, y: -31.600006}
+        - {x: 51.5, y: -31.600006}
+        - {x: 53.5, y: -30.600006}
+        - {x: 62.5, y: -22.600006}
+        - {x: 62.5, y: 126.399994}
+    - name: tipo-idle_4
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 194
+        width: 124
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 62, y: 113.399994}
+        - {x: 38, y: 126.399994}
+        - {x: -62, y: 126.399994}
+        - {x: -62, y: 51.399994}
+        - {x: -58, y: 48.399994}
+        - {x: -42, y: 48.399994}
+        - {x: -50, y: -22.600006}
+        - {x: -24, y: -31.600006}
+        - {x: 37, y: -31.600006}
+        - {x: 49, y: -26.600006}
+        - {x: 55, y: -17.600006}
+        - {x: 62, y: 65.399994}
+    - name: tipo-idle_5
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 194
+        width: 125
+        height: 157
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -53.5, y: 125.600006}
+        - {x: -62.5, y: 116.600006}
+        - {x: -62.5, y: 54.600006}
+        - {x: -61.5, y: 46.600006}
+        - {x: -48.5, y: 48.600006}
+        - {x: -39.5, y: 52.600006}
+        - {x: -36.5, y: 84.600006}
+        - {x: -37.5, y: 51.600006}
+        - {x: -36.5, y: 25.600006}
+        - {x: -44.5, y: -9.399994}
+        - {x: -44.5, y: -20.399994}
+        - {x: -28.5, y: -31.399994}
+        - {x: 37.5, y: -31.399994}
+        - {x: 50.5, y: -27.399994}
+        - {x: 62.5, y: -21.399994}
+        - {x: 62.5, y: 125.600006}
+    - name: tipo-idle_6
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 34
+        width: 125
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -50.5, y: 126.4}
+        - {x: -62.5, y: 112.4}
+        - {x: -62.5, y: 78.4}
+        - {x: -59.5, y: 53.4}
+        - {x: -45.5, y: 46.4}
+        - {x: -35.5, y: 53.4}
+        - {x: -35.5, y: 57.4}
+        - {x: -32.5, y: 77.4}
+        - {x: -34.5, y: 63.4}
+        - {x: -32.5, y: 58.4}
+        - {x: -36.5, y: 51.4}
+        - {x: -57.5, y: -27.599998}
+        - {x: -28.5, y: -31.599998}
+        - {x: 51.5, y: -31.599998}
+        - {x: 62.5, y: -24.599998}
+        - {x: 62.5, y: 126.4}
+    - name: tipo-idle_7
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 34
+        width: 124
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 53, y: 126.4}
+        - {x: -62, y: 126.4}
+        - {x: -62, y: 54.4}
+        - {x: -61, y: 46.4}
+        - {x: -48, y: 48.4}
+        - {x: -39, y: 52.4}
+        - {x: -36, y: 84.4}
+        - {x: -37, y: 51.4}
+        - {x: -62, y: 27.400002}
+        - {x: -62, y: -17.599998}
+        - {x: -49, y: -31.599998}
+        - {x: 61, y: -31.599998}
+        - {x: 62, y: -24.599998}
+        - {x: 62, y: 120.4}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

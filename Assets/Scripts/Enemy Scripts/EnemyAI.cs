@@ -94,7 +94,7 @@ namespace Spacchiamo
                     }
                 }
             }
-            else if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && isKnockBacked)
+            else if (Game_Controller.instance.currentPhase == GAME_PHASE.knockAni && isKnockBacked)
             {
                 TranslatingPosition();
             }

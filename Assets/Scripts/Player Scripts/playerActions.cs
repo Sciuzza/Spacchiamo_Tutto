@@ -20,7 +20,7 @@ namespace Spacchiamo
             pControllerLink = this.GetComponent<Player_Controller>();
             xPlayer = Mathf.FloorToInt(this.transform.position.x);
             yPlayer = Mathf.FloorToInt(this.transform.position.y);
-            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yPlayer;        
+                 
         }
 
         
@@ -229,6 +229,11 @@ namespace Spacchiamo
             {
                 pControllerLink.regCounter++;
             }
+        }
+
+        public void InitializeSortingOrder()
+        {
+            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yPlayer;
         }
 
     }

@@ -115,17 +115,12 @@ namespace Spacchiamo
     #endregion
 
 
-    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, animation, dialogue};
+    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, knockAni, dialogue};
 
 
 
     public class Game_Controller : MonoBehaviour
     {
-
-        public int expPlayerGained = 0;
-        public int unspentPlayerAbilityPoints = 0;
-        public int playerLevel = 0;
-        public int healthPotStacks;
 
         // obvious LOL
         public GAME_PHASE currentPhase = GAME_PHASE.init;
@@ -145,6 +140,10 @@ namespace Spacchiamo
         // to be passed to Player Controller
         List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
         regAbility playerRegAbility = new regAbility();
+        public int expPlayerGained = 0;
+        public int unspentPlayerAbilityPoints = 0;
+        public int playerLevel = 1;
+        public int healthPotStacks;
 
         // to give Camera the player as target
         Camera_Movement cameraLink;
@@ -168,11 +167,8 @@ namespace Spacchiamo
 
             DontDestroyOnLoad(this.gameObject);
 
-            #endregion
-
-
-
         }
+        #endregion
 
         void Start()
         {
@@ -217,6 +213,8 @@ namespace Spacchiamo
             playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
             cameraLink.target = playerLink;
+
+            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
 
             // Player Active Ability transfer conditions 
             if (playerAbilities.Count == 0)
@@ -332,6 +330,7 @@ namespace Spacchiamo
             playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
             cameraLink.target = playerLink;
+            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
 
             // Player Active Ability transfer conditions 
             if (playerAbilities.Count == 0)
@@ -406,11 +405,6 @@ namespace Spacchiamo
 
         }
 
-        public GameObject TakingPlayerRef()
-        {
-            return playerLink;
-        }
-
 
         #region Player Initialization Methods
 
@@ -473,8 +467,13 @@ namespace Spacchiamo
 
 
             return increase;
-        } 
+        }
         #endregion
 
+        // Methods to be Called on Request by other scripts
+        public GameObject TakingPlayerRef()
+        {
+            return playerLink;
+        }
     }
 }

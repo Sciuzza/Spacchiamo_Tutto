@@ -53,11 +53,11 @@ namespace Spacchiamo
                     Game_Controller.instance.currentPhase = GAME_PHASE.playerTurn;
                 }
             }
-            if (Game_Controller.instance.currentPhase == GAME_PHASE.animation && Game_Controller.instance.previousPhase == GAME_PHASE.playerTurn)
+            if (Game_Controller.instance.currentPhase == GAME_PHASE.knockAni && Game_Controller.instance.previousPhase == GAME_PHASE.playerTurn)
             {
                 if (AreEnemiesInPositionByKnockBack())
                 {
-                    Game_Controller.instance.previousPhase = GAME_PHASE.animation;
+                    Game_Controller.instance.previousPhase = GAME_PHASE.knockAni;
                     Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                 }
             }
