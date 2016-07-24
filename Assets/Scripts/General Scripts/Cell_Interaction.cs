@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
@@ -10,7 +11,11 @@ namespace Spacchiamo
 
         // Needed for A Star Algorithm
         public Cell_Interaction parentNode;
-        public int hValue, gValue, fValue; 
+        public int hValue, gValue, fValue;
+
+        // A Star for all enemies 
+        public List<int> hValueL, gValueL, fValueL;
+        public List<Cell_Interaction> parentNodeL;
 
         // For Wall and Moving Objects
         public bool isOccupied = false;
@@ -27,6 +32,7 @@ namespace Spacchiamo
         // For Falò 
         public bool lightSource = false;
         public bool isReceivingLight = false;
+        public bool couldReceiveLight = false;
         public bool lightSourceDiscovered = false;
 
         private bool mouseEnter = false;
@@ -139,6 +145,7 @@ namespace Spacchiamo
         {
             lightSource = true;
             isOccupied = true;
+            Grid_Manager.instance.SettingCouldReceiveLightCells(xCell, yCell);
 
         }
 

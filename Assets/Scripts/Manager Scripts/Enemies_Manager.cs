@@ -341,6 +341,11 @@ namespace Spacchiamo
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
         }
 
+        public int RetrieveEnemiesNumber()
+        {
+            return enemyReferences.Count;
+        }
+
     }
 }
 

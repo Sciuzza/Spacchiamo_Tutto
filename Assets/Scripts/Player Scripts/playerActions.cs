@@ -19,7 +19,8 @@ namespace Spacchiamo
         {
             pControllerLink = this.GetComponent<Player_Controller>();
             xPlayer = Mathf.FloorToInt(this.transform.position.x);
-            yPlayer = Mathf.FloorToInt(this.transform.position.y);          
+            yPlayer = Mathf.FloorToInt(this.transform.position.y);
+            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yPlayer;        
         }
 
         
@@ -47,6 +48,7 @@ namespace Spacchiamo
                     //Getting the light around the player
                     Grid_Manager.instance.GettingLight(xPlayer, yPlayer);
 
+                    this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yPlayer;
                     //Increasing Fear Bar and Fear Value by 1
                     IncreasingFearAndTurn();
                 }

@@ -56,7 +56,7 @@ namespace Spacchiamo
             yEnemy =  Mathf.FloorToInt(this.transform.position.y);
             xComeBack = xEnemy;
             yComeBack = yEnemy;
-
+            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yEnemy;
         }
 
         
@@ -305,15 +305,26 @@ namespace Spacchiamo
 
             if (!isMoving && !move_done)
             {
-                int xPlayer, yPlayer;
+                if (eControllerLink.enemyCurrentSetting.aggroStyle == aggroStyle.following)
+                {
+                    GhostMechanic();
+                    int xPlayer, yPlayer;
 
-                Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
-                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-                Grid_Manager.instance.AStarAlgorithm(xEnemy, yEnemy, xEnemy, yEnemy, xPlayer, yPlayer, out xEnemy, out yEnemy);
-                whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
-                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                    Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
+                    Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
+                    Grid_Manager.instance.AStarAlgorithm(xEnemy, yEnemy, xEnemy, yEnemy, xPlayer, yPlayer, out xEnemy, out yEnemy);
+                    whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
+                    Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
-                isMoving = true;
+                    booleanResetted = false;
+                    isMoving = true;
+                }
+                else
+                {
+                    GhostMechanic();
+
+                    isMoving = true;
+                }
             }
             else if (isMoving)
                 TranslatingPosition();
@@ -388,6 +399,7 @@ namespace Spacchiamo
             if (this.distance.sqrMagnitude < 0.01f)
             {
                 this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
+                this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yEnemy;
                 ResettingMoveDirection();
                 isMoving = false;
 

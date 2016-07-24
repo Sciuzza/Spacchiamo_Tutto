@@ -118,6 +118,7 @@ namespace Spacchiamo
             {
                 x = Mathf.FloorToInt(faloList[i].transform.position.x);
                 y = Mathf.FloorToInt(faloList[i].transform.position.y);
+                faloList[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - y;
 
                 cellReferences[x, y].SettingFalo();
                 cellReferences[x, y].faloAlpha = faloList[i].GetComponent<SpriteRenderer>();
@@ -580,6 +581,51 @@ namespace Spacchiamo
 
 
         // A Star ALgorithm
+
+        public void AddingElementsAStarCells(int numberOfEl)
+        {
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null)
+                    {
+                        for (int z = 0; z < numberOfEl; z++)
+                        {
+                            cellReferences[x, y].hValueL.Add(0);
+                            cellReferences[x, y].gValueL.Add(0);
+                            cellReferences[x, y].fValueL.Add(0);
+                            cellReferences[x, y].parentNodeL.Add(null);
+                        }
+                    }
+                    
+                    
+                }
+            }
+        }
+
+        public void RemovingElementsAStarCells(int numberOfEl)
+        {
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null)
+                    {
+                        for (int z = 0; z < numberOfEl; z++)
+                        {
+                            cellReferences[x, y].hValueL.RemoveAt(0);
+                            cellReferences[x, y].gValueL.RemoveAt(0);
+                            cellReferences[x, y].fValueL.RemoveAt(0);
+                            cellReferences[x, y].parentNodeL.RemoveAt(0);
+                        }
+                    }
+
+
+                }
+            }
+        }
+
         public void AStarAlgorithm(int xStart, int yStart, int xMoving, int yMoving, int xTarget, int yTarget, out int xEnd, out int yEnd)
         {
             openNodeList = new List<Cell_Interaction>();
@@ -965,12 +1011,32 @@ namespace Spacchiamo
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
                     if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) > Designer_Tweaks.instance.playerLightM
-                        && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) <= 8 && !cellReferences[x,y].isReceivingLight)
+                        && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) <= 8 && !cellReferences[x,y].couldReceiveLight)
                         possibleSpawns.Add(cellReferences[x, y]);
                 }
             }
 
             return possibleSpawns;
+        }
+
+        public void SettingCouldReceiveLightCells(int xFalo, int yFalo)
+        {
+            float currentDistance;
+
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null)
+                    {
+                        currentDistance = Mathf.Abs(x - xFalo) + Mathf.Abs(y - yFalo);
+
+                        if (currentDistance <= Designer_Tweaks.instance.faloLigthM)
+                            cellReferences[x, y].couldReceiveLight = true;
+
+                    }
+                }
+            }
         }
     }
 }
