@@ -34,4 +34,10 @@
 
 	}
 
+	internal interface IIncreaseOnClick {
+
+		void IncreaseNumberOfPoints ();
+
+	}
+
 }
