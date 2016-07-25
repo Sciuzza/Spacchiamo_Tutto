@@ -13,8 +13,8 @@ namespace Spacchiamo
         #endregion
 
         #region General Programmer Tweak Values
-        private int level1YWidth = 200;
-        private int level1XWidth = 200;
+        private int level1YWidth = 500;
+        private int level1XWidth = 500;
 
         public int Level1XWidth
         {

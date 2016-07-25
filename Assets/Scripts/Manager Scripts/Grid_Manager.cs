@@ -125,6 +125,20 @@ namespace Spacchiamo
             }
         }
 
+        public void LinkingExit(GameObject exit)
+        {
+            int x, y;
+
+            x = Mathf.FloorToInt(exit.transform.position.x);
+            y = Mathf.FloorToInt(exit.transform.position.y);
+            exit.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - y;
+
+            cellReferences[x, y].isExit = true;
+
+            cellReferences[x, y].exitAlpha = exit.GetComponent<SpriteRenderer>();
+
+        }
+
 
         // Methods for the Movement System
 
@@ -451,6 +465,9 @@ namespace Spacchiamo
 
             if (matchAlpha.faloAlpha != null && !playerTemp.GetComponent<Player_Controller>().attackSelection)
                 matchAlpha.faloAlpha.color = cellColor;
+
+            if (matchAlpha.exitAlpha != null)
+                matchAlpha.exitAlpha.color = cellColor;
 
         }
 
@@ -912,14 +929,22 @@ namespace Spacchiamo
             {
                 Cell_Interaction firstGoodMove = closedNodeList[closedNodeList.Count - 1];
 
-                while (firstGoodMove.parentNodeL[enIndex] != cellReferences[xStart, yStart])
+                if (firstGoodMove == cellReferences[xStart, yStart])
                 {
-                    firstGoodMove = firstGoodMove.parentNodeL[enIndex];
+                    xEnd = xStart;
+                    yEnd = yStart;
+                }
+                else
+                {
+                    while (firstGoodMove.parentNodeL[enIndex] != cellReferences[xStart, yStart])
+                    {
+                        firstGoodMove = firstGoodMove.parentNodeL[enIndex];
 
-                };
+                    };
 
-                xEnd = firstGoodMove.xCell;
-                yEnd = firstGoodMove.yCell;
+                    xEnd = firstGoodMove.xCell;
+                    yEnd = firstGoodMove.yCell;
+                }
             }
         }
 
@@ -1194,6 +1219,14 @@ namespace Spacchiamo
                     }
                 }
             }
+        }
+
+        public bool IsPlayerOnExit(int xPlayer, int yPlayer)
+        {
+            if (cellReferences[xPlayer, yPlayer].isExit)
+                return true;
+            else
+                return false;
         }
     }
 }

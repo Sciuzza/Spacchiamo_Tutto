@@ -34,5 +34,10 @@ namespace Spacchiamo
             currentScene = SceneManager.GetActiveScene();
         }
 
+        public void LoadNextLevel()
+        {
+            SceneManager.LoadScene(currentScene.buildIndex + 1);
+        }
+
     }
 }

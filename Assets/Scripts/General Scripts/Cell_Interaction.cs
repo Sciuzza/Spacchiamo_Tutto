@@ -19,10 +19,11 @@ namespace Spacchiamo
 
         // For Wall and Moving Objects
         public bool isOccupied = false;
+        public bool isExit = false;
 
         public GameObject tileCell;
 
-        public SpriteRenderer faloAlpha;
+        public SpriteRenderer faloAlpha, exitAlpha;
 
         GameObject playerLink;
 
@@ -51,7 +52,7 @@ namespace Spacchiamo
                     Grid_Manager.instance.GettingLightObject(xCell, yCell);
                     faloLightRefreshed = true;
                 }
-                if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn && faloLightRefreshed)
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && faloLightRefreshed)
                     faloLightRefreshed = false;
             }
             if (Input.GetKeyDown(KeyCode.Escape))

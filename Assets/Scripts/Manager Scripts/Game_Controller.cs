@@ -155,6 +155,9 @@ namespace Spacchiamo
         // to be passed to Grid Manager
         GameObject[] faloList;
 
+        //Exit Reference
+        GameObject exit;
+
         //Ui References to be Passed
         Text fear, turnCount;
         Slider fearBar;
@@ -199,6 +202,7 @@ namespace Spacchiamo
             playerLink = GameObject.FindGameObjectWithTag("Player");
             cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
             faloList = GameObject.FindGameObjectsWithTag("Falo");
+            exit = GameObject.FindGameObjectWithTag("Finish");
             enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
             enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
             enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
@@ -229,6 +233,7 @@ namespace Spacchiamo
             Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
+            Grid_Manager.instance.LinkingExit(exit);
             #endregion
 
             #region Player Scene Initialization (all gameplay scenes)
@@ -297,6 +302,7 @@ namespace Spacchiamo
             playerLink = GameObject.FindGameObjectWithTag("Player");
             cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
             faloList = GameObject.FindGameObjectsWithTag("Falo");
+            exit = GameObject.FindGameObjectWithTag("Finish");
             enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
             enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
             enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
@@ -327,6 +333,7 @@ namespace Spacchiamo
             Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
+            Grid_Manager.instance.LinkingExit(exit);
             #endregion
 
             #region Player Scene Initialization (all gameplay scenes)
@@ -493,6 +500,12 @@ namespace Spacchiamo
         {
             return playerLink;
         } 
+
+        public void SavePlayerData(playerSettings currentSetting)
+        {
+            playerStoredSettings = currentSetting;
+        }
+
         #endregion
     }
 }

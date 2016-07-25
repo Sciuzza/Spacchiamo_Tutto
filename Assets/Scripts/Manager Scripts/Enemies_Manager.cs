@@ -127,9 +127,13 @@ namespace Spacchiamo
                 {
 
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = false;
-                    enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = true;
-                    enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = true;
-                    enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter = 0;
+
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroStyle == aggroStyle.following)
+                    {
+                        enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = true;
+                        enemyReferences[i].GetComponent<Enemy_Controller>().isIgnoringAggro = true;
+                        enemyReferences[i].GetComponent<Enemy_Controller>().aggroIgnoringCounter = 0;
+                    }
 
                 }
                 else if (!Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer) && !enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed 
@@ -276,7 +280,7 @@ namespace Spacchiamo
 
         private void SpawnFear1Monster()
         {
-            Debug.Log("fear 1 monster");
+            
 
             int xToSpawn, yToSpawn, randomCell;
             GameObject specialObjects = GameObject.FindGameObjectWithTag("Special Objects");
@@ -315,7 +319,7 @@ namespace Spacchiamo
 
         private void SpawnFear2Monster()
         {
-            Debug.Log("fear 2 monster");
+            
             int xToSpawn, yToSpawn, randomCell;
             GameObject specialObjects = GameObject.FindGameObjectWithTag("Special Objects");
 
