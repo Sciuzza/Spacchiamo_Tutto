@@ -3,7 +3,7 @@
 namespace Spacchiamo {
 
 	internal enum TEXTPARAMETERS : byte {TITLE, DESCRIPTION, LENGTH};
-	internal enum UIIMAGE : byte {NULL, PASSIVE_ABILITY, PRIMARY_ABILITY, SECONDARY_ABILITY, POINTS_FOR_ABILITY, FIRST_WEAPON, SECOND_WEAPON, PLAY_GAME, NO_ABILITY, ABILITY_1, ABILITY_2, ABILITY_3, ABILITY_4, ABILITY_5, WEAPON_1, WEAPON_2, WEAPON_3};
+	internal enum UIIMAGE : byte {NULL, PASSIVE_ABILITY, PRIMARY_ABILITY, SECONDARY_ABILITY, POINTS_FOR_ABILITY, FIRST_WEAPON, SECOND_WEAPON, PLAY_GAME, NO_ABILITY, ABILITY_1, ABILITY_2, ABILITY_3, ABILITY_4, ABILITY_5, WEAPON_1, WEAPON_2, WEAPON_3, POTION};
 	internal enum ABILITY : byte {ABILITY_PASSIVE, ABILITY_PRIMARY, ABILITY_SECONDARY, ABILITY_VOID};
 	internal enum HAND : byte {HAND_ONE = 1, HAND_TWO, HAND_VOID};
 
@@ -80,6 +80,9 @@ namespace Spacchiamo {
 		internal const string PLAY = "UIPL";
 
 
+		internal const string POTION_TAG = "UIPT";
+
+
 		internal const string PASSIVE_ABILITY_TITLE = "PASSIVE ABILITY";
 		internal const string PRIMARY_ABILITY_TITLE = "PRIMARY ABILITY";
 		internal const string SECONDARY_ABILITY_TITLE = "SECONDARY ABILITY";
@@ -115,6 +118,9 @@ namespace Spacchiamo {
 
 		internal const string NO_PLAY_TITLE = "NO PLAY";
 		internal const string PLAY_TITLE = "PLAY";
+
+
+		internal const string POTION_TITLE = "POTION";
 
 
 		internal const string PASSIVE_ABILITY_DESCRIPTION = "Passive stuff";
@@ -157,6 +163,9 @@ namespace Spacchiamo {
 
 		internal const string NO_PLAY_DESCRIPTION = "No play stuff";
 		internal const string PLAY_DESCRIPTION = "Play stuff";
+
+
+		internal const string POTION_DESCRIPTION = "Potion stuff";
 
 
 	}
