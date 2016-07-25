@@ -98,6 +98,9 @@ namespace Spacchiamo {
 			Debug.Log (this.primaryWeaponSelected.uiCharacteristic.ToString ());
 			Debug.Log (this.secondaryWeaponSelected.uiCharacteristic.ToString ());*/
 
+			//Ui_Manager.instance.ReceivingAbilitiesAndWeaponsUserInterface (newAbilitiesAndWeaponsParameters);
+			//Scene_Manager.instance ;
+
 		}
 		
 	}
