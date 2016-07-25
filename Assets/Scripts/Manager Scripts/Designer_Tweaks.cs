@@ -10,8 +10,8 @@ namespace Spacchiamo
         [Range(1, 5)]
         public int playerLightM, faloLigthM, generalMoveSpeed, fearScaleRate;
 
-        [HideInInspector]
-        public int level1XWidth = 64, level1yWidth = 54;
+        
+        public int level1XWidth, level1yWidth;
 
         #region Designer player ability selection for testing purpose
 
