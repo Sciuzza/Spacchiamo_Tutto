@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Spacchiamo
 {
@@ -10,7 +11,11 @@ namespace Spacchiamo
 
         // Needed for A Star Algorithm
         public Cell_Interaction parentNode;
-        public int hValue, gValue, fValue; 
+        public int hValue, gValue, fValue;
+
+        // A Star for all enemies 
+        public List<int> hValueL, gValueL, fValueL;
+        public List<Cell_Interaction> parentNodeL;
 
         // For Wall and Moving Objects
         public bool isOccupied = false;
@@ -23,12 +28,11 @@ namespace Spacchiamo
 
         public Color oriColor, stdHighColor;
 
-        // for Aggro
-        public bool aggroCell = false;
 
         // For Falò 
         public bool lightSource = false;
         public bool isReceivingLight = false;
+        public bool couldReceiveLight = false;
         public bool lightSourceDiscovered = false;
 
         private bool mouseEnter = false;
@@ -59,7 +63,7 @@ namespace Spacchiamo
             if (!mouseEnter)
             {
                 Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+               
 
                 if (playerContLink.attackSelection && inRange)
                 {
@@ -85,7 +89,7 @@ namespace Spacchiamo
             if (mouseEnter)
             {
                 Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-                SpriteRenderer tileHighlight = tileCell.GetComponent<SpriteRenderer>();
+               
 
                 if (playerContLink.attackSelection)
                 {
@@ -113,7 +117,10 @@ namespace Spacchiamo
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
             if (playerContLink.attackSelection && inRange)
             {
-                Game_Controller.instance.currentPhase = GAME_PHASE.animation;
+                playerLink.GetComponent<playerActions>().IncreasingFearAndTurn();
+                Enemies_Manager.instance.CheckingAggro();
+
+                Game_Controller.instance.currentPhase = GAME_PHASE.knockAni;
                 Game_Controller.instance.previousPhase = GAME_PHASE.playerTurn;
 
                 
@@ -138,6 +145,7 @@ namespace Spacchiamo
         {
             lightSource = true;
             isOccupied = true;
+            Grid_Manager.instance.SettingCouldReceiveLightCells(xCell, yCell);
 
         }
 
