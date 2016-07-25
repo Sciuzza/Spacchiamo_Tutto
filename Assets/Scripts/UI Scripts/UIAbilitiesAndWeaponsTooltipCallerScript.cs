@@ -25,6 +25,12 @@ namespace Spacchiamo {
 
 			}
 
+			set {
+
+				this.ability1Level = value;
+
+			}
+
 		}
 
 		internal ushort Ability2Level {
@@ -32,6 +38,12 @@ namespace Spacchiamo {
 			get {
 
 				return this.ability2Level;
+
+			}
+
+			set {
+
+				this.ability2Level = value;
 
 			}
 
@@ -45,6 +57,12 @@ namespace Spacchiamo {
 
 			}
 
+			set {
+
+				this.ability3Level = value;
+
+			}
+
 		}
 
 		internal ushort Ability4Level {
@@ -55,6 +73,12 @@ namespace Spacchiamo {
 
 			}
 
+			set {
+
+				this.ability4Level = value;
+
+			}
+
 		}
 
 		internal ushort Ability5Level {
@@ -62,6 +86,12 @@ namespace Spacchiamo {
 			get {
 
 				return this.ability5Level;
+
+			}
+
+			set {
+
+				this.ability5Level = value;
 
 			}
 
@@ -211,6 +241,9 @@ namespace Spacchiamo {
 				case UIIMAGE.WEAPON_3:
 					this.image.color = new Color (1f, 0f, 1f);	//MAGENTA
 					break;
+				case UIIMAGE.NULL:
+					this.image.color = new Color (1f, 1f, 1f);	//WHITE
+					break;
 				default:
 					Debug.LogError ("NON RIESCO A CAPIRE CHE ARMA SONO");
 					break;
@@ -226,6 +259,9 @@ namespace Spacchiamo {
 					break;
 				case UIIMAGE.WEAPON_3:
 					this.image.color = new Color (1f, 0f, 1f);	//MAGENTA
+					break;
+				case UIIMAGE.NULL:
+					this.image.color = new Color (1f, 1f, 1f);	//WHITE
 					break;
 				default:
 					Debug.LogError ("NON RIESCO A CAPIRE CHE ARMA SONO");

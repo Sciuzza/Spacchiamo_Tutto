@@ -5,7 +5,40 @@ namespace Spacchiamo {
 	internal enum TEXTPARAMETERS : byte {TITLE, DESCRIPTION, LENGTH};
 	internal enum UIIMAGE : byte {NULL, PASSIVE_ABILITY, PRIMARY_ABILITY, SECONDARY_ABILITY, POINTS_FOR_ABILITY, FIRST_WEAPON, SECOND_WEAPON, PLAY_GAME, NO_ABILITY, ABILITY_1, ABILITY_2, ABILITY_3, ABILITY_4, ABILITY_5, WEAPON_1, WEAPON_2, WEAPON_3};
 	internal enum ABILITY : byte {ABILITY_PASSIVE, ABILITY_PRIMARY, ABILITY_SECONDARY, ABILITY_VOID};
-	internal enum HAND : byte {HAND_ONE = 1, HAND_TWO, HAND_VOID}; 
+	internal enum HAND : byte {HAND_ONE = 1, HAND_TWO, HAND_VOID};
+
+
+	internal class AbilitiesAndWeaponsInitialization {
+
+		internal ushort passiveAbility1Level = 0;
+		internal ushort passiveAbility2Level = 0;
+		internal ushort passiveAbility3Level = 0;
+		internal ushort passiveAbility4Level = 0;
+		internal ushort passiveAbility5Level = 0;
+
+		internal ushort primaryAbility1Level = 0;
+		internal ushort primaryAbility2Level = 0;
+		internal ushort primaryAbility3Level = 0;
+		internal ushort primaryAbility4Level = 0;
+		internal ushort primaryAbility5Level = 0;
+
+		internal ushort secondaryAbility1Level = 0;
+		internal ushort secondaryAbility2Level = 0;
+		internal ushort secondaryAbility3Level = 0;
+		internal ushort secondaryAbility4Level = 0;
+		internal ushort secondaryAbility5Level = 0;
+
+		internal ushort levelUpPoints = 0;
+
+		internal UIIMAGE passiveAbilityUICharacteristic = UIIMAGE.NO_ABILITY;
+		internal UIIMAGE primaryAbilityUICharacteristic = UIIMAGE.NO_ABILITY;
+		internal UIIMAGE secondaryAbilityUICharacteristic = UIIMAGE.NO_ABILITY;
+
+		internal UIIMAGE primaryWeaponUICharacteristic = UIIMAGE.NULL;
+		internal UIIMAGE secondaryWeaponUICharacteristic = UIIMAGE.NULL;
+
+	}
+
 
 	internal static class PARAMETERS {
 
