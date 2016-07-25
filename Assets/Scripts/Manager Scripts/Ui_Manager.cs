@@ -22,26 +22,8 @@ namespace Spacchiamo
             else if (instance != this)
                 Destroy(gameObject);
 
-
-			fear = GameObject.Find("Fear Counter").GetComponent<Text>();
-			fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
-
-			turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
-
-			lifePanelScript = GameObject.Find ("Life Panel").GetComponent<UILifePanelScript>();
-
         }
-
-		//AGGIUNTA DI MARCO
-		void Start ()
-		{
-			lifePanelScript.UISetLife ();
-			SettingTurnValue (0);
-			fear.text = string.Format ("{00}", 0);
-			fearBar.value = 0f;
-		}
-		//FINE AGGIUNTA DI MARCO
-
+        
 
 		public void SettingFearValue(int playerFear)
         {
@@ -64,5 +46,23 @@ namespace Spacchiamo
 		{
 			lifePanelScript.UISetLife (playerLife);
 		}
+
+
+        public void TakingReferences(Text fearRef, Text turnCountRef, Slider fearBarRef, UILifePanelScript uiLifeRef) {
+
+            fear = fearRef;
+            turnCount = turnCountRef;
+            fearBar = fearBarRef;
+            lifePanelScript = uiLifeRef;
+
+        }
+
+        public void UiInitialization()
+        {
+            lifePanelScript.UISetLife();
+            SettingTurnValue(0);
+            fear.text = string.Format("{00}", 0);
+            fearBar.value = 0f;
+        }
     }
 }

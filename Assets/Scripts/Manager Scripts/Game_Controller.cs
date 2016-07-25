@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace Spacchiamo
 {
@@ -101,6 +102,8 @@ namespace Spacchiamo
         public int moveRateDecPerLevel;
         public int aggroRange;
         public int aggroRangeIncPerLevel;
+        public int experience;
+        public int expIncPerLevel;
         public patrolArea patrolArea;
         public patrolStyle patrolStyle;
         public int patrolRange;
@@ -112,14 +115,12 @@ namespace Spacchiamo
     #endregion
 
 
-    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, animation, dialogue};
+    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, knockAni, dialogue};
 
 
 
     public class Game_Controller : MonoBehaviour
     {
-
-     
 
         // obvious LOL
         public GAME_PHASE currentPhase = GAME_PHASE.init;
@@ -130,10 +131,19 @@ namespace Spacchiamo
 
         // to be passed to Grid Manager
         GameObject[] faloList;
-        
+
+        //Ui References to be Passed
+        Text fear, turnCount;
+        Slider fearBar;
+        UILifePanelScript lifePanelScript;
+
         // to be passed to Player Controller
         List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
         regAbility playerRegAbility = new regAbility();
+        public int expPlayerGained = 0;
+        public int unspentPlayerAbilityPoints = 0;
+        public int playerLevel = 1;
+        public int healthPotStacks;
 
         // to give Camera the player as target
         Camera_Movement cameraLink;
@@ -157,11 +167,8 @@ namespace Spacchiamo
 
             DontDestroyOnLoad(this.gameObject);
 
-            #endregion
-
-
-
         }
+        #endregion
 
         void Start()
         {
@@ -176,8 +183,20 @@ namespace Spacchiamo
             enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
             enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
             enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
-            enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7"); 
+            enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+
+            fear = GameObject.Find("Fear Counter").GetComponent<Text>();
+            fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
+            turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
+            lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
             #endregion
+
+            //Ui initialization
+            Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
+            Ui_Manager.instance.UiInitialization();
+
+            //Scene Manager initilization
+            Scene_Manager.instance.SceneManagerInitialization();
 
             #region Grid Initialization
             // Grid Initialization
@@ -195,6 +214,8 @@ namespace Spacchiamo
             cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
             cameraLink.target = playerLink;
 
+            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
+
             // Player Active Ability transfer conditions 
             if (playerAbilities.Count == 0)
             {
@@ -205,6 +226,12 @@ namespace Spacchiamo
             else
                 playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
 
+            playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
+            playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
+            playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
+
+            healthPotStacks = 2;
+            playerLink.GetComponent<Player_Controller>().healthPotStacks = healthPotStacks;
 
 
             // Player Passive Ability transfer conditions 
@@ -243,39 +270,139 @@ namespace Spacchiamo
             Enemies_Manager.instance.PassingEnemyList(enemy6Array);
             Enemies_Manager.instance.PassingEnemyList(enemy7Array);
 
+            Enemies_Manager.instance.GivingPlayerRef(playerLink);
             
             Enemies_Manager.instance.ImplementingEachEnemySettings();
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
             Enemies_Manager.instance.SettingEnemyVisibility();
-           
+
+            Enemies_Manager.instance.SettingSortingOrder();
+            Enemies_Manager.instance.InitializeWhereToGo();
+
+            Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
             currentPhase = GAME_PHASE.playerTurn; 
             #endregion
 
         }
 
-        public void ChangePhase(GAME_PHASE passedPhase)
-        {
-            Enemies_Manager.instance.CheckingAggro();
 
-            switch (passedPhase)
+        void OnLevelWasLoaded(int level)
+        {
+            #region Taking All References
+            // Finding the necessary References to start the initialization sequence
+            playerLink = GameObject.FindGameObjectWithTag("Player");
+            cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
+            faloList = GameObject.FindGameObjectsWithTag("Falo");
+            enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
+            enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
+            enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
+            enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
+            enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
+            enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
+            enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+
+            fear = GameObject.Find("Fear Counter").GetComponent<Text>();
+            fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
+            turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
+            lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
+            #endregion
+
+            //Ui initialization
+            Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
+            Ui_Manager.instance.UiInitialization();
+
+            //Scene Manager initilization
+            Scene_Manager.instance.SceneManagerInitialization();
+
+            #region Grid Initialization
+            // Grid Initialization
+            Grid_Manager.instance.GivingPlayerRef(playerLink);
+            Grid_Manager.instance.PreparingOptimizedGridSpace();
+            Grid_Manager.instance.LinkingFaloMechanic(faloList);
+            #endregion
+
+            #region Player Scene Initialization
+            //Player Initialization
+            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+            playerActions playerPosition = playerLink.GetComponent<playerActions>();
+            Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+            playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+            cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
+            cameraLink.target = playerLink;
+            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
+
+            // Player Active Ability transfer conditions 
+            if (playerAbilities.Count == 0)
             {
-                case GAME_PHASE.playerTurn:
-                    currentPhase = GAME_PHASE.npcEnemyTurn;
-                    break;
-                case GAME_PHASE.npcEnemyTurn:
-                    currentPhase = GAME_PHASE.playerTurn;
-                    break;
-                default:
-                    break;
+                TakingDesActAbilities();
+                playerLink.GetComponent<Player_Controller>().actAbilities = playerAbilities;
+
             }
+            else
+                playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
 
-        }
+
+            playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
+            playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
+            playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
+
+            healthPotStacks = 2;
+            playerLink.GetComponent<Player_Controller>().healthPotStacks = healthPotStacks;
+
+            // Player Passive Ability transfer conditions 
+
+            pOriginalName searchingPassive = pOriginalName.NotFound;
+            searchingPassive = CheckingCurrentPassive();
+
+            if (searchingPassive == pOriginalName.Rigenerazione)
+            {
+                playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
+            }
+            else
+            {
+                if (Designer_Tweaks.instance.passiveTesting == pOriginalName.Rigenerazione)
+                {
+                    playerRegAbility = AbiRepository.instance.PassRepostr.regeneration;
+                    playerRegAbility.active = true;
+                    playerRegAbility.discovered = true;
+                    for (int i = 1; i < Designer_Tweaks.instance.passiveLevel; i++)
+                        playerRegAbility = IncreaseRegLevel(playerRegAbility);
+                    playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
+                }
+            }
+            #endregion
+
+            #region Enemy Scene Initialization
+            // Enemies Initialization
+            AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
+            Enemies_Manager.instance.SetEnemyManagerStructs();
+
+            Enemies_Manager.instance.ClearEnemyReferences();
+
+            Enemies_Manager.instance.PassingEnemyList(enemy1Array);
+            Enemies_Manager.instance.PassingEnemyList(enemy2Array);
+            Enemies_Manager.instance.PassingEnemyList(enemy3Array);
+            Enemies_Manager.instance.PassingEnemyList(enemy4Array);
+            Enemies_Manager.instance.PassingEnemyList(enemy5Array);
+            Enemies_Manager.instance.PassingEnemyList(enemy6Array);
+            Enemies_Manager.instance.PassingEnemyList(enemy7Array);
+
+            Enemies_Manager.instance.GivingPlayerRef(playerLink);
 
 
-        public GameObject TakingPlayerRef()
-        {
-            return playerLink;
+            Enemies_Manager.instance.ImplementingEachEnemySettings();
+            Enemies_Manager.instance.SettingOccupiedInitialStatus();
+            Enemies_Manager.instance.SettingEnemyVisibility();
+
+            Enemies_Manager.instance.SettingSortingOrder();
+            Enemies_Manager.instance.InitializeWhereToGo();
+            
+            Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
+
+            currentPhase = GAME_PHASE.playerTurn;
+            #endregion
+
         }
 
 
@@ -340,8 +467,13 @@ namespace Spacchiamo
 
 
             return increase;
-        } 
+        }
         #endregion
 
+        // Methods to be Called on Request by other scripts
+        public GameObject TakingPlayerRef()
+        {
+            return playerLink;
+        }
     }
 }

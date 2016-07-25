@@ -47,6 +47,8 @@ namespace Spacchiamo
         public void TakingPlayerAbilityEffects(float damageTaken, int knockBackTaken)
         {
             isAggroed = true;
+
+            if(enemyCurrentSetting.behaviour != behaviour.fearMonster)
             enemyCurrentSetting.life -= damageTaken;
 
             if (enemyCurrentSetting.life <= 0)
