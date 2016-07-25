@@ -9,6 +9,7 @@ namespace Spacchiamo
     {
         #region PlayerRepo
 
+        #region Old
         [SerializeField]
         private List<actPlayerAbility> actRepo = new List<actPlayerAbility>();
 
@@ -29,7 +30,10 @@ namespace Spacchiamo
             {
                 return passRepostr;
             }
-        }
+        } 
+        #endregion
+
+        public playerSettings playerInitialSetting = new playerSettings();
         #endregion
 
 

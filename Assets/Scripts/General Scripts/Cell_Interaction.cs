@@ -68,9 +68,9 @@ namespace Spacchiamo
                 if (playerContLink.attackSelection && inRange)
                 {
                     if (playerContLink.firstAbilityPressed)
-                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.ActAbilities[0].areaEffect);
                     else
-                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                        Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.ActAbilities[1].areaEffect);
 
                     mouseEnter = true;
                 }
@@ -94,9 +94,9 @@ namespace Spacchiamo
                 if (playerContLink.attackSelection)
                 {
                     if (playerContLink.firstAbilityPressed)
-                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[0].areaEffect);
+                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.ActAbilities[0].areaEffect);
                     else
-                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.actAbilities[1].areaEffect);
+                        Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.ActAbilities[1].areaEffect);
 
 
                     /*
@@ -126,10 +126,10 @@ namespace Spacchiamo
                 
                 if (playerContLink.firstAbilityPressed)
                 {
-                    Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.actAbilities[0].damage, playerContLink.actAbilities[0].knockBack);
+                    Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[0].damage, playerContLink.ActAbilities[0].knockBack);
                 }
                 else
-                    Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.actAbilities[1].damage, playerContLink.actAbilities[1].knockBack);
+                    Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[1].damage, playerContLink.ActAbilities[1].knockBack);
 
                 playerContLink.ResetAttackBooleans();
                 mouseEnter = false;

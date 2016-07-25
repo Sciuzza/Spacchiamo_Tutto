@@ -8,45 +8,12 @@ namespace Spacchiamo
     {
         
         playerActions moveLink;
-
-        public float Life = 20;
-        public int expGained;
-        public int unspentAbilityPoints;
-        public int playerLevel;
-
-        public int healthPotStacks;
-
-        public int regCounter = 0;
-
-
-        public int FearValue = 0;
-        public bool fear1Activated = false;
-        public bool fear2Activated = false;
-        public float fear1Percent = 0.15f;
-        public float fear2Percent = 0.15f;
-        public int TurnValue = 0;
-        public int fearTurnCounter = 0;
-
-        public bool attackSelection = false;
-
-        public bool firstAbilityPressed, secondAbilityPressed;
+      
 
 
         public List<actPlayerAbility> actAbilities = new List<actPlayerAbility>();
         public regAbility regPassive = new regAbility();
 
-        public List<actPlayerAbility> Abilities
-        {
-            get
-            {
-                return actAbilities;
-            }
-
-            set
-            {
-                actAbilities = value;
-            }
-        }
         public regAbility RegPassive
         {
             get
@@ -59,6 +26,23 @@ namespace Spacchiamo
                 regPassive = value;
             }
         }
+        public List<actPlayerAbility> ActAbilities
+        {
+            get
+            {
+                return actAbilities;
+            }
+
+            set
+            {
+                actAbilities = value;
+            }
+        }
+
+        public playerSettings CurSet = new playerSettings();
+
+        public bool attackSelection;
+        public bool firstAbilityPressed, secondAbilityPressed;
 
         void Awake()
         {
@@ -79,20 +63,20 @@ namespace Spacchiamo
                 }
                 if (Input.GetKeyUp(KeyCode.Q) && !attackSelection)
                 {
-                    if (actAbilities[0].knockBack == 0)
-                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                    if (ActAbilities[0].knockBack == 0)
+                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
                     else
-                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[0].range);
+                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
 
                     firstAbilityPressed = true;
                     attackSelection = true;
                 }
                 if (Input.GetKeyUp(KeyCode.E) && !attackSelection)
                 {
-                    if (actAbilities[1].knockBack == 0)
-                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                    if (ActAbilities[1].knockBack == 0)
+                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
                     else
-                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), actAbilities[1].range);
+                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
 
                     secondAbilityPressed = true;
                     attackSelection = true;                  
@@ -112,7 +96,7 @@ namespace Spacchiamo
 
                     attackSelection = false;
                 }
-                if (Input.GetKeyUp(KeyCode.R) && !attackSelection && healthPotStacks >= 1)
+                if (Input.GetKeyUp(KeyCode.R) && !attackSelection && CurSet.healthPotStacks >= 1)
                 {
                     ApplyingHPotionEffects();
                     moveLink.IncreasingFearAndTurn();
@@ -160,8 +144,8 @@ namespace Spacchiamo
      
         public void TakingDamage(float damage)
         {
-            Life -= damage;
-            if (Life <= 0)
+            CurSet.Life -= damage;
+            if (CurSet.Life <= 0)
                 KillingPlayer();
         }
 
@@ -172,33 +156,48 @@ namespace Spacchiamo
 
         public void GainingExp(int expDeadMonster)
         {
-            expGained += expDeadMonster;
+            CurSet.expGained += expDeadMonster;
         }
 
         public void CheckingCurrentLevel()
         {
-            if (expGained % ( (int)(((float)5/2) * playerLevel * playerLevel) + (((float)195/2) * playerLevel) ) == 0)
+            if (CurSet.expGained % ( (int)(((float)5/2) * CurSet.playerLevel * CurSet.playerLevel) + (((float)195/2) * CurSet.playerLevel) ) == 0)
             {
-                unspentAbilityPoints++;
-                playerLevel++;
+                CurSet.unspentAbilityPoints++;
+                CurSet.playerLevel++;
             }
 
         }
 
         private void ApplyingHPotionEffects()
         {
-            FearValue -= 10;
-            if (FearValue < 0)
-                FearValue = 0;
+            CurSet.FearValue -= 10;
+            if (CurSet.FearValue < 0)
+                CurSet.FearValue = 0;
 
-            Life += 2;
-            if (Life > 20)
-                Life = 20;
+            CurSet.Life += 2;
+            if (CurSet.Life > 20)
+                CurSet.Life = 20;
 
-            healthPotStacks--;
+            CurSet.healthPotStacks--;
 
-            Ui_Manager.instance.SettingFearValue(FearValue);
+            Ui_Manager.instance.SettingFearValue(CurSet.FearValue);
             
+        }
+
+
+        public void SelectingActiveAbilities()
+        {
+            actPlayerAbility qAbility = new actPlayerAbility();
+            qAbility = CurSet.activeStorage.Find(x => x.active == true && x.category == type.Primary);
+            actAbilities.Add(qAbility);
+
+            actPlayerAbility eAbility = new actPlayerAbility();
+            eAbility = CurSet.activeStorage.Find(x => x.active == true && x.category == type.Secondary);
+            actAbilities.Add(eAbility);
+
+            if (CurSet.passiveStorage.regeneration.active)
+                regPassive = CurSet.passiveStorage.regeneration;
         }
 
     }

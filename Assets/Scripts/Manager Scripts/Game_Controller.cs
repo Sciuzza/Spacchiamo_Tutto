@@ -52,6 +52,7 @@ namespace Spacchiamo
         public float rpIncPerLevel;
         public int cooldown;
         public int cooldownDecPerLevel;
+        public int regCounter;
         public bool discovered;
         public bool active;
     }
@@ -60,6 +61,25 @@ namespace Spacchiamo
     public struct passAbilities
     {
         public regAbility regeneration;
+    }
+
+    [System.Serializable]
+    public struct playerSettings
+    {
+        public float Life;
+        public int expGained;
+        public int unspentAbilityPoints;
+        public int playerLevel;
+        public int healthPotStacks;
+        public int TurnValue;
+        public int FearValue;
+        public int fearTurnCounter;
+        public bool fear1Activated;
+        public bool fear2Activated;
+        public float fear1Percent;
+        public float fear2Percent;
+        public List<actPlayerAbility> activeStorage;
+        public passAbilities passiveStorage;
     }
     #endregion
 
@@ -122,10 +142,13 @@ namespace Spacchiamo
     public class Game_Controller : MonoBehaviour
     {
 
+        #region Phase Variables
         // obvious LOL
         public GAME_PHASE currentPhase = GAME_PHASE.init;
         public GAME_PHASE previousPhase = GAME_PHASE.playerTurn;
+        #endregion
 
+        #region All Reference Variables
         // to be passed to Enemy Manager
         GameObject[] enemy1Array, enemy2Array, enemy3Array, enemy4Array, enemy5Array, enemy6Array, enemy7Array;
 
@@ -137,19 +160,18 @@ namespace Spacchiamo
         Slider fearBar;
         UILifePanelScript lifePanelScript;
 
-        // to be passed to Player Controller
-        List<actPlayerAbility> playerAbilities = new List<actPlayerAbility>();
-        regAbility playerRegAbility = new regAbility();
-        public int expPlayerGained = 0;
-        public int unspentPlayerAbilityPoints = 0;
-        public int playerLevel = 1;
-        public int healthPotStacks;
-
         // to give Camera the player as target
         Camera_Movement cameraLink;
 
+        // player reference to be passed on many scripts
         [HideInInspector]
         public GameObject playerLink;
+
+        #endregion
+
+        #region Player Data Save New
+        public playerSettings playerStoredSettings = new playerSettings(); 
+        #endregion
 
         #region SingleTone
         [HideInInspector]
@@ -191,21 +213,25 @@ namespace Spacchiamo
             lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
             #endregion
 
+            #region Hud Initialization (all gameplay scenes)
             //Ui initialization
             Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
             Ui_Manager.instance.UiInitialization();
+            #endregion
 
+            #region Scene Manager Initialization (all scenes)
             //Scene Manager initilization
             Scene_Manager.instance.SceneManagerInitialization();
+            #endregion
 
-            #region Grid Initialization
+            #region Grid Initialization (all gameplay scenes)
             // Grid Initialization
             Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
-            Grid_Manager.instance.LinkingFaloMechanic(faloList); 
+            Grid_Manager.instance.LinkingFaloMechanic(faloList);
             #endregion
 
-            #region Player Scene Initialization
+            #region Player Scene Initialization (all gameplay scenes)
             //Player Initialization
             Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
             playerActions playerPosition = playerLink.GetComponent<playerActions>();
@@ -213,54 +239,31 @@ namespace Spacchiamo
             playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
             cameraLink.target = playerLink;
-
             playerLink.GetComponent<playerActions>().InitializeSortingOrder();
 
-            // Player Active Ability transfer conditions 
-            if (playerAbilities.Count == 0)
+            if (playerStoredSettings.activeStorage.Count == 0)
             {
-                TakingDesActAbilities();
-                playerLink.GetComponent<Player_Controller>().actAbilities = playerAbilities;
-
-            }
-            else
-                playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
-
-            playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
-            playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
-            playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
-
-            healthPotStacks = 2;
-            playerLink.GetComponent<Player_Controller>().healthPotStacks = healthPotStacks;
-
-
-            // Player Passive Ability transfer conditions 
-
-            pOriginalName searchingPassive = pOriginalName.NotFound;
-            searchingPassive = CheckingCurrentPassive();
-
-            if (searchingPassive == pOriginalName.Rigenerazione)
-            {
-                playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
+                InitializePlayerStats();
+                InitializeAbiStorage();
+                TakingDesAbilitiesExp();
+                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
             }
             else
             {
-                if (Designer_Tweaks.instance.passiveTesting == pOriginalName.Rigenerazione)
-                {
-                    playerRegAbility = AbiRepository.instance.PassRepostr.regeneration;
-                    playerRegAbility.active = true;
-                    playerRegAbility.discovered = true;
-                    for (int i = 1; i < Designer_Tweaks.instance.passiveLevel; i++)
-                        playerRegAbility = IncreaseRegLevel(playerRegAbility);
-                    playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
-                }
-            }
+                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+            } 
+   
+
             #endregion
 
-            #region Enemy Scene Initialization
+            #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
             // Enemies Initialization
             AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
             Enemies_Manager.instance.SetEnemyManagerStructs();
+
+            Enemies_Manager.instance.ClearEnemyReferences();
 
             Enemies_Manager.instance.PassingEnemyList(enemy1Array);
             Enemies_Manager.instance.PassingEnemyList(enemy2Array);
@@ -271,7 +274,8 @@ namespace Spacchiamo
             Enemies_Manager.instance.PassingEnemyList(enemy7Array);
 
             Enemies_Manager.instance.GivingPlayerRef(playerLink);
-            
+
+
             Enemies_Manager.instance.ImplementingEachEnemySettings();
             Enemies_Manager.instance.SettingOccupiedInitialStatus();
             Enemies_Manager.instance.SettingEnemyVisibility();
@@ -281,11 +285,10 @@ namespace Spacchiamo
 
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
-            currentPhase = GAME_PHASE.playerTurn; 
+            currentPhase = GAME_PHASE.playerTurn;
             #endregion
 
         }
-
 
         void OnLevelWasLoaded(int level)
         {
@@ -308,21 +311,25 @@ namespace Spacchiamo
             lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
             #endregion
 
+            #region Hud Initialization (all gameplay scenes)
             //Ui initialization
             Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
             Ui_Manager.instance.UiInitialization();
+            #endregion
 
+            #region Scene Manager Initialization (all scenes)
             //Scene Manager initilization
             Scene_Manager.instance.SceneManagerInitialization();
+            #endregion
 
-            #region Grid Initialization
+            #region Grid Initialization (all gameplay scenes)
             // Grid Initialization
             Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
             #endregion
 
-            #region Player Scene Initialization
+            #region Player Scene Initialization (all gameplay scenes)
             //Player Initialization
             Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
             playerActions playerPosition = playerLink.GetComponent<playerActions>();
@@ -332,48 +339,25 @@ namespace Spacchiamo
             cameraLink.target = playerLink;
             playerLink.GetComponent<playerActions>().InitializeSortingOrder();
 
-            // Player Active Ability transfer conditions 
-            if (playerAbilities.Count == 0)
+           
+            if (playerStoredSettings.activeStorage.Count == 0)
             {
-                TakingDesActAbilities();
-                playerLink.GetComponent<Player_Controller>().actAbilities = playerAbilities;
-
-            }
-            else
-                playerLink.GetComponent<Player_Controller>().Abilities.AddRange(playerAbilities);
-
-
-            playerLink.GetComponent<Player_Controller>().expGained = expPlayerGained;
-            playerLink.GetComponent<Player_Controller>().unspentAbilityPoints = unspentPlayerAbilityPoints;
-            playerLink.GetComponent<Player_Controller>().playerLevel = playerLevel;
-
-            healthPotStacks = 2;
-            playerLink.GetComponent<Player_Controller>().healthPotStacks = healthPotStacks;
-
-            // Player Passive Ability transfer conditions 
-
-            pOriginalName searchingPassive = pOriginalName.NotFound;
-            searchingPassive = CheckingCurrentPassive();
-
-            if (searchingPassive == pOriginalName.Rigenerazione)
-            {
-                playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
+                InitializePlayerStats();
+                InitializeAbiStorage();
+                TakingDesAbilitiesExp();
+                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
             }
             else
             {
-                if (Designer_Tweaks.instance.passiveTesting == pOriginalName.Rigenerazione)
-                {
-                    playerRegAbility = AbiRepository.instance.PassRepostr.regeneration;
-                    playerRegAbility.active = true;
-                    playerRegAbility.discovered = true;
-                    for (int i = 1; i < Designer_Tweaks.instance.passiveLevel; i++)
-                        playerRegAbility = IncreaseRegLevel(playerRegAbility);
-                    playerLink.GetComponent<Player_Controller>().RegPassive = playerRegAbility;
-                }
+                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
             }
+           
+
             #endregion
 
-            #region Enemy Scene Initialization
+            #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
             // Enemies Initialization
             AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
             Enemies_Manager.instance.SetEnemyManagerStructs();
@@ -408,34 +392,77 @@ namespace Spacchiamo
 
         #region Player Initialization Methods
 
-        private void TakingDesActAbilities()
+        private void InitializePlayerStats()
         {
-            actPlayerAbility currentAbility1 = new actPlayerAbility();
+            playerStoredSettings.Life = AbiRepository.instance.playerInitialSetting.Life;
+            playerStoredSettings.expGained = AbiRepository.instance.playerInitialSetting.expGained;
+            playerStoredSettings.unspentAbilityPoints = AbiRepository.instance.playerInitialSetting.unspentAbilityPoints;
+            playerStoredSettings.playerLevel = AbiRepository.instance.playerInitialSetting.playerLevel;
+            playerStoredSettings.healthPotStacks = AbiRepository.instance.playerInitialSetting.healthPotStacks;
+            playerStoredSettings.FearValue = AbiRepository.instance.playerInitialSetting.FearValue;
+            playerStoredSettings.TurnValue = AbiRepository.instance.playerInitialSetting.TurnValue;
+            playerStoredSettings.fearTurnCounter = AbiRepository.instance.playerInitialSetting.fearTurnCounter;
+            playerStoredSettings.fear1Activated = AbiRepository.instance.playerInitialSetting.fear1Activated;
+            playerStoredSettings.fear2Activated = AbiRepository.instance.playerInitialSetting.fear2Activated;
+            playerStoredSettings.fear1Percent = AbiRepository.instance.playerInitialSetting.fear1Percent;
+            playerStoredSettings.fear2Percent = AbiRepository.instance.playerInitialSetting.fear2Percent;
+        }
 
-            currentAbility1 = AbiRepository.instance.ARepository.Find(x => x.oname == Designer_Tweaks.instance.primaryTesting && x.weapon == Designer_Tweaks.instance.primaryWeapon);
-            currentAbility1.active = true;
-            currentAbility1.discovered = true;
+        private void InitializeAbiStorage()
+        {
+            playerStoredSettings.activeStorage.AddRange(AbiRepository.instance.playerInitialSetting.activeStorage);
+            playerStoredSettings.passiveStorage = AbiRepository.instance.playerInitialSetting.passiveStorage;
+        }
+
+        private void TakingDesAbilitiesExp()
+        {
+            actPlayerAbility currentAbility = new actPlayerAbility();
+
+            currentAbility = AbiRepository.instance.playerInitialSetting.activeStorage.Find(x => x.oname == Designer_Tweaks.instance.primaryTesting && x.weapon == Designer_Tweaks.instance.primaryWeapon);
+            currentAbility.active = true;
+            currentAbility.discovered = true;
 
             for (int i = 1; i < Designer_Tweaks.instance.primaryLevel; i++)
-                currentAbility1 = IncreaseActAbilityLevel(currentAbility1);
+                currentAbility = IncreaseActAbilityLevel(currentAbility);
 
+            int abiIndex;
 
+            abiIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == Designer_Tweaks.instance.primaryTesting && x.weapon == Designer_Tweaks.instance.primaryWeapon);
 
-            actPlayerAbility currentAbility2 = new actPlayerAbility();
+            playerStoredSettings.activeStorage.RemoveAt(abiIndex);
+            playerStoredSettings.activeStorage.Insert(abiIndex, currentAbility);
 
-            currentAbility2 = AbiRepository.instance.ARepository.Find(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
-            currentAbility2.active = true;
-            currentAbility2.discovered = true;
+            
+
+            currentAbility = AbiRepository.instance.playerInitialSetting.activeStorage.Find(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
+            currentAbility.active = true;
+            currentAbility.discovered = true;
 
             for (int i = 1; i < Designer_Tweaks.instance.seconLevel; i++)
-                currentAbility2 = IncreaseActAbilityLevel(currentAbility2);
+                currentAbility = IncreaseActAbilityLevel(currentAbility);
 
+            abiIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
 
+            playerStoredSettings.activeStorage.RemoveAt(abiIndex);
+            playerStoredSettings.activeStorage.Insert(abiIndex, currentAbility);
 
-            playerAbilities.Add(currentAbility1);
-            playerAbilities.Add(currentAbility2);
+            if (Designer_Tweaks.instance.passiveTesting == pOriginalName.Rigenerazione)
+            {
+                regAbility regPassive = new regAbility();
+                regPassive = AbiRepository.instance.playerInitialSetting.passiveStorage.regeneration;
+
+                regPassive.active = true;
+                regPassive.discovered = true;
+
+                for (int i = 1; i < Designer_Tweaks.instance.passiveLevel; i++)
+                    regPassive = IncreaseRegLevel(regPassive);
+
+                playerStoredSettings.passiveStorage.regeneration = regPassive;
+            }
 
         }
+
+      
 
         public actPlayerAbility IncreaseActAbilityLevel(actPlayerAbility abiToIncrease)
         {
@@ -450,14 +477,6 @@ namespace Spacchiamo
             return abiToIncrease;
         }
 
-        private pOriginalName CheckingCurrentPassive()
-        {
-            if (playerRegAbility.active)
-                return pOriginalName.Rigenerazione;
-            else
-                return pOriginalName.NotFound;
-        }
-
         public regAbility IncreaseRegLevel(regAbility increase)
         {
 
@@ -470,10 +489,12 @@ namespace Spacchiamo
         }
         #endregion
 
+        #region General Methods (called by other scripts)
         // Methods to be Called on Request by other scripts
         public GameObject TakingPlayerRef()
         {
             return playerLink;
-        }
+        } 
+        #endregion
     }
 }

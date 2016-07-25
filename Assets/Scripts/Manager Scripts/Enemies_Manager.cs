@@ -65,14 +65,14 @@ namespace Spacchiamo
             {
                 spawnChance = Random.Range(0f, 1f);
 
-                if (playerTemp.GetComponent<Player_Controller>().fear1Activated)
+                if (playerTemp.GetComponent<Player_Controller>().CurSet.fear1Activated)
                 {
-                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().fear1Percent)
+                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().CurSet.fear1Percent)
                         SpawnFear1Monster();
                 }
-                else if (playerTemp.GetComponent<Player_Controller>().fear2Activated)
+                else if (playerTemp.GetComponent<Player_Controller>().CurSet.fear2Activated)
                 {
-                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().fear2Percent)
+                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().CurSet.fear2Percent)
                         SpawnFear2Monster();
                 }
                 fearPhaseChecked = true;
@@ -364,7 +364,7 @@ namespace Spacchiamo
         public void SettingSortingOrder()
         {
             for (int i = 0; i < enemyReferences.Count; i++)
-                enemyReferences[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
+                enemyReferences[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
         }
 
         public void InitializeWhereToGo()

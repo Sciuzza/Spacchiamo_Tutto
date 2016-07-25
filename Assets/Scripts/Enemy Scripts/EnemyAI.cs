@@ -425,7 +425,7 @@ namespace Spacchiamo
             if (this.distance.sqrMagnitude < 0.01f)
             {
                 this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
-                this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yEnemy;
+                this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - yEnemy;
                 ResettingMoveDirection();
                 isMoving = false;
 

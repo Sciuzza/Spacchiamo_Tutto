@@ -6,12 +6,32 @@ namespace Spacchiamo
 {
     public class Designer_Tweaks : MonoBehaviour
     {
+        #region General Designer Tweak Values
         //General Designer Variables
         [Range(1, 5)]
-        public int playerLightM, faloLigthM, generalMoveSpeed, fearScaleRate;
+        public int playerLightM, faloLigthM, generalMoveSpeed, fearScaleRate; 
+        #endregion
 
-        
-        public int level1XWidth, level1yWidth;
+        #region General Programmer Tweak Values
+        private int level1YWidth = 200;
+        private int level1XWidth = 200;
+
+        public int Level1XWidth
+        {
+            get
+            {
+                return level1XWidth;
+            }
+        }
+
+        public int Level1YWidth
+        {
+            get
+            {
+                return level1YWidth;
+            }
+        } 
+        #endregion
 
         #region Designer player ability selection for testing purpose
 
@@ -36,27 +56,7 @@ namespace Spacchiamo
         public int passiveLevel;
         #endregion
 
-        #region Designer enemy ability selection
-
-        [System.Serializable]
-        public struct ActEnemyAbDesigner
-        {
-            public eneOriginalName oname;
-            [Range(1, 5)]
-            public int level;
-        }
-
-        [System.Serializable]
-        public struct enemySettings
-        {
-            public enemy whichEnemy;
-            public List<ActEnemyAbDesigner> actAbilities;
-        }
-
-        public List<enemySettings> Enemies = new List<enemySettings>(); 
-        #endregion
-
-
+        #region SingleTone
         [HideInInspector]
         public static Designer_Tweaks instance = null;
 
@@ -66,7 +66,8 @@ namespace Spacchiamo
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
-        }
+        } 
+        #endregion
 
     }
 }

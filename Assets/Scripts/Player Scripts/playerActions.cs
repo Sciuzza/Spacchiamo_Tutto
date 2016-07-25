@@ -48,7 +48,7 @@ namespace Spacchiamo
                     //Getting the light around the player
                     Grid_Manager.instance.GettingLight(xPlayer, yPlayer);
 
-                    this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yPlayer;
+                    this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - yPlayer;
                     //Increasing Fear Bar and Fear Value by 1
                     IncreasingFearAndTurn();
                 }
@@ -120,49 +120,49 @@ namespace Spacchiamo
 
         public void FearManager()
         {
-            if (pControllerLink.FearValue >= 20 && pControllerLink.FearValue < 22)
+            if (pControllerLink.CurSet.FearValue >= 20 && pControllerLink.CurSet.FearValue < 22)
             {
-                if (!pControllerLink.fear1Activated)
-                    pControllerLink.fear1Activated = true;
+                if (!pControllerLink.CurSet.fear1Activated)
+                    pControllerLink.CurSet.fear1Activated = true;
             }
-            else if (pControllerLink.FearValue >= 22 && pControllerLink.FearValue < 24)
+            else if (pControllerLink.CurSet.FearValue >= 22 && pControllerLink.CurSet.FearValue < 24)
             {
-                pControllerLink.fear1Percent = 0.20f;
+                pControllerLink.CurSet.fear1Percent = 0.20f;
             }
-            else if (pControllerLink.FearValue >= 24 && pControllerLink.FearValue < 26)
+            else if (pControllerLink.CurSet.FearValue >= 24 && pControllerLink.CurSet.FearValue < 26)
             {
-                pControllerLink.fear1Percent = 0.25f;
+                pControllerLink.CurSet.fear1Percent = 0.25f;
             }
-            else if (pControllerLink.FearValue >= 26 && pControllerLink.FearValue < 28)
+            else if (pControllerLink.CurSet.FearValue >= 26 && pControllerLink.CurSet.FearValue < 28)
             {
-                pControllerLink.fear1Percent = 0.30f;
+                pControllerLink.CurSet.fear1Percent = 0.30f;
             }
-            else if (pControllerLink.FearValue >= 28 && pControllerLink.FearValue < 30)
+            else if (pControllerLink.CurSet.FearValue >= 28 && pControllerLink.CurSet.FearValue < 30)
             {
-                pControllerLink.fear1Percent = 0.35f;
+                pControllerLink.CurSet.fear1Percent = 0.35f;
             }
-            else if (pControllerLink.FearValue >= 30 && pControllerLink.FearValue < 32)
+            else if (pControllerLink.CurSet.FearValue >= 30 && pControllerLink.CurSet.FearValue < 32)
             {
-                pControllerLink.fear1Activated = false;
-                pControllerLink.fear2Activated = true;
+                pControllerLink.CurSet.fear1Activated = false;
+                pControllerLink.CurSet.fear2Activated = true;
             }
-            else if (pControllerLink.FearValue >= 32 && pControllerLink.FearValue < 34)
+            else if (pControllerLink.CurSet.FearValue >= 32 && pControllerLink.CurSet.FearValue < 34)
             {
-                pControllerLink.fear2Percent = 0.20f;
+                pControllerLink.CurSet.fear2Percent = 0.20f;
             }
-            else if (pControllerLink.FearValue >= 34 && pControllerLink.FearValue < 36)
+            else if (pControllerLink.CurSet.FearValue >= 34 && pControllerLink.CurSet.FearValue < 36)
             {
-                pControllerLink.fear2Percent = 0.25f;
+                pControllerLink.CurSet.fear2Percent = 0.25f;
             }
-            else if (pControllerLink.FearValue >= 36 && pControllerLink.FearValue < 38)
+            else if (pControllerLink.CurSet.FearValue >= 36 && pControllerLink.CurSet.FearValue < 38)
             {
-                pControllerLink.fear2Percent = 0.30f;
+                pControllerLink.CurSet.fear2Percent = 0.30f;
             }
-            else if (pControllerLink.FearValue >= 38 && pControllerLink.FearValue < 40)
+            else if (pControllerLink.CurSet.FearValue >= 38 && pControllerLink.CurSet.FearValue < 40)
             {
-                pControllerLink.fear2Percent = 0.35f;
+                pControllerLink.CurSet.fear2Percent = 0.35f;
             }
-            else if (pControllerLink.FearValue == 40)
+            else if (pControllerLink.CurSet.FearValue == 40)
                 pControllerLink.KillingPlayer();
         }
 
@@ -180,10 +180,10 @@ namespace Spacchiamo
         {
             if (!Grid_Manager.instance.IsCellReceivingLight(xPlayer, yPlayer))
             {
-                if (++pControllerLink.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
+                if (++pControllerLink.CurSet.fearTurnCounter % Designer_Tweaks.instance.fearScaleRate == 0)
                 {
-                    pControllerLink.FearValue++;
-                    Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
+                    pControllerLink.CurSet.FearValue++;
+                    Ui_Manager.instance.SettingFearValue(pControllerLink.CurSet.FearValue);
 
                     FearManager();
                 }
@@ -192,48 +192,48 @@ namespace Spacchiamo
             // Resetting Fear Bar and Value to 0
             else
             {
-                pControllerLink.fearTurnCounter = 0;
-                pControllerLink.FearValue = 0;
-                pControllerLink.fear1Activated = false;
-                pControllerLink.fear2Activated = false;
-                pControllerLink.fear1Percent = 0.15f;
-                pControllerLink.fear2Percent = 0.15f;
-                Ui_Manager.instance.SettingFearValue(pControllerLink.FearValue);
+                pControllerLink.CurSet.fearTurnCounter = 0;
+                pControllerLink.CurSet.FearValue = 0;
+                pControllerLink.CurSet.fear1Activated = false;
+                pControllerLink.CurSet.fear2Activated = false;
+                pControllerLink.CurSet.fear1Percent = 0.15f;
+                pControllerLink.CurSet.fear2Percent = 0.15f;
+                Ui_Manager.instance.SettingFearValue(pControllerLink.CurSet.FearValue);
             }
             //Increasing Turn Counter
-            pControllerLink.TurnValue++;
+            pControllerLink.CurSet.TurnValue++;
 
-            if (pControllerLink.regPassive.active)
+            if (pControllerLink.RegPassive.active)
             {
                 RegPassiveApplying();
             }
             Enemies_Manager.instance.SettingEnemyVisibility();
-            Ui_Manager.instance.SettingTurnValue(pControllerLink.TurnValue);
+            Ui_Manager.instance.SettingTurnValue(pControllerLink.CurSet.TurnValue);
         }
 
         private void RegPassiveApplying()
         {
-            if (pControllerLink.regCounter == pControllerLink.regPassive.cooldown)
+            if (pControllerLink.CurSet.passiveStorage.regeneration.regCounter == pControllerLink.RegPassive.cooldown)
             {
-                if (pControllerLink.Life < 20)
+                if (pControllerLink.CurSet.Life < 20)
                 {
-                    pControllerLink.Life += pControllerLink.regPassive.regPower;
+                    pControllerLink.CurSet.Life += pControllerLink.RegPassive.regPower;
 
-                    if (pControllerLink.Life > 20)
-                        pControllerLink.Life = 20;
+                    if (pControllerLink.CurSet.Life > 20)
+                        pControllerLink.CurSet.Life = 20;
 
-                    pControllerLink.regCounter = 0;
+                    pControllerLink.CurSet.passiveStorage.regeneration.regCounter = 0;
                 }
             }
             else
             {
-                pControllerLink.regCounter++;
+                pControllerLink.CurSet.passiveStorage.regeneration.regCounter++;
             }
         }
 
         public void InitializeSortingOrder()
         {
-            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - yPlayer;
+            this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - yPlayer;
         }
 
     }

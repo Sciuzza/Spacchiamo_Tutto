@@ -54,7 +54,7 @@ namespace Spacchiamo
             TileLoader tileLoaderTemp = tilesHolder.GetComponent<TileLoader>();
             List<TileData> tileReferences = tileLoaderTemp.LoadAllTilesInScene("Tile");
 
-            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.level1XWidth, Designer_Tweaks.instance.level1yWidth];
+            cellReferences = new Cell_Interaction[Designer_Tweaks.instance.Level1XWidth, Designer_Tweaks.instance.Level1YWidth];
 
 
             GameObject cellTemp = Resources.Load<GameObject>("Cell");
@@ -118,7 +118,7 @@ namespace Spacchiamo
             {
                 x = Mathf.FloorToInt(faloList[i].transform.position.x);
                 y = Mathf.FloorToInt(faloList[i].transform.position.y);
-                faloList[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.level1yWidth - y;
+                faloList[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - y;
 
                 cellReferences[x, y].SettingFalo();
                 cellReferences[x, y].faloAlpha = faloList[i].GetComponent<SpriteRenderer>();
