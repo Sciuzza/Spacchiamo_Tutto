@@ -462,8 +462,6 @@ namespace Spacchiamo
 
         }
 
-      
-
         public actPlayerAbility IncreaseActAbilityLevel(actPlayerAbility abiToIncrease)
         {
 

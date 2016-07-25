@@ -8,31 +8,6 @@ namespace Spacchiamo
     public class AbiRepository : MonoBehaviour
     {
         #region PlayerRepo
-
-        #region Old
-        [SerializeField]
-        private List<actPlayerAbility> actRepo = new List<actPlayerAbility>();
-
-        [SerializeField]
-        private passAbilities passRepostr = new passAbilities();
-
-        public List<actPlayerAbility> ARepository
-        {
-            get
-            {
-                return actRepo;
-            }
-        }
-
-        public passAbilities PassRepostr
-        {
-            get
-            {
-                return passRepostr;
-            }
-        } 
-        #endregion
-
         public playerSettings playerInitialSetting = new playerSettings();
         #endregion
 
