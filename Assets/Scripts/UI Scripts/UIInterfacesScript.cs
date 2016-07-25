@@ -40,4 +40,10 @@
 
 	}
 
+	internal interface IActivateAnAbilityOnClick {
+
+		void ActivateAbility (int i);
+
+	}
+
 }
