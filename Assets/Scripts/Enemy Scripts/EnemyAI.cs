@@ -225,6 +225,8 @@ namespace Spacchiamo
                                 isMoving = true;
                                 patChoiceCounter = 0;
                                 moveRateCounter++;
+                                if (!eControllerLink.IsFlipped())
+                                    eControllerLink.FlippingEnemy();
                             }
                             else
                             {
@@ -241,6 +243,8 @@ namespace Spacchiamo
                                 isMoving = true;
                                 patChoiceCounter = 0;
                                 moveRateCounter++;
+                                if (eControllerLink.IsFlipped())
+                                    eControllerLink.FlippingEnemy();
                             }
                             else
                             {
@@ -319,6 +323,12 @@ namespace Spacchiamo
                     whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
                     Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
+                    if (xEnemy - xPlayer > 0 && !eControllerLink.IsFlipped())
+                        eControllerLink.FlippingEnemy();
+                    else if (xEnemy - xPlayer <= 0 && eControllerLink.IsFlipped())
+                        eControllerLink.FlippingEnemy();
+                    
+
                     booleanResetted = false;
                     isMoving = true;
                 }
@@ -350,6 +360,11 @@ namespace Spacchiamo
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
 
+                if (xEnemy - xComeBack > 0 && !eControllerLink.IsFlipped())
+                    eControllerLink.FlippingEnemy();
+                else if (xEnemy - xComeBack <= 0 && eControllerLink.IsFlipped())
+                    eControllerLink.FlippingEnemy();
+
                 booleanResetted = false;
                 isMoving = true;
 
@@ -376,6 +391,12 @@ namespace Spacchiamo
                 whereToGo = Grid_Manager.instance.GetCellTransform(xEnemy, yEnemy);
                 Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
 
+                if (xEnemy - xComeBack > 0 && !eControllerLink.IsFlipped())
+                    eControllerLink.FlippingEnemy();
+                else if (xEnemy - xComeBack <= 0 && eControllerLink.IsFlipped())
+                    eControllerLink.FlippingEnemy();
+
+
                 booleanResetted = false;
                 isMoving = true;
             }
@@ -390,6 +411,14 @@ namespace Spacchiamo
                 if (eControllerLink.enemyCurrentSetting.behaviour != behaviour.fearMonster)
                 {
                     GhostMechanic();
+
+                    int xPlayer, yPlayer;
+                    Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
+
+                    if (xEnemy - xPlayer > 0 && !eControllerLink.IsFlipped())
+                        eControllerLink.FlippingEnemy();
+                    else if (xEnemy - xPlayer <= 0 && eControllerLink.IsFlipped())
+                        eControllerLink.FlippingEnemy();
 
                     Grid_Manager.instance.MakeDamageToPlayer(eControllerLink.enemyCurrentSetting.ability.damage);
                     booleanResetted = false;

@@ -167,6 +167,22 @@ namespace Spacchiamo
             GetComponent<SpriteRenderer>().color = ghostAlpha;
         }
 
+        public bool IsFlipped()
+        {
+            return this.GetComponent<SpriteRenderer>().flipX;
+        }
+
+        public void FlippingEnemy()
+        {
+            SpriteRenderer flipSprite = this.GetComponent<SpriteRenderer>();
+
+            if (flipSprite.flipX)
+                flipSprite.flipX = false;
+            else
+                flipSprite.flipX = true;
+
+        }
+
     }
 }
 

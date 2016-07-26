@@ -55,7 +55,7 @@ namespace Spacchiamo
                 if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && faloLightRefreshed)
                     faloLightRefreshed = false;
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R))
                 mouseEnter = false;
         }
 
@@ -64,10 +64,16 @@ namespace Spacchiamo
             if (!mouseEnter)
             {
                 Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-               
+                playerActions playerActionsLink = playerLink.GetComponent<playerActions>();
 
                 if (playerContLink.attackSelection && inRange)
                 {
+                    if (xCell - playerActionsLink.xPlayer >= 0 && playerContLink.IsFlipped())
+                        playerContLink.FlippingPlayer();
+                    else if (xCell - playerActionsLink.xPlayer < 0 && !playerContLink.IsFlipped())
+                        playerContLink.FlippingPlayer();
+
+
                     if (playerContLink.firstAbilityPressed)
                         Grid_Manager.instance.HighlightingAreaOfEffect(xCell, yCell, playerContLink.ActAbilities[0].areaEffect);
                     else
@@ -90,10 +96,10 @@ namespace Spacchiamo
             if (mouseEnter)
             {
                 Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
-               
 
                 if (playerContLink.attackSelection)
                 {
+
                     if (playerContLink.firstAbilityPressed)
                         Grid_Manager.instance.DelightingAreaOfEffect(xCell, yCell, playerContLink.ActAbilities[0].areaEffect);
                     else
@@ -116,6 +122,8 @@ namespace Spacchiamo
         {
 
             Player_Controller playerContLink = playerLink.GetComponent<Player_Controller>();
+           
+
             if (playerContLink.attackSelection && inRange)
             {
                 playerLink.GetComponent<playerActions>().IncreasingFearAndTurn();
@@ -124,7 +132,8 @@ namespace Spacchiamo
                 Game_Controller.instance.currentPhase = GAME_PHASE.knockAni;
                 Game_Controller.instance.previousPhase = GAME_PHASE.playerTurn;
 
-                
+               
+
                 if (playerContLink.firstAbilityPressed)
                 {
                     Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[0].damage, playerContLink.ActAbilities[0].knockBack);

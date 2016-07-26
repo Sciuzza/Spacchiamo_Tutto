@@ -187,6 +187,8 @@ namespace Spacchiamo
             if (CurSet.FearValue < 0)
                 CurSet.FearValue = 0;
 
+            moveLink.FearManager();
+
             CurSet.Life += 2;
             if (CurSet.Life > 20)
                 CurSet.Life = 20;

@@ -10,6 +10,8 @@ namespace Spacchiamo {
 		private Button primaryAbilityButton, secondaryAbilityButton, potionAbilityButton;
 		private UIHUDTooltipScript tooltip;
 
+       
+
 		protected internal override void Awake () {
 
 			this.image = this.GetComponent <Image> ();
@@ -104,6 +106,9 @@ namespace Spacchiamo {
 
 		}
 		
+
+      
+
 	}
 
 }

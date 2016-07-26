@@ -120,7 +120,14 @@ namespace Spacchiamo
 
         public void FearManager()
         {
-            if (pControllerLink.CurSet.FearValue >= 20 && pControllerLink.CurSet.FearValue < 22)
+            if (pControllerLink.CurSet.FearValue < 20)
+            {
+                pControllerLink.CurSet.fear1Activated = false;
+                pControllerLink.CurSet.fear2Activated = false;
+                pControllerLink.CurSet.fear1Percent = 0.15f;
+                pControllerLink.CurSet.fear2Percent = 0.15f;
+            }
+            else if (pControllerLink.CurSet.FearValue >= 20 && pControllerLink.CurSet.FearValue < 22)
             {
                 if (!pControllerLink.CurSet.fear1Activated)
                     pControllerLink.CurSet.fear1Activated = true;

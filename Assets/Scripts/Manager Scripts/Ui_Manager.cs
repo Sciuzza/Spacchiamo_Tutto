@@ -11,8 +11,7 @@ namespace Spacchiamo
 		Slider fearBar;
 		UIAbilitiesAndWeaponsCanvasScript abilitiesAndWeaponsCanvasScript;		//RIFERIMENTO AL CANVAS SCRIPT DELL'INTERFACCIA DELLE ARMI; DA ASSEGNARSI
 		UILifePanelScript lifePanelScript;
-
-
+        
         [HideInInspector]
         public static Ui_Manager instance = null;
 
@@ -140,5 +139,6 @@ namespace Spacchiamo
             fear.text = string.Format("{00}", 0);
             fearBar.value = 0f;
         }
+
     }
 }
