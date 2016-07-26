@@ -55,7 +55,7 @@ namespace Spacchiamo
                 if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && faloLightRefreshed)
                     faloLightRefreshed = false;
             }
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 mouseEnter = false;
         }
 
