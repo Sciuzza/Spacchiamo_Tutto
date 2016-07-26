@@ -287,6 +287,7 @@ namespace Spacchiamo
 
             Enemies_Manager.instance.SettingSortingOrder();
             Enemies_Manager.instance.InitializeWhereToGo();
+            Enemies_Manager.instance.InitilizeLifeFeedBack();
 
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
@@ -388,7 +389,8 @@ namespace Spacchiamo
 
             Enemies_Manager.instance.SettingSortingOrder();
             Enemies_Manager.instance.InitializeWhereToGo();
-            
+            Enemies_Manager.instance.InitilizeLifeFeedBack();
+
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
             currentPhase = GAME_PHASE.playerTurn;

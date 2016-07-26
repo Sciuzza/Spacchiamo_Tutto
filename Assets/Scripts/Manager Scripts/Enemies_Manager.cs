@@ -199,6 +199,12 @@ namespace Spacchiamo
             enemy7 = AbiRepository.instance.enemyRepo[6];
         }
 
+        public void ClearEnemyReferences()
+        {
+            enemyReferences.Clear();
+            enemyReferences.TrimExcess();
+        }
+
         public void PassingEnemyList(GameObject[] enemies)
         {
             enemyReferences.AddRange(enemies);
@@ -222,12 +228,16 @@ namespace Spacchiamo
             }
         }
 
+        public void GivingPlayerRef(GameObject player)
+        {
+            playerTemp = player;
+        }
+
         public void ImplementingEachEnemySettings()
         {
             for (int i = 0; i < enemyReferences.Count; i++)
             {
                 enemyReferences[i].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
-                enemyReferences[i].GetComponent<Enemy_Controller>().InitializingOwnAggro();
             }
         }
 
@@ -242,13 +252,6 @@ namespace Spacchiamo
             }
 
         }
-
-
-
-
-
-        #endregion
-
 
         public void SettingEnemyVisibility()
         {
@@ -266,17 +269,35 @@ namespace Spacchiamo
             }
         }
 
-        public void ClearEnemyReferences()
+        public void SettingSortingOrder()
         {
-            enemyReferences.Clear();
-            enemyReferences.TrimExcess();
+            for (int i = 0; i < enemyReferences.Count; i++)
+                enemyReferences[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
         }
 
-
-        public void GivingPlayerRef(GameObject player)
+        public void InitializeWhereToGo()
         {
-            playerTemp = player;
+            for (int i = 0; i < enemyReferences.Count; i++)
+                enemyReferences[i].GetComponent<EnemyAI>().whereToGo = Grid_Manager.instance.GetCellTransform(enemyReferences[i].GetComponent<EnemyAI>().xEnemy, enemyReferences[i].GetComponent<EnemyAI>().yEnemy);
         }
+
+        public void InitilizeLifeFeedBack()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                enemyReferences[i].GetComponent<Enemy_Controller>().SettingOwnLifeFeed();
+            }
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
 
         private void SpawnFear1Monster()
         {
@@ -309,7 +330,6 @@ namespace Spacchiamo
             enemyReferences.Add(enemySpawned);
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy1);
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
-            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnAggro();
             Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
 
@@ -347,7 +367,6 @@ namespace Spacchiamo
             enemyReferences.Add(enemySpawned);
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy6);
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
-            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnAggro();
             Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
 
@@ -365,17 +384,7 @@ namespace Spacchiamo
         }
 
 
-        public void SettingSortingOrder()
-        {
-            for (int i = 0; i < enemyReferences.Count; i++)
-                enemyReferences[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
-        }
-
-        public void InitializeWhereToGo()
-        {
-            for (int i = 0; i < enemyReferences.Count; i++)
-                enemyReferences[i].GetComponent<EnemyAI>().whereToGo = Grid_Manager.instance.GetCellTransform(enemyReferences[i].GetComponent<EnemyAI>().xEnemy, enemyReferences[i].GetComponent<EnemyAI>().yEnemy);
-        }
+    
 
     }
 }

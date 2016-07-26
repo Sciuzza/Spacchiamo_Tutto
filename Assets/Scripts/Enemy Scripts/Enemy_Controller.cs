@@ -8,7 +8,7 @@ namespace Spacchiamo
     {
         #region Old Settings System
 
-        
+
 
         public List<actEnemyAbility> actAbilities = new List<actEnemyAbility>();
         #endregion
@@ -23,8 +23,18 @@ namespace Spacchiamo
         public int aggroIgnoringCounter = 0;
 
 
+        #region Life Feedback Variables
 
-        public enemySetting enemyCurrentSetting = new enemySetting(); 
+        public List<GameObject> lives = new List<GameObject>();
+        public GameObject aggroFeed;
+
+        public GameObject tempRefFullLife, tempRefHalfLife;
+
+        public bool firstTimeAttacked = false;
+
+        #endregion
+
+        public enemySetting enemyCurrentSetting = new enemySetting();
         #endregion
 
 
@@ -39,7 +49,7 @@ namespace Spacchiamo
             visible = this.GetComponent<SpriteRenderer>().sprite;
         }
         #endregion
-        
+
 
 
 
@@ -48,13 +58,26 @@ namespace Spacchiamo
         {
             isAggroed = true;
 
-            if(enemyCurrentSetting.behaviour != behaviour.fearMonster)
-            enemyCurrentSetting.life -= damageTaken;
+            if (enemyCurrentSetting.behaviour != behaviour.fearMonster)
+            {
+                enemyCurrentSetting.life -= damageTaken;
+
+            }
 
             if (enemyCurrentSetting.life <= 0)
                 Enemies_Manager.instance.DestroyEnemy(aiLink.xEnemy, aiLink.yEnemy);
             else
             {
+
+                if (!firstTimeAttacked)
+                {
+                    MakeLifeVisible();
+                    firstTimeAttacked = true;
+                }
+
+                Destroylives();
+                SettingOwnLifeFeed((int)enemyCurrentSetting.life - (int)damageTaken);
+
 
                 if (knockBackTaken >= 1)
                     TakingKnockBack(knockBackTaken);
@@ -145,16 +168,109 @@ namespace Spacchiamo
         public void InitializeEnemyController(enemySetting passedCurrentSetting)
         {
             enemyCurrentSetting = passedCurrentSetting;
-        } 
+        }
 
         public void InitializingOwnPatrol()
         {
-           aiLink.patrolArea.AddRange(Grid_Manager.instance.FindingPatrolArea(aiLink.xEnemy, aiLink.yEnemy, enemyCurrentSetting.patrolArea, enemyCurrentSetting.patrolRange));
+            aiLink.patrolArea.AddRange(Grid_Manager.instance.FindingPatrolArea(aiLink.xEnemy, aiLink.yEnemy, enemyCurrentSetting.patrolArea, enemyCurrentSetting.patrolRange));
         }
 
-        public void InitializingOwnAggro()
+        public void SettingOwnLifeFeed()
         {
 
+            float livesCount = enemyCurrentSetting.life / 2;
+            tempRefHalfLife = Resources.Load<GameObject>("Half Life");
+            tempRefFullLife = Resources.Load<GameObject>("Enemy Life");
+
+
+
+            do
+            {
+
+                if (livesCount == 0.5f)
+                {
+                    
+                    lives.Add(Instantiate(tempRefHalfLife));
+                    
+                    lives[lives.Count - 1].transform.SetParent(this.transform);
+
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+
+                    lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+                    lifeAlphaChanging(0.0f, lives[lives.Count - 1].GetComponent<SpriteRenderer>());
+
+                    livesCount -= 0.5f;
+                }
+                else
+                {
+                    
+                    lives.Add(Instantiate(tempRefFullLife));
+                    
+                    lives[lives.Count - 1].transform.SetParent(this.transform);
+
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+
+                    lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+                    lifeAlphaChanging(0.0f, lives[lives.Count - 1].GetComponent<SpriteRenderer>());
+
+                    livesCount--;
+                }
+            } while (livesCount >= 0.5f);
+
+
+        }
+
+        public void Destroylives()
+        {
+            for (int i = 0; i < lives.Count; i++)
+            {
+                Destroy(lives[i]);
+            }
+            lives.RemoveAll(x => x);
+            lives.Clear();
+            lives.TrimExcess();
+        }
+
+        public void SettingOwnLifeFeed(int lifeLeft)
+        {
+            float livesCount = lifeLeft / 2;
+            tempRefHalfLife = Resources.Load<GameObject>("Half Life");
+            tempRefFullLife = Resources.Load<GameObject>("Enemy Life");
+
+
+
+            do
+            {
+
+                if (livesCount == 0.5f)
+                {
+
+                    lives.Add(Instantiate(tempRefHalfLife));
+
+                    lives[lives.Count - 1].transform.SetParent(this.transform);
+
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+
+                    lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+                   
+
+                    livesCount -= 0.5f;
+                }
+                else
+                {
+
+                    lives.Add(Instantiate(tempRefFullLife));
+
+                    lives[lives.Count - 1].transform.SetParent(this.transform);
+
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+
+                    lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+                   
+
+                    livesCount--;
+                }
+            } while (livesCount >= 0.5f);
         }
 
         #endregion
@@ -165,6 +281,20 @@ namespace Spacchiamo
             Color ghostAlpha = GetComponent<SpriteRenderer>().color;
             ghostAlpha.a = alpha;
             GetComponent<SpriteRenderer>().color = ghostAlpha;
+        }
+
+
+        public void MakeLifeVisible()
+        {
+            for (int i = 0; i < lives.Count; i++)
+                lifeAlphaChanging(1, lives[i].GetComponent<SpriteRenderer>());
+        }
+
+        public void lifeAlphaChanging(float alpha, SpriteRenderer lifeAlpha)
+        {
+            Color lifeAlphaChange = GetComponent<SpriteRenderer>().color;
+            lifeAlphaChange.a = alpha;
+            lifeAlpha.color = lifeAlphaChange;
         }
 
         public bool IsFlipped()
