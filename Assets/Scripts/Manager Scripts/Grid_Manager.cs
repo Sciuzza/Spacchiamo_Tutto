@@ -13,6 +13,8 @@ namespace Spacchiamo
         private Cell_Interaction[,] cellReferences;
         public List<Cell_Interaction> cellsAttacked = new List<Cell_Interaction>();
 
+       
+       
 
         public GameObject tilesHolder;
 
@@ -20,7 +22,7 @@ namespace Spacchiamo
         public List<Cell_Interaction> closedNodeList = new List<Cell_Interaction>();
         public int distance;
 
-        List<Sprite> wallList = new List<Sprite>();
+        public List<Sprite> wallList = new List<Sprite>();
         Sprite[] wallSprites;
 
         GameObject playerTemp;
@@ -37,7 +39,7 @@ namespace Spacchiamo
                 Destroy(gameObject);
 
 
-            wallSprites = Resources.LoadAll<Sprite>("Tilesets/Bordo_inferiore_tiles_pietra");
+            wallSprites = Resources.LoadAll<Sprite>("Tilesets\\Bordo_inferiore_tiles_pietra");
             wallList.AddRange(wallSprites);
 
 
@@ -91,10 +93,11 @@ namespace Spacchiamo
                 SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
 
-
-                if (wallList.Find(z => z.name == tileType.sprite.name) != null)
-                    cellReferences[x, y].SettingWall();
-
+                if (wallList.Count > 0)
+                {
+                    if (wallList.Find(z => z.name == tileType.sprite.name) != null)
+                        cellReferences[x, y].SettingWall();
+                }
 
 
 
