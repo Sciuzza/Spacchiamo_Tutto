@@ -26,45 +26,45 @@ namespace Spacchiamo
 
 
 		//METODO, DA COMPILARSI CON I DOVUTI VALORI, PER PASSARE I SUDDETTI ALL'INTERFACCIA DI SELEZIONE ARMI ED ABILITA'
-	//	public void SettingAbilitiesAndWeaponsUserInterface () {
+		public void SettingAbilitiesAndWeaponsUserInterface () {
 
-	//		AbilitiesAndWeaponsInitialization initializationParameters = new AbilitiesAndWeaponsInitialization ();
+			AbilitiesAndWeaponsInitialization initializationParameters = new AbilitiesAndWeaponsInitialization ();
 
 			//NON INIZIO GIOCO --> COMPLETARE LE ASSEGNAZIONI; SOLO COMPLETARLE
-	//		if () {
+			if () {
 
-	//			initializationParameters.passiveAbility1Level = (ushort) ;
+				initializationParameters.passiveAbility1Level = (ushort) ;
 	//			initializationParameters.passiveAbility2Level = (ushort) ;
 	//			initializationParameters.passiveAbility3Level = (ushort) ;
 	//			initializationParameters.passiveAbility4Level = (ushort) ;
 	//			initializationParameters.passiveAbility5Level = (ushort) ;
 
-	//			initializationParameters.primaryAbility1Level = (ushort) ;
+				initializationParameters.primaryAbility1Level = (ushort) ;
 	//			initializationParameters.primaryAbility2Level = (ushort) ;
 	//			initializationParameters.primaryAbility3Level = (ushort) ;
 	//			initializationParameters.primaryAbility4Level = (ushort) ;
 	//			initializationParameters.primaryAbility5Level = (ushort) ;
 
-	//			initializationParameters.secondaryAbility1Level = (ushort) ;
+				initializationParameters.secondaryAbility1Level = (ushort) ;
 	//			initializationParameters.secondaryAbility2Level = (ushort) ;
 	//			initializationParameters.secondaryAbility3Level = (ushort) ;
 	//			initializationParameters.secondaryAbility4Level = (ushort) ;
 	//			initializationParameters.secondaryAbility5Level = (ushort) ;
 
-	//			initializationParameters.levelUpPoints = (ushort) ;
+				initializationParameters.levelUpPoints = (ushort) ;
 
-	//			initializationParameters.passiveAbilityUICharacteristic = (UIIMAGE) (/* numero rappresentante l'abilità passiva; scrivere qui "zero" darebbe la "non abilità"; da zero a cinque */ + 8);
-	//			initializationParameters.primaryAbilityUICharacteristic = (UIIMAGE) (/* numero rappresentante l'abilità primaria; scrivere qui "zero" darebbe la "non abilità"; da zero a cinque */ + 8);
-	//			initializationParameters.secondaryAbilityUICharacteristic = (UIIMAGE) (/* numero rappresentante l'abilità secondaria; scrivere qui "zero" darebbe la "non abilità"; da zero a cinque */ + 8);
+				initializationParameters.passiveAbilityUICharacteristic = (UIIMAGE) (/* numero rappresentante l'abilità passiva; scrivere qui "zero" darebbe la "non abilità"; da zero a cinque */ + 8);
+				initializationParameters.primaryAbilityUICharacteristic = (UIIMAGE) (/* numero rappresentante l'abilità primaria; scrivere qui "zero" darebbe la "non abilità"; da zero a cinque */ + 8);
+				initializationParameters.secondaryAbilityUICharacteristic = (UIIMAGE) (/* numero rappresentante l'abilità secondaria; scrivere qui "zero" darebbe la "non abilità"; da zero a cinque */ + 8);
 
-	//			initializationParameters.primaryWeaponUICharacteristic = (UIIMAGE) (/* numero rappresentante l'arma primaria; scrivere qui "uno" darebbe la "prima arma"; da uno a tre */ + 13);
-	//			initializationParameters.secondaryWeaponUICharacteristic = (UIIMAGE) (/* numero rappresentante l'arma secondaria; scrivere qui "uno" darebbe la "prima arma"; da uno a tre */ + 13);
+				initializationParameters.primaryWeaponUICharacteristic = (UIIMAGE) (/* numero rappresentante l'arma primaria; scrivere qui "uno" darebbe la "prima arma"; da uno a tre */ + 13);
+				initializationParameters.secondaryWeaponUICharacteristic = (UIIMAGE) (/* numero rappresentante l'arma secondaria; scrivere qui "uno" darebbe la "prima arma"; da uno a tre */ + 13);
 
-	//		}	//FINE NON INIZIO GIOCO
+			}	//FINE NON INIZIO GIOCO
 
-	//		abilitiesAndWeaponsCanvasScript.InitializeAbilitiesAndWeaponsCanvas (initializationParameters);
+			abilitiesAndWeaponsCanvasScript.InitializeAbilitiesAndWeaponsCanvas (initializationParameters);
 
-	//	}
+		}
 
 
 		//METODO, DA COMPLARSI CON I DOVUTI VALORI, PER RICEVERE I SUDDETTI DALL'INTERFACCIA DI SELEZIONE ARMI ED ABILITA'

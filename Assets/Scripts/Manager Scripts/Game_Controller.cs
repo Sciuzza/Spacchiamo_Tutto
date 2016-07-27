@@ -298,103 +298,118 @@ namespace Spacchiamo
 
         void OnLevelWasLoaded(int level)
         {
-            #region Taking All References
-            // Finding the necessary References to start the initialization sequence
-            playerLink = GameObject.FindGameObjectWithTag("Player");
-            cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
-            faloList = GameObject.FindGameObjectsWithTag("Falo");
-            exit = GameObject.FindGameObjectWithTag("Finish");
-            enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
-            enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
-            enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
-            enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
-            enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
-            enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
-            enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
 
-            fear = GameObject.Find("Fear Counter").GetComponent<Text>();
-            fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
-            turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
-            lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
-            #endregion
-
-            #region Hud Initialization (all gameplay scenes)
-            //Ui initialization
-            Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
-            Ui_Manager.instance.UiInitialization();
-            #endregion
-
-            #region Scene Manager Initialization (all scenes)
-            //Scene Manager initilization
-            Scene_Manager.instance.SceneManagerInitialization();
-            #endregion
-
-            #region Grid Initialization (all gameplay scenes)
-            // Grid Initialization
-            Grid_Manager.instance.GivingPlayerRef(playerLink);
-            Grid_Manager.instance.PreparingOptimizedGridSpace();
-            Grid_Manager.instance.LinkingFaloMechanic(faloList);
-            Grid_Manager.instance.LinkingExit(exit);
-            #endregion
-
-            #region Player Scene Initialization (all gameplay scenes)
-            //Player Initialization
-            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
-            playerActions playerPosition = playerLink.GetComponent<playerActions>();
-            Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-            playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-            cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
-            cameraLink.target = playerLink;
-            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
-
-           
-            if (playerStoredSettings.activeStorage.Count == 0)
+            if (level != 0)
             {
-                InitializePlayerStats();
-                InitializeAbiStorage();
-                TakingDesAbilitiesExp();
-                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
-                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+
+                #region Taking All References
+                // Finding the necessary References to start the initialization sequence
+                playerLink = GameObject.FindGameObjectWithTag("Player");
+                cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
+                faloList = GameObject.FindGameObjectsWithTag("Falo");
+                exit = GameObject.FindGameObjectWithTag("Finish");
+                enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
+                enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
+                enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
+                enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
+                enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
+                enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
+                enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+
+                fear = GameObject.Find("Fear Counter").GetComponent<Text>();
+                fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
+                turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
+                lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
+                #endregion
+
+                #region Hud Initialization (all gameplay scenes)
+                //Ui initialization
+                Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
+                Ui_Manager.instance.UiInitialization();
+                #endregion
+
+                #region Scene Manager Initialization (all scenes)
+                //Scene Manager initilization
+                Scene_Manager.instance.SceneManagerInitialization();
+                #endregion
+
+                #region Grid Initialization (all gameplay scenes)
+                // Grid Initialization
+                Grid_Manager.instance.GivingPlayerRef(playerLink);
+                Grid_Manager.instance.PreparingOptimizedGridSpace();
+                Grid_Manager.instance.LinkingFaloMechanic(faloList);
+                Grid_Manager.instance.LinkingExit(exit);
+                #endregion
+
+                #region Player Scene Initialization (all gameplay scenes)
+                //Player Initialization
+                Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+                playerActions playerPosition = playerLink.GetComponent<playerActions>();
+                Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+                playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+                cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
+                cameraLink.target = playerLink;
+                playerLink.GetComponent<playerActions>().InitializeSortingOrder();
+
+
+                if (playerStoredSettings.activeStorage.Count == 0)
+                {
+                    InitializePlayerStats();
+                    InitializeAbiStorage();
+                    TakingDesAbilitiesExp();
+                    playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                    playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+                }
+                else
+                {
+                    playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                    playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+                }
+
+
+                #endregion
+
+                #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
+                // Enemies Initialization
+                AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
+                Enemies_Manager.instance.SetEnemyManagerStructs();
+
+                Enemies_Manager.instance.ClearEnemyReferences();
+
+                Enemies_Manager.instance.PassingEnemyList(enemy1Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy2Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy3Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy4Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy5Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy6Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy7Array);
+
+                Enemies_Manager.instance.GivingPlayerRef(playerLink);
+
+
+                Enemies_Manager.instance.ImplementingEachEnemySettings();
+                Enemies_Manager.instance.SettingOccupiedInitialStatus();
+                Enemies_Manager.instance.SettingEnemyVisibility();
+
+                Enemies_Manager.instance.SettingSortingOrder();
+                Enemies_Manager.instance.InitializeWhereToGo();
+                Enemies_Manager.instance.InitilizeLifeFeedBack();
+
+                Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
+
+                currentPhase = GAME_PHASE.playerTurn;
+                #endregion
+
             }
             else
             {
-                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
-                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+                #region Ability Ui Initialization
+
+                Ui_Manager.instance.
+
+                #endregion
             }
-           
 
-            #endregion
-
-            #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
-            // Enemies Initialization
-            AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
-            Enemies_Manager.instance.SetEnemyManagerStructs();
-
-            Enemies_Manager.instance.ClearEnemyReferences();
-
-            Enemies_Manager.instance.PassingEnemyList(enemy1Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy2Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy3Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy4Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy5Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy6Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy7Array);
-
-            Enemies_Manager.instance.GivingPlayerRef(playerLink);
-
-
-            Enemies_Manager.instance.ImplementingEachEnemySettings();
-            Enemies_Manager.instance.SettingOccupiedInitialStatus();
-            Enemies_Manager.instance.SettingEnemyVisibility();
-
-            Enemies_Manager.instance.SettingSortingOrder();
-            Enemies_Manager.instance.InitializeWhereToGo();
-            Enemies_Manager.instance.InitilizeLifeFeedBack();
-
-            Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
-
-            currentPhase = GAME_PHASE.playerTurn;
-            #endregion
 
         }
 

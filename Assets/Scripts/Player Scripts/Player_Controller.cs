@@ -107,7 +107,7 @@ namespace Spacchiamo
                 if (Grid_Manager.instance.IsPlayerOnExit(moveLink.xPlayer, moveLink.yPlayer) && !isLoadingScene)
                 {
                     Game_Controller.instance.SavePlayerData(CurSet);
-                    Scene_Manager.instance.LoadNextLevel();
+                    Scene_Manager.instance.LoadAbilityScene();
                     isLoadingScene = true;
                 }
             }
