@@ -33,15 +33,9 @@ namespace Spacchiamo {
 
 		}
 
-		//METODO TEMPORANEO
-		private void Start () {
+	
 
-			this.Points = 10;
-			this.UpdateUpgradeVisibility ();
-
-		}
-
-		internal void UpdateUpgradeVisibility () {
+		public void UpdateUpgradeVisibility () {
 
 			this.pointsText.text = this.numberOfPoints.ToString ();
 

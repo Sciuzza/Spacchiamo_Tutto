@@ -8,7 +8,7 @@ namespace Spacchiamo {
 	internal enum HAND : byte {HAND_ONE = 1, HAND_TWO, HAND_VOID};
 
 
-	internal class AbilitiesAndWeaponsInitialization {
+	public class AbilitiesAndWeaponsInitialization {
 
 		internal ushort passiveAbility1Level = 0;
 		internal ushort passiveAbility2Level = 0;

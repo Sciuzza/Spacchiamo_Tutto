@@ -11,9 +11,9 @@ namespace Spacchiamo
 
     public enum type { Primary, Secondary };
 
-    public enum originalName { Impeto, RespiroDelVento };
+    public enum originalName { Impeto, RespiroDelVento , NotFound};
 
-    public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged };
+    public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged, NotFound };
 
     public enum pOriginalName { Rigenerazione, NotFound };
 
@@ -169,6 +169,11 @@ namespace Spacchiamo
         // player reference to be passed on many scripts
         [HideInInspector]
         public GameObject playerLink;
+
+        // References necessary to initilize Ability UI
+        UIAbilitiesAndWeaponsCanvasScript abilitiesAndWeaponsCanvasScript;
+        UIAbilitiesAndWeaponsTooltipCallerScript callerAbiWea;
+        UIAbilitiesAndWeaponsPointsScript callerPoints;
 
         #endregion
 
@@ -405,7 +410,29 @@ namespace Spacchiamo
             {
                 #region Ability Ui Initialization
 
-                Ui_Manager.instance.
+                abilitiesAndWeaponsCanvasScript = GameObject.FindGameObjectWithTag("UIAbility").GetComponent<UIAbilitiesAndWeaponsCanvasScript>();
+
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIPR").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UISE").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIPA").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIFW").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UISW").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+
+
+                Ui_Manager.instance.GivingCanvasAbiWeapScriptRef(abilitiesAndWeaponsCanvasScript);
+                Ui_Manager.instance.SettingAbilitiesAndWeaponsUserInterface();
+
+
+                callerPoints = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsPointsScript>();
+                callerPoints.UpdateUpgradeVisibility();
+
 
                 #endregion
             }
@@ -509,6 +536,51 @@ namespace Spacchiamo
 
             return increase;
         }
+        #endregion
+
+        #region AbilityStorageUpgrade
+
+        public void SetRegeneration(int level)
+        {
+            int levelDiff = level - playerStoredSettings.passiveStorage.regeneration.level;
+
+            for (int i = 0; i < levelDiff; i++)
+            {
+                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
+                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
+            }
+
+            playerStoredSettings.passiveStorage.regeneration.level = level;
+        }
+
+        public void SetImpeto(int level)
+        {
+            int levelDiff = level - playerStoredSettings.activeStorage[0].level;
+
+            for (int j = 0; j < 3; j++)
+            {
+                for (int i = 0; i < levelDiff; i++)
+                {
+                    IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
+
+                }
+            }
+        }
+
+        public void SetRespiroDelVento(int level)
+        {
+            int levelDiff = level - playerStoredSettings.activeStorage[3].level;
+
+            for (int j = 3; j < 6; j++)
+            {
+                for (int i = 0; i < levelDiff; i++)
+                {
+                    IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
+
+                }
+            }
+        }
+
         #endregion
 
         #region General Methods (called by other scripts)
