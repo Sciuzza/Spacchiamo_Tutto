@@ -37,7 +37,7 @@ namespace Spacchiamo
                 Destroy(gameObject);
 
 
-            wallSprites = Resources.LoadAll<Sprite>("Tilesets/Bordo_inferiore_tiles_pietra");
+            wallSprites = Resources.LoadAll<Sprite>("Tilesets\\Bordo_inferiore_tiles_pietra");
             wallList.AddRange(wallSprites);
 
 
