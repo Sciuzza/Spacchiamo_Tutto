@@ -178,7 +178,12 @@ namespace Spacchiamo
         //METODO, DA COMPLARSI CON I DOVUTI VALORI, PER RICEVERE I SUDDETTI DALL'INTERFACCIA DI SELEZIONE ARMI ED ABILITA'
         	public void ReceivingAbilitiesAndWeaponsUserInterface (AbilitiesAndWeaponsInitialization newAbilitiesAndWeaponsParameters) {
 
-                Game_Controller.instance.SetRegeneration(newAbilitiesAndWeaponsParameters.passiveAbility1Level);
+            PassiveSelectionTransfer((int)newAbilitiesAndWeaponsParameters.passiveAbilityUICharacteristic - 8);
+            ActivePrimaryTransfer((int)newAbilitiesAndWeaponsParameters.primaryAbilityUICharacteristic - 8, (int)newAbilitiesAndWeaponsParameters.primaryWeaponUICharacteristic - 13);
+            ActiveSecondTransfer((int)newAbilitiesAndWeaponsParameters.secondaryAbilityUICharacteristic - 8, (int)newAbilitiesAndWeaponsParameters.secondaryWeaponUICharacteristic - 13);
+
+
+            Game_Controller.instance.SetRegeneration(newAbilitiesAndWeaponsParameters.passiveAbility1Level);
         //		(int) = newAbilitiesAndWeaponsParameters.passiveAbility2Level;
         //		(int) = newAbilitiesAndWeaponsParameters.passiveAbility3Level;
         //		(int) = newAbilitiesAndWeaponsParameters.passiveAbility4Level;
@@ -196,11 +201,9 @@ namespace Spacchiamo
         //		(int) = newAbilitiesAndWeaponsParameters.secondaryAbility4Level;
         //		(int) = newAbilitiesAndWeaponsParameters.secondaryAbility5Level;
 
-        		 Game_Controller.instance.playerStoredSettings.unspentAbilityPoints = newAbilitiesAndWeaponsParameters.levelUpPoints;
+        		Game_Controller.instance.playerStoredSettings.unspentAbilityPoints = newAbilitiesAndWeaponsParameters.levelUpPoints;
 
-        		 PassiveSelectionTransfer ((int)newAbilitiesAndWeaponsParameters.passiveAbilityUICharacteristic - 8);
-        		 ActivePrimaryTransfer ((int)newAbilitiesAndWeaponsParameters.primaryAbilityUICharacteristic - 8, (int)newAbilitiesAndWeaponsParameters.primaryWeaponUICharacteristic - 13);
-        		 ActiveSecondTransfer ((int)newAbilitiesAndWeaponsParameters.secondaryAbilityUICharacteristic - 8, (int)newAbilitiesAndWeaponsParameters.secondaryWeaponUICharacteristic - 13);
+        		 
 
         	}
 
@@ -235,19 +238,13 @@ namespace Spacchiamo
                     switch (j)
                     {
                         case 1:
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[0].active = true;
-                           // Game_Controller.instance.playerStoredSettings.activeStorage[1].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[2].active = false;
+                            Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.ArmaBianca);
                             break;
                         case 2:
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[0].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[1].active = true;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[2].active = false;
+                            Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.Catalizzatore);
                             break;
                         case 3:
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[0].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[1].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[2].active = true;
+                            Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.ArmaRanged);
                             break;
                         default:
                             Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' PRIMARIA DALL'INTERFACCIA");
@@ -260,10 +257,13 @@ namespace Spacchiamo
                     switch (j)
                     {
                         case 1:
+                          
                             break;
                         case 2:
+                         
                             break;
                         case 3:
+                          
                             break;
                         default:
                             Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' PRIMARIA DALL'INTERFACCIA");
@@ -302,19 +302,13 @@ namespace Spacchiamo
                     switch (j)
                     {
                         case 1:
-                           // Game_Controller.instance.playerStoredSettings.activeStorage[3].active = true;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[4].active = false;
-                           // Game_Controller.instance.playerStoredSettings.activeStorage[5].active = false;
+                            Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.ArmaBianca);
                             break;
                         case 2:
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[3].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[4].active = true;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[5].active = false;
+                            Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.Catalizzatore);
                             break;
                         case 3:
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[3].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[4].active = false;
-                          //  Game_Controller.instance.playerStoredSettings.activeStorage[5].active = true;
+                            Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.ArmaRanged);
                             break;
                         default:
                             Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' SECONDARIA DALL'INTERFACCIA");

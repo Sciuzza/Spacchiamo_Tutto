@@ -189,19 +189,23 @@ namespace Spacchiamo
         {
 
 
-
             if (instance == null)
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
+
+
 
             DontDestroyOnLoad(this.gameObject);
 
         }
         #endregion
 
+        
         void Start()
         {
+            
+
             #region Taking All References
             // Finding the necessary References to start the initialization sequence
             playerLink = GameObject.FindGameObjectWithTag("Player");
@@ -301,9 +305,10 @@ namespace Spacchiamo
             #endregion
 
         }
-
+        
         void OnLevelWasLoaded(int level)
         {
+            
 
             if (level != 0)
             {
@@ -563,9 +568,9 @@ namespace Spacchiamo
             {
                 for (int i = 0; i < levelDiff; i++)
                 {
-                    IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
-
+                    playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
                 }
+               
             }
         }
 
@@ -577,11 +582,53 @@ namespace Spacchiamo
             {
                 for (int i = 0; i < levelDiff; i++)
                 {
-                    IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
+                    playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
 
                 }
             }
         }
+
+        public void SetActivePrim(originalName abilityName, weaponType weaponName)
+        {
+            actPlayerAbility abilityModified = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName && x.weapon == weaponName);
+            int abilityIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == abilityName && x.weapon == weaponName);
+
+            abilityModified.active = true;
+            abilityModified.discovered = true;
+            playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (i != abilityIndex)
+                {
+                    abilityModified = playerStoredSettings.activeStorage[i];
+                    abilityModified.active = false;
+                    playerStoredSettings.activeStorage[i] = abilityModified;
+                }
+            }
+        }
+
+        public void SetActiveSec(originalName abilityName, weaponType weaponName)
+        {
+            actPlayerAbility abilityModified = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName && x.weapon == weaponName);
+            int abilityIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == abilityName && x.weapon == weaponName);
+
+            abilityModified.active = true;
+            abilityModified.discovered = true;
+            playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
+
+            for (int i = 3; i < 6; i++)
+            {
+                if (i != abilityIndex)
+                {
+                    abilityModified = playerStoredSettings.activeStorage[i];
+                    abilityModified.active = false;
+                    playerStoredSettings.activeStorage[i] = abilityModified;
+                }
+            }
+        }
+
+
 
         #endregion
 
@@ -598,5 +645,10 @@ namespace Spacchiamo
         }
 
         #endregion
+
+
+   
+
+    
     }
 }
