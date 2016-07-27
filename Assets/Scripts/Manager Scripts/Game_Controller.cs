@@ -11,7 +11,7 @@ namespace Spacchiamo
 
     public enum type { Primary, Secondary };
 
-    public enum originalName { Impeto, RespiroDelVento , NotFound};
+    public enum originalName { Impeto, RespiroDelVento, NotFound };
 
     public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged, NotFound };
 
@@ -135,7 +135,7 @@ namespace Spacchiamo
     #endregion
 
 
-    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, knockAni, dialogue};
+    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, knockAni, dialogue };
 
 
 
@@ -178,7 +178,7 @@ namespace Spacchiamo
         #endregion
 
         #region Player Data Save New
-        public playerSettings playerStoredSettings = new playerSettings(); 
+        public playerSettings playerStoredSettings = new playerSettings();
         #endregion
 
         #region SingleTone
@@ -188,7 +188,7 @@ namespace Spacchiamo
         void Awake()
         {
 
-           
+
 
             if (instance == null)
                 instance = this;
@@ -238,7 +238,8 @@ namespace Spacchiamo
             Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
-            Grid_Manager.instance.LinkingExit(exit);
+            if (exit != null)
+                Grid_Manager.instance.LinkingExit(exit);
             #endregion
 
             #region Player Scene Initialization (all gameplay scenes)
@@ -263,8 +264,8 @@ namespace Spacchiamo
             {
                 playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
                 playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
-            } 
-   
+            }
+
 
             #endregion
 
@@ -343,7 +344,8 @@ namespace Spacchiamo
                 Grid_Manager.instance.GivingPlayerRef(playerLink);
                 Grid_Manager.instance.PreparingOptimizedGridSpace();
                 Grid_Manager.instance.LinkingFaloMechanic(faloList);
-                Grid_Manager.instance.LinkingExit(exit);
+                if (exit != null)
+                    Grid_Manager.instance.LinkingExit(exit);
                 #endregion
 
                 #region Player Scene Initialization (all gameplay scenes)
@@ -483,7 +485,7 @@ namespace Spacchiamo
             playerStoredSettings.activeStorage.RemoveAt(abiIndex);
             playerStoredSettings.activeStorage.Insert(abiIndex, currentAbility);
 
-            
+
 
             currentAbility = AbiRepository.instance.playerInitialSetting.activeStorage.Find(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
             currentAbility.active = true;
@@ -588,7 +590,7 @@ namespace Spacchiamo
         public GameObject TakingPlayerRef()
         {
             return playerLink;
-        } 
+        }
 
         public void SavePlayerData(playerSettings currentSetting)
         {
