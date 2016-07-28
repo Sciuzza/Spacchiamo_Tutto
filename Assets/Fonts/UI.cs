@@ -8,16 +8,16 @@ public class UI : MonoBehaviour {
     public Color mouseOverColor;
     public Color standardColor;
 
-    public void ChangeColorRed()
+    public void ChangeColorEnter()
     {
-        text.color = Color.red;
+        text.color = mouseOverColor;
 
         
     }
 
-    public void ChangeColorBlack()
+    public void ChangeColorExit()
     {
-        text.color = Color.black;
+        text.color = standardColor;
 
     }
 
