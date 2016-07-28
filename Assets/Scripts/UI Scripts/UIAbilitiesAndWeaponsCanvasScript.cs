@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Spacchiamo {
 
-	internal class UIAbilitiesAndWeaponsCanvasScript : MonoBehaviour {
+	public class UIAbilitiesAndWeaponsCanvasScript : MonoBehaviour {
 
 		private UIAbilitiesAndWeaponsTooltipCallerScript passiveAbilitySlot, primaryAbilitySlot, secondaryAbilitySlot, primaryWeaponSlot, secondaryWeaponSlot;
 		private UIAbilitiesAndWeaponsPointsScript pointsRepository;

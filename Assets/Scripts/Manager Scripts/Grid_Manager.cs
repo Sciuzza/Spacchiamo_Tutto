@@ -20,7 +20,7 @@ namespace Spacchiamo
         public List<Cell_Interaction> closedNodeList = new List<Cell_Interaction>();
         public int distance;
 
-        List<Sprite> wallList = new List<Sprite>();
+        public List<Sprite> wallList = new List<Sprite>();
         Sprite[] wallSprites;
 
         GameObject playerTemp;
@@ -37,7 +37,7 @@ namespace Spacchiamo
                 Destroy(gameObject);
 
 
-            wallSprites = Resources.LoadAll<Sprite>("Tilesets/Bordo_inferiore_tiles_pietra");
+            wallSprites = Resources.LoadAll<Sprite>("Tilesets\\Bordo_inferiore_tiles_pietra");
             wallList.AddRange(wallSprites);
 
 
@@ -67,42 +67,43 @@ namespace Spacchiamo
 
             for (int i = 0; i < tileReferences.Count; i++)
             {
+                if (tileReferences[i].cell_x >= 0 && tileReferences[i].cell_y >= 0 && tileReferences[i].go.GetComponent<SpriteRenderer>().sprite != null)
+                {
+                    GameObject currentCell = Instantiate(cellTemp);
 
-                GameObject currentCell = Instantiate(cellTemp);
+                    x = tileReferences[i].cell_x;
+                    y = tileReferences[i].cell_y;
 
-                x = tileReferences[i].cell_x;
-                y = tileReferences[i].cell_y;
+                    cellReferences[x, y] = currentCell.GetComponent<Cell_Interaction>();
 
-                cellReferences[x, y] = currentCell.GetComponent<Cell_Interaction>();
+                    currentCell.name = "Cell " + x + " , " + y;
+                    currentCell.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
 
-                currentCell.name = "Cell " + x + " , " + y;
-                currentCell.transform.position = new Vector3(x + 0.5f, y + 0.5f, 1);
+                    cellReferences[x, y].yCell = y;
+                    cellReferences[x, y].xCell = x;
 
-                cellReferences[x, y].yCell = y;
-                cellReferences[x, y].xCell = x;
+                    currentCell.transform.SetParent(mapTemp.transform);
 
-                currentCell.transform.SetParent(mapTemp.transform);
+                    cellReferences[x, y].GivingPlayerRef(playerTemp);
 
-                cellReferences[x, y].GivingPlayerRef(playerTemp);
-
-                cellReferences[x, y].tileCell = tileReferences[i].go;
-
-
-                SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
+                    cellReferences[x, y].tileCell = tileReferences[i].go;
 
 
-
-                if (wallList.Find(z => z.name == tileType.sprite.name) != null)
-                    cellReferences[x, y].SettingWall();
+                    SpriteRenderer tileType = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
 
 
+                    if (wallList.Find(z => z.name == tileType.sprite.name) != null)
+                        cellReferences[x, y].SettingWall();
 
 
 
-                // Fog Of War
-                ChangingAlpha(0.0f, currentCell);
 
+
+
+                    // Fog Of War
+                    ChangingAlpha(0.0f, currentCell);
+                }
 
             }
 

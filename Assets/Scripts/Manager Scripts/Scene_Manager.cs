@@ -10,6 +10,8 @@ namespace Spacchiamo
 
         public Scene currentScene, nextScene;
 
+        public int nextSceneIndex = 0;
+
         [HideInInspector]
         public static Scene_Manager instance = null;
 
@@ -36,7 +38,14 @@ namespace Spacchiamo
 
         public void LoadNextLevel()
         {
-            SceneManager.LoadScene(currentScene.buildIndex + 1);
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+
+        public void LoadAbilityScene()
+        {
+            nextSceneIndex = currentScene.buildIndex;
+            nextSceneIndex++;
+            SceneManager.LoadScene(2);
         }
 
     }

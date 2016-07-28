@@ -69,7 +69,7 @@ namespace Spacchiamo {
 			newAbilitiesAndWeaponsParameters.primaryWeaponUICharacteristic = this.primaryWeaponSelected.uiCharacteristic;
 			newAbilitiesAndWeaponsParameters.secondaryWeaponUICharacteristic = this.secondaryWeaponSelected.uiCharacteristic;
 
-			/*Debug.Log (this.passiveAbilitySelected.uiCharacteristic.ToString ());
+            /*Debug.Log (this.passiveAbilitySelected.uiCharacteristic.ToString ());
 
 			Debug.Log (this.passiveAbilitySelected.Ability1Level.ToString ());
 			Debug.Log (this.passiveAbilitySelected.Ability2Level.ToString ());
@@ -98,8 +98,8 @@ namespace Spacchiamo {
 			Debug.Log (this.primaryWeaponSelected.uiCharacteristic.ToString ());
 			Debug.Log (this.secondaryWeaponSelected.uiCharacteristic.ToString ());*/
 
-			//Ui_Manager.instance.ReceivingAbilitiesAndWeaponsUserInterface (newAbilitiesAndWeaponsParameters);
-			//Scene_Manager.instance ;
+            Ui_Manager.instance.ReceivingAbilitiesAndWeaponsUserInterface (newAbilitiesAndWeaponsParameters);
+            Scene_Manager.instance.LoadNextLevel();
 
 		}
 		

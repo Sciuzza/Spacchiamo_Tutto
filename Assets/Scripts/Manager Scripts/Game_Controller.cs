@@ -11,9 +11,9 @@ namespace Spacchiamo
 
     public enum type { Primary, Secondary };
 
-    public enum originalName { Impeto, RespiroDelVento };
+    public enum originalName { Impeto, RespiroDelVento, NotFound };
 
-    public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged };
+    public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged, NotFound };
 
     public enum pOriginalName { Rigenerazione, NotFound };
 
@@ -135,7 +135,7 @@ namespace Spacchiamo
     #endregion
 
 
-    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, knockAni, dialogue};
+    public enum GAME_PHASE : byte { init, playerTurn, npcEnemyTurn, knockAni, dialogue };
 
 
 
@@ -170,10 +170,15 @@ namespace Spacchiamo
         [HideInInspector]
         public GameObject playerLink;
 
+        // References necessary to initilize Ability UI
+        UIAbilitiesAndWeaponsCanvasScript abilitiesAndWeaponsCanvasScript;
+        UIAbilitiesAndWeaponsTooltipCallerScript callerAbiWea;
+        UIAbilitiesAndWeaponsPointsScript callerPoints;
+
         #endregion
 
         #region Player Data Save New
-        public playerSettings playerStoredSettings = new playerSettings(); 
+        public playerSettings playerStoredSettings = new playerSettings();
         #endregion
 
         #region SingleTone
@@ -183,20 +188,24 @@ namespace Spacchiamo
         void Awake()
         {
 
-           
 
             if (instance == null)
                 instance = this;
             else if (instance != this)
                 Destroy(gameObject);
 
+
+
             DontDestroyOnLoad(this.gameObject);
 
         }
         #endregion
 
+        
         void Start()
         {
+            
+
             #region Taking All References
             // Finding the necessary References to start the initialization sequence
             playerLink = GameObject.FindGameObjectWithTag("Player");
@@ -233,7 +242,8 @@ namespace Spacchiamo
             Grid_Manager.instance.GivingPlayerRef(playerLink);
             Grid_Manager.instance.PreparingOptimizedGridSpace();
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
-            Grid_Manager.instance.LinkingExit(exit);
+            if (exit != null)
+                Grid_Manager.instance.LinkingExit(exit);
             #endregion
 
             #region Player Scene Initialization (all gameplay scenes)
@@ -258,8 +268,9 @@ namespace Spacchiamo
             {
                 playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
                 playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
-            } 
-   
+            }
+
+            Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
 
             #endregion
 
@@ -295,106 +306,146 @@ namespace Spacchiamo
             #endregion
 
         }
-
+        
         void OnLevelWasLoaded(int level)
         {
-            #region Taking All References
-            // Finding the necessary References to start the initialization sequence
-            playerLink = GameObject.FindGameObjectWithTag("Player");
-            cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
-            faloList = GameObject.FindGameObjectsWithTag("Falo");
-            exit = GameObject.FindGameObjectWithTag("Finish");
-            enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
-            enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
-            enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
-            enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
-            enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
-            enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
-            enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+            
 
-            fear = GameObject.Find("Fear Counter").GetComponent<Text>();
-            fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
-            turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
-            lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
-            #endregion
-
-            #region Hud Initialization (all gameplay scenes)
-            //Ui initialization
-            Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
-            Ui_Manager.instance.UiInitialization();
-            #endregion
-
-            #region Scene Manager Initialization (all scenes)
-            //Scene Manager initilization
-            Scene_Manager.instance.SceneManagerInitialization();
-            #endregion
-
-            #region Grid Initialization (all gameplay scenes)
-            // Grid Initialization
-            Grid_Manager.instance.GivingPlayerRef(playerLink);
-            Grid_Manager.instance.PreparingOptimizedGridSpace();
-            Grid_Manager.instance.LinkingFaloMechanic(faloList);
-            Grid_Manager.instance.LinkingExit(exit);
-            #endregion
-
-            #region Player Scene Initialization (all gameplay scenes)
-            //Player Initialization
-            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
-            playerActions playerPosition = playerLink.GetComponent<playerActions>();
-            Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-            playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-            cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
-            cameraLink.target = playerLink;
-            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
-
-           
-            if (playerStoredSettings.activeStorage.Count == 0)
+            if (level != 2)
             {
-                InitializePlayerStats();
-                InitializeAbiStorage();
-                TakingDesAbilitiesExp();
-                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
-                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+
+                #region Taking All References
+                // Finding the necessary References to start the initialization sequence
+                playerLink = GameObject.FindGameObjectWithTag("Player");
+                cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
+                faloList = GameObject.FindGameObjectsWithTag("Falo");
+                exit = GameObject.FindGameObjectWithTag("Finish");
+                enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
+                enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
+                enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
+                enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
+                enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
+                enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
+                enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+
+                fear = GameObject.Find("Fear Counter").GetComponent<Text>();
+                fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
+                turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
+                lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
+                #endregion
+
+                #region Hud Initialization (all gameplay scenes)
+                //Ui initialization
+                Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
+                Ui_Manager.instance.UiInitialization();
+                #endregion
+
+                #region Scene Manager Initialization (all scenes)
+                //Scene Manager initilization
+                Scene_Manager.instance.SceneManagerInitialization();
+                #endregion
+
+                #region Grid Initialization (all gameplay scenes)
+                // Grid Initialization
+                Grid_Manager.instance.GivingPlayerRef(playerLink);
+                Grid_Manager.instance.PreparingOptimizedGridSpace();
+                Grid_Manager.instance.LinkingFaloMechanic(faloList);
+                if (exit != null)
+                    Grid_Manager.instance.LinkingExit(exit);
+                #endregion
+
+                #region Player Scene Initialization (all gameplay scenes)
+                //Player Initialization
+                Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+                playerActions playerPosition = playerLink.GetComponent<playerActions>();
+                Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+                playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+                cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
+                cameraLink.target = playerLink;
+                playerLink.GetComponent<playerActions>().InitializeSortingOrder();
+
+
+                if (playerStoredSettings.activeStorage.Count == 0)
+                {
+                    InitializePlayerStats();
+                    InitializeAbiStorage();
+                    TakingDesAbilitiesExp();
+                    playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                    playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+                }
+                else
+                {
+                    playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                    playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+                }
+
+                Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
+
+                #endregion
+
+                #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
+                // Enemies Initialization
+                AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
+                Enemies_Manager.instance.SetEnemyManagerStructs();
+
+                Enemies_Manager.instance.ClearEnemyReferences();
+
+                Enemies_Manager.instance.PassingEnemyList(enemy1Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy2Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy3Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy4Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy5Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy6Array);
+                Enemies_Manager.instance.PassingEnemyList(enemy7Array);
+
+                Enemies_Manager.instance.GivingPlayerRef(playerLink);
+
+
+                Enemies_Manager.instance.ImplementingEachEnemySettings();
+                Enemies_Manager.instance.SettingOccupiedInitialStatus();
+                Enemies_Manager.instance.SettingEnemyVisibility();
+
+                Enemies_Manager.instance.SettingSortingOrder();
+                Enemies_Manager.instance.InitializeWhereToGo();
+                Enemies_Manager.instance.InitilizeLifeFeedBack();
+
+                Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
+
+                currentPhase = GAME_PHASE.playerTurn;
+                #endregion
+
             }
             else
             {
-                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
-                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+                #region Ability Ui Initialization
+
+                abilitiesAndWeaponsCanvasScript = GameObject.FindGameObjectWithTag("UIAbility").GetComponent<UIAbilitiesAndWeaponsCanvasScript>();
+
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIPR").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UISE").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIPA").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIFW").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UISW").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+                callerAbiWea = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
+                callerAbiWea.InitializingOwnLogic();
+
+
+                Ui_Manager.instance.GivingCanvasAbiWeapScriptRef(abilitiesAndWeaponsCanvasScript);
+                Ui_Manager.instance.SettingAbilitiesAndWeaponsUserInterface();
+
+
+                callerPoints = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsPointsScript>();
+                callerPoints.UpdateUpgradeVisibility();
+
+
+                #endregion
             }
-           
 
-            #endregion
-
-            #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
-            // Enemies Initialization
-            AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
-            Enemies_Manager.instance.SetEnemyManagerStructs();
-
-            Enemies_Manager.instance.ClearEnemyReferences();
-
-            Enemies_Manager.instance.PassingEnemyList(enemy1Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy2Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy3Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy4Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy5Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy6Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy7Array);
-
-            Enemies_Manager.instance.GivingPlayerRef(playerLink);
-
-
-            Enemies_Manager.instance.ImplementingEachEnemySettings();
-            Enemies_Manager.instance.SettingOccupiedInitialStatus();
-            Enemies_Manager.instance.SettingEnemyVisibility();
-
-            Enemies_Manager.instance.SettingSortingOrder();
-            Enemies_Manager.instance.InitializeWhereToGo();
-            Enemies_Manager.instance.InitilizeLifeFeedBack();
-
-            Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
-
-            currentPhase = GAME_PHASE.playerTurn;
-            #endregion
 
         }
 
@@ -441,7 +492,7 @@ namespace Spacchiamo
             playerStoredSettings.activeStorage.RemoveAt(abiIndex);
             playerStoredSettings.activeStorage.Insert(abiIndex, currentAbility);
 
-            
+
 
             currentAbility = AbiRepository.instance.playerInitialSetting.activeStorage.Find(x => x.oname == Designer_Tweaks.instance.seconTesting && x.weapon == Designer_Tweaks.instance.seconWeapon);
             currentAbility.active = true;
@@ -496,12 +547,99 @@ namespace Spacchiamo
         }
         #endregion
 
+        #region AbilityStorageUpgrade
+
+        public void SetRegeneration(int level)
+        {
+            int levelDiff = level - playerStoredSettings.passiveStorage.regeneration.level;
+
+            for (int i = 0; i < levelDiff; i++)
+            {
+                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
+                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
+            }
+
+            playerStoredSettings.passiveStorage.regeneration.level = level;
+        }
+
+        public void SetImpeto(int level)
+        {
+            int levelDiff = level - playerStoredSettings.activeStorage[0].level;
+
+            for (int j = 0; j < 3; j++)
+            {
+                for (int i = 0; i < levelDiff; i++)
+                {
+                    playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
+                }
+               
+            }
+        }
+
+        public void SetRespiroDelVento(int level)
+        {
+            int levelDiff = level - playerStoredSettings.activeStorage[3].level;
+
+            for (int j = 3; j < 6; j++)
+            {
+                for (int i = 0; i < levelDiff; i++)
+                {
+                    playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
+
+                }
+            }
+        }
+
+        public void SetActivePrim(originalName abilityName, weaponType weaponName)
+        {
+            actPlayerAbility abilityModified = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName && x.weapon == weaponName);
+            int abilityIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == abilityName && x.weapon == weaponName);
+
+            abilityModified.active = true;
+            abilityModified.discovered = true;
+            playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (i != abilityIndex)
+                {
+                    abilityModified = playerStoredSettings.activeStorage[i];
+                    abilityModified.active = false;
+                    playerStoredSettings.activeStorage[i] = abilityModified;
+                }
+            }
+        }
+
+        public void SetActiveSec(originalName abilityName, weaponType weaponName)
+        {
+            actPlayerAbility abilityModified = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName && x.weapon == weaponName);
+            int abilityIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == abilityName && x.weapon == weaponName);
+
+            abilityModified.active = true;
+            abilityModified.discovered = true;
+            playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
+
+            for (int i = 3; i < 6; i++)
+            {
+                if (i != abilityIndex)
+                {
+                    abilityModified = playerStoredSettings.activeStorage[i];
+                    abilityModified.active = false;
+                    playerStoredSettings.activeStorage[i] = abilityModified;
+                }
+            }
+        }
+
+
+
+        #endregion
+
         #region General Methods (called by other scripts)
         // Methods to be Called on Request by other scripts
         public GameObject TakingPlayerRef()
         {
             return playerLink;
-        } 
+        }
 
         public void SavePlayerData(playerSettings currentSetting)
         {
@@ -509,5 +647,10 @@ namespace Spacchiamo
         }
 
         #endregion
+
+
+   
+
+    
     }
 }
