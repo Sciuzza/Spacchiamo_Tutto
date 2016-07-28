@@ -619,11 +619,10 @@ namespace Spacchiamo
         {
             int levelDiff = level - playerStoredSettings.passiveStorage.traveler.level;
 
-            /*for (int i = 0; i < levelDiff; i++)
+            for (int i = 0; i < levelDiff; i++)
             {
-                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
-                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
-            }*/
+				playerStoredSettings.passiveStorage.traveler.espPower += playerStoredSettings.passiveStorage.traveler.espIncPerLevel;
+            }
 
             playerStoredSettings.passiveStorage.traveler.level = level;
         }
@@ -632,11 +631,10 @@ namespace Spacchiamo
         {
             int levelDiff = level - playerStoredSettings.passiveStorage.survivor.level;
 
-            /*for (int i = 0; i < levelDiff; i++)
+            for (int i = 0; i < levelDiff; i++)
             {
-                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
-                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
-            }*/
+				playerStoredSettings.passiveStorage.survivor.sopPower += playerStoredSettings.passiveStorage.survivor.sopIncPerLevel;
+            }
 
             playerStoredSettings.passiveStorage.survivor.level = level;
         }

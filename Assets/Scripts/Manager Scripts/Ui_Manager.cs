@@ -187,9 +187,9 @@ namespace Spacchiamo
 
 
             Game_Controller.instance.SetRegeneration(newAbilitiesAndWeaponsParameters.passiveAbility1Level);
-            //(newAbilitiesAndWeaponsParameters.passiveAbility2Level);
-            //(newAbilitiesAndWeaponsParameters.passiveAbility3Level);
-            //(newAbilitiesAndWeaponsParameters.passiveAbility4Level);
+			Game_Controller.instance.SetFighting(newAbilitiesAndWeaponsParameters.passiveAbility2Level);
+			Game_Controller.instance.SetTraveler(newAbilitiesAndWeaponsParameters.passiveAbility3Level);
+			Game_Controller.instance.SetSurvivor(newAbilitiesAndWeaponsParameters.passiveAbility4Level);
             //		(int) = newAbilitiesAndWeaponsParameters.passiveAbility5Level;
 
             Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.primaryAbility1Level, originalName.Impeto);
