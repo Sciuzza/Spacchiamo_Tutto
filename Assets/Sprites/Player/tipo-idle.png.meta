@@ -1,17 +1,19 @@
 fileFormatVersion: 2
-guid: e9eb9b8e047e2a24eb6af899b7a85f08
-timeCreated: 1469389155
+guid: db03f46a75d181846884967bafd22df5
+timeCreated: 1469711089
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tipo-idle_0
-    21300002: tipo-idle_1
-    21300004: tipo-idle_2
-    21300006: tipo-idle_3
-    21300008: tipo-idle_4
-    21300010: tipo-idle_5
-    21300012: tipo-idle_6
-    21300014: tipo-idle_7
+    21300000: idle-tipo-fluida_0
+    21300002: idle-tipo-fluida_1
+    21300004: idle-tipo-fluida_2
+    21300006: idle-tipo-fluida_3
+    21300008: idle-tipo-fluida_4
+    21300010: idle-tipo-fluida_5
+    21300012: idle-tipo-fluida_6
+    21300014: idle-tipo-fluida_7
+    21300016: idle-tipo-fluida_8
+    21300018: idle-tipo-fluida_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -34,10 +36,10 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -58,192 +60,237 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: tipo-idle_0
+    - name: idle-tipo-fluida_0
       rect:
         serializedVersion: 2
-        x: 12
+        x: 14
         y: 354
-        width: 125
+        width: 119
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -59.5, y: 79}
+        - {x: -59.5, y: 4}
+        - {x: -40.5, y: 1}
+        - {x: -34.5, y: 27}
+        - {x: -38.5, y: 2}
+        - {x: -43.5, y: -58}
+        - {x: -41.5, y: -66}
+        - {x: -37.5, y: -72}
+        - {x: -25.5, y: -79}
+        - {x: 53.5, y: -79}
+        - {x: 59.5, y: 26}
+        - {x: 59.5, y: 65}
+        - {x: 39.5, y: 79}
+    - name: idle-tipo-fluida_1
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 354
+        width: 119
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -59.5, y: 79}
+        - {x: -59.5, y: 4}
+        - {x: -40.5, y: 1}
+        - {x: -34.5, y: 27}
+        - {x: -38.5, y: 2}
+        - {x: -43.5, y: -58}
+        - {x: -41.5, y: -66}
+        - {x: -37.5, y: -72}
+        - {x: -25.5, y: -79}
+        - {x: 53.5, y: -79}
+        - {x: 59.5, y: 26}
+        - {x: 59.5, y: 65}
+        - {x: 39.5, y: 79}
+    - name: idle-tipo-fluida_2
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 354
+        width: 119
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -59.5, y: 79}
+        - {x: -59.5, y: 4}
+        - {x: -40.5, y: 1}
+        - {x: -34.5, y: 27}
+        - {x: -38.5, y: 2}
+        - {x: -43.5, y: -58}
+        - {x: -41.5, y: -66}
+        - {x: -37.5, y: -72}
+        - {x: -25.5, y: -79}
+        - {x: 53.5, y: -79}
+        - {x: 59.5, y: 26}
+        - {x: 59.5, y: 65}
+        - {x: 39.5, y: 79}
+    - name: idle-tipo-fluida_3
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 354
+        width: 119
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 59.5, y: 64}
+        - {x: 38.5, y: 79}
+        - {x: -59.5, y: 79}
+        - {x: -59.5, y: 4}
+        - {x: -40.5, y: 1}
+        - {x: -34.5, y: 27}
+        - {x: -38.5, y: 2}
+        - {x: -43.5, y: -58}
+        - {x: -41.5, y: -66}
+        - {x: -37.5, y: -72}
+        - {x: -16.5, y: -79}
+        - {x: 52.5, y: -79}
+        - {x: 52.5, y: -66}
+        - {x: 59.5, y: 30}
+    - name: idle-tipo-fluida_4
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 354
+        width: 119
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -53.5, y: 79}
+        - {x: -59.5, y: 73}
+        - {x: -59.5, y: 13}
+        - {x: -57.5, y: 1}
+        - {x: -42.5, y: 2}
+        - {x: -36.5, y: 32}
+        - {x: -35.5, y: 7}
+        - {x: -46.5, y: -69}
+        - {x: -36.5, y: -79}
+        - {x: 59.5, y: -79}
+        - {x: 59.5, y: 64}
+        - {x: 30.5, y: 79}
+    - name: idle-tipo-fluida_5
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 354
+        width: 119
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -59.5, y: 79}
+        - {x: -59.5, y: 1}
+        - {x: -43.5, y: 4}
+        - {x: -35.5, y: 10}
+        - {x: -32.5, y: 27}
+        - {x: -36.5, y: 8}
+        - {x: -58.5, y: -74}
+        - {x: -41.5, y: -79}
+        - {x: 48.5, y: -79}
+        - {x: 59.5, y: -56}
+        - {x: 59.5, y: 63}
+        - {x: 27.5, y: 79}
+    - name: idle-tipo-fluida_6
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 194
+        width: 119
         height: 156
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -62.5, y: 124.79999}
-        - {x: -62.5, y: 59.799988}
-        - {x: -60.5, y: 52.799988}
-        - {x: -57.5, y: 48.799988}
-        - {x: -41.5, y: 49.799988}
-        - {x: -40.5, y: 52.799988}
-        - {x: -36.5, y: 73.79999}
-        - {x: -37.5, y: 51.799988}
-        - {x: -34.5, y: 20.799988}
-        - {x: -46.5, y: -21.200012}
-        - {x: -36.5, y: -31.200012}
-        - {x: 56.5, y: -31.200012}
-        - {x: 62.5, y: -30.200012}
-        - {x: 62.5, y: 114.79999}
-        - {x: 48.5, y: 124.79999}
-    - name: tipo-idle_1
+      - - {x: -59.5, y: 78}
+        - {x: -59.5, y: 6}
+        - {x: -57.5, y: 2}
+        - {x: -42.5, y: 3}
+        - {x: -36.5, y: 33}
+        - {x: -35.5, y: 8}
+        - {x: -46.5, y: -68}
+        - {x: -36.5, y: -78}
+        - {x: 59.5, y: -78}
+        - {x: 59.5, y: 69}
+        - {x: 40.5, y: 78}
+    - name: idle-tipo-fluida_7
       rect:
         serializedVersion: 2
-        x: 177
-        y: 354
-        width: 125
-        height: 158
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -57.5, y: 126.399994}
-        - {x: -62.5, y: 114.399994}
-        - {x: -62.5, y: -0.6000061}
-        - {x: -38.5, y: -31.600006}
-        - {x: 51.5, y: -31.600006}
-        - {x: 53.5, y: -30.600006}
-        - {x: 62.5, y: -22.600006}
-        - {x: 62.5, y: 126.399994}
-    - name: tipo-idle_2
-      rect:
-        serializedVersion: 2
-        x: 338
-        y: 354
-        width: 129
-        height: 158
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -64.5, y: 126.399994}
-        - {x: -64.5, y: 49.399994}
-        - {x: -58.5, y: 47.399994}
-        - {x: -40.5, y: 50.399994}
-        - {x: -44.5, y: -21.600006}
-        - {x: -30.5, y: -31.600006}
-        - {x: 58.5, y: -31.600006}
-        - {x: 64.5, y: 7.399994}
-        - {x: 64.5, y: 126.399994}
-    - name: tipo-idle_3
-      rect:
-        serializedVersion: 2
-        x: 12
+        x: 174
         y: 194
-        width: 125
-        height: 158
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+        width: 119
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -57.5, y: 126.399994}
-        - {x: -62.5, y: 114.399994}
-        - {x: -62.5, y: -0.6000061}
-        - {x: -38.5, y: -31.600006}
-        - {x: 51.5, y: -31.600006}
-        - {x: 53.5, y: -30.600006}
-        - {x: 62.5, y: -22.600006}
-        - {x: 62.5, y: 126.399994}
-    - name: tipo-idle_4
+      - - {x: -59.5, y: 78}
+        - {x: -59.5, y: 6}
+        - {x: -57.5, y: 2}
+        - {x: -42.5, y: 3}
+        - {x: -36.5, y: 33}
+        - {x: -35.5, y: 8}
+        - {x: -46.5, y: -68}
+        - {x: -36.5, y: -78}
+        - {x: 59.5, y: -78}
+        - {x: 59.5, y: 69}
+        - {x: 40.5, y: 78}
+    - name: idle-tipo-fluida_8
       rect:
         serializedVersion: 2
-        x: 178
+        x: 334
         y: 194
-        width: 124
-        height: 158
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+        width: 119
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 62, y: 113.399994}
-        - {x: 38, y: 126.399994}
-        - {x: -62, y: 126.399994}
-        - {x: -62, y: 51.399994}
-        - {x: -58, y: 48.399994}
-        - {x: -42, y: 48.399994}
-        - {x: -50, y: -22.600006}
-        - {x: -24, y: -31.600006}
-        - {x: 37, y: -31.600006}
-        - {x: 49, y: -26.600006}
-        - {x: 55, y: -17.600006}
-        - {x: 62, y: 65.399994}
-    - name: tipo-idle_5
+      - - {x: -59.5, y: 78}
+        - {x: -59.5, y: 6}
+        - {x: -57.5, y: 2}
+        - {x: -42.5, y: 3}
+        - {x: -36.5, y: 33}
+        - {x: -35.5, y: 8}
+        - {x: -46.5, y: -68}
+        - {x: -36.5, y: -78}
+        - {x: 59.5, y: -78}
+        - {x: 59.5, y: 69}
+        - {x: 40.5, y: 78}
+    - name: idle-tipo-fluida_9
       rect:
         serializedVersion: 2
-        x: 343
+        x: 494
         y: 194
-        width: 125
-        height: 157
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+        width: 119
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -53.5, y: 125.600006}
-        - {x: -62.5, y: 116.600006}
-        - {x: -62.5, y: 54.600006}
-        - {x: -61.5, y: 46.600006}
-        - {x: -48.5, y: 48.600006}
-        - {x: -39.5, y: 52.600006}
-        - {x: -36.5, y: 84.600006}
-        - {x: -37.5, y: 51.600006}
-        - {x: -36.5, y: 25.600006}
-        - {x: -44.5, y: -9.399994}
-        - {x: -44.5, y: -20.399994}
-        - {x: -28.5, y: -31.399994}
-        - {x: 37.5, y: -31.399994}
-        - {x: 50.5, y: -27.399994}
-        - {x: 62.5, y: -21.399994}
-        - {x: 62.5, y: 125.600006}
-    - name: tipo-idle_6
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 34
-        width: 125
-        height: 158
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -50.5, y: 126.4}
-        - {x: -62.5, y: 112.4}
-        - {x: -62.5, y: 78.4}
-        - {x: -59.5, y: 53.4}
-        - {x: -45.5, y: 46.4}
-        - {x: -35.5, y: 53.4}
-        - {x: -35.5, y: 57.4}
-        - {x: -32.5, y: 77.4}
-        - {x: -34.5, y: 63.4}
-        - {x: -32.5, y: 58.4}
-        - {x: -36.5, y: 51.4}
-        - {x: -57.5, y: -27.599998}
-        - {x: -28.5, y: -31.599998}
-        - {x: 51.5, y: -31.599998}
-        - {x: 62.5, y: -24.599998}
-        - {x: 62.5, y: 126.4}
-    - name: tipo-idle_7
-      rect:
-        serializedVersion: 2
-        x: 178
-        y: 34
-        width: 124
-        height: 158
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 53, y: 126.4}
-        - {x: -62, y: 126.4}
-        - {x: -62, y: 54.4}
-        - {x: -61, y: 46.4}
-        - {x: -48, y: 48.4}
-        - {x: -39, y: 52.4}
-        - {x: -36, y: 84.4}
-        - {x: -37, y: 51.4}
-        - {x: -62, y: 27.400002}
-        - {x: -62, y: -17.599998}
-        - {x: -49, y: -31.599998}
-        - {x: 61, y: -31.599998}
-        - {x: 62, y: -24.599998}
-        - {x: 62, y: 120.4}
+      - - {x: -59.5, y: 78}
+        - {x: -59.5, y: 6}
+        - {x: -57.5, y: 2}
+        - {x: -42.5, y: 3}
+        - {x: -36.5, y: 33}
+        - {x: -35.5, y: 8}
+        - {x: -46.5, y: -68}
+        - {x: -36.5, y: -78}
+        - {x: 59.5, y: -78}
+        - {x: 59.5, y: 69}
+        - {x: 40.5, y: 78}
     outline: []
   spritePackingTag: 
   userData: 
