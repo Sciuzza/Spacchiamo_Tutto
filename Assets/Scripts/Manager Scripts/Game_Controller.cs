@@ -11,11 +11,11 @@ namespace Spacchiamo
 
     public enum type { Primary, Secondary };
 
-    public enum originalName { Impeto, RespiroDelVento, NotFound };
+    public enum originalName { Impeto, abilitaP2, abilitaP3, RespiroDelVento, abilitaS2, abilitaS3, NotFound };
 
     public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged, NotFound };
 
-    public enum pOriginalName { Rigenerazione, NotFound };
+    public enum pOriginalName { Rigenerazione, Combattente, Esploratore, Sopravvissuto, NotFound };
 
     [System.Serializable]
     public struct actPlayerAbility
@@ -58,15 +58,58 @@ namespace Spacchiamo
     }
 
     [System.Serializable]
+    public struct combattente
+    {
+        public const pOriginalName oname = pOriginalName.Combattente;
+        public const string customName = "Combattente";
+        public int level;
+        public int maxLevel;
+        public float comPower;
+        public float comIncPerLevel;
+        public bool discovered;
+        public bool active;
+    }
+
+    [System.Serializable]
+    public struct esploratore
+    {
+        public const pOriginalName oname = pOriginalName.Esploratore;
+        public const string customName = "Esploratore";
+        public int level;
+        public int maxLevel;
+        public float espPower;
+        public float espIncPerLevel;
+        public bool discovered;
+        public bool active;
+    }
+
+    [System.Serializable]
+    public struct sopravvissuto
+    {
+        public const pOriginalName oname = pOriginalName.Sopravvissuto;
+        public const string customName = "Sopravvissuto";
+        public int level;
+        public int maxLevel;
+        public float sopPower;
+        public float sopIncPerLevel;
+        public bool discovered;
+        public bool active;
+    }
+
+    [System.Serializable]
     public struct passAbilities
     {
         public regAbility regeneration;
+        public combattente fighting;
+        public esploratore traveler;
+        public sopravvissuto survivor;
     }
 
     [System.Serializable]
     public struct playerSettings
     {
         public float Life;
+        public float maxLife;
         public int expGained;
         public int unspentAbilityPoints;
         public int playerLevel;
@@ -201,10 +244,10 @@ namespace Spacchiamo
         }
         #endregion
 
-        
+
         void Start()
         {
-            
+
 
             #region Taking All References
             // Finding the necessary References to start the initialization sequence
@@ -305,10 +348,10 @@ namespace Spacchiamo
             #endregion
 
         }
-        
+
         void OnLevelWasLoaded(int level)
         {
-            
+
 
             if (level != 0)
             {
@@ -560,6 +603,45 @@ namespace Spacchiamo
             playerStoredSettings.passiveStorage.regeneration.level = level;
         }
 
+        public void SetFighting(int level)
+        {
+            int levelDiff = level - playerStoredSettings.passiveStorage.fighting.level;
+
+            for (int i = 0; i < levelDiff; i++)
+            {
+                playerStoredSettings.passiveStorage.fighting.comPower += playerStoredSettings.passiveStorage.fighting.comIncPerLevel;
+            }
+
+            playerStoredSettings.passiveStorage.fighting.level = level;
+        }
+
+        public void SetTraveler(int level)
+        {
+            int levelDiff = level - playerStoredSettings.passiveStorage.traveler.level;
+
+            /*for (int i = 0; i < levelDiff; i++)
+            {
+                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
+                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
+            }*/
+
+            playerStoredSettings.passiveStorage.traveler.level = level;
+        }
+
+        public void SetSurvivor(int level)
+        {
+            int levelDiff = level - playerStoredSettings.passiveStorage.survivor.level;
+
+            /*for (int i = 0; i < levelDiff; i++)
+            {
+                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
+                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
+            }*/
+
+            playerStoredSettings.passiveStorage.survivor.level = level;
+        }
+
+        #region Old
         public void SetImpeto(int level)
         {
             int levelDiff = level - playerStoredSettings.activeStorage[0].level;
@@ -570,7 +652,7 @@ namespace Spacchiamo
                 {
                     playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
                 }
-               
+
             }
         }
 
@@ -586,7 +668,28 @@ namespace Spacchiamo
 
                 }
             }
+        } 
+        #endregion
+
+        public void SetPrimSecondPhase1(int level, originalName abilityName)
+        {
+            actPlayerAbility currentlevel = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName);
+
+            int levelDiff = level - currentlevel.level;
+
+            for (int j = 0; j < playerStoredSettings.activeStorage.Count; j++)
+            {
+                if (playerStoredSettings.activeStorage[j].oname == abilityName)
+                {
+                    for (int i = 0; i < levelDiff; i++)
+                    {
+                        playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
+                    }
+                }
+
+            }
         }
+
 
         public void SetActivePrim(originalName abilityName, weaponType weaponName)
         {
@@ -597,12 +700,16 @@ namespace Spacchiamo
             abilityModified.discovered = true;
             playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < playerStoredSettings.activeStorage.Count; i++)
             {
-                if (i != abilityIndex)
+                if (i != abilityIndex && playerStoredSettings.activeStorage[i].category == type.Primary)
                 {
                     abilityModified = playerStoredSettings.activeStorage[i];
                     abilityModified.active = false;
+
+                    if (abilityName == playerStoredSettings.activeStorage[i].oname)
+                        abilityModified.discovered = true;
+
                     playerStoredSettings.activeStorage[i] = abilityModified;
                 }
             }
@@ -617,14 +724,19 @@ namespace Spacchiamo
             abilityModified.discovered = true;
             playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
 
-            for (int i = 3; i < 6; i++)
+            for (int i = 0; i < playerStoredSettings.activeStorage.Count; i++)
             {
-                if (i != abilityIndex)
+                if (i != abilityIndex && playerStoredSettings.activeStorage[i].category == type.Secondary)
                 {
                     abilityModified = playerStoredSettings.activeStorage[i];
                     abilityModified.active = false;
+
+                    if (abilityName == playerStoredSettings.activeStorage[i].oname)
+                        abilityModified.discovered = true;
+
                     playerStoredSettings.activeStorage[i] = abilityModified;
                 }
+
             }
         }
 
@@ -647,8 +759,8 @@ namespace Spacchiamo
         #endregion
 
 
-   
 
-    
+
+
     }
 }
