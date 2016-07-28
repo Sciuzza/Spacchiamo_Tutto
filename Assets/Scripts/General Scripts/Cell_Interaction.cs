@@ -132,15 +132,18 @@ namespace Spacchiamo
                 Game_Controller.instance.currentPhase = GAME_PHASE.knockAni;
                 Game_Controller.instance.previousPhase = GAME_PHASE.playerTurn;
 
-               
+
 
                 if (playerContLink.firstAbilityPressed)
                 {
                     Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[0].damage, playerContLink.ActAbilities[0].knockBack);
+                    playerContLink.ResetAbilityCounter(0);
                 }
                 else
+                {
                     Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[1].damage, playerContLink.ActAbilities[1].knockBack);
-
+                    playerContLink.ResetAbilityCounter(1);
+                }
                 playerContLink.ResetAttackBooleans();
                 mouseEnter = false;
             }

@@ -11,7 +11,7 @@ namespace Spacchiamo
 
     public enum type { Primary, Secondary };
 
-    public enum originalName { Impeto, abilitaP2, abilitaP3, RespiroDelVento, abilitaS2, abilitaS3, NotFound };
+    public enum originalName { Impeto, RespiroDelVento, NotFound };
 
     public enum weaponType { ArmaBianca, Catalizzatore, ArmaRanged, NotFound };
 
@@ -38,7 +38,7 @@ namespace Spacchiamo
         public int kbIncPerLevel;
         public bool discovered;
         public bool active;
-        public bool isInCooldown;
+        public int cdCounter;
     }
 
     [System.Serializable]
@@ -110,6 +110,7 @@ namespace Spacchiamo
     {
         public float Life;
         public float maxLife;
+        public int lightRange;
         public int expGained;
         public int unspentAbilityPoints;
         public int playerLevel;
@@ -291,13 +292,16 @@ namespace Spacchiamo
 
             #region Player Scene Initialization (all gameplay scenes)
             //Player Initialization
-            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
             playerActions playerPosition = playerLink.GetComponent<playerActions>();
             Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
             cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
             cameraLink.target = playerLink;
             playerLink.GetComponent<playerActions>().InitializeSortingOrder();
+
+
+            playerStoredSettings.healthPotStacks = 2;
+            playerStoredSettings.lightRange = Designer_Tweaks.instance.playerLightM;
 
             if (playerStoredSettings.activeStorage.Count == 0)
             {
@@ -313,7 +317,7 @@ namespace Spacchiamo
                 playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
             }
 
-
+            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
             #endregion
 
             #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
@@ -341,6 +345,7 @@ namespace Spacchiamo
             Enemies_Manager.instance.SettingSortingOrder();
             Enemies_Manager.instance.InitializeWhereToGo();
             Enemies_Manager.instance.InitilizeLifeFeedBack();
+            Enemies_Manager.instance.InitializeAggroFeedBack();
 
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
@@ -398,7 +403,6 @@ namespace Spacchiamo
 
                 #region Player Scene Initialization (all gameplay scenes)
                 //Player Initialization
-                Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
                 playerActions playerPosition = playerLink.GetComponent<playerActions>();
                 Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
                 playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
@@ -406,6 +410,8 @@ namespace Spacchiamo
                 cameraLink.target = playerLink;
                 playerLink.GetComponent<playerActions>().InitializeSortingOrder();
 
+                playerStoredSettings.healthPotStacks = 2;
+                playerStoredSettings.lightRange = Designer_Tweaks.instance.playerLightM;
 
                 if (playerStoredSettings.activeStorage.Count == 0)
                 {
@@ -421,7 +427,7 @@ namespace Spacchiamo
                     playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
                 }
 
-
+                Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
                 #endregion
 
                 #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
@@ -449,6 +455,7 @@ namespace Spacchiamo
                 Enemies_Manager.instance.SettingSortingOrder();
                 Enemies_Manager.instance.InitializeWhereToGo();
                 Enemies_Manager.instance.InitilizeLifeFeedBack();
+                Enemies_Manager.instance.InitializeAggroFeedBack();
 
                 Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
@@ -619,11 +626,11 @@ namespace Spacchiamo
         {
             int levelDiff = level - playerStoredSettings.passiveStorage.traveler.level;
 
-            /*for (int i = 0; i < levelDiff; i++)
+            for (int i = 0; i < levelDiff; i++)
             {
-                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
-                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
-            }*/
+                playerStoredSettings.passiveStorage.traveler.espPower += playerStoredSettings.passiveStorage.traveler.espIncPerLevel;
+              
+            }
 
             playerStoredSettings.passiveStorage.traveler.level = level;
         }
@@ -632,11 +639,11 @@ namespace Spacchiamo
         {
             int levelDiff = level - playerStoredSettings.passiveStorage.survivor.level;
 
-            /*for (int i = 0; i < levelDiff; i++)
+            for (int i = 0; i < levelDiff; i++)
             {
-                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
-                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
-            }*/
+                playerStoredSettings.passiveStorage.survivor.sopPower += playerStoredSettings.passiveStorage.survivor.sopIncPerLevel;
+                
+            }
 
             playerStoredSettings.passiveStorage.survivor.level = level;
         }

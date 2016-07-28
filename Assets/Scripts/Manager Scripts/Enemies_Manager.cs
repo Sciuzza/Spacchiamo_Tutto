@@ -127,6 +127,7 @@ namespace Spacchiamo
                 {
 
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = false;
+                    enemyReferences[i].GetComponent<Enemy_Controller>().SetAggroInvisible();
 
                     if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroStyle == aggroStyle.following)
                     {
@@ -141,6 +142,7 @@ namespace Spacchiamo
                     && Grid_Manager.instance.RetrieveManhDistfromAtoB(xEnemy, yEnemy, xPlayer, yPlayer) <= enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroRange)
                 {
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = true;
+                    enemyReferences[i].GetComponent<Enemy_Controller>().SetAggroVisible();
                     enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = false;
                 }
                 
@@ -286,6 +288,14 @@ namespace Spacchiamo
             for (int i = 0; i < enemyReferences.Count; i++)
             {
                 enemyReferences[i].GetComponent<Enemy_Controller>().SettingOwnLifeFeed();
+            }
+        }
+
+        public void InitializeAggroFeedBack()
+        {
+            for (int i = 0; i < enemyReferences.Count; i++)
+            {
+                enemyReferences[i].GetComponent<Enemy_Controller>().SettingOwnAggroFeed();
             }
         }
 

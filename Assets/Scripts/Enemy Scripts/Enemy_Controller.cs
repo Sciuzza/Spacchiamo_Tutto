@@ -34,6 +34,8 @@ namespace Spacchiamo
 
         #endregion
 
+        public GameObject aggroRef;
+
         public enemySetting enemyCurrentSetting = new enemySetting();
         #endregion
 
@@ -76,7 +78,7 @@ namespace Spacchiamo
                 }
 
                 Destroylives();
-                SettingOwnLifeFeed((int)enemyCurrentSetting.life - (int)damageTaken);
+                SettingOwnLifeFeed(enemyCurrentSetting.life);
 
 
                 if (knockBackTaken >= 1)
@@ -194,7 +196,7 @@ namespace Spacchiamo
                     
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
                     lifeAlphaChanging(0.0f, lives[lives.Count - 1].GetComponent<SpriteRenderer>());
@@ -208,7 +210,7 @@ namespace Spacchiamo
                     
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
                     lifeAlphaChanging(0.0f, lives[lives.Count - 1].GetComponent<SpriteRenderer>());
@@ -231,7 +233,7 @@ namespace Spacchiamo
             lives.TrimExcess();
         }
 
-        public void SettingOwnLifeFeed(int lifeLeft)
+        public void SettingOwnLifeFeed(float lifeLeft)
         {
             float livesCount = lifeLeft / 2;
             tempRefHalfLife = Resources.Load<GameObject>("Half Life");
@@ -249,7 +251,7 @@ namespace Spacchiamo
 
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
                    
@@ -263,7 +265,7 @@ namespace Spacchiamo
 
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), -0.3f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
                    
@@ -271,6 +273,37 @@ namespace Spacchiamo
                     livesCount--;
                 }
             } while (livesCount >= 0.5f);
+        }
+
+        public void SettingLifeSortingOrder()
+        {
+            for (int i = 0; i < lives.Count; i++)
+            {
+                lives[i].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+            }
+        }
+
+
+        public void SettingOwnAggroFeed()
+        {
+            GameObject aggroObject = Resources.Load<GameObject>("Aggro");
+
+            aggroRef = (Instantiate(aggroObject));
+
+            aggroRef.transform.SetParent(this.transform);
+            aggroRef.transform.localPosition = new Vector3(+0.5f, 1, 0);
+            aggroRef.GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
+            lifeAlphaChanging(0.0f, aggroRef.GetComponent<SpriteRenderer>());
+        }
+
+        public void SetAggroVisible()
+        {
+            lifeAlphaChanging(1.0f, aggroRef.GetComponent<SpriteRenderer>());
+        }
+
+        public void SetAggroInvisible()
+        {
+            lifeAlphaChanging(0.0f, aggroRef.GetComponent<SpriteRenderer>());
         }
 
         #endregion
@@ -307,14 +340,26 @@ namespace Spacchiamo
             SpriteRenderer flipSprite = this.GetComponent<SpriteRenderer>();
 
             if (flipSprite.flipX)
+            {
                 flipSprite.flipX = false;
+                SetAggroOnRight();
+            }
             else
+            {
                 flipSprite.flipX = true;
-
+                SetAggroOnLeft();
+            }
         }
 
-       
+        public void SetAggroOnLeft()
+        {
+            aggroRef.transform.localPosition = new Vector3(-0.5f, 1, 0);
+        }
 
+        public void SetAggroOnRight()
+        {
+            aggroRef.transform.localPosition = new Vector3(+0.5f, 1, 0);
+        }
     }
 }
 

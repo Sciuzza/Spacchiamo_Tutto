@@ -455,6 +455,9 @@ namespace Spacchiamo
             {
                 this.transform.position = new Vector3(whereToGo.position.x, whereToGo.position.y, 0);
                 this.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - yEnemy;
+                eControllerLink.aggroRef.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - yEnemy;
+                eControllerLink.SettingLifeSortingOrder();
+
                 ResettingMoveDirection();
                 isMoving = false;
 

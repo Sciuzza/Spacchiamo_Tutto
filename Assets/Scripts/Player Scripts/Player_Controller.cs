@@ -10,22 +10,14 @@ namespace Spacchiamo
         playerActions moveLink;
 
 
+        #region Current Abilities
 
         public List<actPlayerAbility> actAbilities = new List<actPlayerAbility>();
         public regAbility regPassive = new regAbility();
+        private combattente fighting = new combattente();
+        private esploratore traveler = new esploratore();
+        private sopravvissuto survivor = new sopravvissuto();
 
-        public regAbility RegPassive
-        {
-            get
-            {
-                return regPassive;
-            }
-
-            set
-            {
-                regPassive = value;
-            }
-        }
         public List<actPlayerAbility> ActAbilities
         {
             get
@@ -38,12 +30,62 @@ namespace Spacchiamo
                 actAbilities = value;
             }
         }
+        public regAbility RegPassive
+        {
+            get
+            {
+                return regPassive;
+            }
+
+            set
+            {
+                regPassive = value;
+            }
+        }
+        public combattente Fighting
+        {
+            get
+            {
+                return fighting;
+            }
+
+            set
+            {
+                fighting = value;
+            }
+        }
+        public esploratore Traveler
+        {
+            get
+            {
+                return traveler;
+            }
+
+            set
+            {
+                traveler = value;
+            }
+        }
+        public sopravvissuto Survivor
+        {
+            get
+            {
+                return survivor;
+            }
+
+            set
+            {
+                survivor = value;
+            }
+        } 
+        #endregion
 
         public playerSettings CurSet = new playerSettings();
 
         public bool attackSelection;
         public bool firstAbilityPressed, secondAbilityPressed;
         public bool isLoadingScene = false;
+        public bool cdIncChecked = false;
 
         void Awake()
         {
@@ -56,13 +98,24 @@ namespace Spacchiamo
         {
             if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn)
             {
+                if (!cdIncChecked)
+                {
+                    if (actAbilities[0].cdCounter < actAbilities[0].cooldown)
+                        IncreaseAbilityCounter(0);
+                    if (actAbilities[1].cdCounter < actAbilities[1].cooldown)
+                        IncreaseAbilityCounter(1);
+
+                    cdIncChecked = true;
+                }
+
+
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     moveLink.IncreasingFearAndTurn();
                     Enemies_Manager.instance.CheckingAggro();
                     Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                 }
-                if (Input.GetKeyUp(KeyCode.Q) && !attackSelection)
+                if (Input.GetKeyUp(KeyCode.Q) && !attackSelection && actAbilities[0].cdCounter == actAbilities[0].cooldown)
                 {
                     if (ActAbilities[0].knockBack == 0)
                         Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
@@ -72,7 +125,7 @@ namespace Spacchiamo
                     firstAbilityPressed = true;
                     attackSelection = true;
                 }
-                if (Input.GetKeyUp(KeyCode.E) && !attackSelection)
+                if (Input.GetKeyUp(KeyCode.E) && !attackSelection && actAbilities[1].cdCounter == actAbilities[1].cooldown)
                 {
                     if (ActAbilities[1].knockBack == 0)
                         Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
@@ -135,6 +188,7 @@ namespace Spacchiamo
         {
 
             attackSelection = false;
+            cdIncChecked = false;
 
             Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
 
@@ -190,8 +244,8 @@ namespace Spacchiamo
             moveLink.FearManager();
 
             CurSet.Life += 2;
-            if (CurSet.Life > 20)
-                CurSet.Life = 20;
+            if (CurSet.Life > CurSet.maxLife)
+                CurSet.Life = CurSet.maxLife;
 
             Ui_Manager.instance.SettingLife((int)CurSet.Life);
 
@@ -214,6 +268,70 @@ namespace Spacchiamo
 
             if (CurSet.passiveStorage.regeneration.active)
                 regPassive = CurSet.passiveStorage.regeneration;
+            else if (CurSet.passiveStorage.fighting.active)
+            {
+                fighting = CurSet.passiveStorage.fighting;
+                ApplyingFightingEffects();
+            }
+            else if (CurSet.passiveStorage.traveler.active)
+            {
+                traveler = CurSet.passiveStorage.traveler;
+                ApplyingTravelerEffects();
+            }
+            else if (CurSet.passiveStorage.survivor.active)
+            {
+                survivor = CurSet.passiveStorage.survivor;
+                ApplyingSurvivorEffects();
+            }
+        }
+
+
+        private void ApplyingFightingEffects()
+        {
+            if (CurSet.passiveStorage.fighting.level == 1)
+                CurSet.maxLife = 12;
+            else if (CurSet.passiveStorage.fighting.level == 2)
+                CurSet.maxLife = 16;
+            else if (CurSet.passiveStorage.fighting.level == 3)
+                CurSet.maxLife = 20;
+        }
+
+        private void ApplyingTravelerEffects()
+        {
+            if (CurSet.passiveStorage.traveler.level == 1)
+                CurSet.maxLife = 12;
+            else if (CurSet.passiveStorage.traveler.level == 2)
+                CurSet.maxLife = 14;
+            else if (CurSet.passiveStorage.traveler.level == 3)
+                CurSet.maxLife = 16;
+
+            CurSet.lightRange += 1;
+        } 
+
+        private void ApplyingSurvivorEffects()
+        {
+            if (CurSet.passiveStorage.survivor.level == 1)
+                CurSet.maxLife = 12;
+            else if (CurSet.passiveStorage.survivor.level == 2)
+                CurSet.maxLife = 14;
+            else if (CurSet.passiveStorage.survivor.level == 3)
+                CurSet.maxLife = 16;
+
+            CurSet.healthPotStacks += 2;
+        }
+
+        public void ResetAbilityCounter (int abilityIndex)
+        {
+            actPlayerAbility counterReset = actAbilities[abilityIndex];
+            counterReset.cdCounter = 0;
+            actAbilities[abilityIndex] = counterReset;
+        }
+
+        public void IncreaseAbilityCounter (int abilityIndex)
+        {
+            actPlayerAbility counterReset = actAbilities[abilityIndex];
+            counterReset.cdCounter++;
+            actAbilities[abilityIndex] = counterReset;
         }
 
     }

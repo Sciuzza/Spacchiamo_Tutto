@@ -222,12 +222,12 @@ namespace Spacchiamo
         {
             if (pControllerLink.CurSet.passiveStorage.regeneration.regCounter == pControllerLink.RegPassive.cooldown)
             {
-                if (pControllerLink.CurSet.Life < 20)
+                if (pControllerLink.CurSet.Life < pControllerLink.CurSet.maxLife)
                 {
                     pControllerLink.CurSet.Life += pControllerLink.RegPassive.regPower;
 
-                    if (pControllerLink.CurSet.Life > 20)
-                        pControllerLink.CurSet.Life = 20;
+                    if (pControllerLink.CurSet.Life > pControllerLink.CurSet.maxLife)
+                        pControllerLink.CurSet.Life = pControllerLink.CurSet.maxLife;
 
                     Ui_Manager.instance.SettingLife((int)pControllerLink.CurSet.Life);
                     pControllerLink.CurSet.passiveStorage.regeneration.regCounter = 0;

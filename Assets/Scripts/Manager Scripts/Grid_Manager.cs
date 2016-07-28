@@ -381,7 +381,7 @@ namespace Spacchiamo
 
                         cellReferences[x, y].inRange = false;
 
-                        if (Designer_Tweaks.instance.playerLightM > currentDistance)
+                        if (playerTemp.GetComponent<Player_Controller>().CurSet.lightRange > currentDistance)
                         {
                             if (cellReferences[x, y].lightSource && !cellReferences[x, y].lightSourceDiscovered)
                             {
@@ -394,7 +394,7 @@ namespace Spacchiamo
                                 ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
                             }
                         }
-                        else if (Designer_Tweaks.instance.playerLightM == currentDistance)
+                        else if (playerTemp.GetComponent<Player_Controller>().CurSet.lightRange == currentDistance)
                         {
                             if (!cellReferences[x, y].isReceivingLight)
                             {
@@ -1193,7 +1193,7 @@ namespace Spacchiamo
             {
                 for (int x = 0; x < cellReferences.GetLength(0); x++)
                 {
-                    if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) > Designer_Tweaks.instance.playerLightM
+                    if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) > playerTemp.GetComponent<Player_Controller>().CurSet.lightRange
                         && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) <= 8 && !cellReferences[x, y].couldReceiveLight)
                         possibleSpawns.Add(cellReferences[x, y]);
                 }

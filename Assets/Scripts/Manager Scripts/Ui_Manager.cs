@@ -193,12 +193,8 @@ namespace Spacchiamo
             //		(int) = newAbilitiesAndWeaponsParameters.passiveAbility5Level;
 
             Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.primaryAbility1Level, originalName.Impeto);
-            Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.primaryAbility2Level, originalName.abilitaP2);
-            Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.primaryAbility3Level, originalName.abilitaP3);
-
             Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.secondaryAbility1Level, originalName.RespiroDelVento);
-            Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.secondaryAbility2Level, originalName.abilitaS2);
-            Game_Controller.instance.SetPrimSecondPhase1(newAbilitiesAndWeaponsParameters.secondaryAbility3Level, originalName.abilitaS3);
+
 
 
             Game_Controller.instance.playerStoredSettings.unspentAbilityPoints = newAbilitiesAndWeaponsParameters.levelUpPoints;
@@ -243,137 +239,49 @@ namespace Spacchiamo
 
         private void ActivePrimaryTransfer(int i, int j)
         {
-            switch (i)
+
+
+            switch (j)
             {
                 case 1:
-
-                    switch (j)
-                    {
-                        case 1:
-                            Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.ArmaBianca);
-                            break;
-                        case 2:
-                            Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.Catalizzatore);
-                            break;
-                        case 3:
-                            Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.ArmaRanged);
-                            break;
-                        default:
-                            Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' PRIMARIA DALL'INTERFACCIA");
-                            break;
-                    }
-
+                    Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.ArmaBianca);
                     break;
                 case 2:
-
-                    switch (j)
-                    {
-                        case 1:
-                            Game_Controller.instance.SetActivePrim(originalName.abilitaP2, weaponType.ArmaBianca);
-                            break;
-                        case 2:
-                            Game_Controller.instance.SetActivePrim(originalName.abilitaP2, weaponType.Catalizzatore);
-                            break;
-                        case 3:
-                            Game_Controller.instance.SetActivePrim(originalName.abilitaP2, weaponType.ArmaRanged);
-                            break;
-                        default:
-                            Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' PRIMARIA DALL'INTERFACCIA");
-                            break;
-                    }
-
+                    Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.Catalizzatore);
                     break;
                 case 3:
-
-                    switch (j)
-                    {
-                        case 1:
-                            Game_Controller.instance.SetActivePrim(originalName.abilitaP3, weaponType.ArmaBianca);
-                            break;
-                        case 2:
-                            Game_Controller.instance.SetActivePrim(originalName.abilitaP3, weaponType.Catalizzatore);
-                            break;
-                        case 3:
-                            Game_Controller.instance.SetActivePrim(originalName.abilitaP3, weaponType.ArmaRanged);
-                            break;
-                        default:
-                            Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' PRIMARIA DALL'INTERFACCIA");
-                            break;
-                    }
-
+                    Game_Controller.instance.SetActivePrim(originalName.Impeto, weaponType.ArmaRanged);
                     break;
                 default:
-                    Debug.LogError("NON RIESCO AD ASSIMILARE L'ABILITA' PRIMARIA DALL'INTERFACCIA");
+                    Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' PRIMARIA DALL'INTERFACCIA");
                     break;
             }
+
+
         }
 
         private void ActiveSecondTransfer(int i, int j)
         {
-            switch (i)
+
+            switch (j)
             {
                 case 1:
-
-                    switch (j)
-                    {
-                        case 1:
-                            Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.ArmaBianca);
-                            break;
-                        case 2:
-                            Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.Catalizzatore);
-                            break;
-                        case 3:
-                            Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.ArmaRanged);
-                            break;
-                        default:
-                            Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' SECONDARIA DALL'INTERFACCIA");
-                            break;
-                    }
-
+                    Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.ArmaBianca);
                     break;
                 case 2:
-
-                    switch (j)
-                    {
-                        case 1:
-                            Game_Controller.instance.SetActiveSec(originalName.abilitaS2, weaponType.ArmaBianca);
-                            break;
-                        case 2:
-                            Game_Controller.instance.SetActiveSec(originalName.abilitaS2, weaponType.Catalizzatore);
-                            break;
-                        case 3:
-                            Game_Controller.instance.SetActiveSec(originalName.abilitaS2, weaponType.ArmaRanged);
-                            break;
-                        default:
-                            Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' SECONDARIA DALL'INTERFACCIA");
-                            break;
-                    }
-
+                    Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.Catalizzatore);
                     break;
                 case 3:
-
-                    switch (j)
-                    {
-                        case 1:
-                            Game_Controller.instance.SetActiveSec(originalName.abilitaS3, weaponType.ArmaBianca);
-                            break;
-                        case 2:
-                            Game_Controller.instance.SetActiveSec(originalName.abilitaS3, weaponType.Catalizzatore);
-                            break;
-                        case 3:
-                            Game_Controller.instance.SetActiveSec(originalName.abilitaS3, weaponType.ArmaRanged);
-                            break;
-                        default:
-                            Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' SECONDARIA DALL'INTERFACCIA");
-                            break;
-                    }
-
+                    Game_Controller.instance.SetActiveSec(originalName.RespiroDelVento, weaponType.ArmaRanged);
                     break;
                 default:
-                    Debug.LogError("NON RIESCO AD ASSIMILARE L'ABILITA' SECONDARIA DALL'INTERFACCIA");
+                    Debug.LogError("NON RIESCO AD ASSIMILARE L'ARMA' SECONDARIA DALL'INTERFACCIA");
                     break;
             }
-        } 
+
+
+
+        }
         #endregion
 
 
@@ -392,7 +300,7 @@ namespace Spacchiamo
             fearBar = fearBarRef;
             lifePanelScript = uiLifeRef;
 
-        } 
+        }
         #endregion
 
         #region Hud Update
@@ -425,7 +333,7 @@ namespace Spacchiamo
         public void SettingLife(int playerLife)
         {
             lifePanelScript.UISetLife(playerLife);
-        } 
+        }
         #endregion
 
     }
