@@ -50,10 +50,10 @@ namespace Spacchiamo {
 
 		private void Update () {
 
-			if (Input.GetKeyDown (KeyCode.Alpha1))
+			if (Input.GetKeyDown (KeyCode.Q))
 				this.ActivateAbility (1);
 
-			if (Input.GetKeyDown (KeyCode.Alpha2))
+			if (Input.GetKeyDown (KeyCode.E))
 				this.ActivateAbility (2);
 
 			if (Input.GetKeyDown (KeyCode.Alpha3))

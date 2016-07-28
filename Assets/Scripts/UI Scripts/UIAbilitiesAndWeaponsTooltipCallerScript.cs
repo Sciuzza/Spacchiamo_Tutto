@@ -125,7 +125,7 @@ namespace Spacchiamo {
                     this.uiImageLogic = UIIMAGE.PLAY_GAME;
                     break;
                 default:
-                    Debug.LogWarning("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
+                    //Debug.LogWarning("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
                     break;
 
             }
