@@ -188,8 +188,8 @@ namespace Spacchiamo
 
         #region Phase Variables
         // obvious LOL
-        public GAME_PHASE currentPhase = GAME_PHASE.init;
-        public GAME_PHASE previousPhase = GAME_PHASE.playerTurn;
+        public GAME_PHASE currentPhase;
+        public GAME_PHASE previousPhase;
         #endregion
 
         #region All Reference Variables
@@ -225,6 +225,21 @@ namespace Spacchiamo
         public playerSettings playerStoredSettings = new playerSettings();
         #endregion
 
+        #region Option Values
+        int difficultySet = 0;
+        bool audioIsOn = false;
+        float audioVolumeSet = 0.0f;
+
+        #endregion
+
+        #region EndCredits Check
+        public bool creditsEnded;
+        #endregion
+
+        #region Story Counter
+        int storyCounter = 0;
+        #endregion
+
         #region SingleTone
         [HideInInspector]
         public static Game_Controller instance = null;
@@ -249,7 +264,18 @@ namespace Spacchiamo
         void Start()
         {
 
+            #region Scene Manager Initialization (all scenes)
+            //Scene Manager initilization
+            Scene_Manager.instance.SceneManagerInitialization();
+            #endregion
 
+            #region Ui Menu Initilization
+            Ui_Manager.instance.InitializingMainMenu();
+            #endregion
+
+
+
+            /*
             #region Taking All References
             // Finding the necessary References to start the initialization sequence
             playerLink = GameObject.FindGameObjectWithTag("Player");
@@ -276,10 +302,7 @@ namespace Spacchiamo
             Ui_Manager.instance.UiInitialization();
             #endregion
 
-            #region Scene Manager Initialization (all scenes)
-            //Scene Manager initilization
-            Scene_Manager.instance.SceneManagerInitialization();
-            #endregion
+          
 
             #region Grid Initialization (all gameplay scenes)
             // Grid Initialization
@@ -351,14 +374,19 @@ namespace Spacchiamo
 
             currentPhase = GAME_PHASE.playerTurn;
             #endregion
-
+            */
         }
 
         void OnLevelWasLoaded(int level)
         {
 
+            #region Scene Manager Initialization (all scenes)
+            //Scene Manager initilization
+            Scene_Manager.instance.SceneManagerInitialization();
+            #endregion
 
-            if (level != 0)
+
+            if (level > 5)
             {
 
                 #region Taking All References
@@ -385,11 +413,6 @@ namespace Spacchiamo
                 //Ui initialization
                 Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
                 Ui_Manager.instance.UiInitialization();
-                #endregion
-
-                #region Scene Manager Initialization (all scenes)
-                //Scene Manager initilization
-                Scene_Manager.instance.SceneManagerInitialization();
                 #endregion
 
                 #region Grid Initialization (all gameplay scenes)
@@ -463,7 +486,7 @@ namespace Spacchiamo
                 #endregion
 
             }
-            else
+            else if (level == 5)
             {
                 #region Ability Ui Initialization
 
@@ -490,13 +513,71 @@ namespace Spacchiamo
                 callerPoints = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsPointsScript>();
                 callerPoints.UpdateUpgradeVisibility();
 
-
+                currentPhase = GAME_PHASE.playerTurn;
                 #endregion
             }
+            else if (level == 0)
+            {
+                Ui_Manager.instance.InitializingMainMenu();
+            }
+            else if (level == 1)
+            {
+                Ui_Manager.instance.InitializingOptions(difficultySet, audioIsOn, audioVolumeSet);
+            }
+            else if (level == 2)
+                Ui_Manager.instance.InitiliazingComInstr();
+            else if (level == 4)
+                Ui_Manager.instance.InitializeStory();
+           
 
 
         }
 
+
+        void Update()
+        {
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (Scene_Manager.instance.GetCurrentSceneIndex() < 4 && Scene_Manager.instance.GetCurrentSceneIndex() >= 2)
+                {
+                    Scene_Manager.instance.LoadSpecificScene(0);
+                }
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() == 1)
+                {
+                    if (Ui_Manager.instance.AreOptionsChanged(difficultySet, audioIsOn, audioVolumeSet))
+                    {
+                        if (!Ui_Manager.instance.IsWarningActiveInHierarchy())
+                            Ui_Manager.instance.PoppingOutWarning();
+                        else
+                            Ui_Manager.instance.PoppingInDefault();
+                    }
+                    else
+                        Scene_Manager.instance.LoadSpecificScene(0);
+                }
+                
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if (Scene_Manager.instance.GetCurrentSceneIndex() == 1 && Ui_Manager.instance.IsWarningActiveInHierarchy())
+                    Scene_Manager.instance.LoadSpecificScene(0);
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() == 2 && !Ui_Manager.instance.IsPhase2Activated())
+                    Ui_Manager.instance.ActivatePhase2();
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() == 4)
+                {
+                    if (storyCounter < 7)
+                    {
+                        storyCounter++;
+                        Ui_Manager.instance.SetStoryPhase(storyCounter);
+                    }
+                    else
+                    {
+                        Scene_Manager.instance.nextSceneIndex = 5;
+                        Scene_Manager.instance.LoadSpecificScene(5);
+                    }
+                }
+            }
+        }
 
         #region Player Initialization Methods
 
@@ -629,7 +710,7 @@ namespace Spacchiamo
             for (int i = 0; i < levelDiff; i++)
             {
                 playerStoredSettings.passiveStorage.traveler.espPower += playerStoredSettings.passiveStorage.traveler.espIncPerLevel;
-              
+
             }
 
             playerStoredSettings.passiveStorage.traveler.level = level;
@@ -642,7 +723,7 @@ namespace Spacchiamo
             for (int i = 0; i < levelDiff; i++)
             {
                 playerStoredSettings.passiveStorage.survivor.sopPower += playerStoredSettings.passiveStorage.survivor.sopIncPerLevel;
-                
+
             }
 
             playerStoredSettings.passiveStorage.survivor.level = level;
@@ -675,7 +756,7 @@ namespace Spacchiamo
 
                 }
             }
-        } 
+        }
         #endregion
 
         public void SetPrimSecondPhase1(int level, originalName abilityName)
@@ -761,6 +842,11 @@ namespace Spacchiamo
         public void SavePlayerData(playerSettings currentSetting)
         {
             playerStoredSettings = currentSetting;
+        }
+
+        public void OptionSettingsSaving()
+        {
+            Ui_Manager.instance.TakingOptionSettings(out difficultySet, out audioIsOn, out audioVolumeSet);
         }
 
         #endregion

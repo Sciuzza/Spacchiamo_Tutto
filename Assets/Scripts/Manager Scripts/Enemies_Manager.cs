@@ -43,41 +43,44 @@ namespace Spacchiamo
         #region Phase Condition Methods
         void Update()
         {
-            // Necessary to understand when switch to player turn again
-            if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn)
+            if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6)
             {
-                if (AreEnemiesInPosition())
+                // Necessary to understand when switch to player turn again
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.npcEnemyTurn)
                 {
-                    CheckingAggro();
-                    fearPhaseChecked = false;
-                    Game_Controller.instance.currentPhase = GAME_PHASE.playerTurn;
+                    if (AreEnemiesInPosition())
+                    {
+                        CheckingAggro();
+                        fearPhaseChecked = false;
+                        Game_Controller.instance.currentPhase = GAME_PHASE.playerTurn;
+                    }
                 }
-            }
-            if (Game_Controller.instance.currentPhase == GAME_PHASE.knockAni && Game_Controller.instance.previousPhase == GAME_PHASE.playerTurn)
-            {
-                if (AreEnemiesInPositionByKnockBack())
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.knockAni && Game_Controller.instance.previousPhase == GAME_PHASE.playerTurn)
                 {
-                    Game_Controller.instance.previousPhase = GAME_PHASE.knockAni;
-                    Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
+                    if (AreEnemiesInPositionByKnockBack())
+                    {
+                        Game_Controller.instance.previousPhase = GAME_PHASE.knockAni;
+                        Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
+                    }
                 }
-            }
-            if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && !fearPhaseChecked) 
-            {
-                spawnChance = Random.Range(0f, 1f);
+                if (Game_Controller.instance.currentPhase == GAME_PHASE.playerTurn && !fearPhaseChecked)
+                {
+                    spawnChance = Random.Range(0f, 1f);
 
-                if (playerTemp.GetComponent<Player_Controller>().CurSet.fear1Activated)
-                {
-                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().CurSet.fear1Percent)
-                        SpawnFear1Monster();
+                    if (playerTemp.GetComponent<Player_Controller>().CurSet.fear1Activated)
+                    {
+                        if (spawnChance <= playerTemp.GetComponent<Player_Controller>().CurSet.fear1Percent)
+                            SpawnFear1Monster();
+                    }
+                    else if (playerTemp.GetComponent<Player_Controller>().CurSet.fear2Activated)
+                    {
+                        if (spawnChance <= playerTemp.GetComponent<Player_Controller>().CurSet.fear2Percent)
+                            SpawnFear2Monster();
+                    }
+                    fearPhaseChecked = true;
                 }
-                else if (playerTemp.GetComponent<Player_Controller>().CurSet.fear2Activated)
-                {
-                    if (spawnChance <= playerTemp.GetComponent<Player_Controller>().CurSet.fear2Percent)
-                        SpawnFear2Monster();
-                }
-                fearPhaseChecked = true;
-            }
 
+            }
         }
 
         private bool AreEnemiesInPosition()
