@@ -118,47 +118,62 @@ namespace Spacchiamo {
 
 		protected internal override void Start () {
 
-            switch (this.tag)
-            {
-
-                case PARAMETERS.PLAY:
-                    this.uiImageLogic = UIIMAGE.PLAY_GAME;
-                    break;
-                default:
-                    //Debug.LogWarning("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
-                    break;
+			switch (this.tag) {
+			
+			case PARAMETERS.PASSIVE:	//INIZIO TEMP
+				this.uiImageLogic = UIIMAGE.PASSIVE_ABILITY;
+				break;
+			case PARAMETERS.PRIMARY:
+				this.uiImageLogic = UIIMAGE.PRIMARY_ABILITY;
+				break;
+			case PARAMETERS.SECONDARY:
+				this.uiImageLogic = UIIMAGE.SECONDARY_ABILITY;
+				break;
+			case PARAMETERS.POINTS:
+				this.uiImageLogic = UIIMAGE.POINTS_FOR_ABILITY;
+				break;
+			case PARAMETERS.WEAPON1:
+				this.uiImageLogic = UIIMAGE.FIRST_WEAPON;
+				break;
+			case PARAMETERS.WEAPON2:
+				this.uiImageLogic = UIIMAGE.SECOND_WEAPON;
+				break;	//FINE TEMP
+			case PARAMETERS.PLAY:
+				this.uiImageLogic = UIIMAGE.PLAY_GAME;
+				break;
+			default:
+				Debug.LogWarning("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
+				break;
 
             }
 
         }
 
-        public void InitializingOwnLogic()
-        {
+        public void InitializingOwnLogic() {
 
-            switch (this.tag)
-            {
+			switch (this.tag) {
 
-                case PARAMETERS.PASSIVE:
-                    this.uiImageLogic = UIIMAGE.PASSIVE_ABILITY;
-                    break;
-                case PARAMETERS.PRIMARY:
-                    this.uiImageLogic = UIIMAGE.PRIMARY_ABILITY;
-                    break;
-                case PARAMETERS.SECONDARY:
-                    this.uiImageLogic = UIIMAGE.SECONDARY_ABILITY;
-                    break;
-                case PARAMETERS.POINTS:
-                    this.uiImageLogic = UIIMAGE.POINTS_FOR_ABILITY;
-                    break;
-                case PARAMETERS.WEAPON1:
-                    this.uiImageLogic = UIIMAGE.FIRST_WEAPON;
-                    break;
-                case PARAMETERS.WEAPON2:
-                    this.uiImageLogic = UIIMAGE.SECOND_WEAPON;
-                    break;
-                default:
-                    Debug.LogWarning("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
-                    break;
+			case PARAMETERS.PASSIVE:
+				this.uiImageLogic = UIIMAGE.PASSIVE_ABILITY;
+				break;
+			case PARAMETERS.PRIMARY:
+				this.uiImageLogic = UIIMAGE.PRIMARY_ABILITY;
+				break;
+			case PARAMETERS.SECONDARY:
+				this.uiImageLogic = UIIMAGE.SECONDARY_ABILITY;
+				break;
+			case PARAMETERS.POINTS:
+				this.uiImageLogic = UIIMAGE.POINTS_FOR_ABILITY;
+				break;
+			case PARAMETERS.WEAPON1:
+				this.uiImageLogic = UIIMAGE.FIRST_WEAPON;
+				break;
+			case PARAMETERS.WEAPON2:
+				this.uiImageLogic = UIIMAGE.SECOND_WEAPON;
+				break;
+			default:
+				Debug.LogWarning("TI STAI DIMENTICANDO UN TAG!\n" + this.name);
+				break;
 
             }
 
