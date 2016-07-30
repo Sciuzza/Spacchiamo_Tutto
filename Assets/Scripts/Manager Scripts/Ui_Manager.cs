@@ -12,6 +12,9 @@ namespace Spacchiamo
         Text fear, turnCount;
         Slider fearBar;
         UILifePanelScript lifePanelScript;
+        Button mainMenuReturn, resetLevel;
+        GameObject gameOver, popupT;
+        List<GameObject> trainerStories;
         #endregion
 
         #region Ability Ui References
@@ -341,6 +344,28 @@ namespace Spacchiamo
             SettingTurnValue(0);
             fear.text = string.Format("{00}", 0);
             fearBar.value = 0f;
+
+            gameOver = GameObject.FindGameObjectWithTag("GameOver");
+            mainMenuReturn = GameObject.FindGameObjectWithTag("GameOver").transform.FindChild("Esci al menu").GetComponent<Button>();
+            resetLevel = GameObject.FindGameObjectWithTag("GameOver").transform.FindChild("Ricomincia il livello").GetComponent<Button>();
+
+            gameOver.SetActive(false);
+
+            popupT = GameObject.FindGameObjectWithTag("PopupT");
+
+            trainerStories = new List<GameObject>();
+
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story1").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story2").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story3").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story4").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story5").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story6").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story7").gameObject);
+            trainerStories.Add(GameObject.FindGameObjectWithTag("PopupT").transform.FindChild("Story8").gameObject);
+
+            popupT.SetActive(false);
+
         }
 
 
