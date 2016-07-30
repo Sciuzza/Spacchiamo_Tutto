@@ -497,33 +497,9 @@ namespace Spacchiamo
             }
             else if (level == 5)
             {
-                #region Ability Ui Initialization
+            
 
-                abilitiesAndWeaponsCanvasScript = GameObject.FindGameObjectWithTag("UIAbility").GetComponent<UIAbilitiesAndWeaponsCanvasScript>();
-
-                callerAbiWea = GameObject.FindGameObjectWithTag("UIPR").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
-                callerAbiWea.InitializingOwnLogic();
-                callerAbiWea = GameObject.FindGameObjectWithTag("UISE").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
-                callerAbiWea.InitializingOwnLogic();
-                callerAbiWea = GameObject.FindGameObjectWithTag("UIPA").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
-                callerAbiWea.InitializingOwnLogic();
-                callerAbiWea = GameObject.FindGameObjectWithTag("UIFW").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
-                callerAbiWea.InitializingOwnLogic();
-                callerAbiWea = GameObject.FindGameObjectWithTag("UISW").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
-                callerAbiWea.InitializingOwnLogic();
-                callerAbiWea = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsTooltipCallerScript>();
-                callerAbiWea.InitializingOwnLogic();
-
-
-                Ui_Manager.instance.GivingCanvasAbiWeapScriptRef(abilitiesAndWeaponsCanvasScript);
-                Ui_Manager.instance.SettingAbilitiesAndWeaponsUserInterface();
-
-
-                callerPoints = GameObject.FindGameObjectWithTag("UIPO").GetComponent<UIAbilitiesAndWeaponsPointsScript>();
-                callerPoints.UpdateUpgradeVisibility();
-
-                currentPhase = GAME_PHASE.playerTurn;
-                #endregion
+               
             }
             else if (level == 0)
             {
