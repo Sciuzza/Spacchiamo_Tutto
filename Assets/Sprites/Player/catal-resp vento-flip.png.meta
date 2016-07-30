@@ -1,0 +1,413 @@
+fileFormatVersion: 2
+guid: 678dcc0f0902d4076a6db4bedca92dd8
+timeCreated: 1469901397
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: catal-resp vento-flip_0
+    21300002: catal-resp vento-flip_1
+    21300004: catal-resp vento-flip_2
+    21300006: catal-resp vento-flip_3
+    21300008: catal-resp vento-flip_4
+    21300010: catal-resp vento-flip_5
+    21300012: catal-resp vento-flip_6
+    21300014: catal-resp vento-flip_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: catal-resp vento-flip_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 156, y: -4}
+        - {x: 160, y: 45}
+        - {x: 160, y: 125}
+        - {x: 145, y: 128}
+        - {x: 65, y: 128}
+        - {x: 32, y: 110}
+        - {x: 32, y: 102}
+        - {x: 9, y: 17}
+        - {x: 9, y: -32}
+        - {x: 112, y: -32}
+        - {x: 136, y: -26}
+        - {x: 155, y: -20}
+        - {x: 158, y: -10}
+    - name: catal-resp vento-flip_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 352
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 155, y: -6}
+        - {x: 136, y: -1}
+        - {x: 122, y: -1}
+        - {x: 128, y: -1}
+        - {x: 131, y: 0}
+        - {x: 134, y: 54}
+        - {x: 134, y: 52}
+        - {x: 154, y: 48}
+        - {x: 160, y: 52}
+        - {x: 160, y: 125}
+        - {x: 145, y: 128}
+        - {x: 65, y: 128}
+        - {x: 32, y: 110}
+        - {x: 32, y: 102}
+        - {x: 9, y: 17}
+        - {x: 9, y: -32}
+        - {x: 112, y: -32}
+        - {x: 136, y: -26}
+        - {x: 155, y: -20}
+        - {x: 158, y: -10}
+    - name: catal-resp vento-flip_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 352
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 160, y: 44}
+        - {x: 160, y: 126}
+        - {x: 154, y: 128}
+        - {x: 66, y: 128}
+        - {x: 22, y: 117}
+        - {x: 9, y: 36}
+        - {x: 9, y: -32}
+        - {x: 125, y: -32}
+        - {x: 137, y: -31}
+        - {x: 155, y: -20}
+        - {x: 158, y: -10}
+        - {x: 156, y: -4}
+    - name: catal-resp vento-flip_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 156, y: -4}
+        - {x: 160, y: 25}
+        - {x: 160, y: 119}
+        - {x: 140, y: 128}
+        - {x: 132, y: 126}
+        - {x: 127, y: 123}
+        - {x: 120, y: 109}
+        - {x: 114, y: 104}
+        - {x: 119, y: 110}
+        - {x: 118, y: 113}
+        - {x: 115, y: 113}
+        - {x: 115, y: 117}
+        - {x: 113, y: 124}
+        - {x: 104, y: 119}
+        - {x: 100, y: 106}
+        - {x: 99, y: 102}
+        - {x: 100, y: 106}
+        - {x: 100, y: 109}
+        - {x: 102, y: 111}
+        - {x: 100, y: 128}
+        - {x: 60, y: 128}
+        - {x: 32, y: 110}
+        - {x: 32, y: 102}
+        - {x: 9, y: 17}
+        - {x: 9, y: -32}
+        - {x: 112, y: -32}
+        - {x: 136, y: -26}
+        - {x: 155, y: -20}
+        - {x: 158, y: -10}
+      - - {x: 33, y: 82}
+        - {x: 30, y: 81}
+        - {x: 30, y: 77}
+        - {x: 31, y: 75}
+        - {x: 34, y: 75}
+        - {x: 37, y: 76}
+        - {x: 37, y: 80}
+        - {x: 36, y: 82}
+    - name: catal-resp vento-flip_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -57, y: -25}
+        - {x: -68, y: -29}
+        - {x: -68, y: -32}
+        - {x: -29, y: -32}
+        - {x: -29, y: -31}
+        - {x: -33, y: -28}
+        - {x: -45, y: -25}
+      - - {x: 160, y: 119}
+        - {x: 140, y: 128}
+        - {x: 132, y: 126}
+        - {x: 127, y: 123}
+        - {x: 120, y: 109}
+        - {x: 114, y: 104}
+        - {x: 119, y: 110}
+        - {x: 118, y: 113}
+        - {x: 115, y: 113}
+        - {x: 115, y: 117}
+        - {x: 113, y: 124}
+        - {x: 104, y: 119}
+        - {x: 100, y: 106}
+        - {x: 99, y: 102}
+        - {x: 100, y: 106}
+        - {x: 100, y: 109}
+        - {x: 102, y: 111}
+        - {x: 100, y: 128}
+        - {x: 59, y: 128}
+        - {x: 8, y: 98}
+        - {x: 4, y: 78}
+        - {x: 4, y: -32}
+        - {x: 124, y: -32}
+        - {x: 160, y: -26}
+        - {x: 160, y: -18}
+        - {x: 158, y: -10}
+        - {x: 156, y: -4}
+        - {x: 160, y: 25}
+      - - {x: 33, y: 82}
+        - {x: 30, y: 81}
+        - {x: 30, y: 77}
+        - {x: 31, y: 75}
+        - {x: 34, y: 75}
+        - {x: 37, y: 76}
+        - {x: 37, y: 80}
+        - {x: 36, y: 82}
+    - name: catal-resp vento-flip_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 132, y: 128}
+        - {x: 127, y: 123}
+        - {x: 120, y: 109}
+        - {x: 114, y: 104}
+        - {x: 119, y: 110}
+        - {x: 118, y: 113}
+        - {x: 115, y: 113}
+        - {x: 115, y: 117}
+        - {x: 113, y: 124}
+        - {x: 104, y: 119}
+        - {x: 100, y: 106}
+        - {x: 99, y: 102}
+        - {x: 100, y: 106}
+        - {x: 100, y: 109}
+        - {x: 102, y: 111}
+        - {x: 100, y: 128}
+        - {x: 59, y: 128}
+        - {x: 30, y: 111}
+        - {x: 38, y: 74}
+        - {x: 21, y: 101}
+        - {x: -34, y: 61}
+        - {x: -41, y: 28}
+        - {x: -41, y: -19}
+        - {x: -32, y: -32}
+        - {x: 140, y: -32}
+        - {x: 156, y: -31}
+        - {x: 160, y: 1}
+        - {x: 160, y: 128}
+      - - {x: 33, y: 82}
+        - {x: 30, y: 81}
+        - {x: 30, y: 77}
+        - {x: 31, y: 75}
+        - {x: 34, y: 75}
+        - {x: 37, y: 76}
+        - {x: 37, y: 80}
+        - {x: 36, y: 82}
+    - name: catal-resp vento-flip_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 132, y: 126}
+        - {x: 127, y: 123}
+        - {x: 120, y: 109}
+        - {x: 114, y: 104}
+        - {x: 119, y: 110}
+        - {x: 118, y: 113}
+        - {x: 115, y: 113}
+        - {x: 115, y: 117}
+        - {x: 113, y: 124}
+        - {x: 104, y: 119}
+        - {x: 100, y: 106}
+        - {x: 99, y: 102}
+        - {x: 100, y: 106}
+        - {x: 100, y: 109}
+        - {x: 102, y: 111}
+        - {x: 100, y: 128}
+        - {x: 60, y: 128}
+        - {x: 32, y: 110}
+        - {x: 32, y: 102}
+        - {x: -4, y: -7}
+        - {x: -40, y: 7}
+        - {x: -12, y: 36}
+        - {x: 27, y: 89}
+        - {x: 6, y: 120}
+        - {x: -85, y: 78}
+        - {x: -92, y: 50}
+        - {x: -92, y: -32}
+        - {x: 151, y: -32}
+        - {x: 160, y: -17}
+        - {x: 160, y: 119}
+        - {x: 140, y: 128}
+      - - {x: 33, y: 82}
+        - {x: 30, y: 81}
+        - {x: 30, y: 77}
+        - {x: 31, y: 75}
+        - {x: 34, y: 75}
+        - {x: 37, y: 76}
+        - {x: 37, y: 80}
+        - {x: 36, y: 82}
+    - name: catal-resp vento-flip_7
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 32
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -51, y: -4}
+        - {x: -51, y: -32}
+        - {x: 31, y: -32}
+        - {x: 31, y: -15}
+        - {x: -5, y: -4}
+      - - {x: -89, y: 52}
+        - {x: -84, y: 57}
+        - {x: -84, y: 60}
+        - {x: -85, y: 63}
+        - {x: -92, y: 62}
+        - {x: -96, y: 62}
+        - {x: -92, y: 63}
+        - {x: -87, y: 67}
+        - {x: -82, y: 72}
+        - {x: -82, y: 80}
+        - {x: -81, y: 76}
+        - {x: -76, y: 72}
+        - {x: -47, y: 79}
+        - {x: -44, y: 90}
+        - {x: -44, y: 122}
+        - {x: -50, y: 127}
+        - {x: -104, y: 127}
+        - {x: -149, y: 74}
+        - {x: -149, y: -13}
+        - {x: -139, y: -32}
+        - {x: -44, y: -32}
+        - {x: -44, y: -17}
+        - {x: -59, y: 31}
+        - {x: -76, y: 65}
+      - - {x: 132, y: 126}
+        - {x: 127, y: 123}
+        - {x: 120, y: 109}
+        - {x: 114, y: 104}
+        - {x: 119, y: 110}
+        - {x: 118, y: 113}
+        - {x: 115, y: 113}
+        - {x: 115, y: 117}
+        - {x: 113, y: 124}
+        - {x: 104, y: 119}
+        - {x: 100, y: 106}
+        - {x: 99, y: 102}
+        - {x: 100, y: 106}
+        - {x: 100, y: 109}
+        - {x: 102, y: 111}
+        - {x: 100, y: 128}
+        - {x: 45, y: 128}
+        - {x: 32, y: 113}
+        - {x: 32, y: -32}
+        - {x: 159, y: -32}
+        - {x: 160, y: -17}
+        - {x: 160, y: 124}
+        - {x: 140, y: 128}
+      - - {x: 33, y: 82}
+        - {x: 30, y: 81}
+        - {x: 30, y: 77}
+        - {x: 31, y: 75}
+        - {x: 34, y: 75}
+        - {x: 37, y: 76}
+        - {x: 37, y: 80}
+        - {x: 36, y: 82}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

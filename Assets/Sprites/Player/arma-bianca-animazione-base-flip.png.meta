@@ -1,0 +1,517 @@
+fileFormatVersion: 2
+guid: 501c7028172304d2c87713fdc4bfac70
+timeCreated: 1469897683
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: arma-bianca-animazione-base-flip_0
+    21300002: arma-bianca-animazione-base-flip_1
+    21300004: arma-bianca-animazione-base-flip_2
+    21300006: arma-bianca-animazione-base-flip_3
+    21300008: arma-bianca-animazione-base-flip_4
+    21300010: arma-bianca-animazione-base-flip_5
+    21300012: arma-bianca-animazione-base-flip_6
+    21300014: arma-bianca-animazione-base-flip_7
+    21300016: arma-bianca-animazione-base-flip_8
+    21300018: arma-bianca-animazione-base-flip_9
+    21300020: arma-bianca-animazione-base-flip_10
+    21300022: arma-bianca-animazione-base-flip_11
+    21300024: arma-bianca-animazione-base-flip_12
+    21300026: arma-bianca-animazione-base-flip_13
+    21300028: arma-bianca-animazione-base-flip_14
+    21300030: arma-bianca-animazione-base-flip_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: arma-bianca-animazione-base-flip_0
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 866
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35.5, y: 124.79999}
+        - {x: -60.5, y: 115.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 33.5, y: -31.200012}
+        - {x: 55.5, y: -27.200012}
+        - {x: 60.5, y: -5.200012}
+        - {x: 60.5, y: 116.79999}
+        - {x: 45.5, y: 124.79999}
+    - name: arma-bianca-animazione-base-flip_1
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 866
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35.5, y: 124.79999}
+        - {x: -60.5, y: 115.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 33.5, y: -31.200012}
+        - {x: 55.5, y: -27.200012}
+        - {x: 60.5, y: -5.200012}
+        - {x: 60.5, y: 116.79999}
+        - {x: 45.5, y: 124.79999}
+    - name: arma-bianca-animazione-base-flip_2
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 866
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35.5, y: 124.79999}
+        - {x: -60.5, y: 115.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 33.5, y: -31.200012}
+        - {x: 55.5, y: -27.200012}
+        - {x: 60.5, y: -5.200012}
+        - {x: 60.5, y: 116.79999}
+        - {x: 45.5, y: 124.79999}
+    - name: arma-bianca-animazione-base-flip_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 706
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -57.5, y: 124.79999}
+        - {x: -60.5, y: 121.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 17.5, y: -31.200012}
+        - {x: 46.5, y: -20.200012}
+        - {x: 60.5, y: 15.799988}
+        - {x: 60.5, y: 124.79999}
+    - name: arma-bianca-animazione-base-flip_4
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 706
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.5, y: 63.799988}
+        - {x: 37.5, y: 51.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 56.5, y: 48.799988}
+        - {x: 60.5, y: 52.799988}
+        - {x: 60.5, y: 116.79999}
+        - {x: 45.5, y: 124.79999}
+        - {x: -35.5, y: 124.79999}
+        - {x: -60.5, y: 115.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 21.5, y: -31.200012}
+        - {x: 44.5, y: -20.200012}
+        - {x: 44.5, y: -9.200012}
+        - {x: 34.5, y: 53.799988}
+    - name: arma-bianca-animazione-base-flip_5
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 706
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -43.5, y: 124.79999}
+        - {x: -60.5, y: 116.79999}
+        - {x: -60.5, y: 7.799988}
+        - {x: -57.5, y: -24.200012}
+        - {x: -47.5, y: -31.200012}
+        - {x: 20.5, y: -31.200012}
+        - {x: 38.5, y: -28.200012}
+        - {x: 42.5, y: -18.200012}
+        - {x: 60.5, y: 40.799988}
+        - {x: 60.5, y: 124.79999}
+    - name: arma-bianca-animazione-base-flip_6
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 546
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.5, y: 63.799988}
+        - {x: 37.5, y: 51.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 56.5, y: 48.799988}
+        - {x: 60.5, y: 52.799988}
+        - {x: 60.5, y: 116.79999}
+        - {x: 45.5, y: 124.79999}
+        - {x: -35.5, y: 124.79999}
+        - {x: -60.5, y: 115.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 17.5, y: -31.200012}
+        - {x: 46.5, y: -20.200012}
+        - {x: 40.5, y: -2.2000122}
+        - {x: 35.5, y: 54.799988}
+      - - {x: 32.5, y: 47.799988}
+        - {x: 32.5, y: 45.799988}
+        - {x: 34.5, y: 43.799988}
+        - {x: 35.5, y: 43.799988}
+        - {x: 39.5, y: 47.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 36.5, y: 50.799988}
+    - name: arma-bianca-animazione-base-flip_7
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 546
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 46.5, y: 43.799988}
+        - {x: 40.5, y: 49.799988}
+        - {x: 36.5, y: 50.799988}
+        - {x: 32.5, y: 47.799988}
+        - {x: 31.5, y: 46.799988}
+        - {x: 34.5, y: 50.799988}
+        - {x: 34.5, y: 53.799988}
+        - {x: 32.5, y: 63.799988}
+        - {x: 37.5, y: 51.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 56.5, y: 48.799988}
+        - {x: 60.5, y: 52.799988}
+        - {x: 60.5, y: 116.79999}
+        - {x: 45.5, y: 124.79999}
+        - {x: -35.5, y: 124.79999}
+        - {x: -60.5, y: 115.79999}
+        - {x: -60.5, y: -16.200012}
+        - {x: -46.5, y: -31.200012}
+        - {x: 21.5, y: -31.200012}
+        - {x: 44.5, y: -20.200012}
+        - {x: 44.5, y: -9.200012}
+        - {x: 55.5, y: 18.799988}
+    - name: arma-bianca-animazione-base-flip_8
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 546
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42.5, y: 47.799988}
+        - {x: 38.5, y: 45.799988}
+        - {x: 32.5, y: 63.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 49.5, y: 44.799988}
+        - {x: 56.5, y: 48.799988}
+        - {x: 60.5, y: 52.799988}
+        - {x: 60.5, y: 124.79999}
+        - {x: -51.5, y: 124.79999}
+        - {x: -60.5, y: 116.79999}
+        - {x: -60.5, y: -30.200012}
+        - {x: -56.5, y: -31.200012}
+        - {x: 46.5, y: -31.200012}
+        - {x: 55.5, y: -27.200012}
+        - {x: 60.5, y: -3.2000122}
+        - {x: 60.5, y: 39.799988}
+    - name: arma-bianca-animazione-base-flip_9
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 386
+        width: 121
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42.5, y: 47.799988}
+        - {x: 38.5, y: 45.799988}
+        - {x: 32.5, y: 63.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 49.5, y: 44.799988}
+        - {x: 56.5, y: 48.799988}
+        - {x: 60.5, y: 52.799988}
+        - {x: 60.5, y: 124.79999}
+        - {x: -51.5, y: 124.79999}
+        - {x: -60.5, y: 116.79999}
+        - {x: -60.5, y: -30.200012}
+        - {x: -56.5, y: -31.200012}
+        - {x: 46.5, y: -31.200012}
+        - {x: 55.5, y: -27.200012}
+        - {x: 60.5, y: -3.2000122}
+        - {x: 60.5, y: 39.799988}
+    - name: arma-bianca-animazione-base-flip_10
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 384
+        width: 121
+        height: 158
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -51.5, y: 126.399994}
+        - {x: -60.5, y: 118.399994}
+        - {x: -60.5, y: 20.399994}
+        - {x: -57.5, y: -22.600006}
+        - {x: -44.5, y: -31.600006}
+        - {x: 53.5, y: -31.600006}
+        - {x: 60.5, y: -15.600006}
+        - {x: 60.5, y: 116.399994}
+        - {x: 51.5, y: 126.399994}
+    - name: arma-bianca-animazione-base-flip_11
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 386
+        width: 168
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 53, y: -4.200012}
+        - {x: 84, y: -13.200012}
+        - {x: 84, y: 10.799988}
+        - {x: 40, y: 52.799988}
+        - {x: 41, y: 109.79999}
+        - {x: 28, y: 124.79999}
+        - {x: -84, y: 124.79999}
+        - {x: -84, y: -16.200012}
+        - {x: -70, y: -31.200012}
+        - {x: -4, y: -31.200012}
+        - {x: 34, y: -19.200012}
+        - {x: 51, y: -13.200012}
+        - {x: 54, y: -12.200012}
+      - - {x: 4, y: 0.7999878}
+        - {x: 4, y: -1.2000122}
+        - {x: 6, y: -2.2000122}
+        - {x: 8, y: -2.2000122}
+        - {x: 10, y: 0.7999878}
+        - {x: 10, y: 2.7999878}
+        - {x: 7, y: 3.7999878}
+      - - {x: 23, y: 10.799988}
+        - {x: 21, y: 8.799988}
+        - {x: 20, y: 3.7999878}
+        - {x: 22, y: 1.7999878}
+        - {x: 23, y: 1.7999878}
+        - {x: 26, y: 3.7999878}
+        - {x: 27, y: 7.799988}
+        - {x: 24, y: 10.799988}
+    - name: arma-bianca-animazione-base-flip_12
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 226
+        width: 185
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -92.5, y: 124.79999}
+        - {x: -92.5, y: -31.200012}
+        - {x: 92.5, y: -31.200012}
+        - {x: 92.5, y: 33.799988}
+        - {x: 31.5, y: 124.79999}
+      - - {x: -4.5, y: 0.7999878}
+        - {x: -4.5, y: -1.2000122}
+        - {x: -2.5, y: -2.2000122}
+        - {x: -0.5, y: -2.2000122}
+        - {x: 1.5, y: 0.7999878}
+        - {x: 1.5, y: 2.7999878}
+        - {x: -1.5, y: 3.7999878}
+      - - {x: 35.5, y: 46.799988}
+        - {x: 35.5, y: 45.799988}
+        - {x: 39.5, y: 42.799988}
+        - {x: 42.5, y: 43.799988}
+        - {x: 42.5, y: 46.799988}
+        - {x: 39.5, y: 49.799988}
+        - {x: 38.5, y: 49.799988}
+    - name: arma-bianca-animazione-base-flip_13
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 226
+        width: 186
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -84, y: 124.79999}
+        - {x: -93, y: 116.79999}
+        - {x: -93, y: -16.200012}
+        - {x: -79, y: -31.200012}
+        - {x: -11, y: -31.200012}
+        - {x: 5, y: -27.200012}
+        - {x: 93, y: 6.799988}
+        - {x: 93, y: 38.799988}
+        - {x: 30, y: 124.79999}
+      - - {x: -5, y: 0.7999878}
+        - {x: -5, y: -1.2000122}
+        - {x: -3, y: -2.2000122}
+        - {x: -1, y: -2.2000122}
+        - {x: 1, y: 0.7999878}
+        - {x: 1, y: 2.7999878}
+        - {x: -2, y: 3.7999878}
+      - - {x: 35, y: 46.799988}
+        - {x: 35, y: 45.799988}
+        - {x: 39, y: 42.799988}
+        - {x: 42, y: 43.799988}
+        - {x: 42, y: 46.799988}
+        - {x: 39, y: 49.799988}
+        - {x: 38, y: 49.799988}
+    - name: arma-bianca-animazione-base-flip_14
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 226
+        width: 161
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 25.5, y: 49.799988}
+        - {x: 18.5, y: 45.799988}
+        - {x: 19.5, y: 42.799988}
+        - {x: 22.5, y: 42.799988}
+        - {x: 19.5, y: 40.799988}
+        - {x: 16.5, y: 42.799988}
+        - {x: 18.5, y: 46.799988}
+        - {x: 17.5, y: 49.799988}
+        - {x: 12.5, y: 63.799988}
+        - {x: 15.5, y: 55.799988}
+        - {x: 22.5, y: 49.799988}
+        - {x: 37.5, y: 49.799988}
+        - {x: 40.5, y: 50.799988}
+        - {x: 55.5, y: 70.79999}
+        - {x: 43.5, y: 124.79999}
+        - {x: -71.5, y: 124.79999}
+        - {x: -80.5, y: 116.79999}
+        - {x: -80.5, y: -31.200012}
+        - {x: 80.5, y: -31.200012}
+        - {x: 80.5, y: -17.200012}
+        - {x: 36.5, y: 49.799988}
+      - - {x: 7.5, y: 0.7999878}
+        - {x: 7.5, y: -1.2000122}
+        - {x: 9.5, y: -2.2000122}
+        - {x: 11.5, y: -2.2000122}
+        - {x: 13.5, y: 0.7999878}
+        - {x: 13.5, y: 2.7999878}
+        - {x: 10.5, y: 3.7999878}
+    - name: arma-bianca-animazione-base-flip_15
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 66
+        width: 131
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42.5, y: 3.800003}
+        - {x: 65.5, y: 3.800003}
+        - {x: 65.5, y: 35.800003}
+        - {x: 51.5, y: 49.800003}
+        - {x: 40.5, y: 49.800003}
+        - {x: 36.5, y: 48.800003}
+        - {x: 27.5, y: 59.800003}
+        - {x: 27.5, y: 63.800003}
+        - {x: 30.5, y: 55.800003}
+        - {x: 37.5, y: 49.800003}
+        - {x: 52.5, y: 49.800003}
+        - {x: 55.5, y: 50.800003}
+        - {x: 65.5, y: 63.800003}
+        - {x: 65.5, y: 92.8}
+        - {x: 58.5, y: 124.8}
+        - {x: -56.5, y: 124.8}
+        - {x: -65.5, y: 116.8}
+        - {x: -65.5, y: 17.800003}
+        - {x: -62.5, y: -24.199997}
+        - {x: -52.5, y: -31.199997}
+        - {x: 25.5, y: -31.199997}
+        - {x: 34.5, y: -30.199997}
+        - {x: 40.5, y: -8.199997}
+        - {x: 21.5, y: -1.199997}
+        - {x: 25.5, y: -2.199997}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

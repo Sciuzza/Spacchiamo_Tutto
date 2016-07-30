@@ -1,0 +1,580 @@
+fileFormatVersion: 2
+guid: 2553aa18fc4ee4fa3a45fb0714d107cd
+timeCreated: 1469900826
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: soffio-del-vento-arma-bianca_0
+    21300002: soffio-del-vento-arma-bianca_1
+    21300004: soffio-del-vento-arma-bianca_2
+    21300006: soffio-del-vento-arma-bianca_3
+    21300008: soffio-del-vento-arma-bianca_4
+    21300010: soffio-del-vento-arma-bianca_5
+    21300012: soffio-del-vento-arma-bianca_6
+    21300014: soffio-del-vento-arma-bianca_7
+    21300016: soffio-del-vento-arma-bianca_8
+    21300018: soffio-del-vento-arma-bianca_9
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: soffio-del-vento-arma-bianca_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47, y: 67}
+        - {x: -218, y: 92}
+        - {x: -222, y: 92}
+        - {x: -223, y: 90}
+        - {x: -223, y: 87}
+        - {x: -214, y: 74}
+        - {x: -156, y: 49}
+        - {x: -52, y: 49}
+        - {x: -38, y: 55}
+        - {x: -38, y: 65}
+    - name: soffio-del-vento-arma-bianca_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 704
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 114}
+        - {x: -49, y: 114}
+        - {x: -57, y: 112}
+        - {x: -63, y: 110}
+        - {x: -66, y: 107}
+        - {x: -65, y: 104}
+        - {x: -170, y: 69}
+        - {x: -170, y: 62}
+        - {x: -166, y: 54}
+        - {x: -148, y: 48}
+        - {x: -34, y: 48}
+        - {x: -1, y: 55}
+        - {x: 0, y: 57}
+        - {x: 0, y: 93}
+      - - {x: 6, y: 100}
+        - {x: 0, y: 100}
+        - {x: -3, y: 97}
+        - {x: -3, y: 65}
+        - {x: 6, y: 65}
+        - {x: 18, y: 73}
+        - {x: 18, y: 87}
+        - {x: 15, y: 98}
+      - - {x: -26, y: 121}
+        - {x: -27, y: 119}
+        - {x: -27, y: 114}
+        - {x: -24, y: 110}
+        - {x: -3, y: 102}
+        - {x: 3, y: 102}
+        - {x: 3, y: 112}
+        - {x: -12, y: 121}
+    - name: soffio-del-vento-arma-bianca_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 704
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -128, y: 118}
+        - {x: -128, y: 53}
+        - {x: -100, y: 49}
+        - {x: -94, y: 49}
+        - {x: -88, y: 50}
+        - {x: -64, y: 49}
+        - {x: -99, y: 49}
+        - {x: -101, y: 47}
+        - {x: -102, y: 45}
+        - {x: -101, y: 38}
+        - {x: -23, y: 38}
+        - {x: -2, y: 42}
+        - {x: -2, y: 113}
+        - {x: -21, y: 118}
+      - - {x: -147, y: 65}
+        - {x: -148, y: 63}
+        - {x: -147, y: 60}
+        - {x: -137, y: 58}
+        - {x: -134, y: 59}
+        - {x: -134, y: 62}
+        - {x: -142, y: 65}
+      - - {x: -112, y: 126}
+        - {x: -121, y: 113}
+        - {x: -121, y: 107}
+        - {x: -114, y: 107}
+        - {x: -101, y: 113}
+        - {x: -90, y: 122}
+        - {x: -90, y: 126}
+      - - {x: -20, y: 111}
+        - {x: -17, y: 112}
+        - {x: -17, y: 115}
+        - {x: -20, y: 116}
+        - {x: -22, y: 114}
+      - - {x: -39, y: 128}
+        - {x: -42, y: 123}
+        - {x: -42, y: 121}
+        - {x: -37, y: 117}
+        - {x: -29, y: 117}
+        - {x: -27, y: 118}
+        - {x: -27, y: 123}
+        - {x: -35, y: 128}
+      - - {x: -88, y: 134}
+        - {x: -88, y: 121}
+        - {x: -41, y: 121}
+        - {x: -41, y: 134}
+    - name: soffio-del-vento-arma-bianca_3
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 704
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -39, y: 33}
+        - {x: -20, y: 39}
+        - {x: 14, y: 81}
+        - {x: 14, y: 91}
+        - {x: 5, y: 101}
+        - {x: -3, y: 98}
+        - {x: -2, y: 95}
+        - {x: -21, y: 118}
+        - {x: -91, y: 118}
+        - {x: -126, y: 110}
+        - {x: -126, y: 46}
+        - {x: -106, y: 21}
+        - {x: -40, y: 21}
+        - {x: -36, y: 30}
+        - {x: -40, y: 32}
+        - {x: -63, y: 31}
+      - - {x: -23, y: 120}
+        - {x: -23, y: 112}
+        - {x: -5, y: 100}
+        - {x: -1, y: 100}
+        - {x: 2, y: 103}
+        - {x: 2, y: 108}
+        - {x: -13, y: 120}
+      - - {x: -39, y: 128}
+        - {x: -42, y: 123}
+        - {x: -42, y: 121}
+        - {x: -37, y: 117}
+        - {x: -29, y: 117}
+        - {x: -27, y: 118}
+        - {x: -27, y: 123}
+        - {x: -35, y: 128}
+      - - {x: -57, y: 129}
+        - {x: -58, y: 128}
+        - {x: -58, y: 123}
+        - {x: -54, y: 121}
+        - {x: -43, y: 121}
+        - {x: -41, y: 124}
+        - {x: -41, y: 129}
+    - name: soffio-del-vento-arma-bianca_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -40, y: 32}
+        - {x: -63, y: 31}
+        - {x: -39, y: 33}
+        - {x: -21, y: 41}
+        - {x: 4, y: 58}
+        - {x: 4, y: 99}
+        - {x: -24, y: 130}
+        - {x: -108, y: 130}
+        - {x: -126, y: 111}
+        - {x: -126, y: 50}
+        - {x: -109, y: 19}
+        - {x: -76, y: 14}
+        - {x: -44, y: 14}
+        - {x: -29, y: 19}
+        - {x: -27, y: 23}
+        - {x: -29, y: 37}
+      - - {x: -117, y: 126}
+        - {x: -120, y: 123}
+        - {x: -123, y: 118}
+        - {x: -123, y: 108}
+        - {x: -105, y: 108}
+        - {x: -91, y: 110}
+        - {x: -91, y: 125}
+        - {x: -94, y: 126}
+    - name: soffio-del-vento-arma-bianca_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 384
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11, y: 14}
+        - {x: 2, y: 37}
+        - {x: 13, y: 79}
+        - {x: 13, y: 110}
+        - {x: -1, y: 115}
+        - {x: -22, y: 121}
+        - {x: -23, y: 118}
+        - {x: -22, y: 115}
+        - {x: -34, y: 120}
+        - {x: -43, y: 121}
+        - {x: -56, y: 120}
+        - {x: -85, y: 115}
+        - {x: -90, y: 114}
+        - {x: -77, y: 117}
+        - {x: -70, y: 121}
+        - {x: -70, y: 123}
+        - {x: -74, y: 126}
+        - {x: -87, y: 127}
+        - {x: -91, y: 127}
+        - {x: -89, y: 130}
+        - {x: -74, y: 128}
+        - {x: -71, y: 124}
+        - {x: -64, y: 126}
+        - {x: -65, y: 133}
+        - {x: -83, y: 139}
+        - {x: -119, y: 139}
+        - {x: -123, y: 115}
+        - {x: -123, y: 36}
+        - {x: -99, y: 19}
+        - {x: -78, y: 8}
+        - {x: -39, y: 8}
+        - {x: -45, y: 16}
+        - {x: -48, y: 18}
+        - {x: -44, y: 15}
+      - - {x: -63, y: 137}
+        - {x: -63, y: 132}
+        - {x: -55, y: 122}
+        - {x: -31, y: 118}
+        - {x: -25, y: 118}
+        - {x: -25, y: 128}
+        - {x: -41, y: 137}
+    - name: soffio-del-vento-arma-bianca_6
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 384
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -49, y: 130}
+        - {x: -95, y: 90}
+        - {x: -95, y: 60}
+        - {x: -61, y: 14}
+        - {x: 11, y: 14}
+        - {x: 44, y: 58}
+        - {x: 44, y: 107}
+        - {x: 30, y: 130}
+      - - {x: 12, y: 141}
+        - {x: -1, y: 141}
+        - {x: -2, y: 139}
+        - {x: -2, y: 135}
+        - {x: 23, y: 104}
+        - {x: 40, y: 86}
+        - {x: 45, y: 86}
+        - {x: 45, y: 106}
+        - {x: 34, y: 134}
+      - - {x: -53, y: 126}
+        - {x: -70, y: 126}
+        - {x: -80, y: 124}
+        - {x: -83, y: 117}
+        - {x: -83, y: 110}
+        - {x: -82, y: 108}
+        - {x: -79, y: 108}
+        - {x: -52, y: 116}
+        - {x: -51, y: 119}
+        - {x: -51, y: 123}
+    - name: soffio-del-vento-arma-bianca_7
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 384
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 103, y: 23}
+        - {x: 100, y: 19}
+        - {x: 101, y: 16}
+        - {x: 129, y: 8}
+        - {x: 141, y: 8}
+        - {x: 158, y: 68}
+        - {x: 158, y: 112}
+        - {x: 123, y: 121}
+        - {x: 122, y: 118}
+        - {x: 123, y: 115}
+        - {x: 111, y: 119}
+        - {x: 102, y: 121}
+        - {x: 89, y: 120}
+        - {x: 60, y: 115}
+        - {x: 55, y: 114}
+        - {x: 67, y: 117}
+        - {x: 73, y: 120}
+        - {x: 75, y: 122}
+        - {x: 75, y: 123}
+        - {x: 72, y: 127}
+        - {x: 53, y: 127}
+        - {x: 71, y: 128}
+        - {x: 75, y: 125}
+        - {x: 78, y: 124}
+        - {x: 84, y: 131}
+        - {x: 74, y: 139}
+        - {x: 38, y: 139}
+        - {x: 22, y: 117}
+        - {x: 22, y: 39}
+        - {x: 56, y: 8}
+        - {x: 101, y: 8}
+        - {x: 103, y: 9}
+        - {x: 99, y: 17}
+        - {x: 100, y: 22}
+      - - {x: 82, y: 137}
+        - {x: 82, y: 131}
+        - {x: 90, y: 121}
+        - {x: 115, y: 118}
+        - {x: 120, y: 118}
+        - {x: 120, y: 127}
+        - {x: 104, y: 137}
+    - name: soffio-del-vento-arma-bianca_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 111, y: 7}
+        - {x: 107, y: 14}
+        - {x: 103, y: 20}
+        - {x: 109, y: 13}
+        - {x: 136, y: 14}
+        - {x: 149, y: 26}
+        - {x: 152, y: 36}
+        - {x: 152, y: 44}
+        - {x: 152, y: 31}
+        - {x: 151, y: 30}
+        - {x: 151, y: 11}
+        - {x: 180, y: 42}
+        - {x: 189, y: 86}
+        - {x: 189, y: 159}
+        - {x: 178, y: 161}
+        - {x: 8, y: 161}
+        - {x: -2, y: 147}
+        - {x: -2, y: 56}
+        - {x: 43, y: 4}
+        - {x: 69, y: 4}
+        - {x: 70, y: 6}
+        - {x: 74, y: 4}
+        - {x: 100, y: 4}
+      - - {x: 41, y: 171}
+        - {x: 57, y: 174}
+        - {x: 75, y: 169}
+        - {x: 77, y: 170}
+        - {x: 77, y: 180}
+        - {x: 52, y: 188}
+        - {x: 26, y: 188}
+        - {x: 19, y: 186}
+        - {x: 5, y: 159}
+        - {x: 5, y: 136}
+        - {x: 27, y: 136}
+        - {x: 69, y: 144}
+        - {x: 73, y: 164}
+        - {x: 68, y: 171}
+        - {x: 55, y: 172}
+      - - {x: 110, y: 162}
+        - {x: 108, y: 160}
+        - {x: 109, y: 156}
+        - {x: 119, y: 154}
+        - {x: 123, y: 154}
+        - {x: 124, y: 156}
+        - {x: 124, y: 160}
+        - {x: 120, y: 162}
+      - - {x: 85, y: 185}
+        - {x: 83, y: 182}
+        - {x: 83, y: 178}
+        - {x: 94, y: 165}
+        - {x: 126, y: 160}
+        - {x: 135, y: 160}
+        - {x: 135, y: 172}
+        - {x: 111, y: 185}
+    - name: soffio-del-vento-arma-bianca_9
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 64
+        width: 480
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 116, y: 27}
+        - {x: 116, y: 23}
+        - {x: 115, y: 19}
+        - {x: 127, y: 16}
+        - {x: 140, y: 23}
+        - {x: 146, y: 28}
+        - {x: 146, y: 43}
+        - {x: 144, y: 45}
+        - {x: 140, y: 46}
+        - {x: 118, y: 39}
+        - {x: 72, y: 39}
+        - {x: 64, y: 41}
+        - {x: 63, y: 40}
+        - {x: 80, y: 41}
+        - {x: 130, y: 44}
+        - {x: 159, y: 53}
+        - {x: 195, y: 102}
+        - {x: 195, y: 115}
+        - {x: 192, y: 118}
+        - {x: 187, y: 117}
+        - {x: 185, y: 113}
+        - {x: 186, y: 115}
+        - {x: 186, y: 133}
+        - {x: 171, y: 149}
+        - {x: 150, y: 164}
+        - {x: 136, y: 168}
+        - {x: 116, y: 169}
+        - {x: 132, y: 168}
+        - {x: 134, y: 171}
+        - {x: 147, y: 171}
+        - {x: 150, y: 180}
+        - {x: 137, y: 190}
+        - {x: 70, y: 190}
+        - {x: 53, y: 175}
+        - {x: 61, y: 172}
+        - {x: 46, y: 167}
+        - {x: -2, y: 146}
+        - {x: -2, y: 108}
+        - {x: 5, y: 88}
+        - {x: 49, y: 87}
+        - {x: 83, y: 87}
+        - {x: 87, y: 88}
+        - {x: 94, y: 92}
+        - {x: 96, y: 96}
+        - {x: 147, y: 106}
+        - {x: 155, y: 115}
+        - {x: 155, y: 126}
+        - {x: 162, y: 117}
+        - {x: 146, y: 105}
+        - {x: 125, y: 97}
+        - {x: 100, y: 92}
+        - {x: 90, y: 88}
+        - {x: 69, y: 85}
+        - {x: 14, y: 87}
+        - {x: 10, y: 75}
+        - {x: 12, y: 66}
+        - {x: 17, y: 62}
+        - {x: 36, y: 40}
+        - {x: 43, y: 36}
+        - {x: 34, y: 34}
+        - {x: 31, y: 28}
+        - {x: 40, y: 23}
+        - {x: 95, y: 15}
+        - {x: 107, y: 15}
+        - {x: 111, y: 19}
+        - {x: 111, y: 23}
+        - {x: 107, y: 27}
+      - - {x: 135, y: 104}
+        - {x: 135, y: 114}
+        - {x: 134, y: 119}
+        - {x: 106, y: 137}
+        - {x: 58, y: 137}
+        - {x: 53, y: 136}
+        - {x: 53, y: 106}
+        - {x: 93, y: 94}
+        - {x: 109, y: 94}
+        - {x: 109, y: 100}
+        - {x: 102, y: 106}
+        - {x: 122, y: 101}
+      - - {x: 18, y: 184}
+        - {x: 3, y: 179}
+        - {x: 3, y: 159}
+        - {x: 15, y: 159}
+        - {x: 21, y: 161}
+        - {x: 49, y: 171}
+        - {x: 49, y: 180}
+        - {x: 47, y: 184}
+      - - {x: 119, y: 186}
+        - {x: 120, y: 183}
+        - {x: 124, y: 183}
+        - {x: 126, y: 185}
+        - {x: 125, y: 188}
+        - {x: 121, y: 188}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

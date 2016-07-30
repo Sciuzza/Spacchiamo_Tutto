@@ -1,0 +1,372 @@
+fileFormatVersion: 2
+guid: 65cb1dc8d2b4e46ab87d83d9faa7ed59
+timeCreated: 1469898048
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemyicolpodelventodx_0
+    21300002: enemyicolpodelventodx_1
+    21300004: enemyicolpodelventodx_2
+    21300006: enemyicolpodelventodx_3
+    21300008: enemyicolpodelventodx_4
+    21300010: enemyicolpodelventodx_5
+    21300012: enemyicolpodelventodx_6
+    21300014: enemyicolpodelventodx_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: enemyicolpodelventodx_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 287
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 75, y: 73}
+        - {x: 73, y: 65}
+        - {x: 73, y: 57}
+        - {x: 80, y: 57}
+        - {x: 80, y: 73}
+      - - {x: 17, y: 180}
+        - {x: 17, y: 171}
+        - {x: 19, y: 169}
+        - {x: 22, y: 169}
+        - {x: 32, y: 178}
+        - {x: 32, y: 180}
+      - - {x: 69, y: 180}
+        - {x: 69, y: 171}
+        - {x: 80, y: 171}
+        - {x: 80, y: 180}
+    - name: enemyicolpodelventodx_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 287
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 73, y: 75}
+        - {x: 65, y: 67}
+        - {x: 65, y: 51}
+        - {x: 74, y: 51}
+        - {x: 80, y: 55}
+        - {x: 80, y: 74}
+        - {x: 79, y: 75}
+      - - {x: 77, y: 84}
+        - {x: 79, y: 82}
+        - {x: 80, y: 82}
+        - {x: 80, y: 88}
+        - {x: 77, y: 87}
+      - - {x: 57, y: 180}
+        - {x: 55, y: 178}
+        - {x: 54, y: 170}
+        - {x: 54, y: 153}
+        - {x: 62, y: 153}
+        - {x: 74, y: 157}
+        - {x: 80, y: 170}
+        - {x: 80, y: 180}
+      - - {x: 17, y: 180}
+        - {x: 14, y: 176}
+        - {x: 14, y: 160}
+        - {x: 18, y: 156}
+        - {x: 21, y: 157}
+        - {x: 33, y: 170}
+        - {x: 35, y: 178}
+        - {x: 35, y: 180}
+    - name: enemyicolpodelventodx_2
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 287
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 69, y: 73}
+        - {x: 61, y: 69}
+        - {x: 53, y: 53}
+        - {x: 53, y: 47}
+        - {x: 65, y: 47}
+        - {x: 78, y: 48}
+        - {x: 80, y: 51}
+        - {x: 80, y: 72}
+        - {x: 77, y: 73}
+      - - {x: 66, y: 98}
+        - {x: 64, y: 97}
+        - {x: 64, y: 89}
+        - {x: 65, y: 85}
+        - {x: 73, y: 85}
+        - {x: 73, y: 92}
+        - {x: 72, y: 97}
+        - {x: 70, y: 98}
+      - - {x: 52, y: 180}
+        - {x: 39, y: 159}
+        - {x: 39, y: 136}
+        - {x: 57, y: 136}
+        - {x: 80, y: 148}
+        - {x: 80, y: 180}
+      - - {x: 6, y: 180}
+        - {x: 6, y: 146}
+        - {x: 17, y: 146}
+        - {x: 39, y: 166}
+        - {x: 39, y: 177}
+        - {x: 37, y: 180}
+    - name: enemyicolpodelventodx_3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 287
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 65, y: 77}
+        - {x: 45, y: 68}
+        - {x: 40, y: 52}
+        - {x: 40, y: 44}
+        - {x: 78, y: 44}
+        - {x: 80, y: 47}
+        - {x: 80, y: 77}
+      - - {x: 42, y: 180}
+        - {x: 21, y: 140}
+        - {x: 21, y: 116}
+        - {x: 45, y: 116}
+        - {x: 80, y: 156}
+        - {x: 80, y: 180}
+      - - {x: 4, y: 180}
+        - {x: 0, y: 166}
+        - {x: 0, y: 141}
+        - {x: 3, y: 141}
+        - {x: 7, y: 142}
+        - {x: 27, y: 154}
+        - {x: 38, y: 175}
+        - {x: 38, y: 180}
+    - name: enemyicolpodelventodx_4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 287
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8, y: 43}
+        - {x: 8, y: 17}
+        - {x: 31, y: 17}
+        - {x: 48, y: 22}
+        - {x: 80, y: 43}
+        - {x: 80, y: 72}
+        - {x: 59, y: 72}
+        - {x: 9, y: 53}
+      - - {x: 47, y: 180}
+        - {x: 16, y: 171}
+        - {x: 2, y: 134}
+        - {x: 2, y: 93}
+        - {x: 3, y: 90}
+        - {x: 23, y: 90}
+        - {x: 75, y: 142}
+        - {x: 80, y: 158}
+        - {x: 80, y: 180}
+      - - {x: 39, y: 162}
+        - {x: 35, y: 166}
+        - {x: 30, y: 169}
+        - {x: 39, y: 178}
+        - {x: 39, y: 180}
+        - {x: 15, y: 180}
+        - {x: 4, y: 167}
+        - {x: -21, y: 134}
+        - {x: -25, y: 126}
+        - {x: -25, y: 113}
+        - {x: -23, y: 112}
+        - {x: -16, y: 112}
+        - {x: 7, y: 128}
+        - {x: 6, y: 131}
+        - {x: 39, y: 155}
+    - name: enemyicolpodelventodx_5
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 287
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1, y: 10}
+        - {x: 0, y: -3}
+        - {x: 0, y: -19}
+        - {x: 15, y: -19}
+        - {x: 80, y: 54}
+        - {x: 80, y: 75}
+        - {x: 75, y: 75}
+        - {x: 24, y: 46}
+      - - {x: 80, y: 178}
+        - {x: 77, y: 178}
+        - {x: 62, y: 162}
+        - {x: 10, y: 104}
+        - {x: -14, y: 72}
+        - {x: -16, y: 58}
+        - {x: -16, y: 42}
+        - {x: -10, y: 42}
+        - {x: 14, y: 62}
+        - {x: 36, y: 80}
+        - {x: 80, y: 152}
+      - - {x: -13, y: 180}
+        - {x: -38, y: 120}
+        - {x: -38, y: 69}
+        - {x: -8, y: 69}
+        - {x: 45, y: 163}
+        - {x: 45, y: 180}
+    - name: enemyicolpodelventodx_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 62
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 73, y: 54}
+        - {x: -8, y: -17}
+        - {x: -8, y: -45}
+        - {x: 20, y: -45}
+        - {x: 80, y: 18}
+        - {x: 80, y: 54}
+      - - {x: 49, y: 129}
+        - {x: -40, y: 21}
+        - {x: -40, y: -11}
+        - {x: -29, y: -11}
+        - {x: -2, y: -6}
+        - {x: 66, y: 102}
+        - {x: 66, y: 129}
+      - - {x: 0, y: 129}
+        - {x: -53, y: 69}
+        - {x: -62, y: 42}
+        - {x: -62, y: 16}
+        - {x: -52, y: 16}
+        - {x: -17, y: 41}
+        - {x: 21, y: 123}
+        - {x: 21, y: 129}
+    - name: enemyicolpodelventodx_7
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 62
+        width: 160
+        height: 225
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 77, y: 54}
+        - {x: -8, y: -13}
+        - {x: -8, y: -45}
+        - {x: 11, y: -45}
+        - {x: 41, y: -16}
+        - {x: 80, y: 32}
+        - {x: 80, y: 54}
+      - - {x: 0, y: 43}
+        - {x: -3, y: 43}
+        - {x: -23, y: 20}
+        - {x: -53, y: -10}
+        - {x: -55, y: -27}
+        - {x: -55, y: -38}
+        - {x: -48, y: -38}
+        - {x: -23, y: -26}
+        - {x: 1, y: 2}
+        - {x: 2, y: 24}
+        - {x: 2, y: 42}
+      - - {x: -6, y: 78}
+        - {x: -8, y: 79}
+        - {x: -22, y: 79}
+        - {x: -32, y: 68}
+        - {x: -59, y: 35}
+        - {x: -71, y: 19}
+        - {x: -76, y: -3}
+        - {x: -76, y: -10}
+        - {x: -75, y: -12}
+        - {x: -72, y: -12}
+        - {x: -60, y: -4}
+        - {x: -46, y: 10}
+        - {x: -13, y: 64}
+        - {x: -6, y: 76}
+      - - {x: 56, y: 129}
+        - {x: 15, y: 87}
+        - {x: 12, y: 74}
+        - {x: 12, y: 52}
+        - {x: 22, y: 52}
+        - {x: 63, y: 96}
+        - {x: 66, y: 116}
+        - {x: 66, y: 129}
+      - - {x: 4, y: 129}
+        - {x: -6, y: 116}
+        - {x: -9, y: 105}
+        - {x: -7, y: 103}
+        - {x: 8, y: 103}
+        - {x: 21, y: 122}
+        - {x: 21, y: 128}
+        - {x: 20, y: 129}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

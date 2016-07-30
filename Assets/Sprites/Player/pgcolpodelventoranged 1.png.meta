@@ -1,26 +1,25 @@
 fileFormatVersion: 2
-guid: b780b722a8c56a343acfb66f3c36cb23
-timeCreated: 1469900178
+guid: e058cb48774104c7f8428d97aa31c833
+timeCreated: 1469900202
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: pgcolpodelventoranged_0
-    21300002: pgcolpodelventoranged_1
-    21300004: pgcolpodelventoranged_2
-    21300006: pgcolpodelventoranged_3
-    21300008: pgcolpodelventoranged_4
-    21300010: pgcolpodelventoranged_5
-    21300012: pgcolpodelventoranged_6
-    21300014: pgcolpodelventoranged_7
-    21300016: pgcolpodelventoranged_8
-    21300018: pgcolpodelventoranged_9
-    21300020: pgcolpodelventoranged_10
-    21300022: pgcolpodelventoranged_11
-    21300024: pgcolpodelventoranged_12
-    21300026: pgcolpodelventoranged_13
-    21300028: pgcolpodelventoranged_14
-    21300030: pgcolpodelventoranged_15
-    21300032: pgcolpodelventoranged_16
+    21300000: pgcolpodelventoranged 1_0
+    21300002: pgcolpodelventoranged 1_1
+    21300004: pgcolpodelventoranged 1_2
+    21300006: pgcolpodelventoranged 1_3
+    21300008: pgcolpodelventoranged 1_4
+    21300010: pgcolpodelventoranged 1_5
+    21300012: pgcolpodelventoranged 1_6
+    21300014: pgcolpodelventoranged 1_7
+    21300016: pgcolpodelventoranged 1_8
+    21300018: pgcolpodelventoranged 1_9
+    21300020: pgcolpodelventoranged 1_10
+    21300022: pgcolpodelventoranged 1_11
+    21300024: pgcolpodelventoranged 1_12
+    21300026: pgcolpodelventoranged 1_13
+    21300028: pgcolpodelventoranged 1_14
+    21300030: pgcolpodelventoranged 1_15
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -67,7 +66,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: pgcolpodelventoranged_0
+    - name: pgcolpodelventoranged 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -87,7 +86,7 @@ TextureImporter:
         - {x: 13, y: -32}
         - {x: 39, y: -18}
         - {x: 39, y: 128}
-    - name: pgcolpodelventoranged_1
+    - name: pgcolpodelventoranged 1_1
       rect:
         serializedVersion: 2
         x: 200
@@ -106,7 +105,7 @@ TextureImporter:
         - {x: 42, y: -32}
         - {x: 42, y: 118}
         - {x: 35, y: 128}
-    - name: pgcolpodelventoranged_2
+    - name: pgcolpodelventoranged 1_2
       rect:
         serializedVersion: 2
         x: 400
@@ -126,7 +125,7 @@ TextureImporter:
         - {x: 21, y: -32}
         - {x: 39, y: -27}
         - {x: 39, y: 128}
-    - name: pgcolpodelventoranged_3
+    - name: pgcolpodelventoranged 1_3
       rect:
         serializedVersion: 2
         x: 600
@@ -147,7 +146,7 @@ TextureImporter:
         - {x: 13, y: -32}
         - {x: 39, y: -18}
         - {x: 39, y: 120}
-    - name: pgcolpodelventoranged_4
+    - name: pgcolpodelventoranged 1_4
       rect:
         serializedVersion: 2
         x: 800
@@ -166,7 +165,7 @@ TextureImporter:
         - {x: 17, y: -32}
         - {x: 39, y: -18}
         - {x: 39, y: 123}
-    - name: pgcolpodelventoranged_5
+    - name: pgcolpodelventoranged 1_5
       rect:
         serializedVersion: 2
         x: 0
@@ -188,7 +187,7 @@ TextureImporter:
         - {x: 39, y: -26}
         - {x: 39, y: 112}
         - {x: 24, y: 128}
-    - name: pgcolpodelventoranged_6
+    - name: pgcolpodelventoranged 1_6
       rect:
         serializedVersion: 2
         x: 200
@@ -207,7 +206,7 @@ TextureImporter:
         - {x: 19, y: -32}
         - {x: 42, y: -19}
         - {x: 42, y: 128}
-    - name: pgcolpodelventoranged_7
+    - name: pgcolpodelventoranged 1_7
       rect:
         serializedVersion: 2
         x: 400
@@ -227,7 +226,7 @@ TextureImporter:
         - {x: 31, y: -32}
         - {x: 44, y: -27}
         - {x: 44, y: 128}
-    - name: pgcolpodelventoranged_8
+    - name: pgcolpodelventoranged 1_8
       rect:
         serializedVersion: 2
         x: 600
@@ -243,7 +242,7 @@ TextureImporter:
         - {x: -70, y: -32}
         - {x: 47, y: -32}
         - {x: 47, y: 128}
-    - name: pgcolpodelventoranged_9
+    - name: pgcolpodelventoranged 1_9
       rect:
         serializedVersion: 2
         x: 800
@@ -267,7 +266,7 @@ TextureImporter:
         - {x: 62, y: 17}
         - {x: 62, y: 45}
         - {x: 44, y: 113}
-    - name: pgcolpodelventoranged_10
+    - name: pgcolpodelventoranged 1_10
       rect:
         serializedVersion: 2
         x: 0
@@ -291,7 +290,7 @@ TextureImporter:
         - {x: 62, y: 17}
         - {x: 62, y: 45}
         - {x: 44, y: 113}
-    - name: pgcolpodelventoranged_11
+    - name: pgcolpodelventoranged 1_11
       rect:
         serializedVersion: 2
         x: 200
@@ -317,7 +316,7 @@ TextureImporter:
         - {x: -60, y: -32}
         - {x: 61, y: -32}
         - {x: 61, y: 128}
-    - name: pgcolpodelventoranged_12
+    - name: pgcolpodelventoranged 1_12
       rect:
         serializedVersion: 2
         x: 400
@@ -342,7 +341,7 @@ TextureImporter:
         - {x: 71, y: 36}
         - {x: 71, y: 63}
         - {x: 69, y: 63}
-    - name: pgcolpodelventoranged_13
+    - name: pgcolpodelventoranged 1_13
       rect:
         serializedVersion: 2
         x: 600
@@ -387,7 +386,7 @@ TextureImporter:
         - {x: 100, y: 69}
         - {x: 100, y: 106}
         - {x: 98, y: 112}
-    - name: pgcolpodelventoranged_14
+    - name: pgcolpodelventoranged 1_14
       rect:
         serializedVersion: 2
         x: 800
@@ -432,7 +431,7 @@ TextureImporter:
         - {x: 53, y: 84}
         - {x: 100, y: 102}
         - {x: 100, y: 125}
-    - name: pgcolpodelventoranged_15
+    - name: pgcolpodelventoranged 1_15
       rect:
         serializedVersion: 2
         x: 0

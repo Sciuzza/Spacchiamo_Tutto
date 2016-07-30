@@ -1,0 +1,371 @@
+fileFormatVersion: 2
+guid: 934c297dd12654ac585daa3a5c6f4799
+timeCreated: 1469898299
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemyimpetoranged_0
+    21300002: enemyimpetoranged_1
+    21300004: enemyimpetoranged_2
+    21300006: enemyimpetoranged_3
+    21300008: enemyimpetoranged_4
+    21300010: enemyimpetoranged_6
+    21300012: enemyimpetoranged_7
+    21300014: enemyimpetoranged_9
+    21300016: enemyimpetoranged_10
+    21300018: enemyimpetoranged_5
+    21300020: enemyimpetoranged_8
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: enemyimpetoranged_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -84, y: 73}
+        - {x: -85, y: 73}
+        - {x: -85, y: 55}
+        - {x: -84, y: 55}
+        - {x: -73, y: 63}
+        - {x: -73, y: 67}
+        - {x: -74, y: 70}
+    - name: enemyimpetoranged_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -58, y: 78}
+        - {x: -85, y: 67}
+        - {x: -85, y: 56}
+        - {x: -59, y: 44}
+        - {x: -41, y: 44}
+        - {x: -24, y: 58}
+        - {x: -24, y: 67}
+        - {x: -38, y: 78}
+    - name: enemyimpetoranged_2
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38, y: 93}
+        - {x: -52, y: 79}
+        - {x: -57, y: 70}
+        - {x: -57, y: 35}
+        - {x: -35, y: 12}
+        - {x: -33, y: 11}
+        - {x: -11, y: 11}
+        - {x: 30, y: 36}
+        - {x: 30, y: 70}
+        - {x: 20, y: 93}
+    - name: enemyimpetoranged_3
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 79, y: 61}
+        - {x: 76, y: 58}
+        - {x: 81, y: 64}
+        - {x: 85, y: 64}
+        - {x: 85, y: 70}
+        - {x: 84, y: 72}
+        - {x: 80, y: 72}
+        - {x: 81, y: 72}
+        - {x: 85, y: 76}
+        - {x: 85, y: 94}
+        - {x: 44, y: 115}
+        - {x: 24, y: 115}
+        - {x: 26, y: 110}
+        - {x: 29, y: 109}
+        - {x: 33, y: 108}
+        - {x: 34, y: 107}
+        - {x: 32, y: 108}
+        - {x: 24, y: 111}
+        - {x: 18, y: 115}
+        - {x: -27, y: 115}
+        - {x: -53, y: 109}
+        - {x: -53, y: 76}
+        - {x: -52, y: 74}
+        - {x: -23, y: 79}
+        - {x: -51, y: 74}
+        - {x: -53, y: 70}
+        - {x: -53, y: 54}
+        - {x: -50, y: 48}
+        - {x: -14, y: 10}
+        - {x: 46, y: 10}
+        - {x: 85, y: 28}
+        - {x: 85, y: 60}
+        - {x: 82, y: 61}
+      - - {x: 79, y: 91}
+        - {x: 78, y: 90}
+        - {x: 78, y: 84}
+        - {x: 82, y: 84}
+        - {x: 85, y: 85}
+        - {x: 85, y: 89}
+        - {x: 83, y: 91}
+    - name: enemyimpetoranged_4
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -13, y: 12}
+        - {x: -13, y: 0}
+        - {x: 42, y: 0}
+        - {x: 85, y: 15}
+        - {x: 85, y: 24}
+        - {x: 82, y: 24}
+      - - {x: 35, y: 31}
+        - {x: 35, y: 27}
+        - {x: 36, y: 24}
+        - {x: 71, y: 24}
+        - {x: 85, y: 29}
+        - {x: 85, y: 37}
+        - {x: 74, y: 37}
+        - {x: 42, y: 34}
+      - - {x: 9, y: 87}
+        - {x: -13, y: 78}
+        - {x: -13, y: 51}
+        - {x: -6, y: 50}
+        - {x: 85, y: 50}
+        - {x: 85, y: 86}
+        - {x: 77, y: 87}
+      - - {x: -85, y: 76}
+        - {x: -85, y: 62}
+        - {x: -83, y: 62}
+        - {x: -81, y: 64}
+        - {x: -81, y: 75}
+        - {x: -83, y: 77}
+      - - {x: -85, y: 83}
+        - {x: -84, y: 82}
+        - {x: -81, y: 83}
+        - {x: -81, y: 86}
+        - {x: -83, y: 88}
+        - {x: -85, y: 88}
+      - - {x: 20, y: 101}
+        - {x: 19, y: 97}
+        - {x: 19, y: 93}
+        - {x: 20, y: 91}
+        - {x: 24, y: 90}
+        - {x: 78, y: 89}
+        - {x: 85, y: 89}
+        - {x: 85, y: 101}
+      - - {x: 35, y: 113}
+        - {x: 26, y: 107}
+        - {x: 26, y: 103}
+        - {x: 27, y: 102}
+        - {x: 85, y: 102}
+        - {x: 85, y: 112}
+        - {x: 82, y: 113}
+    - name: enemyimpetoranged_5
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -85, y: 111}
+        - {x: -85, y: 16}
+        - {x: -78, y: 16}
+        - {x: -71, y: 18}
+        - {x: -19, y: 48}
+        - {x: -19, y: 90}
+        - {x: -61, y: 111}
+      - - {x: -21, y: 74}
+        - {x: -25, y: 72}
+        - {x: -25, y: 69}
+        - {x: -20, y: 64}
+        - {x: -18, y: 64}
+        - {x: -16, y: 66}
+        - {x: -16, y: 72}
+        - {x: -17, y: 74}
+    - name: enemyimpetoranged_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 14, y: 133}
+        - {x: -85, y: 133}
+        - {x: -85, y: 29}
+        - {x: -75, y: 27}
+        - {x: 32, y: 27}
+        - {x: 64, y: 59}
+        - {x: 74, y: 77}
+        - {x: 74, y: 96}
+    - name: enemyimpetoranged_7
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 53}
+        - {x: -7, y: 51}
+        - {x: -7, y: 35}
+        - {x: 30, y: 22}
+        - {x: 81, y: 22}
+        - {x: 85, y: 28}
+        - {x: 85, y: 62}
+        - {x: 84, y: 62}
+      - - {x: 59, y: 133}
+        - {x: 59, y: 132}
+        - {x: 22, y: 115}
+        - {x: 15, y: 103}
+        - {x: -40, y: 98}
+        - {x: -60, y: 94}
+        - {x: -63, y: 91}
+        - {x: -63, y: 61}
+        - {x: 74, y: 61}
+        - {x: 85, y: 62}
+        - {x: 85, y: 128}
+        - {x: 75, y: 133}
+    - name: enemyimpetoranged_8
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -85, y: 122}
+        - {x: -85, y: 29}
+        - {x: -77, y: 29}
+        - {x: 85, y: 62}
+        - {x: 85, y: 105}
+        - {x: -76, y: 122}
+    - name: enemyimpetoranged_9
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -6, y: 136}
+        - {x: -62, y: 136}
+        - {x: -85, y: 118}
+        - {x: -85, y: 59}
+        - {x: -69, y: 25}
+        - {x: 20, y: 25}
+        - {x: 85, y: 42}
+        - {x: 85, y: 101}
+        - {x: 55, y: 103}
+    - name: enemyimpetoranged_10
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11, y: 136}
+        - {x: -17, y: 128}
+        - {x: -15, y: 123}
+        - {x: -83, y: 103}
+        - {x: -85, y: 101}
+        - {x: -85, y: 60}
+        - {x: -21, y: 25}
+        - {x: 20, y: 25}
+        - {x: 72, y: 83}
+        - {x: 72, y: 95}
+        - {x: 0, y: 136}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
