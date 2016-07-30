@@ -1,0 +1,321 @@
+fileFormatVersion: 2
+guid: e758c8d9b705843e09243f1369d8d917
+timeCreated: 1469896049
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: leftattack_0
+    21300002: leftattack_1
+    21300004: leftattack_2
+    21300006: leftattack_3
+    21300008: leftattack_4
+    21300010: leftattack_5
+    21300012: leftattack_6
+    21300014: leftattack_7
+    21300016: leftattack_8
+    21300018: leftattack_9
+    21300020: leftattack_10
+    21300022: leftattack_11
+    21300024: leftattack_12
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: leftattack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 874
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19, y: 119}
+        - {x: -58, y: 32}
+        - {x: -58, y: -23}
+        - {x: -34, y: -29}
+        - {x: 118, y: -29}
+        - {x: 121, y: -22}
+        - {x: 121, y: 77}
+        - {x: 111, y: 119}
+    - name: leftattack_1
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 874
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 119}
+        - {x: -56, y: 80}
+        - {x: -56, y: -17}
+        - {x: -4, y: -29}
+        - {x: 121, y: -29}
+        - {x: 121, y: 59}
+        - {x: 109, y: 119}
+    - name: leftattack_2
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 874
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16, y: 119}
+        - {x: -53, y: 42}
+        - {x: -53, y: -8}
+        - {x: -17, y: -29}
+        - {x: 115, y: -29}
+        - {x: 122, y: -24}
+        - {x: 122, y: 80}
+        - {x: 92, y: 119}
+    - name: leftattack_3
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 874
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 15, y: 119}
+        - {x: -46, y: 68}
+        - {x: -46, y: 10}
+        - {x: -40, y: 7}
+        - {x: -22, y: 0}
+        - {x: 10, y: -29}
+        - {x: 122, y: -29}
+        - {x: 122, y: 119}
+    - name: leftattack_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 724
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: 119}
+        - {x: -42, y: 84}
+        - {x: -42, y: 2}
+        - {x: 0, y: -30}
+        - {x: 120, y: -30}
+        - {x: 122, y: -29}
+        - {x: 122, y: 44}
+        - {x: 109, y: 119}
+    - name: leftattack_5
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 724
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 23, y: 119}
+        - {x: -35, y: 44}
+        - {x: -35, y: -11}
+        - {x: 2, y: -30}
+        - {x: 114, y: -30}
+        - {x: 122, y: -24}
+        - {x: 122, y: 80}
+        - {x: 91, y: 119}
+    - name: leftattack_6
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 724
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 86, y: 119}
+        - {x: 31, y: 119}
+        - {x: -26, y: 41}
+        - {x: -26, y: -21}
+        - {x: 1, y: -30}
+        - {x: 122, y: -30}
+        - {x: 122, y: 40}
+        - {x: 110, y: 101}
+    - name: leftattack_7
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 724
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 97, y: 119}
+        - {x: 25, y: 119}
+        - {x: 1, y: 111}
+        - {x: -16, y: 53}
+        - {x: -16, y: 2}
+        - {x: 6, y: -30}
+        - {x: 120, y: -30}
+        - {x: 122, y: -29}
+        - {x: 122, y: 40}
+        - {x: 110, y: 101}
+    - name: leftattack_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 574
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 102, y: 119}
+        - {x: 25, y: 119}
+        - {x: -38, y: 75}
+        - {x: -38, y: 40}
+        - {x: -37, y: 40}
+        - {x: -32, y: 37}
+        - {x: -11, y: -30}
+        - {x: 122, y: -30}
+        - {x: 122, y: 39}
+        - {x: 106, y: 116}
+    - name: leftattack_9
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 574
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 13, y: 119}
+        - {x: -60, y: 93}
+        - {x: -60, y: 6}
+        - {x: -39, y: -30}
+        - {x: 121, y: -30}
+        - {x: 122, y: -29}
+        - {x: 122, y: 71}
+        - {x: 97, y: 119}
+    - name: leftattack_10
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 574
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 85, y: 119}
+        - {x: 9, y: 119}
+        - {x: -63, y: 57}
+        - {x: -67, y: 51}
+        - {x: -67, y: 34}
+        - {x: -65, y: 29}
+        - {x: -5, y: -30}
+        - {x: 116, y: -30}
+        - {x: 122, y: -19}
+        - {x: 122, y: 59}
+        - {x: 110, y: 112}
+    - name: leftattack_11
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 574
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 23, y: 119}
+        - {x: -65, y: 47}
+        - {x: -65, y: 12}
+        - {x: 3, y: -30}
+        - {x: 109, y: -30}
+        - {x: 122, y: -20}
+        - {x: 122, y: 69}
+        - {x: 98, y: 119}
+    - name: leftattack_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 424
+        width: 250
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10, y: 119}
+        - {x: -62, y: 37}
+        - {x: -62, y: -10}
+        - {x: -30, y: -30}
+        - {x: 122, y: -30}
+        - {x: 122, y: 119}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

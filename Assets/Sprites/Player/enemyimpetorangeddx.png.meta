@@ -1,0 +1,399 @@
+fileFormatVersion: 2
+guid: d92fd901bafe9447e8f37b4e4f463a5a
+timeCreated: 1469899336
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemyimpetorangeddx_0
+    21300002: enemyimpetorangeddx_1
+    21300004: enemyimpetorangeddx_2
+    21300006: enemyimpetorangeddx_3
+    21300008: enemyimpetorangeddx_4
+    21300010: enemyimpetorangeddx_5
+    21300012: enemyimpetorangeddx_6
+    21300014: enemyimpetorangeddx_7
+    21300016: enemyimpetorangeddx_8
+    21300018: enemyimpetorangeddx_9
+    21300020: enemyimpetorangeddx_10
+    21300022: enemyimpetorangeddx_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: enemyimpetorangeddx_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42, y: 69}
+        - {x: 42, y: 63}
+        - {x: 52, y: 55}
+        - {x: 54, y: 55}
+        - {x: 56, y: 56}
+        - {x: 56, y: 71}
+        - {x: 55, y: 73}
+        - {x: 53, y: 73}
+        - {x: 43, y: 70}
+    - name: enemyimpetorangeddx_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -49, y: 78}
+        - {x: -68, y: 78}
+        - {x: -85, y: 69}
+        - {x: -85, y: 60}
+        - {x: -84, y: 59}
+        - {x: -72, y: 44}
+        - {x: -49, y: 44}
+        - {x: -25, y: 54}
+        - {x: -24, y: 59}
+        - {x: -24, y: 68}
+        - {x: -27, y: 69}
+    - name: enemyimpetorangeddx_2
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 22, y: 69}
+        - {x: 0, y: 93}
+        - {x: -38, y: 93}
+        - {x: -61, y: 83}
+        - {x: -65, y: 71}
+        - {x: -65, y: 48}
+        - {x: -34, y: 23}
+        - {x: -15, y: 12}
+        - {x: -11, y: 11}
+        - {x: -2, y: 11}
+        - {x: -1, y: 17}
+        - {x: -5, y: 20}
+        - {x: 22, y: 51}
+    - name: enemyimpetorangeddx_3
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 48, y: 78}
+        - {x: 28, y: 79}
+        - {x: 47, y: 80}
+        - {x: 74, y: 76}
+        - {x: 76, y: 77}
+        - {x: 76, y: 115}
+        - {x: -16, y: 115}
+        - {x: -29, y: 111}
+        - {x: -63, y: 81}
+        - {x: -60, y: 73}
+        - {x: -58, y: 72}
+        - {x: -56, y: 72}
+        - {x: -60, y: 71}
+        - {x: -61, y: 75}
+        - {x: -63, y: 77}
+        - {x: -66, y: 76}
+        - {x: -66, y: 64}
+        - {x: -65, y: 61}
+        - {x: -56, y: 64}
+        - {x: -54, y: 60}
+        - {x: -52, y: 57}
+        - {x: -50, y: 53}
+        - {x: -53, y: 58}
+        - {x: -56, y: 61}
+        - {x: -59, y: 61}
+        - {x: -64, y: 58}
+        - {x: -66, y: 55}
+        - {x: -66, y: 35}
+        - {x: -51, y: 10}
+        - {x: 76, y: 10}
+        - {x: 76, y: 72}
+        - {x: 68, y: 76}
+      - - {x: -63, y: 91}
+        - {x: -66, y: 90}
+        - {x: -66, y: 83}
+        - {x: -65, y: 82}
+        - {x: -63, y: 82}
+        - {x: -56, y: 83}
+        - {x: -55, y: 85}
+        - {x: -55, y: 91}
+    - name: enemyimpetorangeddx_4
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 65, y: 79}
+        - {x: 85, y: 79}
+        - {x: 85, y: 113}
+        - {x: 8, y: 113}
+        - {x: 3, y: 110}
+        - {x: -24, y: 79}
+        - {x: -11, y: 79}
+        - {x: -25, y: 73}
+        - {x: -25, y: 48}
+        - {x: 18, y: 4}
+        - {x: 85, y: 4}
+        - {x: 85, y: 79}
+      - - {x: -23, y: 74}
+        - {x: -26, y: 74}
+        - {x: -28, y: 73}
+        - {x: -28, y: 66}
+        - {x: -26, y: 64}
+        - {x: -24, y: 64}
+        - {x: -19, y: 69}
+        - {x: -19, y: 72}
+    - name: enemyimpetorangeddx_5
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -85, y: 11}
+        - {x: -85, y: 0}
+        - {x: -31, y: 0}
+        - {x: -31, y: 10}
+        - {x: -32, y: 11}
+      - - {x: -85, y: 31}
+        - {x: -85, y: 24}
+        - {x: -82, y: 24}
+        - {x: -79, y: 27}
+        - {x: -79, y: 29}
+        - {x: -81, y: 31}
+      - - {x: -57, y: 86}
+        - {x: -85, y: 86}
+        - {x: -85, y: 51}
+        - {x: -42, y: 51}
+        - {x: -32, y: 52}
+        - {x: -31, y: 54}
+        - {x: -31, y: 78}
+      - - {x: -85, y: 101}
+        - {x: -85, y: 91}
+        - {x: -68, y: 90}
+        - {x: -63, y: 92}
+        - {x: -63, y: 101}
+      - - {x: -81, y: 111}
+        - {x: -85, y: 111}
+        - {x: -85, y: 102}
+        - {x: -70, y: 102}
+        - {x: -70, y: 106}
+        - {x: -73, y: 110}
+    - name: enemyimpetorangeddx_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -74, y: 133}
+        - {x: -85, y: 127}
+        - {x: -85, y: 53}
+        - {x: -74, y: 27}
+        - {x: 56, y: 27}
+        - {x: 56, y: 128}
+        - {x: 38, y: 133}
+    - name: enemyimpetorangeddx_7
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: 133}
+        - {x: -39, y: 102}
+        - {x: -33, y: 92}
+        - {x: -14, y: 98}
+        - {x: -14, y: 99}
+        - {x: -11, y: 99}
+        - {x: -13, y: 99}
+        - {x: -17, y: 96}
+        - {x: -34, y: 91}
+        - {x: -42, y: 99}
+        - {x: -56, y: 102}
+        - {x: -57, y: 99}
+        - {x: -57, y: 66}
+        - {x: -55, y: 64}
+        - {x: -43, y: 64}
+        - {x: 5, y: 22}
+        - {x: 61, y: 22}
+        - {x: 85, y: 31}
+        - {x: 85, y: 128}
+        - {x: 64, y: 133}
+    - name: enemyimpetorangeddx_8
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -85, y: 53}
+        - {x: -85, y: 43}
+        - {x: -64, y: 43}
+        - {x: -61, y: 45}
+        - {x: -61, y: 49}
+        - {x: -63, y: 53}
+      - - {x: -85, y: 98}
+        - {x: -85, y: 64}
+        - {x: -61, y: 61}
+        - {x: -5, y: 61}
+        - {x: -5, y: 94}
+        - {x: -10, y: 98}
+      - - {x: 42, y: 101}
+        - {x: 42, y: 67}
+        - {x: 72, y: 67}
+        - {x: 85, y: 68}
+        - {x: 85, y: 100}
+        - {x: 82, y: 101}
+    - name: enemyimpetorangeddx_9
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 53, y: 106}
+        - {x: 23, y: 105}
+        - {x: 22, y: 128}
+        - {x: 21, y: 136}
+        - {x: -17, y: 136}
+        - {x: -85, y: 110}
+        - {x: -85, y: 66}
+        - {x: -49, y: 25}
+        - {x: 85, y: 25}
+        - {x: 85, y: 103}
+        - {x: 76, y: 104}
+    - name: enemyimpetorangeddx_10
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 43, y: 81}
+        - {x: 79, y: 51}
+        - {x: 85, y: 51}
+        - {x: 85, y: 109}
+        - {x: 83, y: 109}
+        - {x: 43, y: 95}
+      - - {x: -85, y: 103}
+        - {x: -85, y: 64}
+        - {x: -11, y: 64}
+        - {x: -11, y: 103}
+    - name: enemyimpetorangeddx_11
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -31, y: 136}
+        - {x: -66, y: 136}
+        - {x: -85, y: 115}
+        - {x: -85, y: 50}
+        - {x: -61, y: 25}
+        - {x: -53, y: 25}
+        - {x: -48, y: 26}
+        - {x: -51, y: 50}
+        - {x: 17, y: 67}
+        - {x: 17, y: 105}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

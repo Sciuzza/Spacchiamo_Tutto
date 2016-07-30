@@ -1,0 +1,479 @@
+fileFormatVersion: 2
+guid: bf8774ca808dd4f3ea86657fa547650f
+timeCreated: 1469900675
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: pgimpetodx_0
+    21300002: pgimpetodx_1
+    21300004: pgimpetodx_2
+    21300006: pgimpetodx_3
+    21300008: pgimpetodx_4
+    21300010: pgimpetodx_5
+    21300012: pgimpetodx_6
+    21300014: pgimpetodx_7
+    21300016: pgimpetodx_8
+    21300018: pgimpetodx_9
+    21300020: pgimpetodx_10
+    21300022: pgimpetodx_11
+    21300024: pgimpetodx_12
+    21300026: pgimpetodx_13
+    21300028: pgimpetodx_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: pgimpetodx_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 63, y: 66}
+        - {x: 64, y: 52}
+        - {x: 84, y: 48}
+        - {x: 90, y: 47}
+        - {x: 90, y: 128}
+        - {x: -6, y: 128}
+        - {x: -38, y: 119}
+        - {x: -38, y: -12}
+        - {x: -20, y: -32}
+        - {x: 40, y: -32}
+        - {x: 71, y: -20}
+        - {x: 72, y: -7}
+        - {x: 62, y: 32}
+    - name: pgimpetodx_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 63, y: 66}
+        - {x: 64, y: 52}
+        - {x: 84, y: 48}
+        - {x: 90, y: 47}
+        - {x: 90, y: 128}
+        - {x: -6, y: 128}
+        - {x: -41, y: 118}
+        - {x: -41, y: 6}
+        - {x: -29, y: -31}
+        - {x: -21, y: -32}
+        - {x: 53, y: -32}
+        - {x: 71, y: -20}
+        - {x: 72, y: -7}
+        - {x: 62, y: 32}
+    - name: pgimpetodx_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 128}
+        - {x: -8, y: 128}
+        - {x: -40, y: 118}
+        - {x: -40, y: -28}
+        - {x: -32, y: -32}
+        - {x: 39, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+    - name: pgimpetodx_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 61, y: 66}
+        - {x: 62, y: 52}
+        - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 126}
+        - {x: 87, y: 128}
+        - {x: 59, y: 128}
+        - {x: 44, y: 109}
+        - {x: 40, y: 120}
+        - {x: 20, y: 123}
+        - {x: 18, y: 118}
+        - {x: 18, y: 117}
+        - {x: 6, y: 128}
+        - {x: -7, y: 128}
+        - {x: -40, y: 110}
+        - {x: -40, y: -12}
+        - {x: -22, y: -32}
+        - {x: 38, y: -32}
+        - {x: 69, y: -20}
+        - {x: 70, y: -7}
+        - {x: 60, y: 32}
+    - name: pgimpetodx_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10, y: 128}
+        - {x: -40, y: 110}
+        - {x: -40, y: -12}
+        - {x: -22, y: -32}
+        - {x: 58, y: -32}
+        - {x: 81, y: -28}
+        - {x: 94, y: 3}
+        - {x: 94, y: 119}
+        - {x: 85, y: 128}
+    - name: pgimpetodx_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 61, y: 66}
+        - {x: 62, y: 52}
+        - {x: 82, y: 48}
+        - {x: 88, y: 48}
+        - {x: 88, y: 128}
+        - {x: -25, y: 128}
+        - {x: -40, y: 114}
+        - {x: -40, y: -11}
+        - {x: -22, y: -32}
+        - {x: 38, y: -32}
+        - {x: 69, y: -20}
+        - {x: 70, y: -7}
+        - {x: 60, y: 32}
+    - name: pgimpetodx_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 128}
+        - {x: -51, y: 128}
+        - {x: -55, y: 127}
+        - {x: -55, y: -32}
+        - {x: 39, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+    - name: pgimpetodx_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 128}
+        - {x: -8, y: 128}
+        - {x: -47, y: 117}
+        - {x: -47, y: -13}
+        - {x: -34, y: -32}
+        - {x: 57, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+      - - {x: -50, y: 53}
+        - {x: -57, y: 53}
+        - {x: -66, y: 45}
+        - {x: -66, y: 39}
+        - {x: -59, y: 33}
+        - {x: -51, y: 33}
+        - {x: -44, y: 38}
+        - {x: -43, y: 40}
+        - {x: -43, y: 45}
+    - name: pgimpetodx_8
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 52}
+        - {x: 88, y: 114}
+        - {x: 76, y: 128}
+        - {x: -74, y: 128}
+        - {x: -74, y: -32}
+        - {x: 50, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+    - name: pgimpetodx_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 61, y: 66}
+        - {x: 62, y: 52}
+        - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 128}
+        - {x: -8, y: 128}
+        - {x: -40, y: 110}
+        - {x: -40, y: 102}
+        - {x: -31, y: 89}
+        - {x: -23, y: 78}
+        - {x: -27, y: 75}
+        - {x: -28, y: 85}
+        - {x: -37, y: 97}
+        - {x: -40, y: 99}
+        - {x: -40, y: 103}
+        - {x: -41, y: 107}
+        - {x: -51, y: 103}
+        - {x: -62, y: 93}
+        - {x: -64, y: 91}
+        - {x: -63, y: 86}
+        - {x: -52, y: 70}
+        - {x: -64, y: 40}
+        - {x: -64, y: 37}
+        - {x: -29, y: -31}
+        - {x: -26, y: -32}
+        - {x: 39, y: -32}
+        - {x: 72, y: -22}
+        - {x: 70, y: -7}
+        - {x: 60, y: 32}
+    - name: pgimpetodx_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 61, y: 66}
+        - {x: 62, y: 52}
+        - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 128}
+        - {x: -8, y: 128}
+        - {x: -51, y: 116}
+        - {x: -70, y: 92}
+        - {x: -70, y: 88}
+        - {x: -69, y: 83}
+        - {x: -85, y: 57}
+        - {x: -85, y: 20}
+        - {x: -69, y: 10}
+        - {x: -65, y: 20}
+        - {x: -66, y: 24}
+        - {x: -70, y: 30}
+        - {x: -67, y: 29}
+        - {x: -64, y: 17}
+        - {x: -55, y: -4}
+        - {x: -29, y: -32}
+        - {x: 47, y: -32}
+        - {x: 69, y: -20}
+        - {x: 70, y: -7}
+        - {x: 60, y: 32}
+    - name: pgimpetodx_11
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 52}
+        - {x: 88, y: 128}
+        - {x: -38, y: 128}
+        - {x: -100, y: 93}
+        - {x: -100, y: 11}
+        - {x: -86, y: -2}
+        - {x: -84, y: 8}
+        - {x: -82, y: 16}
+        - {x: -79, y: -7}
+        - {x: -37, y: -32}
+        - {x: 46, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+      - - {x: 92, y: 54}
+        - {x: 93, y: 51}
+        - {x: 97, y: 51}
+        - {x: 99, y: 53}
+        - {x: 98, y: 56}
+        - {x: 94, y: 56}
+    - name: pgimpetodx_12
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 47}
+        - {x: 88, y: 128}
+        - {x: -31, y: 128}
+        - {x: -100, y: 73}
+        - {x: -100, y: 27}
+        - {x: -96, y: 26}
+        - {x: -92, y: 20}
+        - {x: -100, y: 11}
+        - {x: -100, y: -1}
+        - {x: -33, y: -32}
+        - {x: 39, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+    - name: pgimpetodx_13
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 52}
+        - {x: 88, y: 114}
+        - {x: 76, y: 128}
+        - {x: -8, y: 128}
+        - {x: -48, y: 118}
+        - {x: -48, y: 13}
+        - {x: -26, y: -32}
+        - {x: 53, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+    - name: pgimpetodx_14
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 48}
+        - {x: 88, y: 52}
+        - {x: 88, y: 128}
+        - {x: -37, y: 128}
+        - {x: -49, y: 97}
+        - {x: -49, y: -11}
+        - {x: -39, y: -26}
+        - {x: -28, y: -32}
+        - {x: 39, y: -32}
+        - {x: 76, y: -24}
+        - {x: 60, y: 32}
+        - {x: 61, y: 66}
+        - {x: 62, y: 52}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

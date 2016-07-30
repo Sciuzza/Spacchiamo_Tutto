@@ -1,0 +1,390 @@
+fileFormatVersion: 2
+guid: f6dff8a1051b6494d9fe901b56048963
+timeCreated: 1469898543
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemyimpetorangedupgrade_0
+    21300002: enemyimpetorangedupgrade_1
+    21300004: enemyimpetorangedupgrade_2
+    21300006: enemyimpetorangedupgrade_3
+    21300008: enemyimpetorangedupgrade_4
+    21300010: enemyimpetorangedupgrade_5
+    21300012: enemyimpetorangedupgrade_6
+    21300014: enemyimpetorangedupgrade_7
+    21300016: enemyimpetorangedupgrade_8
+    21300018: enemyimpetorangedupgrade_9
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: enemyimpetorangedupgrade_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: -32}
+        - {x: -12, y: -35}
+        - {x: -11, y: -36}
+        - {x: 14, y: -36}
+        - {x: 13, y: -33}
+        - {x: 1, y: -30}
+        - {x: -9, y: -29}
+      - - {x: 39, y: -26}
+        - {x: 30, y: -34}
+        - {x: 30, y: -36}
+        - {x: 56, y: -36}
+        - {x: 56, y: -31}
+        - {x: 49, y: -26}
+      - - {x: -82, y: 78}
+        - {x: -85, y: 75}
+        - {x: -85, y: 54}
+        - {x: -80, y: 44}
+        - {x: -67, y: 44}
+        - {x: -54, y: 61}
+        - {x: -54, y: 70}
+        - {x: -66, y: 78}
+    - name: enemyimpetorangedupgrade_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 93}
+        - {x: -69, y: 84}
+        - {x: -85, y: 73}
+        - {x: -85, y: 32}
+        - {x: -68, y: 11}
+        - {x: -26, y: 11}
+        - {x: 0, y: 41}
+        - {x: 0, y: 79}
+        - {x: -18, y: 93}
+    - name: enemyimpetorangedupgrade_2
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 54, y: 76}
+        - {x: 53, y: 71}
+        - {x: 50, y: 71}
+        - {x: 52, y: 72}
+        - {x: 58, y: 81}
+        - {x: 59, y: 82}
+        - {x: 59, y: 95}
+        - {x: 27, y: 115}
+        - {x: -47, y: 115}
+        - {x: -59, y: 110}
+        - {x: -64, y: 102}
+        - {x: -33, y: 93}
+        - {x: -83, y: 87}
+        - {x: -83, y: 20}
+        - {x: -65, y: 0}
+        - {x: -57, y: 0}
+        - {x: -6, y: 9}
+        - {x: -1, y: 12}
+        - {x: -5, y: 6}
+        - {x: -3, y: 0}
+        - {x: 29, y: 0}
+        - {x: 59, y: 47}
+        - {x: 59, y: 76}
+        - {x: 57, y: 77}
+    - name: enemyimpetorangedupgrade_3
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 58, y: 134}
+        - {x: -3, y: 134}
+        - {x: -20, y: 98}
+        - {x: -11, y: 89}
+        - {x: 24, y: 88}
+        - {x: 40, y: 86}
+        - {x: 44, y: 86}
+        - {x: 34, y: 86}
+        - {x: 33, y: 87}
+        - {x: -3, y: 88}
+        - {x: -43, y: 79}
+        - {x: -43, y: 53}
+        - {x: -32, y: 50}
+        - {x: -15, y: 30}
+        - {x: -3, y: 28}
+        - {x: 5, y: 30}
+        - {x: 6, y: 31}
+        - {x: 11, y: 31}
+        - {x: 7, y: 31}
+        - {x: 5, y: 29}
+        - {x: 5, y: 27}
+        - {x: -43, y: 12}
+        - {x: -43, y: -3}
+        - {x: -18, y: -7}
+        - {x: 45, y: -7}
+        - {x: 71, y: 0}
+        - {x: 85, y: 16}
+        - {x: 85, y: 108}
+        - {x: 78, y: 129}
+    - name: enemyimpetorangedupgrade_4
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10, y: 33}
+        - {x: 10, y: 20}
+        - {x: 19, y: 8}
+        - {x: 74, y: 8}
+        - {x: 85, y: 12}
+        - {x: 85, y: 37}
+        - {x: 60, y: 37}
+        - {x: 11, y: 33}
+      - - {x: -80, y: 105}
+        - {x: -85, y: 105}
+        - {x: -85, y: 18}
+        - {x: -75, y: 18}
+        - {x: -44, y: 51}
+        - {x: -40, y: 64}
+        - {x: -40, y: 77}
+      - - {x: 52, y: 48}
+        - {x: 1, y: 41}
+        - {x: 1, y: 33}
+        - {x: 56, y: 33}
+        - {x: 85, y: 36}
+        - {x: 85, y: 48}
+      - - {x: -7, y: 80}
+        - {x: -7, y: 50}
+        - {x: 0, y: 48}
+        - {x: 41, y: 47}
+        - {x: 67, y: 47}
+        - {x: 85, y: 48}
+        - {x: 85, y: 80}
+      - - {x: 4, y: 99}
+        - {x: 4, y: 91}
+        - {x: 8, y: 90}
+        - {x: 44, y: 82}
+        - {x: 85, y: 82}
+        - {x: 85, y: 96}
+        - {x: 70, y: 99}
+      - - {x: 32, y: 113}
+        - {x: 15, y: 110}
+        - {x: 15, y: 100}
+        - {x: 18, y: 99}
+        - {x: 85, y: 99}
+        - {x: 85, y: 113}
+      - - {x: 55, y: 130}
+        - {x: 54, y: 128}
+        - {x: 54, y: 122}
+        - {x: 77, y: 119}
+        - {x: 85, y: 119}
+        - {x: 85, y: 128}
+        - {x: 80, y: 130}
+    - name: enemyimpetorangedupgrade_5
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 332
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: 115}
+        - {x: -17, y: 106}
+        - {x: -26, y: 119}
+        - {x: -56, y: 132}
+        - {x: -65, y: 132}
+        - {x: -85, y: 128}
+        - {x: -85, y: 10}
+        - {x: -75, y: 7}
+        - {x: -33, y: 7}
+        - {x: 22, y: 42}
+        - {x: 24, y: 46}
+        - {x: 24, y: 82}
+        - {x: -10, y: 124}
+    - name: enemyimpetorangedupgrade_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: 144}
+        - {x: -1, y: 141}
+        - {x: -36, y: 125}
+        - {x: -45, y: 120}
+        - {x: -44, y: 117}
+        - {x: -37, y: 116}
+        - {x: -9, y: 103}
+        - {x: 25, y: 101}
+        - {x: -55, y: 101}
+        - {x: -85, y: 95}
+        - {x: -85, y: 56}
+        - {x: -33, y: 43}
+        - {x: -3, y: 40}
+        - {x: 11, y: 41}
+        - {x: -25, y: 36}
+        - {x: -28, y: 30}
+        - {x: -32, y: 13}
+        - {x: 85, y: 13}
+        - {x: 85, y: 139}
+        - {x: 76, y: 144}
+    - name: enemyimpetorangedupgrade_7
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 33, y: 34}
+        - {x: 28, y: 29}
+        - {x: 28, y: 24}
+        - {x: 42, y: 24}
+        - {x: 85, y: 34}
+        - {x: 85, y: 45}
+        - {x: 78, y: 44}
+      - - {x: -45, y: 102}
+        - {x: -58, y: 98}
+        - {x: -58, y: 92}
+        - {x: -60, y: 102}
+        - {x: -79, y: 112}
+        - {x: -85, y: 112}
+        - {x: -85, y: 44}
+        - {x: -32, y: 44}
+        - {x: 85, y: 63}
+        - {x: 85, y: 106}
+        - {x: 61, y: 106}
+      - - {x: 63, y: 61}
+        - {x: 28, y: 59}
+        - {x: 26, y: 54}
+        - {x: 26, y: 50}
+        - {x: 59, y: 50}
+        - {x: 85, y: 54}
+        - {x: 85, y: 65}
+        - {x: 73, y: 63}
+      - - {x: 73, y: 138}
+        - {x: 71, y: 135}
+        - {x: 71, y: 134}
+        - {x: 74, y: 129}
+        - {x: 81, y: 128}
+        - {x: 85, y: 128}
+        - {x: 85, y: 137}
+        - {x: 79, y: 138}
+    - name: enemyimpetorangedupgrade_8
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -85, y: 136}
+        - {x: -85, y: 33}
+        - {x: -65, y: 25}
+        - {x: -43, y: 25}
+        - {x: 85, y: 68}
+        - {x: 85, y: 103}
+        - {x: -33, y: 136}
+    - name: enemyimpetorangedupgrade_9
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 152
+        width: 170
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -26, y: 136}
+        - {x: -74, y: 136}
+        - {x: -85, y: 103}
+        - {x: -85, y: 49}
+        - {x: -34, y: 25}
+        - {x: -21, y: 25}
+        - {x: 42, y: 86}
+        - {x: 42, y: 96}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,431 @@
+fileFormatVersion: 2
+guid: e9c6ca9a5887a4c9f81b4e580c5d994d
+timeCreated: 1469900628
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: pgimpeto-1_0
+    21300002: pgimpeto-1_1
+    21300004: pgimpeto-1_2
+    21300006: pgimpeto-1_3
+    21300008: pgimpeto-1_4
+    21300010: pgimpeto-1_5
+    21300012: pgimpeto-1_6
+    21300014: pgimpeto-1_7
+    21300016: pgimpeto-1_8
+    21300018: pgimpeto-1_9
+    21300020: pgimpeto-1_10
+    21300022: pgimpeto-1_11
+    21300024: pgimpeto-1_12
+    21300026: pgimpeto-1_13
+    21300028: pgimpeto-1_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: pgimpeto-1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -49, y: -32}
+        - {x: 13, y: -32}
+        - {x: 39, y: -18}
+        - {x: 39, y: 128}
+    - name: pgimpeto-1_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -69, y: -32}
+        - {x: 42, y: -32}
+        - {x: 42, y: 118}
+        - {x: 35, y: 128}
+    - name: pgimpeto-1_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -61, y: -32}
+        - {x: 21, y: -32}
+        - {x: 39, y: -27}
+        - {x: 39, y: 128}
+    - name: pgimpeto-1_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 8, y: 128}
+        - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -49, y: -32}
+        - {x: 13, y: -32}
+        - {x: 39, y: -18}
+        - {x: 39, y: 120}
+    - name: pgimpeto-1_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 352
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 30, y: 128}
+        - {x: -79, y: 128}
+        - {x: -96, y: 108}
+        - {x: -96, y: 60}
+        - {x: -69, y: -32}
+        - {x: 17, y: -32}
+        - {x: 39, y: -18}
+        - {x: 39, y: 123}
+    - name: pgimpeto-1_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -84, y: 128}
+        - {x: -89, y: 124}
+        - {x: -89, y: 51}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -61, y: -32}
+        - {x: 19, y: -32}
+        - {x: 39, y: -26}
+        - {x: 39, y: 112}
+        - {x: 24, y: 128}
+    - name: pgimpeto-1_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -69, y: -32}
+        - {x: 19, y: -32}
+        - {x: 42, y: -19}
+        - {x: 42, y: 128}
+    - name: pgimpeto-1_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -61, y: -32}
+        - {x: 19, y: -32}
+        - {x: 44, y: -25}
+        - {x: 44, y: 128}
+      - - {x: 59, y: 54}
+        - {x: 52, y: 54}
+        - {x: 47, y: 47}
+        - {x: 47, y: 42}
+        - {x: 51, y: 36}
+        - {x: 57, y: 34}
+        - {x: 63, y: 34}
+        - {x: 70, y: 40}
+        - {x: 70, y: 47}
+        - {x: 69, y: 50}
+    - name: pgimpeto-1_8
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -87, y: 128}
+        - {x: -89, y: 125}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -69, y: -32}
+        - {x: 24, y: -32}
+        - {x: 74, y: 29}
+        - {x: 74, y: 80}
+        - {x: 25, y: 128}
+    - name: pgimpeto-1_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 192
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: 5}
+        - {x: 26, y: 4}
+        - {x: 28, y: 1}
+        - {x: 28, y: -2}
+        - {x: 32, y: -9}
+        - {x: 50, y: -18}
+        - {x: 79, y: 30}
+        - {x: 79, y: 128}
+        - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -76, y: -32}
+        - {x: 25, y: -32}
+        - {x: 30, y: -16}
+        - {x: 27, y: 2}
+        - {x: 26, y: 3}
+    - name: pgimpeto-1_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 77, y: 37}
+        - {x: 74, y: 31}
+        - {x: 70, y: 21}
+        - {x: 77, y: 16}
+        - {x: 81, y: 14}
+        - {x: 91, y: 26}
+        - {x: 91, y: 56}
+        - {x: 90, y: 59}
+        - {x: 86, y: 59}
+        - {x: 75, y: 57}
+        - {x: 76, y: 90}
+        - {x: 51, y: 110}
+        - {x: 39, y: 85}
+        - {x: 39, y: 80}
+        - {x: 41, y: 111}
+        - {x: 32, y: 128}
+        - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -49, y: -32}
+        - {x: 29, y: -32}
+        - {x: 63, y: -2}
+        - {x: 71, y: 23}
+        - {x: 71, y: 28}
+    - name: pgimpeto-1_11
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 94, y: 30}
+        - {x: 90, y: 24}
+        - {x: 88, y: 14}
+        - {x: 94, y: 9}
+        - {x: 100, y: 11}
+        - {x: 100, y: 52}
+        - {x: 33, y: 128}
+        - {x: -87, y: 128}
+        - {x: -89, y: 125}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -57, y: -32}
+        - {x: 32, y: -32}
+        - {x: 83, y: 4}
+        - {x: 87, y: 17}
+        - {x: 88, y: 21}
+    - name: pgimpeto-1_12
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -71, y: -32}
+        - {x: 31, y: -32}
+        - {x: 100, y: 11}
+        - {x: 100, y: 89}
+        - {x: 52, y: 128}
+      - - {x: -100, y: 51}
+        - {x: -100, y: 15}
+        - {x: -97, y: 15}
+        - {x: -92, y: 20}
+        - {x: -92, y: 45}
+        - {x: -93, y: 51}
+    - name: pgimpeto-1_13
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 48}
+        - {x: -67, y: 46}
+        - {x: -62, y: 47}
+        - {x: -62, y: 34}
+        - {x: -55, y: 19}
+        - {x: -73, y: -6}
+        - {x: -65, y: -28}
+        - {x: -56, y: -32}
+        - {x: 35, y: -32}
+        - {x: 52, y: -8}
+        - {x: 52, y: 110}
+        - {x: 39, y: 128}
+      - - {x: -100, y: 29}
+        - {x: -97, y: 30}
+        - {x: -97, y: 51}
+        - {x: -99, y: 53}
+        - {x: -100, y: 53}
+    - name: pgimpeto-1_14
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 32
+        width: 200
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -89, y: 128}
+        - {x: -89, y: 47}
+        - {x: -65, y: 48}
+        - {x: -73, y: -6}
+        - {x: -69, y: -32}
+        - {x: 29, y: -32}
+        - {x: 53, y: -2}
+        - {x: 53, y: 128}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

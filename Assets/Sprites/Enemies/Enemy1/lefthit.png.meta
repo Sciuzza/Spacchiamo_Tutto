@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: 217770301e86d4e199e020ec0553e57d
+timeCreated: 1469896113
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: lefthit_0
+    21300002: lefthit_1
+    21300004: lefthit_2
+    21300006: lefthit_3
+    21300008: lefthit_4
+    21300010: lefthit_5
+    21300012: lefthit_6
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: lefthit_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 362
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 23, y: 119}
+        - {x: 1, y: 111}
+        - {x: -38, y: 71}
+        - {x: -77, y: 26}
+        - {x: -77, y: -14}
+        - {x: -59, y: -22}
+        - {x: -22, y: -29}
+        - {x: 97, y: -29}
+        - {x: 97, y: 89}
+        - {x: 67, y: 119}
+    - name: lefthit_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 362
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -19, y: 112}
+        - {x: -69, y: 71}
+        - {x: -69, y: 10}
+        - {x: -45, y: -30}
+        - {x: 97, y: -30}
+        - {x: 97, y: 78}
+        - {x: 78, y: 112}
+    - name: lefthit_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 362
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 51, y: 112}
+        - {x: 20, y: 112}
+        - {x: 4, y: 95}
+        - {x: -69, y: 74}
+        - {x: -69, y: 17}
+        - {x: -42, y: -30}
+        - {x: 89, y: -30}
+        - {x: 93, y: -24}
+        - {x: 93, y: 97}
+        - {x: 74, y: 105}
+    - name: lefthit_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 362
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 4, y: 112}
+        - {x: -68, y: 61}
+        - {x: -68, y: 1}
+        - {x: -38, y: -30}
+        - {x: 97, y: -30}
+        - {x: 97, y: 104}
+        - {x: 88, y: 112}
+    - name: lefthit_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 362
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -64, y: 15}
+        - {x: -21, y: -30}
+        - {x: 92, y: -30}
+        - {x: 92, y: 91}
+        - {x: 89, y: 107}
+        - {x: 84, y: 112}
+        - {x: -13, y: 112}
+        - {x: -64, y: 78}
+    - name: lefthit_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 212
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 3, y: 112}
+        - {x: -68, y: 57}
+        - {x: -68, y: 23}
+        - {x: -38, y: -30}
+        - {x: 97, y: -30}
+        - {x: 97, y: 95}
+        - {x: 87, y: 112}
+    - name: lefthit_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 212
+        width: 200
+        height: 150
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11, y: 112}
+        - {x: -68, y: 51}
+        - {x: -68, y: 21}
+        - {x: -28, y: -25}
+        - {x: 20, y: -30}
+        - {x: 94, y: -30}
+        - {x: 97, y: -27}
+        - {x: 97, y: 108}
+        - {x: 79, y: 112}
+      - - {x: 69, y: 120}
+        - {x: 70, y: 117}
+        - {x: 76, y: 116}
+        - {x: 78, y: 116}
+        - {x: 81, y: 119}
+        - {x: 81, y: 120}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 53737c860adbd46b481e075ea92764b1
+timeCreated: 1469899734
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: impeto-upgrade--flip_0
+    21300002: impeto-upgrade--flip_1
+    21300004: impeto-upgrade--flip_2
+    21300006: impeto-upgrade--flip_3
+    21300008: impeto-upgrade--flip_4
+    21300010: impeto-upgrade--flip_5
+    21300012: impeto-upgrade--flip_6
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: impeto-upgrade--flip_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 144, y: 7}
+        - {x: 64, y: 63}
+        - {x: -101, y: 63}
+        - {x: -159, y: 41}
+        - {x: -159, y: -19}
+        - {x: -143, y: -32}
+        - {x: 123, y: -32}
+        - {x: 160, y: -3}
+        - {x: 160, y: 7}
+        - {x: 159, y: 8}
+    - name: impeto-upgrade--flip_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 352
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 144, y: 7}
+        - {x: 160, y: 38}
+        - {x: 160, y: 41}
+        - {x: 159, y: 43}
+        - {x: 152, y: 44}
+        - {x: 26, y: 65}
+        - {x: -38, y: 57}
+        - {x: 23, y: 88}
+        - {x: 27, y: 92}
+        - {x: 25, y: 99}
+        - {x: 10, y: 99}
+        - {x: -80, y: 87}
+        - {x: -141, y: 75}
+        - {x: -159, y: 68}
+        - {x: -159, y: -13}
+        - {x: -115, y: -32}
+        - {x: 123, y: -32}
+        - {x: 160, y: -17}
+        - {x: 160, y: 7}
+        - {x: 159, y: 8}
+    - name: impeto-upgrade--flip_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 352
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 144, y: 7}
+        - {x: 160, y: 38}
+        - {x: 160, y: 46}
+        - {x: 125, y: 40}
+        - {x: 149, y: 57}
+        - {x: 160, y: 71}
+        - {x: 160, y: 74}
+        - {x: 159, y: 76}
+        - {x: 152, y: 77}
+        - {x: 63, y: 128}
+        - {x: -66, y: 128}
+        - {x: -155, y: 114}
+        - {x: -159, y: 112}
+        - {x: -159, y: -17}
+        - {x: -155, y: -32}
+        - {x: 111, y: -32}
+        - {x: 160, y: -3}
+        - {x: 160, y: 7}
+        - {x: 159, y: 8}
+    - name: impeto-upgrade--flip_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 144, y: 7}
+        - {x: 160, y: 38}
+        - {x: 160, y: 46}
+        - {x: 125, y: 40}
+        - {x: 149, y: 57}
+        - {x: 160, y: 71}
+        - {x: 160, y: 79}
+        - {x: 25, y: 101}
+        - {x: -62, y: 90}
+        - {x: 31, y: 125}
+        - {x: 31, y: 128}
+        - {x: -59, y: 128}
+        - {x: -155, y: 114}
+        - {x: -159, y: 112}
+        - {x: -159, y: -17}
+        - {x: -155, y: -32}
+        - {x: 111, y: -32}
+        - {x: 160, y: -3}
+        - {x: 160, y: 7}
+        - {x: 159, y: 8}
+    - name: impeto-upgrade--flip_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 144, y: 7}
+        - {x: 160, y: 37}
+        - {x: 160, y: 80}
+        - {x: 25, y: 101}
+        - {x: -62, y: 90}
+        - {x: 31, y: 124}
+        - {x: 31, y: 128}
+        - {x: -50, y: 128}
+        - {x: -144, y: 118}
+        - {x: -159, y: 105}
+        - {x: -159, y: -29}
+        - {x: -134, y: -32}
+        - {x: 139, y: -32}
+        - {x: 160, y: -7}
+        - {x: 160, y: 7}
+        - {x: 159, y: 8}
+    - name: impeto-upgrade--flip_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 159, y: 8}
+        - {x: 160, y: 8}
+        - {x: 160, y: 96}
+        - {x: 124, y: 128}
+        - {x: -157, y: 128}
+        - {x: -159, y: 123}
+        - {x: -159, y: -14}
+        - {x: -143, y: -23}
+        - {x: -70, y: -32}
+        - {x: 108, y: -32}
+        - {x: 160, y: -2}
+        - {x: 160, y: 7}
+    - name: impeto-upgrade--flip_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 320
+        height: 160
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 144, y: 7}
+        - {x: 160, y: 37}
+        - {x: 160, y: 87}
+        - {x: 28, y: 128}
+        - {x: -88, y: 128}
+        - {x: -136, y: 121}
+        - {x: -159, y: 111}
+        - {x: -159, y: -9}
+        - {x: -107, y: -32}
+        - {x: 111, y: -32}
+        - {x: 160, y: -3}
+        - {x: 160, y: 7}
+        - {x: 159, y: 8}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

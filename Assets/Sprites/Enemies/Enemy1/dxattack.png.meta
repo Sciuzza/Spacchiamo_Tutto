@@ -1,0 +1,278 @@
+fileFormatVersion: 2
+guid: cb33938e5d6914ec8a0b30c76b3fe59b
+timeCreated: 1469895950
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: dxattack_0
+    21300002: dxattack_1
+    21300004: dxattack_2
+    21300006: dxattack_3
+    21300008: dxattack_4
+    21300010: dxattack_5
+    21300012: dxattack_6
+    21300014: dxattack_7
+    21300016: dxattack_8
+    21300018: dxattack_9
+    21300020: dxattack_10
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: dxattack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 363
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16, y: 118.20001}
+        - {x: -90, y: 118.20001}
+        - {x: -100, y: 107.20001}
+        - {x: -100, y: -29.799988}
+        - {x: 28, y: -29.799988}
+        - {x: 51, y: -12.799988}
+        - {x: 51, y: 65.20001}
+        - {x: 20, y: 117.20001}
+    - name: dxattack_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 363
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -96, y: 118.20001}
+        - {x: -100, y: 117.20001}
+        - {x: -100, y: -27.799988}
+        - {x: -98, y: -29.799988}
+        - {x: 20, y: -29.799988}
+        - {x: 51, y: -11.799988}
+        - {x: 51, y: 78.20001}
+        - {x: 34, y: 118.20001}
+    - name: dxattack_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 363
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -82, y: 118.20001}
+        - {x: -100, y: 97.20001}
+        - {x: -100, y: -29.799988}
+        - {x: 24, y: -29.799988}
+        - {x: 47, y: -14.799988}
+        - {x: 47, y: 75.20001}
+        - {x: 29, y: 118.20001}
+    - name: dxattack_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 363
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 42, y: 29.200012}
+        - {x: -2, y: 118.20001}
+        - {x: -83, y: 118.20001}
+        - {x: -88, y: 117.20001}
+        - {x: -100, y: 54.200012}
+        - {x: -100, y: -29.799988}
+        - {x: 16, y: -29.799988}
+        - {x: 17, y: -27.799988}
+        - {x: 38, y: 8.200012}
+        - {x: 42, y: 17.200012}
+    - name: dxattack_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 363
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -80, y: 118.20001}
+        - {x: -85, y: 115.20001}
+        - {x: -100, y: 36.200012}
+        - {x: -100, y: -24.799988}
+        - {x: -96, y: -29.799988}
+        - {x: 17, y: -29.799988}
+        - {x: 44, y: -2.7999878}
+        - {x: 44, y: 60.200012}
+        - {x: -12, y: 118.20001}
+    - name: dxattack_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 214
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -71, y: 117.2}
+        - {x: -82, y: 111.2}
+        - {x: -100, y: 43.199997}
+        - {x: -100, y: -29.800003}
+        - {x: 31, y: -29.800003}
+        - {x: 37, y: 3.199997}
+        - {x: 37, y: 74.2}
+        - {x: -16, y: 117.2}
+    - name: dxattack_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 214
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -72, y: 117.2}
+        - {x: -100, y: 79.2}
+        - {x: -100, y: -29.800003}
+        - {x: 30, y: -29.800003}
+        - {x: 50, y: 14.199997}
+        - {x: 50, y: 63.199997}
+        - {x: -9, y: 117.2}
+    - name: dxattack_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 214
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -100, y: 117.2}
+        - {x: -100, y: -24.800003}
+        - {x: -96, y: -29.800003}
+        - {x: 36, y: -29.800003}
+        - {x: 89, y: 32.199997}
+        - {x: 89, y: 109.2}
+        - {x: 41, y: 117.2}
+    - name: dxattack_8
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 214
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -65, y: 117.2}
+        - {x: -91, y: 91.2}
+        - {x: -100, y: 59.199997}
+        - {x: -100, y: -29.800003}
+        - {x: 36, y: -29.800003}
+        - {x: 83, y: 34.199997}
+        - {x: 83, y: 64.2}
+        - {x: -16, y: 117.2}
+    - name: dxattack_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 214
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 5, y: 105.2}
+        - {x: -15, y: 117.2}
+        - {x: -82, y: 117.2}
+        - {x: -100, y: 73.2}
+        - {x: -100, y: -29.800003}
+        - {x: 8, y: -29.800003}
+        - {x: 11, y: -27.800003}
+        - {x: 69, y: 6.199997}
+        - {x: 69, y: 46.199997}
+    - name: dxattack_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 65
+        width: 200
+        height: 149
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -23, y: 116.2}
+        - {x: -86, y: 116.2}
+        - {x: -100, y: 97.2}
+        - {x: -100, y: -29.800003}
+        - {x: 24, y: -29.800003}
+        - {x: 51, y: -3.800003}
+        - {x: 51, y: 29.199997}
+        - {x: 3, y: 101.2}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
