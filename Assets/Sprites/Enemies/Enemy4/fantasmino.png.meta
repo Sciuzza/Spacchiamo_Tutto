@@ -1,0 +1,299 @@
+fileFormatVersion: 2
+guid: c72676e49709e4f16b6bb4351f1aa588
+timeCreated: 1469902770
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: fantasmino_0
+    21300002: fantasmino_1
+    21300004: fantasmino_2
+    21300006: fantasmino_3
+    21300008: fantasmino_4
+    21300010: fantasmino_5
+    21300012: fantasmino_6
+    21300014: fantasmino_7
+    21300016: fantasmino_8
+    21300018: fantasmino_9
+    21300020: fantasmino_10
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: fantasmino_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 332
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -53, y: 135}
+        - {x: -62, y: 103}
+        - {x: -62, y: 14}
+        - {x: -32, y: -6}
+        - {x: -30, y: -5}
+        - {x: -46, y: -12}
+        - {x: -54, y: -17}
+        - {x: -47, y: -33}
+        - {x: 36, y: -33}
+        - {x: 49, y: -30}
+        - {x: 56, y: -19}
+        - {x: 56, y: 135}
+    - name: fantasmino_1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 332
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48, y: 136}
+        - {x: -61, y: 100}
+        - {x: -61, y: -7}
+        - {x: -49, y: -33}
+        - {x: 57, y: -33}
+        - {x: 57, y: 136}
+    - name: fantasmino_2
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 332
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 35, y: 138}
+        - {x: -27, y: 138}
+        - {x: -38, y: 137}
+        - {x: -48, y: 118}
+        - {x: -60, y: 94}
+        - {x: -60, y: 30}
+        - {x: -32, y: 0}
+        - {x: -29, y: -2}
+        - {x: -46, y: -6}
+        - {x: -51, y: -22}
+        - {x: -44, y: -29}
+        - {x: -40, y: -30}
+        - {x: 48, y: -30}
+        - {x: 58, y: -21}
+        - {x: 58, y: 99}
+        - {x: 55, y: 115}
+    - name: fantasmino_3
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 332
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -33, y: 139}
+        - {x: -59, y: 131}
+        - {x: -59, y: 12}
+        - {x: -44, y: -32}
+        - {x: 48, y: -32}
+        - {x: 59, y: -21}
+        - {x: 59, y: 97}
+        - {x: 46, y: 139}
+    - name: fantasmino_4
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 332
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 38, y: 139}
+        - {x: -43, y: 139}
+        - {x: -58, y: 100}
+        - {x: -58, y: -16}
+        - {x: -52, y: -31}
+        - {x: 46, y: -31}
+        - {x: 61, y: -28}
+        - {x: 61, y: 94}
+        - {x: 53, y: 114}
+    - name: fantasmino_5
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 332
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30, y: 137}
+        - {x: -57, y: 129}
+        - {x: -57, y: -32}
+        - {x: 56, y: -32}
+        - {x: 62, y: -19}
+        - {x: 62, y: 136}
+        - {x: 61, y: 137}
+    - name: fantasmino_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -62, y: 132}
+        - {x: -62, y: -29}
+        - {x: -49, y: -36}
+        - {x: 56, y: -36}
+        - {x: 56, y: 125}
+        - {x: 51, y: 132}
+    - name: fantasmino_7
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 152
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 48, y: 16}
+        - {x: 57, y: 49}
+        - {x: 57, y: 67}
+        - {x: 55, y: 76}
+        - {x: 40, y: 132}
+        - {x: -61, y: 132}
+        - {x: -61, y: -28}
+        - {x: -40, y: -35}
+        - {x: 27, y: -35}
+        - {x: 41, y: -34}
+        - {x: 55, y: -23}
+        - {x: 51, y: -10}
+        - {x: 41, y: -8}
+    - name: fantasmino_8
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 152
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -44, y: 132}
+        - {x: -60, y: 90}
+        - {x: -60, y: -10}
+        - {x: -55, y: -35}
+        - {x: 47, y: -35}
+        - {x: 58, y: -32}
+        - {x: 58, y: 83}
+        - {x: 32, y: 132}
+    - name: fantasmino_9
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 152
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 50, y: 16}
+        - {x: 59, y: 49}
+        - {x: 59, y: 67}
+        - {x: 57, y: 76}
+        - {x: 48, y: 107}
+        - {x: 31, y: 132}
+        - {x: -49, y: 132}
+        - {x: -59, y: 118}
+        - {x: -59, y: -25}
+        - {x: -49, y: -35}
+        - {x: 43, y: -35}
+        - {x: 58, y: -24}
+        - {x: 53, y: -11}
+        - {x: 43, y: -8}
+    - name: fantasmino_10
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 152
+        width: 158
+        height: 180
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 60, y: 27}
+        - {x: 60, y: 83}
+        - {x: 33, y: 130}
+        - {x: -38, y: 130}
+        - {x: -58, y: 104}
+        - {x: -58, y: -31}
+        - {x: -57, y: -35}
+        - {x: 30, y: -35}
+        - {x: 44, y: -34}
+        - {x: 57, y: -23}
+        - {x: 57, y: -15}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
