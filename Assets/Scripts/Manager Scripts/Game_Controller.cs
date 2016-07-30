@@ -196,6 +196,8 @@ namespace Spacchiamo
         // to be passed to Enemy Manager
         GameObject[] enemy1Array, enemy2Array, enemy3Array, enemy4Array, enemy5Array, enemy6Array, enemy7Array;
 
+        // trainer Ref
+        GameObject trainer;
         // to be passed to Grid Manager
         GameObject[] faloList;
 
@@ -270,12 +272,12 @@ namespace Spacchiamo
             #endregion
 
             #region Ui Menu Initilization
-            Ui_Manager.instance.InitializingMainMenu();
+           // Ui_Manager.instance.InitializingMainMenu();
             #endregion
 
 
 
-            /*
+            
             #region Taking All References
             // Finding the necessary References to start the initialization sequence
             playerLink = GameObject.FindGameObjectWithTag("Player");
@@ -289,6 +291,8 @@ namespace Spacchiamo
             enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
             enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
             enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+            trainer = GameObject.FindGameObjectWithTag("Trainer");
+
 
             fear = GameObject.Find("Fear Counter").GetComponent<Text>();
             fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
@@ -311,6 +315,8 @@ namespace Spacchiamo
             Grid_Manager.instance.LinkingFaloMechanic(faloList);
             if (exit != null)
                 Grid_Manager.instance.LinkingExit(exit);
+            if (trainer != null)
+                Grid_Manager.instance.LinkingTrainer(trainer);
             #endregion
 
             #region Player Scene Initialization (all gameplay scenes)
@@ -328,8 +334,7 @@ namespace Spacchiamo
 
             if (playerStoredSettings.activeStorage.Count == 0)
             {
-                InitializePlayerStats();
-                InitializeAbiStorage();
+                playerStoredSettings = AbiRepository.instance.playerInitialSetting;
                 TakingDesAbilitiesExp();
                 playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
                 playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
@@ -341,6 +346,7 @@ namespace Spacchiamo
             }
 
             Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+            Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
             #endregion
 
             #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
@@ -361,20 +367,20 @@ namespace Spacchiamo
             Enemies_Manager.instance.GivingPlayerRef(playerLink);
 
 
-            Enemies_Manager.instance.ImplementingEachEnemySettings();
-            Enemies_Manager.instance.SettingOccupiedInitialStatus();
-            Enemies_Manager.instance.SettingEnemyVisibility();
+            Enemies_Manager.instance.ImplementingEachEnemySettings(0);
+            Enemies_Manager.instance.SettingOccupiedInitialStatus(0);
+            Enemies_Manager.instance.SettingEnemyVisibility(0);
 
-            Enemies_Manager.instance.SettingSortingOrder();
-            Enemies_Manager.instance.InitializeWhereToGo();
-            Enemies_Manager.instance.InitilizeLifeFeedBack();
-            Enemies_Manager.instance.InitializeAggroFeedBack();
+            Enemies_Manager.instance.SettingSortingOrder(0);
+            Enemies_Manager.instance.InitializeWhereToGo(0);
+            Enemies_Manager.instance.InitilizeLifeFeedBack(0);
+            Enemies_Manager.instance.InitializeAggroFeedBack(0);
 
             Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
             currentPhase = GAME_PHASE.playerTurn;
             #endregion
-            */
+            
         }
 
         void OnLevelWasLoaded(int level)
@@ -402,6 +408,7 @@ namespace Spacchiamo
                 enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
                 enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
                 enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+                trainer = GameObject.FindGameObjectWithTag("Trainer");
 
                 fear = GameObject.Find("Fear Counter").GetComponent<Text>();
                 fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
@@ -422,6 +429,8 @@ namespace Spacchiamo
                 Grid_Manager.instance.LinkingFaloMechanic(faloList);
                 if (exit != null)
                     Grid_Manager.instance.LinkingExit(exit);
+                if (trainer != null)
+                    Grid_Manager.instance.LinkingTrainer(trainer);
                 #endregion
 
                 #region Player Scene Initialization (all gameplay scenes)
@@ -438,8 +447,7 @@ namespace Spacchiamo
 
                 if (playerStoredSettings.activeStorage.Count == 0)
                 {
-                    InitializePlayerStats();
-                    InitializeAbiStorage();
+                    playerStoredSettings = AbiRepository.instance.playerInitialSetting;
                     TakingDesAbilitiesExp();
                     playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
                     playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
@@ -451,6 +459,7 @@ namespace Spacchiamo
                 }
 
                 Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+                Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
                 #endregion
 
                 #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
@@ -471,14 +480,14 @@ namespace Spacchiamo
                 Enemies_Manager.instance.GivingPlayerRef(playerLink);
 
 
-                Enemies_Manager.instance.ImplementingEachEnemySettings();
-                Enemies_Manager.instance.SettingOccupiedInitialStatus();
-                Enemies_Manager.instance.SettingEnemyVisibility();
+                Enemies_Manager.instance.ImplementingEachEnemySettings(0);
+                Enemies_Manager.instance.SettingOccupiedInitialStatus(0);
+                Enemies_Manager.instance.SettingEnemyVisibility(0);
 
-                Enemies_Manager.instance.SettingSortingOrder();
-                Enemies_Manager.instance.InitializeWhereToGo();
-                Enemies_Manager.instance.InitilizeLifeFeedBack();
-                Enemies_Manager.instance.InitializeAggroFeedBack();
+                Enemies_Manager.instance.SettingSortingOrder(0);
+                Enemies_Manager.instance.InitializeWhereToGo(0);
+                Enemies_Manager.instance.InitilizeLifeFeedBack(0);
+                Enemies_Manager.instance.InitializeAggroFeedBack(0);
 
                 Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
@@ -580,28 +589,6 @@ namespace Spacchiamo
         }
 
         #region Player Initialization Methods
-
-        private void InitializePlayerStats()
-        {
-            playerStoredSettings.Life = AbiRepository.instance.playerInitialSetting.Life;
-            playerStoredSettings.expGained = AbiRepository.instance.playerInitialSetting.expGained;
-            playerStoredSettings.unspentAbilityPoints = AbiRepository.instance.playerInitialSetting.unspentAbilityPoints;
-            playerStoredSettings.playerLevel = AbiRepository.instance.playerInitialSetting.playerLevel;
-            playerStoredSettings.healthPotStacks = AbiRepository.instance.playerInitialSetting.healthPotStacks;
-            playerStoredSettings.FearValue = AbiRepository.instance.playerInitialSetting.FearValue;
-            playerStoredSettings.TurnValue = AbiRepository.instance.playerInitialSetting.TurnValue;
-            playerStoredSettings.fearTurnCounter = AbiRepository.instance.playerInitialSetting.fearTurnCounter;
-            playerStoredSettings.fear1Activated = AbiRepository.instance.playerInitialSetting.fear1Activated;
-            playerStoredSettings.fear2Activated = AbiRepository.instance.playerInitialSetting.fear2Activated;
-            playerStoredSettings.fear1Percent = AbiRepository.instance.playerInitialSetting.fear1Percent;
-            playerStoredSettings.fear2Percent = AbiRepository.instance.playerInitialSetting.fear2Percent;
-        }
-
-        private void InitializeAbiStorage()
-        {
-            playerStoredSettings.activeStorage.AddRange(AbiRepository.instance.playerInitialSetting.activeStorage);
-            playerStoredSettings.passiveStorage = AbiRepository.instance.playerInitialSetting.passiveStorage;
-        }
 
         private void TakingDesAbilitiesExp()
         {

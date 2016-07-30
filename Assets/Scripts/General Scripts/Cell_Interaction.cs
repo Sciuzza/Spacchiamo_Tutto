@@ -20,10 +20,11 @@ namespace Spacchiamo
         // For Wall and Moving Objects
         public bool isOccupied = false;
         public bool isExit = false;
+        public bool isTrainerHere = false;
 
         public GameObject tileCell;
 
-        public SpriteRenderer faloAlpha, exitAlpha;
+        public SpriteRenderer faloAlpha, exitAlpha, trainerAlpha;
 
         GameObject playerLink;
 
@@ -138,11 +139,13 @@ namespace Spacchiamo
                 {
                     Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[0].damage, playerContLink.ActAbilities[0].knockBack);
                     playerContLink.ResetAbilityCounter(0);
+                    playerContLink.ArmaBiancaAnimation();
                 }
                 else
                 {
                     Enemies_Manager.instance.AttackingEnemies(Grid_Manager.instance.GettingCellsAttacked(), playerContLink.ActAbilities[1].damage, playerContLink.ActAbilities[1].knockBack);
                     playerContLink.ResetAbilityCounter(1);
+                    playerContLink.ArmaRangedAnimation();
                 }
                 playerContLink.ResetAttackBooleans();
                 mouseEnter = false;

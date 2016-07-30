@@ -8,6 +8,7 @@ namespace Spacchiamo
     {
 
         playerActions moveLink;
+        Animator animLink;
 
 
         #region Current Abilities
@@ -90,7 +91,7 @@ namespace Spacchiamo
         void Awake()
         {
             moveLink = GetComponent<playerActions>();
-
+            animLink = GetComponent<Animator>();
         }
 
 
@@ -334,5 +335,27 @@ namespace Spacchiamo
             actAbilities[abilityIndex] = counterReset;
         }
 
+
+        public void ArmaBiancaAnimation()
+        {
+            animLink.SetBool("ArmaBianca", true);
+            Invoke("ArmaBiancaEnd", 1.0f);   
+        }
+
+        private void ArmaBiancaEnd()
+        {
+            animLink.SetBool("ArmaBianca", false);
+        }
+
+        public void ArmaRangedAnimation()
+        {
+            animLink.SetBool("ArmaRanged", true);
+            Invoke("ArmaRangedEnd", 1.0f);
+        }
+
+        public void ArmaRangedEnd()
+        {
+            animLink.SetBool("ArmaRanged", false);
+        }
     }
 }

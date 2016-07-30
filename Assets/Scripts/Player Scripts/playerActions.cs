@@ -11,7 +11,7 @@ namespace Spacchiamo
         private bool isMoving = false;
         public int xPlayer, yPlayer;
         public Transform whereToGo = null;
-
+       
 
         private Player_Controller pControllerLink;
 
@@ -20,7 +20,7 @@ namespace Spacchiamo
             pControllerLink = this.GetComponent<Player_Controller>();
             xPlayer = Mathf.FloorToInt(this.transform.position.x);
             yPlayer = Mathf.FloorToInt(this.transform.position.y);
-                 
+            
         }
 
         
@@ -214,7 +214,7 @@ namespace Spacchiamo
             {
                 RegPassiveApplying();
             }
-            Enemies_Manager.instance.SettingEnemyVisibility();
+            Enemies_Manager.instance.SettingEnemyVisibility(0);
             Ui_Manager.instance.SettingTurnValue(pControllerLink.CurSet.TurnValue);
         }
 

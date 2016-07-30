@@ -269,38 +269,7 @@ namespace Spacchiamo
             }
         }
 
-        private void Following() {
-
-            if (!isMoving && !move_done)
-            {
-                if (eControllerLink.enemyCurrentSetting.aggroStyle == aggroStyle.following)
-                {
-                    GhostMechanic();
-
-                    possibleMoves.Clear();
-                    possibleMoves.TrimExcess();
-                    possibleMoves = new List<Transform>();
-
-
-                    possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
-                    Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-                    whereToGo = Grid_Manager.instance.FindFastestRoute(possibleMoves, out xEnemy, out yEnemy);
-                    Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-
-                    booleanResetted = false;
-                    isMoving = true;
-                }
-                else
-                {
-                    GhostMechanic();
-                    booleanResetted = false;
-                    isMoving = true;
-                }
-
-            }
-            else if (isMoving)
-                TranslatingPosition();
-        }
+     
 
         private void FollowingAStar()
         {
@@ -343,37 +312,7 @@ namespace Spacchiamo
                 TranslatingPosition();
         }
 
-        private void ComingBack()
-        {
-
-            if (!isMoving && !move_done)
-            {
-
-                possibleMoves.Clear();
-                possibleMoves.TrimExcess();
-                possibleMoves = new List<Transform>();
-
-                possibleMoves = Grid_Manager.instance.RetrievingPossibleMovements(xEnemy, yEnemy);
-
-                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-                whereToGo = Grid_Manager.instance.FindFastestBackRoute(possibleMoves, xComeBack, yComeBack, out xEnemy, out yEnemy);
-                Grid_Manager.instance.SwitchingOccupiedStatus(xEnemy, yEnemy);
-
-
-                if (xEnemy - xComeBack > 0 && !eControllerLink.IsFlipped())
-                    eControllerLink.FlippingEnemy();
-                else if (xEnemy - xComeBack <= 0 && eControllerLink.IsFlipped())
-                    eControllerLink.FlippingEnemy();
-
-                booleanResetted = false;
-                isMoving = true;
-
-            }
-            else if (isMoving)
-                TranslatingPosition();
         
-
-    }
 
         private void ComingBackAStar()
         {

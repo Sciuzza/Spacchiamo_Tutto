@@ -111,6 +111,10 @@ namespace Spacchiamo
             Debug.Log(Time.realtimeSinceStartup);
         }
 
+
+
+
+        #region Initialization Methods for the Unmovable Objects 
         public void LinkingFaloMechanic(GameObject[] faloList)
         {
             int x, y;
@@ -140,9 +144,21 @@ namespace Spacchiamo
 
         }
 
+        public void LinkingTrainer(GameObject trainer)
+        {
+            int x, y;
 
-        // Methods for the Movement System
+            x = Mathf.FloorToInt(trainer.transform.position.x);
+            y = Mathf.FloorToInt(trainer.transform.position.y);
+            trainer.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - y;
 
+            cellReferences[x, y].isTrainerHere = true;
+
+            cellReferences[x, y].trainerAlpha = trainer.GetComponent<SpriteRenderer>();
+        } 
+        #endregion
+
+        #region Methods to Retrive Cell Status Information necessary for the Movement System
         public Transform CheckingUpCell(int x, int y)
         {
 
@@ -346,24 +362,20 @@ namespace Spacchiamo
             }
             else
                 return false;
-        }
+        } 
+        #endregion
 
-
-        public Transform GetCellTransform(int x, int y)
-        {
-            return cellReferences[x, y].transform;
-        }
-
+        #region Method to Update the Occupied Status of a Cell
         public void SwitchingOccupiedStatus(int x, int y)
         {
             if (!cellReferences[x, y].isOccupied)
                 cellReferences[x, y].isOccupied = true;
             else
                 cellReferences[x, y].isOccupied = false;
-        }
+        } 
+        #endregion
 
-
-        //Methods to Retrieve Light Effect around the player and around Falò 
+        #region Fog of War Methods
 
         public void GettingLight(int xPlayer, int yPlayer)
         {
@@ -450,9 +462,10 @@ namespace Spacchiamo
                 }
             }
 
-        }
+        } 
+        #endregion
 
-        // Methods to manage cell alpha
+        #region Alpha Manager Methods
 
         public void ChangingAlpha(float alphaLevel, GameObject cell)
         {
@@ -467,9 +480,11 @@ namespace Spacchiamo
             if (matchAlpha.faloAlpha != null && !playerTemp.GetComponent<Player_Controller>().attackSelection)
                 matchAlpha.faloAlpha.color = cellColor;
 
-            if (matchAlpha.exitAlpha != null)
+            if (matchAlpha.exitAlpha != null && !playerTemp.GetComponent<Player_Controller>().attackSelection)
                 matchAlpha.exitAlpha.color = cellColor;
 
+            if (matchAlpha.trainerAlpha != null && !playerTemp.GetComponent<Player_Controller>().attackSelection)
+                matchAlpha.trainerAlpha.color = cellColor;
         }
 
         public float GettingAlpha(GameObject cell)
@@ -481,17 +496,53 @@ namespace Spacchiamo
         {
             return cellReferences[x, y].GetComponent<SpriteRenderer>().color.a;
         }
+        #endregion
 
-        // Method to retrive if the cell where player is standing on is receiving light by falo or not
-
+        #region Falo System Methods
         public bool IsCellReceivingLight(int xCell, int yCell)
         {
             return cellReferences[xCell, yCell].isReceivingLight;
         }
 
+        public void SettingCouldReceiveLightCells(int xFalo, int yFalo)
+        {
+            float currentDistance;
 
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null)
+                    {
+                        currentDistance = Mathf.Abs(x - xFalo) + Mathf.Abs(y - yFalo);
 
+                        if (currentDistance <= Designer_Tweaks.instance.faloLigthM)
+                            cellReferences[x, y].couldReceiveLight = true;
 
+                    }
+                }
+            }
+        }
+
+        public List<Cell_Interaction> RetrievePossibleSpawnPos(int xPlayer, int yPlayer)
+        {
+            List<Cell_Interaction> possibleSpawns = new List<Cell_Interaction>();
+
+            for (int y = 0; y < cellReferences.GetLength(1); y++)
+            {
+                for (int x = 0; x < cellReferences.GetLength(0); x++)
+                {
+                    if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) > playerTemp.GetComponent<Player_Controller>().CurSet.lightRange
+                        && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) <= 8 && !cellReferences[x, y].couldReceiveLight)
+                        possibleSpawns.Add(cellReferences[x, y]);
+                }
+            }
+
+            return possibleSpawns;
+        }
+        #endregion
+
+        #region Initialization method for Enemy Patro Area
         //Method for the enemy Moves
         public List<Cell_Interaction> FindingPatrolArea(int xEnemy, int yEnemy, patrolArea patrolType, int areaRange)
         {
@@ -539,67 +590,10 @@ namespace Spacchiamo
             }
 
             return areaFound;
-        }
+        } 
+        #endregion
 
-
-
-
-
-        public List<Transform> RetrievingPossibleMovements(int xEnemy, int yEnemy)
-        {
-            List<Transform> moves = new List<Transform>();
-
-            moves.Add(cellReferences[xEnemy, yEnemy].transform);
-
-            if (CheckingUpCellExp(xEnemy, yEnemy))
-                moves.Add(cellReferences[xEnemy, yEnemy + 1].transform);
-            if (CheckingDownCellExp(xEnemy, yEnemy))
-                moves.Add(cellReferences[xEnemy, yEnemy - 1].transform);
-            if (CheckingLeftCellExp(xEnemy, yEnemy))
-                moves.Add(cellReferences[xEnemy - 1, yEnemy].transform);
-            if (CheckingRightCellExp(xEnemy, yEnemy))
-                moves.Add(cellReferences[xEnemy + 1, yEnemy].transform);
-
-            return moves;
-        }
-
-
-        // Method to follow player on Aggro
-        public Transform FindFastestRoute(List<Transform> moves, out int xEnemy, out int yEnemy)
-        {
-            playerTemp = Game_Controller.instance.playerLink;
-
-            float min = Mathf.Abs(moves[0].position.x - playerTemp.transform.position.x) + Mathf.Abs(moves[0].position.y - playerTemp.transform.position.y);
-
-            int posFound = 0;
-
-            if (moves.Count > 1)
-            {
-                for (int i = 1; i < moves.Count; i++)
-                {
-                    int current = Mathf.RoundToInt(Mathf.Abs(moves[i].position.x - playerTemp.transform.position.x) + Mathf.Abs(moves[i].position.y - playerTemp.transform.position.y));
-
-                    if (current <= min)
-                    {
-                        min = current;
-                        posFound = i;
-                    }
-                }
-            }
-
-
-
-            xEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
-            yEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
-
-
-            return moves[posFound];
-
-        }
-
-
-        // A Star ALgorithm
-
+        #region A Star Methods
         public void AddingElementsAStarCells(int numberOfEl)
         {
             for (int y = 0; y < cellReferences.GetLength(1); y++)
@@ -645,7 +639,7 @@ namespace Spacchiamo
 
         public void AStarAlgoExp(int xStart, int yStart, int xMoving, int yMoving, int xTarget, int yTarget, int enIndex, List<Cell_Interaction> openNodeList, List<Cell_Interaction> closedNodeList, out int xEnd, out int yEnd)
         {
-            
+
 
             openNodeList.Add(cellReferences[xStart, yStart]);
             cellReferences[xStart, yStart].gValueL[enIndex] = 0;
@@ -949,6 +943,10 @@ namespace Spacchiamo
             }
         }
 
+        #endregion
+
+        #region General Methods
+
         public int RetrieveManhDistfromAtoB(int xA, int yA, int xB, int yB)
         {
             return Mathf.RoundToInt(Mathf.Abs(xA - xB) + Mathf.Abs(yA - yB));
@@ -960,42 +958,6 @@ namespace Spacchiamo
             yPlayer = playerTemp.GetComponent<playerActions>().yPlayer;
         }
 
-
-
-        //Method to come back on starting position when aggro is wiped
-        public Transform FindFastestBackRoute(List<Transform> moves, int xComeBack, int yComeBack, out int xEnemy, out int yEnemy)
-        {
-            float min = Mathf.Abs(moves[0].position.x - cellReferences[xComeBack, yComeBack].transform.position.x) + Mathf.Abs(moves[0].position.y -
-                cellReferences[xComeBack, yComeBack].transform.position.y);
-
-            int posFound = 0;
-
-            if (moves.Count > 1)
-            {
-                for (int i = 1; i < moves.Count; i++)
-                {
-                    int current = Mathf.RoundToInt(Mathf.Abs(moves[i].position.x - cellReferences[xComeBack, yComeBack].transform.position.x)
-                        + Mathf.Abs(moves[i].position.y - cellReferences[xComeBack, yComeBack].transform.position.y));
-
-                    if (current <= min)
-                    {
-                        min = current;
-                        posFound = i;
-                    }
-                }
-            }
-
-
-
-            xEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().xCell;
-            yEnemy = moves[posFound].gameObject.GetComponent<Cell_Interaction>().yCell;
-
-
-            return moves[posFound];
-        }
-
-
-
         public int CalcEnemyPlayDist(int xEnemy, int yEnemy)
         {
 
@@ -1006,14 +968,59 @@ namespace Spacchiamo
             return Mathf.Abs(xEnemy - xPlayer) + Mathf.Abs(yEnemy - yPlayer);
         }
 
+        public Transform GetCellTransform(int x, int y)
+        {
+            return cellReferences[x, y].transform;
+        }
+
+        public void GivingPlayerRef(GameObject player)
+        {
+            playerTemp = player;
+        }
+
+        public bool IsPlayerOnExit(int xPlayer, int yPlayer)
+        {
+            if (cellReferences[xPlayer, yPlayer].isExit)
+                return true;
+            else
+                return false;
+        }
+        #endregion
+
+        #region Fighting System Methods
+
         public void MakeDamageToPlayer(float damage)
         {
             playerTemp.GetComponent<Player_Controller>().TakingDamage(damage);
         }
 
+        public List<Cell_Interaction> GettingCellsAttacked()
+        {
+            return cellsAttacked;
+        }
 
+        public int CheckingRelativePosition(int xEnemy, int yEnemy)
+        {
+            // 0 = player is on the left, 1 = player is on the right, 2 = player is on top, 3 = player is on bot , -1 in theory can't remain -1
 
-        // Methods for the cell HighLighting
+            playerActions playerPos = playerTemp.GetComponent<playerActions>();
+
+            if (playerPos.xPlayer < xEnemy && playerPos.yPlayer == yEnemy)
+                return 0;
+            else if (playerPos.xPlayer > xEnemy && playerPos.yPlayer == yEnemy)
+                return 1;
+            else if (playerPos.xPlayer == xEnemy && playerPos.yPlayer > yEnemy)
+                return 2;
+            else if (playerPos.xPlayer == xEnemy && playerPos.yPlayer < yEnemy)
+                return 3;
+            else
+                return -1;
+
+        } 
+        #endregion
+
+        #region HighLight System Methods
+
         public void HighlightingAttackRange(int xPlayer, int yPlayer, int range)
         {
             float currentDistance;
@@ -1031,7 +1038,7 @@ namespace Spacchiamo
 
                         tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
-                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
+                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null)
                         {
                             cellReferences[x, y].inRange = true;
                             float tempAlpha = GettingAlpha(cellReferences[x, y].gameObject);
@@ -1066,7 +1073,7 @@ namespace Spacchiamo
 
                         tileHighlight = cellReferences[x, y].tileCell.GetComponent<SpriteRenderer>();
 
-                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null && currentDistance != 0)
+                        if (range >= currentDistance && wallList.Find(z => z.name == tileHighlight.sprite.name) == null)
                         {
                             if (y == yPlayer || x == xPlayer)
                             {
@@ -1153,82 +1160,21 @@ namespace Spacchiamo
                     }
                 }
             }
-        }
+        } 
+        #endregion
 
 
-        public void GivingPlayerRef(GameObject player)
-        {
-            playerTemp = player;
-        }
+        
 
-        public List<Cell_Interaction> GettingCellsAttacked()
-        {
-            return cellsAttacked;
-        }
+       
 
-        public int CheckingRelativePosition(int xEnemy, int yEnemy)
-        {
-            // 0 = player is on the left, 1 = player is on the right, 2 = player is on top, 3 = player is on bot , -1 in theory can't remain -1
+        
 
-            playerActions playerPos = playerTemp.GetComponent<playerActions>();
+     
 
-            if (playerPos.xPlayer < xEnemy && playerPos.yPlayer == yEnemy)
-                return 0;
-            else if (playerPos.xPlayer > xEnemy && playerPos.yPlayer == yEnemy)
-                return 1;
-            else if (playerPos.xPlayer == xEnemy && playerPos.yPlayer > yEnemy)
-                return 2;
-            else if (playerPos.xPlayer == xEnemy && playerPos.yPlayer < yEnemy)
-                return 3;
-            else
-                return -1;
+        
 
-        }
-
-        public List<Cell_Interaction> RetrievePossibleSpawnPos(int xPlayer, int yPlayer)
-        {
-            List<Cell_Interaction> possibleSpawns = new List<Cell_Interaction>();
-
-            for (int y = 0; y < cellReferences.GetLength(1); y++)
-            {
-                for (int x = 0; x < cellReferences.GetLength(0); x++)
-                {
-                    if (cellReferences[x, y] != null && !cellReferences[x, y].isOccupied && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) > playerTemp.GetComponent<Player_Controller>().CurSet.lightRange
-                        && RetrieveManhDistfromAtoB(x, y, xPlayer, yPlayer) <= 8 && !cellReferences[x, y].couldReceiveLight)
-                        possibleSpawns.Add(cellReferences[x, y]);
-                }
-            }
-
-            return possibleSpawns;
-        }
-
-        public void SettingCouldReceiveLightCells(int xFalo, int yFalo)
-        {
-            float currentDistance;
-
-            for (int y = 0; y < cellReferences.GetLength(1); y++)
-            {
-                for (int x = 0; x < cellReferences.GetLength(0); x++)
-                {
-                    if (cellReferences[x, y] != null)
-                    {
-                        currentDistance = Mathf.Abs(x - xFalo) + Mathf.Abs(y - yFalo);
-
-                        if (currentDistance <= Designer_Tweaks.instance.faloLigthM)
-                            cellReferences[x, y].couldReceiveLight = true;
-
-                    }
-                }
-            }
-        }
-
-        public bool IsPlayerOnExit(int xPlayer, int yPlayer)
-        {
-            if (cellReferences[xPlayer, yPlayer].isExit)
-                return true;
-            else
-                return false;
-        }
+      
     }
 }
 

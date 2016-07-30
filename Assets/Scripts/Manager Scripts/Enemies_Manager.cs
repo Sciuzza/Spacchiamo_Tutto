@@ -238,19 +238,22 @@ namespace Spacchiamo
             playerTemp = player;
         }
 
-        public void ImplementingEachEnemySettings()
+        #endregion
+
+        #region Methods Needed for an enemy to be initialized
+        public void ImplementingEachEnemySettings(int startIndex)
         {
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
             {
                 enemyReferences[i].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
             }
         }
 
-        public void SettingOccupiedInitialStatus()
+        public void SettingOccupiedInitialStatus(int startIndex)
         {
             EnemyAI enemyPosition;
 
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
             {
                 enemyPosition = enemyReferences[i].GetComponent<EnemyAI>();
                 Grid_Manager.instance.SwitchingOccupiedStatus(enemyPosition.GettingXEnemy(), enemyPosition.GettingYEnemy());
@@ -258,11 +261,11 @@ namespace Spacchiamo
 
         }
 
-        public void SettingEnemyVisibility()
+        public void SettingEnemyVisibility(int startIndex)
         {
             int xEnemy, yEnemy;
 
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
             {
                 xEnemy = enemyReferences[i].GetComponent<EnemyAI>().xEnemy;
                 yEnemy = enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
@@ -274,35 +277,36 @@ namespace Spacchiamo
             }
         }
 
-        public void SettingSortingOrder()
+        public void SettingSortingOrder(int startIndex)
         {
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
                 enemyReferences[i].GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
         }
 
-        public void InitializeWhereToGo()
+        public void InitializeWhereToGo(int startIndex)
         {
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
                 enemyReferences[i].GetComponent<EnemyAI>().whereToGo = Grid_Manager.instance.GetCellTransform(enemyReferences[i].GetComponent<EnemyAI>().xEnemy, enemyReferences[i].GetComponent<EnemyAI>().yEnemy);
         }
 
-        public void InitilizeLifeFeedBack()
+        public void InitilizeLifeFeedBack(int startIndex)
         {
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
             {
                 enemyReferences[i].GetComponent<Enemy_Controller>().SettingOwnLifeFeed();
             }
         }
 
-        public void InitializeAggroFeedBack()
+        public void InitializeAggroFeedBack(int startIndex)
         {
-            for (int i = 0; i < enemyReferences.Count; i++)
+            for (int i = startIndex; i < enemyReferences.Count; i++)
             {
                 enemyReferences[i].GetComponent<Enemy_Controller>().SettingOwnAggroFeed();
             }
-        }
-
+        } 
         #endregion
+
+       
 
 
 
@@ -337,14 +341,27 @@ namespace Spacchiamo
             enemySpawned.GetComponent<EnemyAI>().yEnemy = yToSpawn;
             enemySpawned.GetComponent<EnemyAI>().xComeBack = xToSpawn;
             enemySpawned.GetComponent<EnemyAI>().yComeBack = yToSpawn;
-            enemySpawned.GetComponent<EnemyAI>().whereToGo = possibleSpawnPos[randomCell].transform;
-            enemySpawned.GetComponent<SpriteRenderer>().sprite = ghost;
+
 
             enemyReferences.Add(enemySpawned);
             enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy1);
-            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
-            Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
+            ImplementingEachEnemySettings(enemyReferences.Count - 1);
+            SettingOccupiedInitialStatus(enemyReferences.Count - 1);
+            SettingEnemyVisibility(enemyReferences.Count - 1);
+            SettingSortingOrder(enemyReferences.Count - 1);
+            InitializeWhereToGo(enemyReferences.Count - 1);
+            InitilizeLifeFeedBack(enemyReferences.Count - 1);
+            InitializeAggroFeedBack(enemyReferences.Count - 1);
+
+            //enemySpawned.GetComponent<EnemyAI>().whereToGo = possibleSpawnPos[randomCell].transform;
+           // enemySpawned.GetComponent<SpriteRenderer>().sprite = ghost;
+
+            
+            
+            //enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
+            //Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
+            enemySpawned.GetComponent<Enemy_Controller>().SetAggroVisible();
 
             Grid_Manager.instance.AddingElementsAStarCells(1);
 
@@ -374,16 +391,29 @@ namespace Spacchiamo
             enemySpawned.GetComponent<EnemyAI>().yEnemy = yToSpawn;
             enemySpawned.GetComponent<EnemyAI>().xComeBack = xToSpawn;
             enemySpawned.GetComponent<EnemyAI>().yComeBack = yToSpawn;
-            enemySpawned.GetComponent<EnemyAI>().whereToGo = possibleSpawnPos[randomCell].transform;
-            enemySpawned.GetComponent<SpriteRenderer>().sprite = ghost;
 
             enemyReferences.Add(enemySpawned);
-            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy6);
-            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
-            Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
+            enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializeEnemyController(enemy1);
+            ImplementingEachEnemySettings(enemyReferences.Count - 1);
+            SettingOccupiedInitialStatus(enemyReferences.Count - 1);
+            SettingEnemyVisibility(enemyReferences.Count - 1);
+            SettingSortingOrder(enemyReferences.Count - 1);
+            InitializeWhereToGo(enemyReferences.Count - 1);
+            InitilizeLifeFeedBack(enemyReferences.Count - 1);
+            InitializeAggroFeedBack(enemyReferences.Count - 1);
+
+            //enemySpawned.GetComponent<EnemyAI>().whereToGo = possibleSpawnPos[randomCell].transform;
+            // enemySpawned.GetComponent<SpriteRenderer>().sprite = ghost;
+
+
+
+            //enemyReferences[enemyReferences.Count - 1].GetComponent<Enemy_Controller>().InitializingOwnPatrol();
+            //Grid_Manager.instance.SwitchingOccupiedStatus(xToSpawn, yToSpawn);
             enemySpawned.GetComponent<Enemy_Controller>().isAggroed = true;
+            enemySpawned.GetComponent<Enemy_Controller>().SetAggroVisible();
 
             Grid_Manager.instance.AddingElementsAStarCells(1);
+
         }
 
         public int RetrieveEnemiesNumber()
