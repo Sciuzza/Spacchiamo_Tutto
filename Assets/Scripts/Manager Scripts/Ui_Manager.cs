@@ -12,8 +12,8 @@ namespace Spacchiamo
         Text fear, turnCount;
         Slider fearBar;
         UILifePanelScript lifePanelScript;
-        public Button mainMenuReturn, resetLevel;
-        public GameObject gameOver, popupT;
+        public Button mainMenuReturn, resetLevel, resume, exitByPause;
+        public GameObject gameOver, popupT, popupP, comInstrByPause, instr1, instr2;
         public List<GameObject> trainerStories;
         #endregion
 
@@ -225,31 +225,37 @@ namespace Spacchiamo
             fhArmaBianca.onClick.AddListener(() => FHCatalizzatoreDeSelected());
             fhArmaBianca.onClick.AddListener(() => FHArmaRangedDeSelected());
             fhArmaBianca.onClick.AddListener(() => SetActiveToTrue(type.Primary, weaponType.ArmaBianca));
+            fhArmaBianca.onClick.AddListener(() => CheckActiveUpgrade());
 
             fhCatalizzatore.onClick.AddListener(() => FHCatalizzatoreSelected());
             fhCatalizzatore.onClick.AddListener(() => FHArmaBiancaDeSelected());
             fhCatalizzatore.onClick.AddListener(() => FHArmaRangedDeSelected());
             fhCatalizzatore.onClick.AddListener(() => SetActiveToTrue(type.Primary, weaponType.Catalizzatore));
+            fhCatalizzatore.onClick.AddListener(() => CheckActiveUpgrade());
 
             fhArmaRanged.onClick.AddListener(() => FHArmaRangedSelected());
             fhArmaRanged.onClick.AddListener(() => FHCatalizzatoreDeSelected());
             fhArmaRanged.onClick.AddListener(() => FHArmaBiancaDeSelected());
             fhArmaRanged.onClick.AddListener(() => SetActiveToTrue(type.Primary, weaponType.ArmaRanged));
+            fhArmaRanged.onClick.AddListener(() => CheckActiveUpgrade());
 
             shArmaBianca.onClick.AddListener(() => SHArmaBiancaSelected());
             shArmaBianca.onClick.AddListener(() => SHCatalizzatoreDeSelected());
             shArmaBianca.onClick.AddListener(() => SHArmaRangedDeSelected());
             shArmaBianca.onClick.AddListener(() => SetActiveToTrue(type.Secondary, weaponType.ArmaBianca));
+            shArmaBianca.onClick.AddListener(() => CheckActiveUpgrade());
 
             shCatalizzatore.onClick.AddListener(() => SHCatalizzatoreSelected());
             shCatalizzatore.onClick.AddListener(() => SHArmaBiancaDeSelected());
             shCatalizzatore.onClick.AddListener(() => SHArmaRangedDeSelected());
             shCatalizzatore.onClick.AddListener(() => SetActiveToTrue(type.Secondary, weaponType.Catalizzatore));
+            shCatalizzatore.onClick.AddListener(() => CheckActiveUpgrade());
 
             shArmaRanged.onClick.AddListener(() => SHArmaRangedSelected());
             shArmaRanged.onClick.AddListener(() => SHCatalizzatoreDeSelected());
             shArmaRanged.onClick.AddListener(() => SHArmaBiancaDeSelected());
             shArmaRanged.onClick.AddListener(() => SetActiveToTrue(type.Secondary, weaponType.ArmaRanged));
+            shArmaRanged.onClick.AddListener(() => CheckActiveUpgrade());
 
             impetoUp.onClick.AddListener(() => UpgradeImpeto());
             impetoUp.onClick.AddListener(() => CheckUpgradePossibility());
@@ -644,6 +650,9 @@ namespace Spacchiamo
             mainMenuReturn = GameObject.FindGameObjectWithTag("GameOver").transform.FindChild("Esci al menu").GetComponent<Button>();
             resetLevel = GameObject.FindGameObjectWithTag("GameOver").transform.FindChild("Ricomincia il livello").GetComponent<Button>();
 
+            mainMenuReturn.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(0));
+            resetLevel.onClick.AddListener(() => Scene_Manager.instance.ResettingLevel());
+
             gameOver.SetActive(false);
 
             popupT = GameObject.FindGameObjectWithTag("PopupT");
@@ -661,8 +670,22 @@ namespace Spacchiamo
 
             popupT.SetActive(false);
 
-        }
 
+            popupP = GameObject.FindGameObjectWithTag("PopupP");
+
+            resume = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("Riprendi Partita").GetComponent<Button>();
+            exitByPause = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("Esci").GetComponent<Button>();
+            comInstrByPause = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").gameObject;
+            instr1 = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").transform.FindChild("Instr1").gameObject;
+            instr2 = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").transform.FindChild("Instr2").gameObject;
+
+            exitByPause.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(0));
+
+            instr2.SetActive(false);
+            popupP.SetActive(false);
+
+            
+        }
 
         public void SettingFearValue(int playerFear)
         {
@@ -675,7 +698,6 @@ namespace Spacchiamo
             fearBar.value = playerFear;
         }
 
-
         public void SettingTurnValue(int turnValue)
         {
             turnCount.text = string.Format("{000}", turnValue);
@@ -684,6 +706,13 @@ namespace Spacchiamo
         public void SettingLife(int playerLife)
         {
             lifePanelScript.UISetLife(playerLife);
+        }
+
+        public void ShowPause()
+        {
+            Game_Controller.instance.currentPhase = GAME_PHASE.dialogue;
+            popupP.SetActive(true);
+            comInstrByPause.SetActive(false);
         }
         #endregion
 

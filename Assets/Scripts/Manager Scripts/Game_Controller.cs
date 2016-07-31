@@ -508,8 +508,9 @@ namespace Spacchiamo
             }
             else if (level == 0)
             {
-                playerStoredSettings = AbiRepository.instance.playerInitialSetting;
                 Ui_Manager.instance.InitializingMainMenu();
+                playerStoredSettings = AbiRepository.instance.playerInitialSetting;
+                
             }
             else if (level == 1)
             {
@@ -546,6 +547,8 @@ namespace Spacchiamo
                     else
                         Scene_Manager.instance.LoadSpecificScene(0);
                 }
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && currentPhase == GAME_PHASE.playerTurn && !playerLink.GetComponent<Player_Controller>().attackSelection)
+                    Ui_Manager.instance.ShowPause();
                 
             }
             else if (Input.GetKeyDown(KeyCode.Return))
