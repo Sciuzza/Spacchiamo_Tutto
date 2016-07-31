@@ -272,115 +272,118 @@ namespace Spacchiamo
             #endregion
 
             #region Ui Menu Initilization
-           // Ui_Manager.instance.InitializingMainMenu();
+            Ui_Manager.instance.InitializingMainMenu();
             #endregion
 
+            playerStoredSettings = AbiRepository.instance.playerInitialSetting;
 
 
-            
-            #region Taking All References
-            // Finding the necessary References to start the initialization sequence
-            playerLink = GameObject.FindGameObjectWithTag("Player");
-            cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
-            faloList = GameObject.FindGameObjectsWithTag("Falo");
-            exit = GameObject.FindGameObjectWithTag("Finish");
-            enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
-            enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
-            enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
-            enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
-            enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
-            enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
-            enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
-            trainer = GameObject.FindGameObjectWithTag("Trainer");
+            #region Old
+            /*
+              #region Taking All References
+              // Finding the necessary References to start the initialization sequence
+              playerLink = GameObject.FindGameObjectWithTag("Player");
+              cameraLink = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera_Movement>();
+              faloList = GameObject.FindGameObjectsWithTag("Falo");
+              exit = GameObject.FindGameObjectWithTag("Finish");
+              enemy1Array = GameObject.FindGameObjectsWithTag("Enemy1");
+              enemy2Array = GameObject.FindGameObjectsWithTag("Enemy2");
+              enemy3Array = GameObject.FindGameObjectsWithTag("Enemy3");
+              enemy4Array = GameObject.FindGameObjectsWithTag("Enemy4");
+              enemy5Array = GameObject.FindGameObjectsWithTag("Enemy5");
+              enemy6Array = GameObject.FindGameObjectsWithTag("Enemy6");
+              enemy7Array = GameObject.FindGameObjectsWithTag("Enemy7");
+              trainer = GameObject.FindGameObjectWithTag("Trainer");
 
 
-            fear = GameObject.Find("Fear Counter").GetComponent<Text>();
-            fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
-            turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
-            lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
+              fear = GameObject.Find("Fear Counter").GetComponent<Text>();
+              fearBar = GameObject.Find("Fear Bar").GetComponent<Slider>();
+              turnCount = GameObject.Find("Turn counter").GetComponent<Text>();
+              lifePanelScript = GameObject.Find("Life Panel").GetComponent<UILifePanelScript>();
+              #endregion
+
+              #region Hud Initialization (all gameplay scenes)
+              //Ui initialization
+              Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
+              Ui_Manager.instance.UiInitialization();
+              #endregion
+
+
+
+              #region Grid Initialization (all gameplay scenes)
+              // Grid Initialization
+              Grid_Manager.instance.GivingPlayerRef(playerLink);
+              Grid_Manager.instance.PreparingOptimizedGridSpace();
+              Grid_Manager.instance.LinkingFaloMechanic(faloList);
+              if (exit != null)
+                  Grid_Manager.instance.LinkingExit(exit);
+              if (trainer != null)
+                  Grid_Manager.instance.LinkingTrainer(trainer);
+              #endregion
+
+              #region Player Scene Initialization (all gameplay scenes)
+              //Player Initialization
+              playerActions playerPosition = playerLink.GetComponent<playerActions>();
+              Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+              playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
+              cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
+              cameraLink.target = playerLink;
+              playerLink.GetComponent<playerActions>().InitializeSortingOrder();
+
+
+              playerStoredSettings.healthPotStacks = 2;
+              playerStoredSettings.lightRange = Designer_Tweaks.instance.playerLightM;
+
+              if (playerStoredSettings.activeStorage.Count == 0)
+              {
+                  playerStoredSettings = AbiRepository.instance.playerInitialSetting;
+                  TakingDesAbilitiesExp();
+                  playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                  playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+              }
+              else
+              {
+                  playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
+                  playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
+              }
+
+              Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
+              Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
+              #endregion
+
+              #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
+              // Enemies Initialization
+              AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
+              Enemies_Manager.instance.SetEnemyManagerStructs();
+
+              Enemies_Manager.instance.ClearEnemyReferences();
+
+              Enemies_Manager.instance.PassingEnemyList(enemy1Array);
+              Enemies_Manager.instance.PassingEnemyList(enemy2Array);
+              Enemies_Manager.instance.PassingEnemyList(enemy3Array);
+              Enemies_Manager.instance.PassingEnemyList(enemy4Array);
+              Enemies_Manager.instance.PassingEnemyList(enemy5Array);
+              Enemies_Manager.instance.PassingEnemyList(enemy6Array);
+              Enemies_Manager.instance.PassingEnemyList(enemy7Array);
+
+              Enemies_Manager.instance.GivingPlayerRef(playerLink);
+
+
+              Enemies_Manager.instance.ImplementingEachEnemySettings(0);
+              Enemies_Manager.instance.SettingOccupiedInitialStatus(0);
+              Enemies_Manager.instance.SettingEnemyVisibility(0);
+
+              Enemies_Manager.instance.SettingSortingOrder(0);
+              Enemies_Manager.instance.InitializeWhereToGo(0);
+              Enemies_Manager.instance.InitilizeLifeFeedBack(0);
+              Enemies_Manager.instance.InitializeAggroFeedBack(0);
+
+              Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
+
+              currentPhase = GAME_PHASE.playerTurn;
+              #endregion
+              */
             #endregion
-
-            #region Hud Initialization (all gameplay scenes)
-            //Ui initialization
-            Ui_Manager.instance.TakingReferences(fear, turnCount, fearBar, lifePanelScript);
-            Ui_Manager.instance.UiInitialization();
-            #endregion
-
-          
-
-            #region Grid Initialization (all gameplay scenes)
-            // Grid Initialization
-            Grid_Manager.instance.GivingPlayerRef(playerLink);
-            Grid_Manager.instance.PreparingOptimizedGridSpace();
-            Grid_Manager.instance.LinkingFaloMechanic(faloList);
-            if (exit != null)
-                Grid_Manager.instance.LinkingExit(exit);
-            if (trainer != null)
-                Grid_Manager.instance.LinkingTrainer(trainer);
-            #endregion
-
-            #region Player Scene Initialization (all gameplay scenes)
-            //Player Initialization
-            playerActions playerPosition = playerLink.GetComponent<playerActions>();
-            Grid_Manager.instance.SwitchingOccupiedStatus(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-            playerPosition.whereToGo = Grid_Manager.instance.GetCellTransform(playerPosition.GettingXPlayer(), playerPosition.GettingyPlayer());
-            cameraLink.transform.position = playerLink.transform.position - new Vector3(0, 0, 10);
-            cameraLink.target = playerLink;
-            playerLink.GetComponent<playerActions>().InitializeSortingOrder();
-
-
-            playerStoredSettings.healthPotStacks = 2;
-            playerStoredSettings.lightRange = Designer_Tweaks.instance.playerLightM;
-
-            if (playerStoredSettings.activeStorage.Count == 0)
-            {
-                playerStoredSettings = AbiRepository.instance.playerInitialSetting;
-                TakingDesAbilitiesExp();
-                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
-                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
-            }
-            else
-            {
-                playerLink.GetComponent<Player_Controller>().CurSet = playerStoredSettings;
-                playerLink.GetComponent<Player_Controller>().SelectingActiveAbilities();
-            }
-
-            Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
-            Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
-            #endregion
-
-            #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
-            // Enemies Initialization
-            AbiRepository.instance.SetEnemyLevels(1, 1, 1, 1, 1);
-            Enemies_Manager.instance.SetEnemyManagerStructs();
-
-            Enemies_Manager.instance.ClearEnemyReferences();
-
-            Enemies_Manager.instance.PassingEnemyList(enemy1Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy2Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy3Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy4Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy5Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy6Array);
-            Enemies_Manager.instance.PassingEnemyList(enemy7Array);
-
-            Enemies_Manager.instance.GivingPlayerRef(playerLink);
-
-
-            Enemies_Manager.instance.ImplementingEachEnemySettings(0);
-            Enemies_Manager.instance.SettingOccupiedInitialStatus(0);
-            Enemies_Manager.instance.SettingEnemyVisibility(0);
-
-            Enemies_Manager.instance.SettingSortingOrder(0);
-            Enemies_Manager.instance.InitializeWhereToGo(0);
-            Enemies_Manager.instance.InitilizeLifeFeedBack(0);
-            Enemies_Manager.instance.InitializeAggroFeedBack(0);
-
-            Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
-
-            currentPhase = GAME_PHASE.playerTurn;
-            #endregion
-            
         }
 
         void OnLevelWasLoaded(int level)
@@ -497,12 +500,15 @@ namespace Spacchiamo
             }
             else if (level == 5)
             {
-            
-
-               
+                Ui_Manager.instance.TakingRefAbilityUi();
+                Ui_Manager.instance.GivingPlayerCurrentSettings(playerStoredSettings);
+                Ui_Manager.instance.ApplyingStoredSettingsEffects();
+                Ui_Manager.instance.CheckActiveUpgrade();
+                Ui_Manager.instance.SetButtonFunctionality();
             }
             else if (level == 0)
             {
+                playerStoredSettings = AbiRepository.instance.playerInitialSetting;
                 Ui_Manager.instance.InitializingMainMenu();
             }
             else if (level == 1)
@@ -557,14 +563,14 @@ namespace Spacchiamo
                     }
                     else
                     {
-                        Scene_Manager.instance.nextSceneIndex = 5;
+                        Scene_Manager.instance.nextSceneIndex = 6;
                         Scene_Manager.instance.LoadSpecificScene(5);
                     }
                 }
             }
         }
 
-        #region Player Initialization Methods
+        #region Player Designer Testing Initialization Methods, Old
 
         private void TakingDesAbilitiesExp()
         {
@@ -638,162 +644,7 @@ namespace Spacchiamo
             return increase;
         }
         #endregion
-
-        #region AbilityStorageUpgrade
-
-        public void SetRegeneration(int level)
-        {
-            int levelDiff = level - playerStoredSettings.passiveStorage.regeneration.level;
-
-            for (int i = 0; i < levelDiff; i++)
-            {
-                playerStoredSettings.passiveStorage.regeneration.regPower += playerStoredSettings.passiveStorage.regeneration.rpIncPerLevel;
-                playerStoredSettings.passiveStorage.regeneration.cooldown -= playerStoredSettings.passiveStorage.regeneration.cooldownDecPerLevel;
-            }
-
-            playerStoredSettings.passiveStorage.regeneration.level = level;
-        }
-
-        public void SetFighting(int level)
-        {
-            int levelDiff = level - playerStoredSettings.passiveStorage.fighting.level;
-
-            for (int i = 0; i < levelDiff; i++)
-            {
-                playerStoredSettings.passiveStorage.fighting.comPower += playerStoredSettings.passiveStorage.fighting.comIncPerLevel;
-            }
-
-            playerStoredSettings.passiveStorage.fighting.level = level;
-        }
-
-        public void SetTraveler(int level)
-        {
-            int levelDiff = level - playerStoredSettings.passiveStorage.traveler.level;
-
-            for (int i = 0; i < levelDiff; i++)
-            {
-                playerStoredSettings.passiveStorage.traveler.espPower += playerStoredSettings.passiveStorage.traveler.espIncPerLevel;
-
-            }
-
-            playerStoredSettings.passiveStorage.traveler.level = level;
-        }
-
-        public void SetSurvivor(int level)
-        {
-            int levelDiff = level - playerStoredSettings.passiveStorage.survivor.level;
-
-            for (int i = 0; i < levelDiff; i++)
-            {
-                playerStoredSettings.passiveStorage.survivor.sopPower += playerStoredSettings.passiveStorage.survivor.sopIncPerLevel;
-
-            }
-
-            playerStoredSettings.passiveStorage.survivor.level = level;
-        }
-
-        #region Old
-        public void SetImpeto(int level)
-        {
-            int levelDiff = level - playerStoredSettings.activeStorage[0].level;
-
-            for (int j = 0; j < 3; j++)
-            {
-                for (int i = 0; i < levelDiff; i++)
-                {
-                    playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
-                }
-
-            }
-        }
-
-        public void SetRespiroDelVento(int level)
-        {
-            int levelDiff = level - playerStoredSettings.activeStorage[3].level;
-
-            for (int j = 3; j < 6; j++)
-            {
-                for (int i = 0; i < levelDiff; i++)
-                {
-                    playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
-
-                }
-            }
-        }
-        #endregion
-
-        public void SetPrimSecondPhase1(int level, originalName abilityName)
-        {
-            actPlayerAbility currentlevel = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName);
-
-            int levelDiff = level - currentlevel.level;
-
-            for (int j = 0; j < playerStoredSettings.activeStorage.Count; j++)
-            {
-                if (playerStoredSettings.activeStorage[j].oname == abilityName)
-                {
-                    for (int i = 0; i < levelDiff; i++)
-                    {
-                        playerStoredSettings.activeStorage[j] = IncreaseActAbilityLevel(playerStoredSettings.activeStorage[j]);
-                    }
-                }
-
-            }
-        }
-
-
-        public void SetActivePrim(originalName abilityName, weaponType weaponName)
-        {
-            actPlayerAbility abilityModified = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName && x.weapon == weaponName);
-            int abilityIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == abilityName && x.weapon == weaponName);
-
-            abilityModified.active = true;
-            abilityModified.discovered = true;
-            playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
-
-            for (int i = 0; i < playerStoredSettings.activeStorage.Count; i++)
-            {
-                if (i != abilityIndex && playerStoredSettings.activeStorage[i].category == type.Primary)
-                {
-                    abilityModified = playerStoredSettings.activeStorage[i];
-                    abilityModified.active = false;
-
-                    if (abilityName == playerStoredSettings.activeStorage[i].oname)
-                        abilityModified.discovered = true;
-
-                    playerStoredSettings.activeStorage[i] = abilityModified;
-                }
-            }
-        }
-
-        public void SetActiveSec(originalName abilityName, weaponType weaponName)
-        {
-            actPlayerAbility abilityModified = playerStoredSettings.activeStorage.Find(x => x.oname == abilityName && x.weapon == weaponName);
-            int abilityIndex = playerStoredSettings.activeStorage.FindIndex(x => x.oname == abilityName && x.weapon == weaponName);
-
-            abilityModified.active = true;
-            abilityModified.discovered = true;
-            playerStoredSettings.activeStorage[abilityIndex] = abilityModified;
-
-            for (int i = 0; i < playerStoredSettings.activeStorage.Count; i++)
-            {
-                if (i != abilityIndex && playerStoredSettings.activeStorage[i].category == type.Secondary)
-                {
-                    abilityModified = playerStoredSettings.activeStorage[i];
-                    abilityModified.active = false;
-
-                    if (abilityName == playerStoredSettings.activeStorage[i].oname)
-                        abilityModified.discovered = true;
-
-                    playerStoredSettings.activeStorage[i] = abilityModified;
-                }
-
-            }
-        }
-
-
-
-        #endregion
+              
 
         #region General Methods (called by other scripts)
         // Methods to be Called on Request by other scripts
