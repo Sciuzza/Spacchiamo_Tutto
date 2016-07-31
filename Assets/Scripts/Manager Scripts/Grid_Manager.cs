@@ -153,6 +153,7 @@ namespace Spacchiamo
             trainer.GetComponent<SpriteRenderer>().sortingOrder = Designer_Tweaks.instance.Level1YWidth - y;
 
             cellReferences[x, y].isTrainerHere = true;
+            cellReferences[x, y].isOccupied = true;
 
             cellReferences[x, y].trainerAlpha = trainer.GetComponent<SpriteRenderer>();
         } 
@@ -982,6 +983,23 @@ namespace Spacchiamo
         {
             if (cellReferences[xPlayer, yPlayer].isExit)
                 return true;
+            else
+                return false;
+        }
+
+        public bool IsPlayerCloseToTrainer(int xPlayer, int yPlayer)
+        {
+           GameObject trainer = Game_Controller.instance.TakingTrainerRef();
+            int x, y;
+
+            x = Mathf.FloorToInt(trainer.transform.position.x);
+            y = Mathf.FloorToInt(trainer.transform.position.y);
+
+            if (RetrieveManhDistfromAtoB(xPlayer, yPlayer, x, y) == 1 && !cellReferences[x, y].talkedToTrainer)
+            {
+                cellReferences[x, y].talkedToTrainer = true;
+                return true;
+            }
             else
                 return false;
         }

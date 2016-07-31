@@ -109,6 +109,8 @@ namespace Spacchiamo
                     cdIncChecked = true;
                 }
 
+                if (Input.GetKeyDown(KeyCode.F) && !attackSelection && Grid_Manager.instance.IsPlayerCloseToTrainer(moveLink.xPlayer, moveLink.yPlayer))
+                    Ui_Manager.instance.SetStory(Scene_Manager.instance.GetCurrentSceneIndex() - 6);
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -218,7 +220,7 @@ namespace Spacchiamo
 
         public void KillingPlayer()
         {
-            Scene_Manager.instance.ResettingLevel();
+            Ui_Manager.instance.ShowGameOver();
         }
 
         public void GainingExp(int expDeadMonster)
@@ -254,6 +256,19 @@ namespace Spacchiamo
 
             Ui_Manager.instance.SettingFearValue(CurSet.FearValue);
 
+        }
+
+        public void ApplyingTrainerEffects()
+        {
+            CurSet.expGained += 50;
+            CurSet.FearValue = 0;
+            Ui_Manager.instance.SettingFearValue(CurSet.FearValue);
+            CurSet.healthPotStacks += 2;
+
+            if (survivor.active && CurSet.healthPotStacks > 4)
+                CurSet.healthPotStacks = 4;
+            else if (!survivor.active && CurSet.healthPotStacks > 2)
+                CurSet.healthPotStacks = 2;
         }
 
 

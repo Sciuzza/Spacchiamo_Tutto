@@ -12,9 +12,10 @@ namespace Spacchiamo
         Text fear, turnCount;
         Slider fearBar;
         UILifePanelScript lifePanelScript;
-        public Button mainMenuReturn, resetLevel, resume, exitByPause;
-        public GameObject gameOver, popupT, popupP, comInstrByPause, instr1, instr2;
+        public Button mainMenuReturn, resetLevel, resume, exitByPause, comInstrByPause;
+        public GameObject gameOver, popupT, popupP, instr1, instr2;
         public List<GameObject> trainerStories;
+        Text instrText;
         #endregion
 
         #region Ability Ui References
@@ -675,11 +676,14 @@ namespace Spacchiamo
 
             resume = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("Riprendi Partita").GetComponent<Button>();
             exitByPause = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("Esci").GetComponent<Button>();
-            comInstrByPause = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").gameObject;
+            comInstrByPause = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").GetComponent<Button>();
             instr1 = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").transform.FindChild("Instr1").gameObject;
             instr2 = GameObject.FindGameObjectWithTag("PopupP").transform.FindChild("ComInstr").transform.FindChild("Instr2").gameObject;
+            instrText = GameObject.FindGameObjectWithTag("PopupP").transform.Find("ComInstr").transform.Find("Text").GetComponent<Text>();
 
             exitByPause.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(0));
+            resume.onClick.AddListener(() => Resume());
+            comInstrByPause.onClick.AddListener(() => ComInstrByPause());
 
             instr2.SetActive(false);
             popupP.SetActive(false);
@@ -687,6 +691,7 @@ namespace Spacchiamo
             
         }
 
+        #region Hud Update
         public void SettingFearValue(int playerFear)
         {
             fear.text = string.Format("{00}", playerFear);
@@ -706,14 +711,96 @@ namespace Spacchiamo
         public void SettingLife(int playerLife)
         {
             lifePanelScript.UISetLife(playerLife);
-        }
+        } 
+        #endregion
 
+        #region Pause
         public void ShowPause()
         {
             Game_Controller.instance.currentPhase = GAME_PHASE.dialogue;
             popupP.SetActive(true);
-            comInstrByPause.SetActive(false);
+            exitByPause.gameObject.SetActive(true);
+            resume.gameObject.SetActive(true);
+            comInstrByPause.gameObject.SetActive(true);
+            instrText.gameObject.SetActive(true);
+            instr1.SetActive(false);
+            instr2.SetActive(false);
         }
+
+        private void Resume()
+        {
+            popupP.SetActive(false);
+            Game_Controller.instance.currentPhase = GAME_PHASE.playerTurn;
+        }
+
+        private void ComInstrByPause()
+        {
+            instr1.SetActive(true);
+            exitByPause.gameObject.SetActive(false);
+            resume.gameObject.SetActive(false);
+
+            instrText.gameObject.SetActive(false);
+        }
+
+        public bool IsPhase1ComInstrActive()
+        {
+            return instr1.activeInHierarchy;
+        }
+
+        public void SetPhase2ComInstrActive()
+        {
+            instr1.SetActive(false);
+            instr2.SetActive(true);
+        }
+
+        public bool IsPhase2ComInstrActive()
+        {
+            return instr2.activeInHierarchy;
+        }
+        #endregion
+
+        #region GameOver
+        public void ShowGameOver()
+        {
+            gameOver.SetActive(true);
+            Game_Controller.instance.currentPhase = GAME_PHASE.dialogue;
+        }
+        #endregion
+
+        #region Trainer
+        public void SetStory(int storyNumber)
+        {
+            popupT.SetActive(true);
+
+            for (int i = 0; i < trainerStories.Count; i++)
+            {
+                if (i != storyNumber)
+                    trainerStories[i].SetActive(false);
+                else
+                    trainerStories[i].SetActive(true);
+            }
+
+            Game_Controller.instance.currentPhase = GAME_PHASE.dialogue;
+        }
+
+        public void UnSetStory()
+        {
+            for (int i = 0; i < trainerStories.Count; i++)
+            {
+                    trainerStories[i].SetActive(false);       
+            }
+
+            popupT.SetActive(false);
+
+            Game_Controller.instance.currentPhase = GAME_PHASE.playerTurn;
+        }
+
+        public bool isStoryActive()
+        {
+            return popupT.activeInHierarchy;
+        }
+        #endregion
+
         #endregion
 
         #region Ui Main Menu Methods

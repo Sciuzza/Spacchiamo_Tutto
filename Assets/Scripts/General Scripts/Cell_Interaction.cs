@@ -21,6 +21,7 @@ namespace Spacchiamo
         public bool isOccupied = false;
         public bool isExit = false;
         public bool isTrainerHere = false;
+        public bool talkedToTrainer = false;
 
         public GameObject tileCell;
 

@@ -549,6 +549,8 @@ namespace Spacchiamo
                 }
                 else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && currentPhase == GAME_PHASE.playerTurn && !playerLink.GetComponent<Player_Controller>().attackSelection)
                     Ui_Manager.instance.ShowPause();
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && currentPhase == GAME_PHASE.dialogue && (Ui_Manager.instance.IsPhase1ComInstrActive() || Ui_Manager.instance.IsPhase2ComInstrActive()))
+                    Ui_Manager.instance.ShowPause();
                 
             }
             else if (Input.GetKeyDown(KeyCode.Return))
@@ -570,6 +572,16 @@ namespace Spacchiamo
                         Scene_Manager.instance.LoadSpecificScene(5);
                     }
                 }
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && Ui_Manager.instance.IsPhase1ComInstrActive())
+                {
+                    Ui_Manager.instance.SetPhase2ComInstrActive();
+                }
+                else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && Ui_Manager.instance.isStoryActive())
+                {
+                    Ui_Manager.instance.UnSetStory();
+                    playerLink.GetComponent<Player_Controller>().ApplyingTrainerEffects();
+                }
+
             }
         }
 
@@ -654,6 +666,11 @@ namespace Spacchiamo
         public GameObject TakingPlayerRef()
         {
             return playerLink;
+        }
+
+        public GameObject TakingTrainerRef()
+        {
+            return trainer;
         }
 
         public void SavePlayerData(playerSettings currentSetting)
