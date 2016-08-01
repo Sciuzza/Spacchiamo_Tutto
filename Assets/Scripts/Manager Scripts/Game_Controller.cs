@@ -446,6 +446,7 @@ namespace Spacchiamo
                 playerLink.GetComponent<playerActions>().InitializeSortingOrder();
 
                 playerStoredSettings.healthPotStacks = 2;
+              
                 playerStoredSettings.lightRange = Designer_Tweaks.instance.playerLightM;
 
                 if (playerStoredSettings.activeStorage.Count == 0)
@@ -465,6 +466,7 @@ namespace Spacchiamo
                 playerLink.GetComponent<Player_Controller>().SettingPlayerLifeToMax();
                 playerLink.GetComponent<Player_Controller>().SettingPlayerFearToZero();
                 Ui_Manager.instance.SettingLife((int)playerLink.GetComponent<Player_Controller>().CurSet.Life);
+                Ui_Manager.instance.SettingHPS(playerLink.GetComponent<Player_Controller>().CurSet.healthPotStacks);
                 #endregion
 
                 #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)
@@ -578,12 +580,12 @@ namespace Spacchiamo
                 {
                     Ui_Manager.instance.SetPhase2ComInstrActive();
                 }
-                else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && Ui_Manager.instance.isStoryActive())
-                {
-                    Ui_Manager.instance.UnSetStory();
-                    playerLink.GetComponent<Player_Controller>().ApplyingTrainerEffects();
-                }
+            }
 
+            if (Input.GetKeyDown(KeyCode.F) && Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && Ui_Manager.instance.isStoryActive())
+            {
+                Ui_Manager.instance.UnSetStory();
+                playerLink.GetComponent<Player_Controller>().ApplyingTrainerEffects();
             }
         }
 

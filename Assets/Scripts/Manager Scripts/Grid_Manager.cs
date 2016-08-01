@@ -399,9 +399,15 @@ namespace Spacchiamo
                             if (cellReferences[x, y].lightSource && !cellReferences[x, y].lightSourceDiscovered)
                             {
                                 cellReferences[x, y].lightSourceDiscovered = true;
+                                ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
                                 GettingLightObject(x, y);
                             }
                             else if (!cellReferences[x, y].isReceivingLight)
+                            {
+                                cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
+                                ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
+                            }
+                            else if (cellReferences[x, y].lightSource && cellReferences[x, y].lightSourceDiscovered)
                             {
                                 cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                 ChangingAlpha(1.0f, cellReferences[x, y].gameObject);
@@ -471,6 +477,10 @@ namespace Spacchiamo
         public void ChangingAlpha(float alphaLevel, GameObject cell)
         {
             Color cellColor = cell.GetComponent<SpriteRenderer>().color;
+
+            if (!playerTemp.GetComponent<Player_Controller>().attackSelection)
+            cellColor = Color.white;
+
             cellColor.a = alphaLevel;
             cell.GetComponent<SpriteRenderer>().color = cellColor;
 
