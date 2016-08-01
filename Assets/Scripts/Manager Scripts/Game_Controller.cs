@@ -228,7 +228,7 @@ namespace Spacchiamo
         #endregion
 
         #region Option Values
-        int difficultySet = 0;
+        public int difficultySet = 0;
         bool audioIsOn = false;
         float audioVolumeSet = 0.0f;
 
@@ -462,7 +462,8 @@ namespace Spacchiamo
                 }
 
                 Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
-                Ui_Manager.instance.SettingLife((int)playerStoredSettings.Life);
+                playerLink.GetComponent<Player_Controller>().SettingPlayerLifeToMax();
+                Ui_Manager.instance.SettingLife((int)playerLink.GetComponent<Player_Controller>().CurSet.Life);
                 #endregion
 
                 #region Enemy Scene Initialization (only first call is scene based, otherwise is for all gameplay scenes)

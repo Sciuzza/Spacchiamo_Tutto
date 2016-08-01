@@ -112,31 +112,57 @@ namespace Spacchiamo
                 if (Input.GetKeyDown(KeyCode.F) && !attackSelection && Grid_Manager.instance.IsPlayerCloseToTrainer(moveLink.xPlayer, moveLink.yPlayer))
                     Ui_Manager.instance.SetStory(Scene_Manager.instance.GetCurrentSceneIndex() - 6);
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                #region Skip Turn Input
+                if (Input.GetKeyDown(KeyCode.Tab))
                 {
                     moveLink.IncreasingFearAndTurn();
                     Enemies_Manager.instance.CheckingAggro();
                     Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
-                }
-                if (Input.GetKeyUp(KeyCode.Q) && !attackSelection && actAbilities[0].cdCounter == actAbilities[0].cooldown)
-                {
-                    if (ActAbilities[0].knockBack == 0)
-                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
-                    else
-                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
+                } 
+                #endregion
 
-                    firstAbilityPressed = true;
-                    attackSelection = true;
-                }
-                if (Input.GetKeyUp(KeyCode.E) && !attackSelection && actAbilities[1].cdCounter == actAbilities[1].cooldown)
+                #region First Ability Input
+                if (Input.GetKeyUp(KeyCode.Q))
                 {
-                    if (ActAbilities[1].knockBack == 0)
-                        Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
-                    else
-                        Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
+                    if (!attackSelection && actAbilities[0].cdCounter == actAbilities[0].cooldown)
+                    {
+                        if (ActAbilities[0].knockBack == 0)
+                            Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
+                        else
+                            Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
 
-                    secondAbilityPressed = true;
-                    attackSelection = true;
+                        firstAbilityPressed = true;
+                        attackSelection = true;
+                    }
+                    else if (attackSelection && firstAbilityPressed)
+                    {
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
+                        firstAbilityPressed = false;
+                        attackSelection = false;
+                    }
+                } 
+                #endregion
+
+                #region Second Ability Input
+                else if (Input.GetKeyUp(KeyCode.E))
+                {
+                    if (!attackSelection && actAbilities[1].cdCounter == actAbilities[1].cooldown)
+                    {
+                        if (ActAbilities[1].knockBack == 0)
+                            Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
+                        else
+                            Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
+
+                        secondAbilityPressed = true;
+                        attackSelection = true;
+                    }
+                    else if (attackSelection && secondAbilityPressed)
+                    {
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
+                        firstAbilityPressed = false;
+                        attackSelection = false;
+                    } 
+                    #endregion
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
                 {
@@ -166,6 +192,14 @@ namespace Spacchiamo
                     Scene_Manager.instance.LoadAbilityScene();
                     isLoadingScene = true;
                 }
+                if (Input.GetKeyDown(KeyCode.Mouse1) && attackSelection)
+                {
+                    Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
+                    firstAbilityPressed = false;
+                    secondAbilityPressed = false;
+                    attackSelection = false;
+                }
+
             }
         }
 
@@ -371,6 +405,12 @@ namespace Spacchiamo
         public void ArmaRangedEnd()
         {
             animLink.SetBool("ArmaRanged", false);
+        }
+
+
+        public void SettingPlayerLifeToMax()
+        {
+            CurSet.Life = CurSet.maxLife;
         }
     }
 }

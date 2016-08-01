@@ -65,6 +65,7 @@ namespace Spacchiamo
                             yPlayer++;
                             isMoving = true;
                             Enemies_Manager.instance.CheckingAggro();
+                            pControllerLink.ResetAttackBooleans();
                             Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                         }
                         
@@ -78,6 +79,7 @@ namespace Spacchiamo
                             yPlayer--;
                             isMoving = true;
                             Enemies_Manager.instance.CheckingAggro();
+                            pControllerLink.ResetAttackBooleans();
                             Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                         }
                        
@@ -91,6 +93,7 @@ namespace Spacchiamo
                             xPlayer--;
                             isMoving = true;
                             Enemies_Manager.instance.CheckingAggro();
+                            pControllerLink.ResetAttackBooleans();
                             Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                             if (!pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();
@@ -106,6 +109,7 @@ namespace Spacchiamo
                             xPlayer++;
                             isMoving = true;
                             Enemies_Manager.instance.CheckingAggro();
+                            pControllerLink.ResetAttackBooleans();
                             Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                             if (pControllerLink.IsFlipped())
                                 pControllerLink.FlippingPlayer();

@@ -60,11 +60,10 @@ namespace Spacchiamo
         {
             isAggroed = true;
 
-            if (enemyCurrentSetting.behaviour != behaviour.fearMonster)
-            {
-                enemyCurrentSetting.life -= damageTaken;
 
-            }
+            enemyCurrentSetting.life -= damageTaken;
+
+
 
             if (enemyCurrentSetting.life <= 0)
                 Enemies_Manager.instance.DestroyEnemy(aiLink.xEnemy, aiLink.yEnemy);
@@ -191,12 +190,12 @@ namespace Spacchiamo
 
                 if (livesCount == 0.5f)
                 {
-                    
+
                     lives.Add(Instantiate(tempRefHalfLife));
-                    
+
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.40f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
                     lifeAlphaChanging(0.0f, lives[lives.Count - 1].GetComponent<SpriteRenderer>());
@@ -205,12 +204,12 @@ namespace Spacchiamo
                 }
                 else
                 {
-                    
+
                     lives.Add(Instantiate(tempRefFullLife));
-                    
+
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.40f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
                     lifeAlphaChanging(0.0f, lives[lives.Count - 1].GetComponent<SpriteRenderer>());
@@ -251,10 +250,10 @@ namespace Spacchiamo
 
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.40f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
-                   
+
 
                     livesCount -= 0.5f;
                 }
@@ -265,10 +264,10 @@ namespace Spacchiamo
 
                     lives[lives.Count - 1].transform.SetParent(this.transform);
 
-                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.25f * (lives.Count - 1)), 1.4f, 0);
+                    lives[lives.Count - 1].transform.localPosition = new Vector3(-0.5f + (0.40f * (lives.Count - 1)), 1.4f, 0);
 
                     lives[lives.Count - 1].GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder;
-                   
+
 
                     livesCount--;
                 }

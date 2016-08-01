@@ -421,7 +421,7 @@ namespace Spacchiamo
                             {
 
 
-                                if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f)
+                                if (GettingAlpha(cellReferences[x, y].gameObject) != 0.0f && Game_Controller.instance.difficultySet == 0)
                                 {
                                     cellReferences[x, y].GetComponent<SpriteRenderer>().color = Color.white;
                                     ChangingAlpha(0.3f, cellReferences[x, y].gameObject);
