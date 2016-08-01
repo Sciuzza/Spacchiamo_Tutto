@@ -16,6 +16,8 @@ namespace Spacchiamo
         public GameObject gameOver, popupT, popupP, instr1, instr2;
         public List<GameObject> trainerStories;
         Text instrText;
+        Text healthPotStacks;
+        Slider expProgress;
         #endregion
 
         #region Ability Ui References
@@ -709,7 +711,8 @@ namespace Spacchiamo
             instr2.SetActive(false);
             popupP.SetActive(false);
 
-            
+            healthPotStacks = GameObject.FindGameObjectWithTag("UIPT").transform.FindChild("Quantity of Consumable").GetComponent<Text>();
+            expProgress = GameObject.FindGameObjectWithTag("Exp").GetComponent<Slider>();
         }
 
         #region Hud Update
@@ -732,7 +735,22 @@ namespace Spacchiamo
         public void SettingLife(int playerLife)
         {
             lifePanelScript.UISetLife(playerLife);
+        }
+        
+        public void SettingHPS(int currentStacks)
+        {
+            healthPotStacks.text = "" + currentStacks;
         } 
+
+        public void ResetExpSlider()
+        {
+            expProgress.value = 0;
+        }
+
+        public void SetExpSlider(int expCurrentPerCent)
+        {
+            expProgress.value = expCurrentPerCent;
+        }
         #endregion
 
         #region Pause

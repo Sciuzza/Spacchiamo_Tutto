@@ -127,19 +127,20 @@ namespace Spacchiamo
                 {
                     if (!attackSelection && actAbilities[0].cdCounter == actAbilities[0].cooldown)
                     {
+                        firstAbilityPressed = true;
+                        attackSelection = true;
+
                         if (ActAbilities[0].knockBack == 0)
                             Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
                         else
-                            Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);
-
-                        firstAbilityPressed = true;
-                        attackSelection = true;
+                            Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[0].range);                  
                     }
                     else if (attackSelection && firstAbilityPressed)
                     {
-                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                         firstAbilityPressed = false;
                         attackSelection = false;
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
+                       
                     }
                 } 
                 #endregion
@@ -149,36 +150,38 @@ namespace Spacchiamo
                 {
                     if (!attackSelection && actAbilities[1].cdCounter == actAbilities[1].cooldown)
                     {
+                        secondAbilityPressed = true;
+                        attackSelection = true;
+
                         if (ActAbilities[1].knockBack == 0)
                             Grid_Manager.instance.HighlightingAttackRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
                         else
                             Grid_Manager.instance.HighlightingKnockRange(moveLink.GettingXPlayer(), moveLink.GettingyPlayer(), ActAbilities[1].range);
-
-                        secondAbilityPressed = true;
-                        attackSelection = true;
                     }
                     else if (attackSelection && secondAbilityPressed)
                     {
-                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                         firstAbilityPressed = false;
                         attackSelection = false;
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                     } 
                     #endregion
                 }
                 if (Input.GetKeyDown(KeyCode.Escape) && attackSelection)
                 {
+                    attackSelection = false;
+
                     if (firstAbilityPressed)
                     {
-                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                         firstAbilityPressed = false;
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                     }
                     else if (secondAbilityPressed)
                     {
-                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                         secondAbilityPressed = false;
+                        Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                     }
 
-                    attackSelection = false;
+                    
                 }
                 if (Input.GetKeyUp(KeyCode.R) && !attackSelection && CurSet.healthPotStacks >= 1)
                 {
@@ -195,10 +198,10 @@ namespace Spacchiamo
                 }
                 if (Input.GetKeyDown(KeyCode.Mouse1) && attackSelection)
                 {
-                    Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                     firstAbilityPressed = false;
                     secondAbilityPressed = false;
                     attackSelection = false;
+                    Grid_Manager.instance.GettingLight(moveLink.GettingXPlayer(), moveLink.GettingyPlayer());
                 }
 
             }
@@ -261,14 +264,21 @@ namespace Spacchiamo
         public void GainingExp(int expDeadMonster)
         {
             CurSet.expGained += expDeadMonster;
+
+            int totalExpToLevel = (int)((((float)5 / 2) * CurSet.playerLevel * CurSet.playerLevel) + (((float)195 / 2) * CurSet.playerLevel));
+
+            Ui_Manager.instance.SetExpSlider((int)((CurSet.expGained * 100)/(float)totalExpToLevel));
         }
 
         public void CheckingCurrentLevel()
         {
-            if (CurSet.expGained % ((int)(((float)5 / 2) * CurSet.playerLevel * CurSet.playerLevel) + (((float)195 / 2) * CurSet.playerLevel)) == 0)
+            if (CurSet.expGained / ((((float)5 / 2) * CurSet.playerLevel * CurSet.playerLevel) + (((float)195 / 2) * CurSet.playerLevel)) >= 1)
             {
                 CurSet.unspentAbilityPoints++;
                 CurSet.playerLevel++;
+
+
+                Ui_Manager.instance.ResetExpSlider();
             }
 
         }
@@ -289,6 +299,7 @@ namespace Spacchiamo
 
             CurSet.healthPotStacks--;
 
+            Ui_Manager.instance.SettingHPS(CurSet.healthPotStacks);
             Ui_Manager.instance.SettingFearValue(CurSet.FearValue);
 
         }
@@ -296,6 +307,13 @@ namespace Spacchiamo
         public void ApplyingTrainerEffects()
         {
             CurSet.expGained += 50;
+
+            CheckingCurrentLevel();
+
+            int totalExpToLevel = (int)((((float)5 / 2) * CurSet.playerLevel * CurSet.playerLevel) + (((float)195 / 2) * CurSet.playerLevel));
+
+            Ui_Manager.instance.SetExpSlider((int)((CurSet.expGained * 100) / (float)totalExpToLevel));
+
             CurSet.FearValue = 0;
             Ui_Manager.instance.SettingFearValue(CurSet.FearValue);
             CurSet.healthPotStacks += 2;
@@ -304,6 +322,8 @@ namespace Spacchiamo
                 CurSet.healthPotStacks = 4;
             else if (!survivor.active && CurSet.healthPotStacks > 2)
                 CurSet.healthPotStacks = 2;
+
+            Ui_Manager.instance.SettingHPS(CurSet.healthPotStacks);
         }
 
 
