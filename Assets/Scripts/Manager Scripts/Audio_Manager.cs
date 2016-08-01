@@ -26,13 +26,15 @@ namespace Spacchiamo
 		}
 
 
-		#region Playing_Soundtrack_Audio
+		#region Playing_And_Stopping_Soundtrack_Audio
 		public void PlayFirstLevelSoundtrack () {
 
 			foreach (var track in soundtrack) {
 
 				if (track.clip.name == "Level_play")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -44,6 +46,8 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Level_play2")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -55,6 +59,8 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Level_play3")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -66,6 +72,8 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Level_play4")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -77,6 +85,8 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Level_play5")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -88,6 +98,8 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Menu_lobby")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -99,6 +111,8 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Music_Boss")
 					track.Play ();
+				else
+					track.Stop ();
 
 			}
 
@@ -110,95 +124,7 @@ namespace Spacchiamo
 
 				if (track.clip.name == "Musica_GameOver")
 					track.Play ();
-
-			}
-
-		}
-		#endregion
-
-		#region Stop_Playing_Soundtrack_Audio
-		public void StopFirstLevelSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Level_play")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopSecondLevelSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Level_play2")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopThirdLevelSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Level_play3")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopFourthLevelSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Level_play4")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopFifthLevelSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Level_play5")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopLobbyMenuSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Menu_lobby")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopBossSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Music_Boss")
-					track.Stop ();
-
-			}
-
-		}
-
-		public void StopGameOverSoundtrack () {
-
-			foreach (var track in soundtrack) {
-
-				if (track.clip.name == "Musica_GameOver")
+				else
 					track.Stop ();
 
 			}
