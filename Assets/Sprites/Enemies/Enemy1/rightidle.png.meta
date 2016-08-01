@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 11316915b60294235a7eb3cdc6a1f769
-timeCreated: 1469896392
+timeCreated: 1470063109
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -64,16 +64,16 @@ TextureImporter:
         width: 200
         height: 150
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.7, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -15, y: 119}
-        - {x: -83, y: 60}
-        - {x: -83, y: -15}
-        - {x: -24, y: -29}
-        - {x: 96, y: -29}
-        - {x: 96, y: 67}
-        - {x: 90, y: 119}
+      - - {x: -55, y: 119}
+        - {x: -123, y: 60}
+        - {x: -123, y: -15}
+        - {x: -64, y: -29}
+        - {x: 56, y: -29}
+        - {x: 56, y: 67}
+        - {x: 50, y: 119}
     - name: rightidle_1
       rect:
         serializedVersion: 2
@@ -82,18 +82,18 @@ TextureImporter:
         width: 200
         height: 150
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.7, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 57, y: 119}
-        - {x: -18, y: 119}
-        - {x: -82, y: 24}
-        - {x: -82, y: -17}
-        - {x: -53, y: -29}
-        - {x: 89, y: -29}
-        - {x: 96, y: -24}
-        - {x: 96, y: 25}
-        - {x: 84, y: 92}
+      - - {x: 17, y: 119}
+        - {x: -58, y: 119}
+        - {x: -122, y: 24}
+        - {x: -122, y: -17}
+        - {x: -93, y: -29}
+        - {x: 49, y: -29}
+        - {x: 56, y: -24}
+        - {x: 56, y: 25}
+        - {x: 44, y: 92}
     - name: rightidle_2
       rect:
         serializedVersion: 2
@@ -102,16 +102,16 @@ TextureImporter:
         width: 200
         height: 150
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.7, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -80, y: -30}
-        - {x: 96, y: -30}
-        - {x: 96, y: 75}
-        - {x: 69, y: 119}
-        - {x: 16, y: 119}
-        - {x: -17, y: 105}
-        - {x: -80, y: 18}
+      - - {x: -120, y: -30}
+        - {x: 56, y: -30}
+        - {x: 56, y: 75}
+        - {x: 29, y: 119}
+        - {x: -24, y: 119}
+        - {x: -57, y: 105}
+        - {x: -120, y: 18}
     - name: rightidle_3
       rect:
         serializedVersion: 2
@@ -120,19 +120,19 @@ TextureImporter:
         width: 200
         height: 150
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.7, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -80, y: 44}
-        - {x: -80, y: 3}
-        - {x: -45, y: -29}
-        - {x: 93, y: -29}
-        - {x: 96, y: -28}
-        - {x: 96, y: 45}
-        - {x: 84, y: 92}
-        - {x: 59, y: 119}
-        - {x: 23, y: 119}
-        - {x: 14, y: 117}
+      - - {x: -120, y: 44}
+        - {x: -120, y: 3}
+        - {x: -85, y: -29}
+        - {x: 53, y: -29}
+        - {x: 56, y: -28}
+        - {x: 56, y: 45}
+        - {x: 44, y: 92}
+        - {x: 19, y: 119}
+        - {x: -17, y: 119}
+        - {x: -26, y: 117}
     - name: rightidle_4
       rect:
         serializedVersion: 2
@@ -141,26 +141,26 @@ TextureImporter:
         width: 200
         height: 150
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.7, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 22, y: 119}
-        - {x: 2, y: 110}
-        - {x: -12, y: 67}
-        - {x: -81, y: 19}
-        - {x: -81, y: 5}
-        - {x: -58, y: -5}
-        - {x: -46, y: -6}
-        - {x: -35, y: -7}
-        - {x: -14, y: -7}
-        - {x: -12, y: -4}
-        - {x: -13, y: -4}
-        - {x: -13, y: -9}
-        - {x: -18, y: -18}
-        - {x: -19, y: -28}
-        - {x: 96, y: -28}
-        - {x: 96, y: 83}
-        - {x: 64, y: 119}
+      - - {x: -18, y: 119}
+        - {x: -38, y: 110}
+        - {x: -52, y: 67}
+        - {x: -121, y: 19}
+        - {x: -121, y: 5}
+        - {x: -98, y: -5}
+        - {x: -86, y: -6}
+        - {x: -75, y: -7}
+        - {x: -54, y: -7}
+        - {x: -52, y: -4}
+        - {x: -53, y: -4}
+        - {x: -53, y: -9}
+        - {x: -58, y: -18}
+        - {x: -59, y: -28}
+        - {x: 56, y: -28}
+        - {x: 56, y: 83}
+        - {x: 24, y: 119}
     - name: rightidle_5
       rect:
         serializedVersion: 2
@@ -169,16 +169,16 @@ TextureImporter:
         width: 200
         height: 150
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.7, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -80, y: 2}
-        - {x: -41, y: -28}
-        - {x: 96, y: -28}
-        - {x: 96, y: 41}
-        - {x: 85, y: 119}
-        - {x: -7, y: 119}
-        - {x: -80, y: 56}
+      - - {x: -120, y: 2}
+        - {x: -81, y: -28}
+        - {x: 56, y: -28}
+        - {x: 56, y: 41}
+        - {x: 45, y: 119}
+        - {x: -47, y: 119}
+        - {x: -120, y: 56}
     outline: []
   spritePackingTag: 
   userData: 
