@@ -19,7 +19,7 @@ namespace Spacchiamo
 
         private bool ghostMechanic;
         public int kamiCounter = 0;
-
+        public bool exploStarted = false;
 
         public int xEnemy, yEnemy;
         public int xComeBack, yComeBack;
@@ -90,7 +90,14 @@ namespace Spacchiamo
                             FollowingAStar();
                         }
                         else
-                            KamiExplosion();
+                        {
+                            if (!exploStarted)
+                            {
+                                this.GetComponent<Animator>().SetBool("Explosion", true);
+                                Invoke("KamiExplosion", 1);
+                                exploStarted = true;
+                            }
+                        }
                     }
                 }
             }
@@ -109,6 +116,9 @@ namespace Spacchiamo
                         kamiCounter++;
                     else
                         kamiCounter = 0;
+
+                    this.GetComponent<Animator>().SetInteger("ExploCd", kamiCounter);
+
                 }
 
                 if (eControllerLink.aggroIgnoringCounter == 2)

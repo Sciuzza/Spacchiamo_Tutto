@@ -132,6 +132,12 @@ namespace Spacchiamo
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = false;
                     enemyReferences[i].GetComponent<Enemy_Controller>().SetAggroInvisible();
 
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                    {
+                        enemyReferences[i].GetComponent<Animator>().SetBool("Aggro", false);
+                    }
+
+
                     if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.aggroStyle == aggroStyle.following)
                     {
                         enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = true;
@@ -147,6 +153,12 @@ namespace Spacchiamo
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = true;
                     enemyReferences[i].GetComponent<Enemy_Controller>().SetAggroVisible();
                     enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = false;
+
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                    {
+                        enemyReferences[i].GetComponent<Animator>().SetBool("Aggro", true);
+                    }
+
                 }
                 
             }
@@ -271,9 +283,20 @@ namespace Spacchiamo
                 yEnemy = enemyReferences[i].GetComponent<EnemyAI>().yEnemy;
 
                 if (Grid_Manager.instance.GettingAlpha(xEnemy, yEnemy) <= 0.3f)
+                {
                     enemyReferences[i].GetComponent<SpriteRenderer>().sprite = ghost;
+
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                        enemyReferences[i].GetComponent<Animator>().SetBool("Visible", false);
+
+                }
                 else
+                {
                     enemyReferences[i].GetComponent<SpriteRenderer>().sprite = enemyReferences[i].GetComponent<Enemy_Controller>().visible;
+
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                        enemyReferences[i].GetComponent<Animator>().SetBool("Visible", true);
+                }
             }
         }
 
