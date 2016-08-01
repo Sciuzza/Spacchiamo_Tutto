@@ -207,20 +207,23 @@ namespace Spacchiamo
             combChoice.onClick.AddListener(() => CombSelected());
             combChoice.onClick.AddListener(() => EsploDeSelected());
             combChoice.onClick.AddListener(() => SoprDeSelected());
-            combChoice.onClick.AddListener(() => CheckWhatPassiveSelected());
             combChoice.onClick.AddListener(() => CheckCombUpgrade());
+            combChoice.onClick.AddListener(() => CheckWhatPassiveSelected());
+           
 
             esploChoice.onClick.AddListener(() => EsploSelected());
             esploChoice.onClick.AddListener(() => CombDeSelected());
             esploChoice.onClick.AddListener(() => SoprDeSelected());
-            esploChoice.onClick.AddListener(() => CheckWhatPassiveSelected());
             esploChoice.onClick.AddListener(() => CheckEsploUpgrade());
+            esploChoice.onClick.AddListener(() => CheckWhatPassiveSelected());
+            
 
             soprChoice.onClick.AddListener(() => SoprSelected());
             soprChoice.onClick.AddListener(() => CombDeSelected());
             soprChoice.onClick.AddListener(() => EsploDeSelected());
-            soprChoice.onClick.AddListener(() => CheckWhatPassiveSelected());
             soprChoice.onClick.AddListener(() => CheckSoprUpgrade());
+            soprChoice.onClick.AddListener(() => CheckWhatPassiveSelected());
+          
 
             fhArmaBianca.onClick.AddListener(() => FHArmaBiancaSelected());
             fhArmaBianca.onClick.AddListener(() => FHCatalizzatoreDeSelected());
@@ -485,21 +488,39 @@ namespace Spacchiamo
         {
             if (combChoice.image.sprite.name == "Combattente")
             {
-                passiveUp.onClick.RemoveAllListeners();
-                passiveUp.onClick.AddListener(() => UpgradeComb());
-                passiveUp.onClick.AddListener(() => CheckUpgradePossibility());
+                if (storedSettingsInProgress.unspentAbilityPoints != 0)
+                {
+                    passiveUp.interactable = true;
+                    passiveUp.onClick.RemoveAllListeners();
+                    passiveUp.onClick.AddListener(() => UpgradeComb());
+                    passiveUp.onClick.AddListener(() => CheckUpgradePossibility());
+                }
+                else
+                    passiveUp.interactable = false;
             }
             else if (esploChoice.image.sprite.name == "Esploratore")
             {
-                passiveUp.onClick.RemoveAllListeners();
-                passiveUp.onClick.AddListener(() => UpgradeEsplo());
-                passiveUp.onClick.AddListener(() => CheckUpgradePossibility());
+                if (storedSettingsInProgress.unspentAbilityPoints != 0)
+                {
+                    passiveUp.interactable = true;
+                    passiveUp.onClick.RemoveAllListeners();
+                    passiveUp.onClick.AddListener(() => UpgradeEsplo());
+                    passiveUp.onClick.AddListener(() => CheckUpgradePossibility());
+                }
+                else
+                    passiveUp.interactable = false;
             }
             else if (soprChoice.image.sprite.name == "Sopravvissuto")
             {
-                passiveUp.onClick.RemoveAllListeners();
-                passiveUp.onClick.AddListener(() => UpgradeSopr());
-                passiveUp.onClick.AddListener(() => CheckUpgradePossibility());
+                if (storedSettingsInProgress.unspentAbilityPoints != 0)
+                {
+                    passiveUp.interactable = true;
+                    passiveUp.onClick.RemoveAllListeners();
+                    passiveUp.onClick.AddListener(() => UpgradeSopr());
+                    passiveUp.onClick.AddListener(() => CheckUpgradePossibility());
+                }
+                else
+                    passiveUp.interactable = false;
             }
         }
 

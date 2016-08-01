@@ -413,5 +413,10 @@ namespace Spacchiamo
         {
             CurSet.Life = CurSet.maxLife;
         }
+
+        public void SettingPlayerFearToZero()
+        {
+            CurSet.FearValue = 0;
+        }
     }
 }

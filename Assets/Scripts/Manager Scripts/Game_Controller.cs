@@ -463,6 +463,7 @@ namespace Spacchiamo
 
                 Grid_Manager.instance.GettingLight(playerLink.GetComponent<playerActions>().GettingXPlayer(), playerLink.GetComponent<playerActions>().GettingyPlayer());
                 playerLink.GetComponent<Player_Controller>().SettingPlayerLifeToMax();
+                playerLink.GetComponent<Player_Controller>().SettingPlayerFearToZero();
                 Ui_Manager.instance.SettingLife((int)playerLink.GetComponent<Player_Controller>().CurSet.Life);
                 #endregion
 
