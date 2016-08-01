@@ -104,8 +104,8 @@ namespace Spacchiamo
             fhImmagine = GameObject.FindGameObjectWithTag("FH Immagine Arma").GetComponent<Image>();
             shImmagine = GameObject.FindGameObjectWithTag("SH Immagine Arma").GetComponent<Image>();
 
-            tooltipTitle = GameObject.FindGameObjectWithTag("Tooltip Title").GetComponent<Text>();
-            tooltipText = GameObject.FindGameObjectWithTag("Tooltip Text").GetComponent<Text>();
+            //tooltipTitle = GameObject.FindGameObjectWithTag("Tooltip Title").GetComponent<Text>();
+            //tooltipText = GameObject.FindGameObjectWithTag("Tooltip Text").GetComponent<Text>();
 
             unspentPoints = GameObject.FindGameObjectWithTag("Unspent Points").GetComponent<Text>();
 

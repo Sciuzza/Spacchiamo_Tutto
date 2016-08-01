@@ -117,6 +117,7 @@ namespace Spacchiamo
                 {
                     moveLink.IncreasingFearAndTurn();
                     Enemies_Manager.instance.CheckingAggro();
+                    ResetAttackBooleans();
                     Game_Controller.instance.currentPhase = GAME_PHASE.npcEnemyTurn;
                 } 
                 #endregion
