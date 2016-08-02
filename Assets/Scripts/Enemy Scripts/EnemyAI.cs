@@ -361,6 +361,13 @@ namespace Spacchiamo
                 {
                     GhostMechanic();
 
+                    if (this.GetComponent<Animator>() != null)
+                    {
+                        this.GetComponent<Animator>().SetBool("Attack", true);
+                        Invoke("AttackAniEnding", 1);
+                    }
+
+
                     int xPlayer, yPlayer;
                     Grid_Manager.instance.RetrievePlayerCoords(out xPlayer, out yPlayer);
 
@@ -454,6 +461,9 @@ namespace Spacchiamo
             }
         }
 
-        
+        private void AttackAniEnding()
+        {
+            this.GetComponent<Animator>().SetBool("Attack", false);
+        }
     }
 }

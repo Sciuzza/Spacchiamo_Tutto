@@ -288,7 +288,10 @@ namespace Spacchiamo
 
                     if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
                         enemyReferences[i].GetComponent<Animator>().SetBool("Visible", false);
-
+                    else if (enemyReferences[i].GetComponent<Animator>() != null)
+                    {
+                        enemyReferences[i].GetComponent<Animator>().SetBool("Visible", false);
+                    }
                 }
                 else
                 {
@@ -296,6 +299,10 @@ namespace Spacchiamo
 
                     if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
                         enemyReferences[i].GetComponent<Animator>().SetBool("Visible", true);
+                    else if (enemyReferences[i].GetComponent<Animator>() != null)
+                    {
+                        enemyReferences[i].GetComponent<Animator>().SetBool("Visible", true);
+                    }
                 }
             }
         }
