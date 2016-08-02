@@ -33,6 +33,11 @@ namespace Spacchiamo
 
         public playerSettings playerStoredSettings, storedSettingsInProgress;
         int ImpetoUpCounter, RespiroUpCounter;
+
+
+        public Text impetoMT, impetoCT, impetoRT, respiroMT, respiroCT, respiroRT, combattenteT, esploratoreT, sopravvissutoT, upgradeImpetoT, upgradeRespiroT, upgradeCombattenteT, upgradeEsploratoreT, upgradeSopravvissutoT,
+            impetoMD, impetoCD, impetoRD, respiroMD, respiroCD, respiroRD, combattenteD, esploratoreD, sopravvissutoD, upgradeImpetoD, upgradeRespiroD, upgradeCombattenteD, upgradeEsploratoreD, upgradeSopravvissutoD;
+
         #endregion
 
         #region Main Menu References
@@ -114,6 +119,35 @@ namespace Spacchiamo
 
             playGame = GameObject.FindGameObjectWithTag("Play Game").GetComponent<Button>();
 
+            /*
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoCT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoCT").GetComponent<Text>();
+            impetoRT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoRT").GetComponent<Text>();
+
+            respiroMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+
+            impetoMT = GameObject.FindGameObjectWithTag("Tooltip Title").transform.FindChild("ImpetoMT").GetComponent<Text>();
+            */
 
         }
 

@@ -291,7 +291,7 @@ namespace Spacchiamo
 
             moveLink.FearManager();
 
-            CurSet.Life += 2;
+            CurSet.Life += 4;
             if (CurSet.Life > CurSet.maxLife)
                 CurSet.Life = CurSet.maxLife;
 
