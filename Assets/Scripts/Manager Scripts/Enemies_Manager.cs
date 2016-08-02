@@ -132,7 +132,7 @@ namespace Spacchiamo
                     enemyReferences[i].GetComponent<Enemy_Controller>().isAggroed = false;
                     enemyReferences[i].GetComponent<Enemy_Controller>().SetAggroInvisible();
 
-                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze && enemyReferences[i].GetComponent<Animator>() != null)
                     {
                         enemyReferences[i].GetComponent<Animator>().SetBool("Aggro", false);
                     }
@@ -154,7 +154,7 @@ namespace Spacchiamo
                     enemyReferences[i].GetComponent<Enemy_Controller>().SetAggroVisible();
                     enemyReferences[i].GetComponent<Enemy_Controller>().isComingBack = false;
 
-                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze && enemyReferences[i].GetComponent<Animator>() != null)
                     {
                         enemyReferences[i].GetComponent<Animator>().SetBool("Aggro", true);
                     }
@@ -286,7 +286,7 @@ namespace Spacchiamo
                 {
                     enemyReferences[i].GetComponent<SpriteRenderer>().sprite = ghost;
 
-                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze && enemyReferences[i].GetComponent<Animator>() != null)
                         enemyReferences[i].GetComponent<Animator>().SetBool("Visible", false);
                     else if (enemyReferences[i].GetComponent<Animator>() != null)
                     {
@@ -297,7 +297,7 @@ namespace Spacchiamo
                 {
                     enemyReferences[i].GetComponent<SpriteRenderer>().sprite = enemyReferences[i].GetComponent<Enemy_Controller>().visible;
 
-                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                    if (enemyReferences[i].GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.kamikaze && enemyReferences[i].GetComponent<Animator>() != null)
                         enemyReferences[i].GetComponent<Animator>().SetBool("Visible", true);
                     else if (enemyReferences[i].GetComponent<Animator>() != null)
                     {

@@ -110,7 +110,7 @@ namespace Spacchiamo
                 move_done = false;
                 isRangeChecked = false;
 
-                if (eControllerLink.enemyCurrentSetting.behaviour == behaviour.kamikaze)
+                if (eControllerLink.enemyCurrentSetting.behaviour == behaviour.kamikaze && this.GetComponent<Animator>() != null)
                 {
                     if (eControllerLink.isAggroed)
                         kamiCounter++;
