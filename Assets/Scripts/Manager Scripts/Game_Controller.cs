@@ -276,7 +276,7 @@ namespace Spacchiamo
             #endregion
 
             playerStoredSettings = AbiRepository.instance.playerInitialSetting;
-
+            Audio_Manager.instance.PlayLobbyMenuSoundtrack();
 
             #region Old
             /*
@@ -393,7 +393,7 @@ namespace Spacchiamo
             //Scene Manager initilization
             Scene_Manager.instance.SceneManagerInitialization();
             #endregion
-
+           
 
             if (level > 5)
             {
@@ -499,6 +499,24 @@ namespace Spacchiamo
                 Grid_Manager.instance.AddingElementsAStarCells(Enemies_Manager.instance.RetrieveEnemiesNumber());
 
                 currentPhase = GAME_PHASE.playerTurn;
+
+                if (level == 6)
+                    Audio_Manager.instance.PlayFirstLevelSoundtrack();
+                else if (level == 7)
+                    Audio_Manager.instance.PlaySecondLevelSoundtrack();
+                else if (level == 8)
+                    Audio_Manager.instance.PlayThirdLevelSoundtrack();
+                else if (level == 9)
+                    Audio_Manager.instance.PlayFourthLevelSoundtrack();
+                else if (level == 10)
+                    Audio_Manager.instance.PlayFifthLevelSoundtrack();
+                else if (level == 11)
+                    Audio_Manager.instance.PlayFirstLevelSoundtrack();
+                else if (level == 12)
+                {
+                    Audio_Manager.instance.PlayBossSoundtrack();
+                }
+
                 #endregion
 
             }
@@ -512,6 +530,7 @@ namespace Spacchiamo
             }
             else if (level == 0)
             {
+                Audio_Manager.instance.PlayLobbyMenuSoundtrack();
                 Ui_Manager.instance.InitializingMainMenu();
                 playerStoredSettings = AbiRepository.instance.playerInitialSetting;
                 
