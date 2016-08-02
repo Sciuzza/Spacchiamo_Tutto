@@ -228,7 +228,7 @@ namespace Spacchiamo
         #endregion
 
         #region Option Values
-        public int difficultySet = 0;
+        public int difficultySet = 1;
         bool audioIsOn = false;
         float audioVolumeSet = 0.0f;
 
@@ -565,16 +565,9 @@ namespace Spacchiamo
                     Ui_Manager.instance.ActivatePhase2();
                 else if (Scene_Manager.instance.GetCurrentSceneIndex() == 4)
                 {
-                    if (storyCounter < 7)
-                    {
-                        storyCounter++;
-                        Ui_Manager.instance.SetStoryPhase(storyCounter);
-                    }
-                    else
-                    {
-                        Scene_Manager.instance.nextSceneIndex = 6;
-                        Scene_Manager.instance.LoadSpecificScene(5);
-                    }
+                    
+                        Scene_Manager.instance.LoadNextLevel();
+                    
                 }
                 else if (Scene_Manager.instance.GetCurrentSceneIndex() >= 6 && Ui_Manager.instance.IsPhase1ComInstrActive())
                 {
@@ -586,6 +579,13 @@ namespace Spacchiamo
             {
                 Ui_Manager.instance.UnSetStory();
                 playerLink.GetComponent<Player_Controller>().ApplyingTrainerEffects();
+
+                if (Scene_Manager.instance.GetCurrentSceneIndex() == 12)
+                {
+                    currentPhase = GAME_PHASE.dialogue;
+                    Enemies_Manager.instance.SetBossAnimationAndGameOver();
+                }
+
             }
         }
 

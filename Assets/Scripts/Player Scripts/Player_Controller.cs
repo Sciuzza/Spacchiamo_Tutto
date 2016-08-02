@@ -343,16 +343,19 @@ namespace Spacchiamo
             {
                 fighting = CurSet.passiveStorage.fighting;
                 ApplyingFightingEffects();
+                Ui_Manager.instance.SetPassiveIcon(pOriginalName.Combattente);
             }
             else if (CurSet.passiveStorage.traveler.active)
             {
                 traveler = CurSet.passiveStorage.traveler;
                 ApplyingTravelerEffects();
+                Ui_Manager.instance.SetPassiveIcon(pOriginalName.Esploratore);
             }
             else if (CurSet.passiveStorage.survivor.active)
             {
                 survivor = CurSet.passiveStorage.survivor;
                 ApplyingSurvivorEffects();
+                Ui_Manager.instance.SetPassiveIcon(pOriginalName.Sopravvissuto);
             }
         }
 

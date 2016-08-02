@@ -457,8 +457,17 @@ namespace Spacchiamo
         }
 
 
-    
+       public void SetBossAnimationAndGameOver()
+        {
+            GameObject BOSS = enemyReferences.Find(x => x.GetComponent<Enemy_Controller>().enemyCurrentSetting.behaviour == behaviour.boss);
+            BOSS.GetComponent<Animator>().SetBool("talkedToTrainer", true);
+            Invoke("EndCredits", 3);
+        }
 
+        public void EndCredits()
+        {
+            Scene_Manager.instance.LoadSpecificScene(3);
+        }
     }
 }
 

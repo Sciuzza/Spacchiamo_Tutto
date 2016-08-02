@@ -18,6 +18,7 @@ namespace Spacchiamo
         Text instrText;
         Text healthPotStacks;
         Slider expProgress;
+        public Image passiveIcon;
         #endregion
 
         #region Ability Ui References
@@ -270,7 +271,7 @@ namespace Spacchiamo
             respiroUp.onClick.AddListener(() => CheckUpgradePossibility());
 
             playGame.onClick.AddListener(() => passingSettings());
-            playGame.onClick.AddListener(() => Scene_Manager.instance.LoadNextLevel());
+            playGame.onClick.AddListener(() => Scene_Manager.instance.LoadStory());
         }
 
         #region Active Methods Section
@@ -713,6 +714,8 @@ namespace Spacchiamo
 
             healthPotStacks = GameObject.FindGameObjectWithTag("UIPT").transform.FindChild("Quantity of Consumable").GetComponent<Text>();
             expProgress = GameObject.FindGameObjectWithTag("Exp").GetComponent<Slider>();
+
+            passiveIcon = GameObject.FindGameObjectWithTag("UIPA").GetComponent<Image>();
         }
 
         #region Hud Update
@@ -750,6 +753,16 @@ namespace Spacchiamo
         public void SetExpSlider(int expCurrentPerCent)
         {
             expProgress.value = expCurrentPerCent;
+        }
+
+        public void SetPassiveIcon(pOriginalName passiveEquipped)
+        {
+            if (passiveEquipped == pOriginalName.Combattente)
+                passiveIcon.sprite = Resources.Load<Sprite>("UI\\Passive Skills\\CombattenteDisabled");
+            else if (passiveEquipped == pOriginalName.Esploratore)
+                passiveIcon.sprite = Resources.Load<Sprite>("UI\\Passive Skills\\EsploratoreDisabled");
+            else if (passiveEquipped == pOriginalName.Sopravvissuto)
+                passiveIcon.sprite = Resources.Load<Sprite>("UI\\Passive Skills\\SopravvissutoDisabled");
         }
         #endregion
 
@@ -853,7 +866,7 @@ namespace Spacchiamo
             credits = GameObject.Find("Crediti").GetComponent<Button>();
             exit = GameObject.Find("Esci").GetComponent<Button>();
 
-            newGame.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(4));
+            newGame.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(5));
             options.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(1));
             comInstr.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(2));
             credits.onClick.AddListener(() => Scene_Manager.instance.LoadSpecificScene(3));
@@ -949,11 +962,13 @@ namespace Spacchiamo
             storyParts.Add(GameObject.Find("Story5"));
             storyParts.Add(GameObject.Find("Story6"));
             storyParts.Add(GameObject.Find("Story7"));
-            storyParts.Add(GameObject.Find("Story8"));
 
-            for (int i = 1; i < storyParts.Count; i++)
+
+            for (int i = 0; i < storyParts.Count; i++)
                 storyParts[i].SetActive(false);
-            
+
+
+            storyParts[Scene_Manager.instance.nextSceneIndex - 6].SetActive(true);
         }
 
         public void SetStoryPhase(int storyCounter)

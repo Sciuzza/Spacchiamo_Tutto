@@ -124,54 +124,74 @@ namespace Spacchiamo
 
         public void FearManager()
         {
-            if (pControllerLink.CurSet.FearValue < 20)
+            if (pControllerLink.CurSet.FearValue < 10)
             {
                 pControllerLink.CurSet.fear1Activated = false;
                 pControllerLink.CurSet.fear2Activated = false;
-                pControllerLink.CurSet.fear1Percent = 0.15f;
-                pControllerLink.CurSet.fear2Percent = 0.15f;
+                pControllerLink.CurSet.fear1Percent = 0.01f;
+                pControllerLink.CurSet.fear2Percent = 0.12f;
             }
-            else if (pControllerLink.CurSet.FearValue >= 20 && pControllerLink.CurSet.FearValue < 22)
+            else if (pControllerLink.CurSet.FearValue >= 10 && pControllerLink.CurSet.FearValue < 12)
             {
                 if (!pControllerLink.CurSet.fear1Activated)
                     pControllerLink.CurSet.fear1Activated = true;
             }
+            else if (pControllerLink.CurSet.FearValue >= 12 && pControllerLink.CurSet.FearValue < 14)
+            {
+                pControllerLink.CurSet.fear1Percent = 0.02f;
+            }
+            else if (pControllerLink.CurSet.FearValue >= 14 && pControllerLink.CurSet.FearValue < 16)
+            {
+                pControllerLink.CurSet.fear1Percent = 0.03f;
+            }
+            else if (pControllerLink.CurSet.FearValue >= 16 && pControllerLink.CurSet.FearValue < 18)
+            {
+                pControllerLink.CurSet.fear1Percent = 0.04f;
+            }
+            else if (pControllerLink.CurSet.FearValue >= 18 && pControllerLink.CurSet.FearValue < 20)
+            {
+                pControllerLink.CurSet.fear1Percent = 0.05f;
+            }
+            else if (pControllerLink.CurSet.FearValue >= 20 && pControllerLink.CurSet.FearValue < 22)
+            {
+                pControllerLink.CurSet.fear1Percent = 0.07f;
+            }
             else if (pControllerLink.CurSet.FearValue >= 22 && pControllerLink.CurSet.FearValue < 24)
             {
-                pControllerLink.CurSet.fear1Percent = 0.20f;
+                pControllerLink.CurSet.fear1Percent = 0.09f;
             }
             else if (pControllerLink.CurSet.FearValue >= 24 && pControllerLink.CurSet.FearValue < 26)
             {
-                pControllerLink.CurSet.fear1Percent = 0.25f;
+                pControllerLink.CurSet.fear1Percent = 0.11f;
             }
             else if (pControllerLink.CurSet.FearValue >= 26 && pControllerLink.CurSet.FearValue < 28)
-            {
-                pControllerLink.CurSet.fear1Percent = 0.30f;
-            }
-            else if (pControllerLink.CurSet.FearValue >= 28 && pControllerLink.CurSet.FearValue < 30)
-            {
-                pControllerLink.CurSet.fear1Percent = 0.35f;
-            }
-            else if (pControllerLink.CurSet.FearValue >= 30 && pControllerLink.CurSet.FearValue < 32)
             {
                 pControllerLink.CurSet.fear1Activated = false;
                 pControllerLink.CurSet.fear2Activated = true;
             }
+            else if (pControllerLink.CurSet.FearValue >= 28 && pControllerLink.CurSet.FearValue < 30)
+            {
+                pControllerLink.CurSet.fear2Percent = 0.13f;
+            }
+            else if (pControllerLink.CurSet.FearValue >= 30 && pControllerLink.CurSet.FearValue < 32)
+            {
+                pControllerLink.CurSet.fear2Percent = 0.14f;
+            }
             else if (pControllerLink.CurSet.FearValue >= 32 && pControllerLink.CurSet.FearValue < 34)
             {
-                pControllerLink.CurSet.fear2Percent = 0.20f;
+                pControllerLink.CurSet.fear2Percent = 0.16f;
             }
             else if (pControllerLink.CurSet.FearValue >= 34 && pControllerLink.CurSet.FearValue < 36)
             {
-                pControllerLink.CurSet.fear2Percent = 0.25f;
+                pControllerLink.CurSet.fear2Percent = 0.18f;
             }
             else if (pControllerLink.CurSet.FearValue >= 36 && pControllerLink.CurSet.FearValue < 38)
             {
-                pControllerLink.CurSet.fear2Percent = 0.30f;
+                pControllerLink.CurSet.fear2Percent = 0.21f;
             }
             else if (pControllerLink.CurSet.FearValue >= 38 && pControllerLink.CurSet.FearValue < 40)
             {
-                pControllerLink.CurSet.fear2Percent = 0.35f;
+                pControllerLink.CurSet.fear2Percent = 0.23f;
             }
             else if (pControllerLink.CurSet.FearValue == 40)
                 pControllerLink.KillingPlayer();
